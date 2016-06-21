@@ -1,0 +1,192 @@
+html {
+  height: 100%;
+}
+
+body {
+  background-color: rgb(43, 43, 43);
+  color: white;
+  position: relative;
+  margin-left: 300px;
+  min-height: 100%;
+
+  /* Centraliza Verticalmente (so funciona no Chrome) */
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*justify-content: center;*/
+}
+
+body > .container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 1200px) {
+  body > .container {
+    margin: auto 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  body > .container {
+    margin: auto 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  body > .container {
+    margin: auto 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.centerY {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.centerX {
+  /*position: absolute;*/
+  /*right: 50%;*/
+  /*-webkit-transform: translateX(-50%);*/
+  /*-moz-transform: translateX(-50%);*/
+  /*-ms-transform: translateX(-50%);*/
+  /*-o-transform: translateX(-50%);*/
+  /*transform: translateX(-50%);*/
+  width: 100%;
+  margin: 0 auto;
+}
+
+.logotipo {
+  background-image: url('../images/logotipo.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  width: 300px;
+  height: 200px;
+}
+
+#menu-lateral {
+  background-color: rgb(63, 63, 65);
+  position: fixed;
+  width: 300px;
+  min-height: 640px;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  box-shadow: 2px 0 4px #000;
+  z-index: 100;
+}
+
+#menu-lateral > #assinatura {
+  text-align: center;
+  color: #777;
+  height: 100%;
+}
+
+#menu-lateral > #assinatura > h5 {
+  font-size: 0.8em;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#menu-lateral > .controle {
+  background-color: rgb(20, 20, 20);
+  padding: 2px 0;
+  border: 1px solid rgb(90, 90, 90);
+  border-left: none;
+  border-right: none;
+}
+
+#menu-lateral .btn:focus,
+#menu-lateral .btn:hover {
+  transition: background-color 0.5s ease;
+  background-color: rgb(186, 165, 38);
+}
+
+#menu-lateral .btn > .glyphicon {
+  padding-left: 20px;
+}
+
+#menu-lateral .btn {
+  width: 100%;
+  font-size: 1.25em;
+  text-align: right;
+  padding: 15px 25px;
+  color: white;
+  background-color: rgb(43, 43, 43);
+  border-radius: 0;
+  border: 1px solid rgb(63, 63, 65);
+  border-left: none;
+  border-right: none;
+  margin: 2px 0;
+}
+
+.tela {
+  background-color: rgb(108, 109, 113);
+  width: 100%;
+  padding: 20px;
+  overflow: hidden;
+  position: absolute;
+}
+
+.tela-transparente {
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+}
+
+#menu-home > div {
+  padding: 5px;
+  margin: 0;
+}
+
+.botao-menu-home {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  background-color: rgb(165, 169, 172);
+  text-align: center;
+  /*padding: 20px;*/
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.botao-menu-home:focus,
+.botao-menu-home:hover {
+  background-color: rgb(135, 139, 142);
+  cursor: pointer;
+}
+
+.botao-menu-home > div > .glyphicon {
+  font-size: 3em;
+  padding-bottom: 10px;
+}
+
+.botao-menu-home > div > h4 {
+  font-size: 1.5em;
+}
+
+.uib-daypicker {
+  color: #666;
+}

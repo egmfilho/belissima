@@ -1,0 +1,26 @@
+<style>
+
+  #tela-ticket .input-group {
+    width: 140px;
+  }
+
+  #tela-ticket input {
+    text-align: center;
+  }
+
+</style>
+
+<div class="tela centerY container" id="tela-ticket">
+  <div class="row">
+    <div class="col-md-12 col-lg-8 col-lg-offset-2" id="">
+      <h3>Data Inicial</h3>
+      <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" show-button-bar="false" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
+</div>
+
