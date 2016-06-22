@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('bellisimaApp')
+angular.module('belissimaApp')
     .directive('redireciona', ['$location', function($location) {
 
     return function(scope, element, attrs) {

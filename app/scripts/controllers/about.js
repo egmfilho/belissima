@@ -7,7 +7,7 @@
  * # AboutCtrl
  * Controller of the bellisimaApp
  */
-angular.module('bellisimaApp')
+angular.module('belissimaApp')
   .controller('AboutCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

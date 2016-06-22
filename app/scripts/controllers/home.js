@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('bellisimaApp')
+angular.module('belissimaApp')
   .controller('HomeCtrl', ['$scope', function ($scope) {
 
     $scope.botoes = [
       {
         nome: 'Ticket',
-        icone: 'glyphicon-shopping-cart'
+        icone: 'glyphicon-shopping-cart',
+        url: '/ticket'
       },
       {
         nome: 'Produtos',

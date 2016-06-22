@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('bellisimaApp')
+angular.module('belissimaApp')
   .controller('TicketCtrl', ['$scope', function ($scope) {
 
     $scope.hoje = function() {

@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('bellisimaApp')
+angular.module('belissimaApp')
   .controller('LoginCtrl', ['$scope', function ($scope) {
 
   }]);
