@@ -1,26 +1,174 @@
 <style>
 
+  #tela-ticket h1 {
+    font-size: 3.5em;
+    margin: 0 15px;
+  }
+
+  #tela-ticket form {
+    float: right;
+    margin-right: 30px;
+  }
+
+  #tela-ticket label {
+    font-size: 1.5em;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
   #tela-ticket .input-group {
-    width: 140px;
+    width: 160px;
   }
 
   #tela-ticket input {
     text-align: center;
   }
 
+  #tela-ticket #refresh {
+    margin-left: 10px;
+    font-size: 1.6em;
+  }
+
+  #tela-ticket #refresh:hover {
+    cursor: pointer;
+  }
+
+  #tabela-ticket {
+    background-color: rgb(180, 180, 180);
+  }
+
+  #tabela-ticket thead tr {
+    background-color: rgb(210, 210, 210);
+    color: rgb(100, 100, 100);
+  }
+
+  #tabela-ticket tbody tr {
+    background-color: white;
+    color: rgb(100, 100, 100);
+  }
+
+  #tabela-ticket thead,
+  #tabela-ticket tbody,
+  #tabela-ticket tr,
+  #tabela-ticket td,
+  #tabela-ticket th {
+    display: block;
+    text-align: center;
+  }
+
+  #tabela-ticket tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+  }
+
+  #tabela-ticket tbody {
+    height: 225px;
+    overflow-y: auto;
+  }
+
+  #tabela-ticket tbody td,
+  #tabela-ticket thead th {
+    float: left;
+  }
+
+  #tabela-ticket th:nth-child(1), #tabela-ticket td:nth-child(1),
+  #tabela-ticket th:nth-child(3), #tabela-ticket td:nth-child(3),
+  #tabela-ticket th:nth-child(4), #tabela-ticket td:nth-child(4),
+  #tabela-ticket th:nth-child(5), #tabela-ticket td:nth-child(5) {
+    width: 10%;
+  }
+
+  #tabela-ticket th:nth-child(2), #tabela-ticket td:nth-child(2) {
+    width: 40%;
+  }
+
+  #tabela-ticket th:nth-child(6), #tabela-ticket td:nth-child(6) {
+    width: 20%;
+  }
+
+  #controle-ticket .btn{
+    width: 100%;
+    font-size: 1.2em;
+    color: rgb(70, 70, 70);
+  }
+
 </style>
 
 <div class="tela centerY container" id="tela-ticket">
+
   <div class="row">
-    <div class="col-md-12 col-lg-8 col-lg-offset-2" id="">
-      <h3>Data Inicial</h3>
-      <p class="input-group">
-        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" show-button-bar="false" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-        </span>
-      </p>
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <h1>Ticket</h1>
   </div>
+
+  <div class="row">
+    <div class="">
+
+      <form name="tickets" class="form-inline">
+        <label for="inicial">Data Inicial</label>
+        <p class="input-group">
+          <input id="inicial" type="text" class="form-control" name="inicial" uib-datepicker-popup="{{format}}" ng-change="trocaMinDataFinal()" on-open-focus="false" ng-model="inicial" is-open="popupInicial.opened" datepicker-options="dateOptionsInicial" ng-required="true" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="abrirInicial()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+        </p>
+        <label for="final">Data Final</label>
+        <p class="input-group">
+          <input id="final" ng-disabled="tickets.inicial.$error.date || tickets.inicial.$error.required" type="text" class="form-control input-erro" name="final" uib-datepicker-popup="{{format}}" on-open-focus="false" ng-model="final" is-open="popupFinal.opened" datepicker-options="dateOptionsFinal" ng-required="true" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button  ng-disabled="tickets.inicial.$error.date || tickets.inicial.$error.required" type="button" class="btn btn-default" ng-click="abrirFinal()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+        <span id="refresh" class="glyphicon glyphicon-refresh"></span>
+      </form>
+
+    </div>
+  </div>
+
+  <br>
+
+  <!--TABELA-->
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="col-md-12">
+        <table id="tabela-ticket" class="table">
+          <thead>
+            <tr>
+              <th valign="middle">Cód</th>
+              <th>Cliente</th>
+              <th>Data</th>
+              <th>Valor</th>
+              <th>Serviço</th>
+              <th>Profissional</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]">
+              <td>00{{n}}</td>
+              <td>Teste teste teste teste teste teste.</td>
+              <td>01/01/2016</td>
+              <td>10,00</td>
+              <td>Teste</td>
+              <td>Ninguém</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-12" id="controle-ticket">
+        <div class="col-xs-4 col-sm-4 col-md-8"></div>
+        <div class="col-xs-4 col-sm-4 col-md-2">
+          <button class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Novo</button>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-2">
+          <button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
