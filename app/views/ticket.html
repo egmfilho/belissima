@@ -2,7 +2,9 @@
 
   #tela-ticket h1 {
     font-size: 3.5em;
-    margin: 0 15px;
+    margin: 0 15px 25px 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #999;
   }
 
   #tela-ticket form {
@@ -35,6 +37,7 @@
 
   #tabela-ticket {
     background-color: rgb(180, 180, 180);
+    /*min-width: 700px;*/ /* ajustado via codigo */
   }
 
   #tabela-ticket thead tr {
@@ -133,7 +136,7 @@
   <div class="row">
     <div class="col-md-12">
 
-      <div class="col-md-12">
+      <div class="col-md-12" style="overflow: scroll">
         <table id="tabela-ticket" class="table">
           <thead>
             <tr>

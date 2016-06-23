@@ -3,10 +3,22 @@
  */
 'use strict';
 angular.module('belissimaApp')
-  .controller('TicketCtrl', ['$scope', function ($scope) {
+  .controller('TicketCtrl', ['$scope', '$window', function ($scope, $window) {
 
     $scope.inicial = new Date();
     $scope.final = new Date();
+
+    function resize() {
+      var height = $window.innerHeight * 0.6;
+      angular.element('#tabela-ticket > tbody').css('max-height', height > 400 ? height : 400);
+      //console.log('tabela.height: ' + height + 'px;');
+    }
+
+    angular.element('#tela-ticket').css('min-height', '100%');
+    resize();
+
+    $window.onresize = resize;
+
 
     $scope.format = 'dd/MM/yy';
     $scope.altInputFormats = ['d!/M!/yy'];
