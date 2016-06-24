@@ -19,7 +19,6 @@ angular.module('belissimaApp')
 
     $window.onresize = resize;
 
-
     $scope.format = 'dd/MM/yy';
     $scope.altInputFormats = ['d!/M!/yy'];
 
