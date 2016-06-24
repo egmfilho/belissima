@@ -10,7 +10,7 @@ angular.module('belissimaApp')
         url: '/ticket'
       },
       {
-        nome: 'Produtos',
+        nome: 'Serviços &<br>Produtos',
         icone: 'glyphicon-tag'
       },
       {

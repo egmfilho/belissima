@@ -11,7 +11,7 @@
         <div class="botao-menu-home" redireciona="{{botao.url}}">
           <div class="centerX centerY">
             <span class="glyphicon" ng-class="botao.icone"></span>
-            <h4>{{botao.nome}}</h4>
+            <h4 ng-bind-html="botao.nome"></h4>
           </div>
         </div>
       </div>

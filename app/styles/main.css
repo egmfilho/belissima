@@ -198,6 +198,7 @@ body > .container {
 
 .botao-menu-home:focus,
 .botao-menu-home:hover {
+  transition: background-color 0.5s ease;
   background-color: rgb(135, 139, 142);
   cursor: pointer;
 }
