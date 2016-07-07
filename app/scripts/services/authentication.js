@@ -22,7 +22,7 @@ angular.module('belissimaApp')
       return service;
 
       function Login(username, password, callback) {
-        
+
         $http({
           method: 'POST',
           url: URLS.login,
@@ -35,7 +35,7 @@ angular.module('belissimaApp')
       }
 
       function SetCredentials(username, password) {
-        var authdata = atob(username + ':' + password);
+        var authdata = btoa(username + ':' + password);
 
         $rootScope.globals = {
           currentUser: {
