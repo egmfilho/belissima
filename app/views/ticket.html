@@ -1,107 +1,3 @@
-<style>
-
-  #tela-ticket h1 {
-    font-size: 3.5em;
-    margin: 0 15px 25px 15px;
-  }
-
-  #tela-ticket form {
-    float: right;
-    margin-right: 30px;
-  }
-
-  #tela-ticket label {
-    font-size: 1.5em;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  #tela-ticket .input-group {
-    width: 160px;
-  }
-
-  #tela-ticket input {
-    text-align: center;
-  }
-
-  #tela-ticket #refresh {
-    margin-left: 10px;
-    font-size: 1.6em;
-  }
-
-  #tela-ticket #refresh:hover {
-    cursor: pointer;
-  }
-
-  #tabela-ticket {
-    background-color: rgb(180, 180, 180);
-  }
-
-  #tabela-ticket thead tr {
-    background-color: rgb(210, 210, 210);
-    color: rgb(100, 100, 100);
-  }
-
-  #tabela-ticket tbody tr {
-    background-color: white;
-    color: rgb(100, 100, 100);
-    min-width: 700px;
-  }
-
-  #tabela-ticket thead,
-  #tabela-ticket tbody,
-  #tabela-ticket tr,
-  #tabela-ticket td,
-  #tabela-ticket th {
-    display: block;
-    text-align: center;
-  }
-
-  #tabela-ticket tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
-    clear: both;
-  }
-
-  #tabela-ticket tbody {
-    /*height: 225px;*/
-    /*max-height: 400px;*/
-    overflow-y: auto;
-  }
-
-  #tabela-ticket tbody td,
-  #tabela-ticket thead th {
-    float: left;
-  }
-
-  #tabela-ticket th:nth-child(1), #tabela-ticket td:nth-child(1),
-  #tabela-ticket th:nth-child(3), #tabela-ticket td:nth-child(3),
-  #tabela-ticket th:nth-child(4), #tabela-ticket td:nth-child(4),
-  #tabela-ticket th:nth-child(5), #tabela-ticket td:nth-child(5) {
-    width: 10%;
-  }
-
-  #tabela-ticket th:nth-child(2), #tabela-ticket td:nth-child(2) {
-    width: 40%;
-  }
-
-  #tabela-ticket th:nth-child(6), #tabela-ticket td:nth-child(6) {
-    width: 20%;
-  }
-
-  #controle-ticket .btn{
-    width: 100%;
-    font-size: 1.2em;
-    color: rgb(70, 70, 70);
-  }
-
-  .linha-divisoria {
-    padding-bottom: 20px;
-    border-bottom: 1px solid #999;
-  }
-
-</style>
 <div style="">
 
   <div class="tela centerY container" id="tela-ticket">
@@ -128,7 +24,7 @@
               <button  ng-disabled="tickets.inicial.$error.date || tickets.inicial.$error.required" type="button" class="btn btn-default" ng-click="abrirFinal()"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
           </p>
-          <span id="refresh" class="glyphicon glyphicon-refresh"></span>
+          <span class="glyphicon glyphicon-refresh"></span>
         </form>
 
       </div>
@@ -165,7 +61,7 @@
           </table>
         </div>
 
-        <div class="col-md-12 linha-divisoria" id="controle-ticket">
+        <div class="col-md-12 controle linha-divisoria">
           <div class="col-xs-4 col-sm-4 col-md-8"></div>
           <div class="col-xs-4 col-sm-4 col-md-2">
             <button class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Novo</button>

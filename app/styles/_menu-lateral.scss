@@ -1,0 +1,68 @@
+#menu-lateral {
+  background-color: $cor-menu-lateral;
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  box-shadow: 2px 0 4px #000;
+  z-index: 100;
+  @extend .ease-out;
+
+  .controle {
+    background-color: $cor-menu-lateral-fundo;
+    padding: 2px 0;
+    border: 1px solid $cor-menu-lateral-borda;
+    border-left: none;
+    border-right: none;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 1.25em;
+    text-align: right;
+    padding: 15px 25px;
+    color: white;
+    background-color: $cor-de-fundo;
+    border-radius: 0;
+    border: 1px solid $cor-menu-lateral;
+    border-left: none;
+    border-right: none;
+    margin: 2px 0;
+
+    > .glyphicon {
+      padding-left: 20px;
+    }
+
+    &:focus, &:hover {
+      transition: background-color 0.5s ease;
+      background-color: $cor-menu-highlight;
+    }
+  }
+}
+
+#menu-lateral-conteudo {
+  min-height: 680px;
+  height: 100%;
+}
+
+#assinatura {
+  text-align: center;
+  color: #777;
+  position: relative;
+  /*height: 100px;*/
+
+  > div {
+    font-size: 0.8em;
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*bottom: 0;*/
+    padding-top: 20px;
+    margin-top: auto;
+  }
+}

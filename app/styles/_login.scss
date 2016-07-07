@@ -1,0 +1,70 @@
+#login {
+  .login-header {
+    max-width: 350px;
+    min-width: 350px;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: $cor-menu-lateral;
+  }
+
+  .login-body {
+    text-align: center;
+    max-width: 350px;
+    min-width: 350px;
+    width: 100%;
+    padding: 20px;
+    background-color: $cor-da-tela;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    //.glyphicon {
+    //  font-size: 3.5em;
+    //  margin: 0 20px 40px 20px;
+    //  color: #bbb;
+    //}
+
+    > h4 {
+      font-size: 1.2em;
+      margin: 0 auto;
+      color: white;
+    }
+
+    input {
+      font-size: 1.8em;
+      height: 50px;
+      text-align: center;
+      //background-color: #eee;
+      border-color: #bbb;
+    }
+
+    .usuario {
+      margin-top: 20px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .senha {
+      margin-top: -1px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    button {
+      width: 100%;
+      height: 50px;
+      font-size: 1.8em;
+      margin-top: 40px;
+    }
+
+    .btn {
+      /*background-color: rgb(43, 43, 43);*/
+      color: $cor-de-fundo;
+    }
+
+    &:focus, &:hover {
+      /*transition: background-color 0.5s ease;*/
+      /*background-color: rgb(186, 165, 38);*/
+    }
+  }
+}

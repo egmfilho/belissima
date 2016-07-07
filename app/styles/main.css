@@ -220,3 +220,172 @@ body > .container {
   padding-bottom: 20px;
   border-bottom: 1px solid #999;
 }
+
+/* LOGIN */
+
+#login-header {
+  max-width: 350px;
+  min-width: 350px;
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #444;
+}
+
+#login-body {
+  text-align: center;
+  max-width: 350px;
+  min-width: 350px;
+  width: 100%;
+  padding: 20px;
+  background-color: rgb(108, 109, 113);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+#login-body > .glyphicon {
+  font-size: 3.5em;
+  margin: 0 20px 40px 20px;
+  color: #bbb;
+}
+
+#login-body > h4 {
+  font-size: 1.2em;
+  margin: 0 auto;
+  color: #ddd;
+}
+
+#login-body input {
+  font-size: 1.8em;
+  height: 50px;
+  text-align: center;
+  background-color: #eee;
+  border-color: #bbb;
+}
+
+#login-body > #usuario {
+  margin-top: 20px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#login-body > #senha {
+  margin-top: -1px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#login-body button {
+  width: 100%;
+  height: 50px;
+  font-size: 1.8em;
+  margin-top: 40px;
+}
+
+#login-body .btn {
+  /*background-color: rgb(43, 43, 43);*/
+  color: #555;
+}
+
+#login-body .btn:focus,
+#login-body .btn:hover {
+  /*transition: background-color 0.5s ease;*/
+  /*background-color: rgb(186, 165, 38);*/
+}
+
+/* TICKET */
+#tela-ticket h1 {
+  font-size: 3.5em;
+  margin: 0 15px 25px 15px;
+}
+
+#tela-ticket form {
+  float: right;
+  margin-right: 30px;
+}
+
+#tela-ticket label {
+  font-size: 1.5em;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#tela-ticket .input-group {
+  width: 160px;
+}
+
+#tela-ticket input {
+  text-align: center;
+}
+
+#tela-ticket #refresh {
+  margin-left: 10px;
+  font-size: 1.6em;
+}
+
+#tela-ticket #refresh:hover {
+  cursor: pointer;
+}
+
+#tabela-ticket {
+  background-color: rgb(180, 180, 180);
+}
+
+#tabela-ticket thead tr {
+  background-color: rgb(210, 210, 210);
+  color: rgb(100, 100, 100);
+}
+
+#tabela-ticket tbody tr {
+  background-color: white;
+  color: rgb(100, 100, 100);
+  min-width: 700px;
+}
+
+#tabela-ticket thead,
+#tabela-ticket tbody,
+#tabela-ticket tr,
+#tabela-ticket td,
+#tabela-ticket th {
+  display: block;
+  text-align: center;
+}
+
+#tabela-ticket tr:after {
+  content: ' ';
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+#tabela-ticket tbody {
+  /*height: 225px;*/
+  /*max-height: 400px;*/
+  overflow-y: auto;
+}
+
+#tabela-ticket tbody td,
+#tabela-ticket thead th {
+  float: left;
+}
+
+#tabela-ticket th:nth-child(1), #tabela-ticket td:nth-child(1),
+#tabela-ticket th:nth-child(3), #tabela-ticket td:nth-child(3),
+#tabela-ticket th:nth-child(4), #tabela-ticket td:nth-child(4),
+#tabela-ticket th:nth-child(5), #tabela-ticket td:nth-child(5) {
+  width: 10%;
+}
+
+#tabela-ticket th:nth-child(2), #tabela-ticket td:nth-child(2) {
+  width: 40%;
+}
+
+#tabela-ticket th:nth-child(6), #tabela-ticket td:nth-child(6) {
+  width: 20%;
+}
+
+#controle-ticket .btn{
+  width: 100%;
+  font-size: 1.2em;
+  color: rgb(70, 70, 70);
+}
