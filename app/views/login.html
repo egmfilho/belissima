@@ -3,12 +3,12 @@
     <div class="login-header centerX">
       <div class="logotipo centerX"></div>
     </div>
-    <div class="login-body centerX">
+    <form ng-submit="login.logar()" class="login-body centerX">
       <!--<span class="glyphicon glyphicon-user"></span>-->
       <h4>Digite seu nome de usuário e senha.</h4>
-      <input type="text" class="usuario form-control" placeholder="Usuário">
-      <input type="password" class="senha form-control" placeholder="Senha">
-      <button class="btn btn-default">Login</button>
-    </div>
+      <input type="text" class="usuario form-control" placeholder="Usuário" ng-model="login.username">
+      <input type="password" class="senha form-control" placeholder="Senha" ng-model="login.password">
+      <button class="btn btn-default" type="submit">Login</button>
+    </form>
   </div>
 </div>
