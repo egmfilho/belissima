@@ -11,18 +11,18 @@ angular.module('belissimaApp')
 
       'request': function(req) {
 
-        //if ($cookieStore.get('globals').currentUser) {
-        //  req.headers['x-session-token'] = '';
-        //}
+        if ($cookieStore.get('currentUser')) {
+          req.headers['x-session-token'] = $cookieStore.get('currentUser').token;
+        }
 
         return req;
 
       },
 
-      'response': function(response) {
-
-        return response;
-      },
+      //'response': function(response) {
+      //
+      //  return response;
+      //},
 
       'responseError': function(rejection) {
 
@@ -32,6 +32,8 @@ angular.module('belissimaApp')
           }
 
           $location.path('/login');
+        } else if (rejection.status == 417){
+          console.log('Silas');
         }
 
         return $q.reject(rejection);

@@ -29,7 +29,6 @@ angular.module('belissimaApp')
           data: $httpParamSerializerJQLike({ user: username, pass: password }),
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).success(function(response) {
-          console.log(response);
           SetCredentials(response.data.user_session_id);
           callback(response);
         });
@@ -38,7 +37,11 @@ angular.module('belissimaApp')
 
       function Logout(callback) {
 
-        var token = $cookieStore.get('currentUser') ? $cookieStore.get('currentUser').token : '';
+        var token = '';
+
+        if ($cookieStore.get('currentUser')) {
+          token = $cookieStore.get('currentUser').token;
+        }
 
         $http({
           method: 'POST',
@@ -49,13 +52,12 @@ angular.module('belissimaApp')
           ClearCredentials();
           callback(response);
         });
-
       }
 
       function SetCredentials(token) {
         var currentUser = { token: token };
 
-        $http.defaults.headers.common['user-session-id'] = token;
+        //$http.defaults.headers.common['user-session-id'] = token;
         $cookieStore.put('currentUser', currentUser);
       }
 
