@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('belissimaApp')
-  .controller('HomeCtrl', ['$scope', function ($scope) {
+  .controller('HomeCtrl', ['$scope', '$http', 'URLS', function ($scope, $http, urls) {
 
     $scope.botoes = [
       {
@@ -30,5 +30,9 @@ angular.module('belissimaApp')
         icone: 'glyphicon-cog'
       },
     ];
+
+    $scope.teste = function() {
+      $http.get(urls.home, { });
+    };
 
   }]);

@@ -9,15 +9,15 @@ angular.module('belissimaApp')
     '$http',
     '$httpParamSerializerJQLike',
     '$cookieStore',
-    '$rootScope',
     'URLS',
-    function($http, $httpParamSerializerJQLike, $cookieStore, $rootScope, URLS) {
+    function($http, $httpParamSerializerJQLike, $cookieStore, URLS) {
 
       var service = {};
 
       service.login = Login;
-      service.setCredentials = SetCredentials;
-      service.clearCredentials = ClearCredentials;
+      service.logout = Logout;
+      //service.setCredentials = SetCredentials;
+      //service.clearCredentials = ClearCredentials;
 
       return service;
 
@@ -29,28 +29,38 @@ angular.module('belissimaApp')
           data: $httpParamSerializerJQLike({ user: username, pass: password }),
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).success(function(response) {
+          console.log(response);
+          SetCredentials(response.data.user_session_id);
           callback(response);
         });
 
       }
 
-      function SetCredentials(username, password) {
-        var authdata = btoa(username + ':' + password);
+      function Logout(callback) {
 
-        $rootScope.globals = {
-          currentUser: {
-            username: username,
-            authdata: authdata
-          }
-        };
+        var token = $cookieStore.get('currentUser') ? $cookieStore.get('currentUser').token : '';
 
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
-        $cookieStore.put('globals', $rootScope.globals);
+        $http({
+          method: 'POST',
+          url: URLS.logout,
+          data: $httpParamSerializerJQLike({ token: token }),
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function(response) {
+          ClearCredentials();
+          callback(response);
+        });
+
+      }
+
+      function SetCredentials(token) {
+        var currentUser = { token: token };
+
+        $http.defaults.headers.common['user-session-id'] = token;
+        $cookieStore.put('currentUser', currentUser);
       }
 
       function ClearCredentials() {
-        $rootScope.globals = { };
-        $cookieStore.remove('globals');
+        $cookieStore.remove('currentUser');
         $http.defaults.headers.common.Authorization = 'Basic';
       }
 

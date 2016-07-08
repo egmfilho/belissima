@@ -10,6 +10,9 @@ angular
     'ngTouch',
     'ui.bootstrap'
   ])
+  .config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('SessionInjector');
+  }])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -21,6 +24,10 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
         controllerAs: 'login'
+      })
+      .when('/logout', {
+        template: '<h1>Logging out...</h1>',
+        controller: 'LogoutCtrl'
       })
       .when('/ticket', {
         templateUrl: 'views/ticket.html',
@@ -38,8 +45,7 @@ angular
   })
   .run(['$rootScope', '$location', '$cookieStore', function($rootScope, $location, $cookieStore) {
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
-      //if ($rootScope.globals == null || $rootScope.globals.currentUser == null) {
-      if ($cookieStore.get('globals') == null || $cookieStore.get('globals').currentUser == null) {
+      if ($cookieStore.get('currentUser') == null || $cookieStore.get('currentUser').token == null) {
         if (next.templateUrl != 'views/login.html') {
           $location.path('/login');
         }

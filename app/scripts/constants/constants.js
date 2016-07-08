@@ -7,10 +7,12 @@
 angular.module('belissimaApp')
   .constant('LOGIN_STATUS', {
     sucesso: 200,
+    nao_autorizado: 401,
     usuario_nao_encontrado: 404,
     senha_incorreta: 0
   })
   .constant('URLS', {
     root: 'http://enterprise/belissima/public/',
-    login: 'http://enterprise/belissima/public/login.php'
+    login: 'http://enterprise/belissima/public/login.php',
+    home: 'http://enterprise/belissima/public/home.php'
   });
