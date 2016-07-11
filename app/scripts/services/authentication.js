@@ -8,9 +8,9 @@ angular.module('belissimaApp')
   .factory('AuthenticationService', [
     '$http',
     '$httpParamSerializerJQLike',
-    '$cookieStore',
+    '$cookies',
     'URLS',
-    function($http, $httpParamSerializerJQLike, $cookieStore, URLS) {
+    function($http, $httpParamSerializerJQLike, $cookies, URLS) {
 
       var service = {};
 
@@ -29,7 +29,13 @@ angular.module('belissimaApp')
           data: $httpParamSerializerJQLike({ user: username, pass: password }),
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).success(function(response) {
-          SetCredentials(response.data.user_session_id);
+          SetCredentials({
+            user_id: response.data.user_id,
+            token: response.data.user_session_id,
+            username: response.data.user_user,
+            name: response.data.user_name,
+            mail: response.data.user_mail
+          });
           callback(response);
         });
 
@@ -39,8 +45,8 @@ angular.module('belissimaApp')
 
         var token = '';
 
-        if ($cookieStore.get('currentUser')) {
-          token = $cookieStore.get('currentUser').token;
+        if ($cookies.get('currentUser')) {
+          token = $cookies.get('currentUser').token;
         }
 
         $http({
@@ -54,16 +60,18 @@ angular.module('belissimaApp')
         });
       }
 
-      function SetCredentials(token) {
-        var currentUser = { token: token };
+      function SetCredentials(data) {
+        var expiration = new Date();
+        expiration.setDate(expiration.getDate() + 1);
+        //expiration.setSeconds(expiration.getSeconds() + 10);
 
         //$http.defaults.headers.common['user-session-id'] = token;
-        $cookieStore.put('currentUser', currentUser);
+        $cookies.putObject('currentUser', data, { 'expires': expiration });
       }
 
       function ClearCredentials() {
-        $cookieStore.remove('currentUser');
-        $http.defaults.headers.common.Authorization = 'Basic';
+        $cookies.remove('currentUser');
+        //$http.defaults.headers.common.Authorization = 'Basic';
       }
 
     }]);

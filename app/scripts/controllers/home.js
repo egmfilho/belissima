@@ -32,7 +32,7 @@ angular.module('belissimaApp')
     ];
 
     $scope.teste = function() {
-      $http.get(urls.home + '?teste', { });
+      $http.get(urls.home + '', { });
     };
 
   }]);

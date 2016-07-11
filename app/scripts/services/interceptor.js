@@ -5,41 +5,41 @@
 'use strict';
 
 angular.module('belissimaApp')
-  .factory('SessionInjector', ['$q', '$location', '$cookieStore', function($q, $location, $cookieStore) {
+  .factory('SessionInjector', [
+    '$q',
+    '$location',
+    '$cookies',
+    'HTTP_STATUS',
+    function($q, $location, $cookies, http_status) {
 
-    return {
+      return {
 
-      'request': function(req) {
+        'request': function(req) {
 
-        if ($cookieStore.get('currentUser')) {
-          req.headers['x-session-token'] = $cookieStore.get('currentUser').token;
-        }
-
-        return req;
-
-      },
-
-      //'response': function(response) {
-      //
-      //  return response;
-      //},
-
-      'responseError': function(rejection) {
-
-        if (rejection.status == 401) {
-          if ($cookieStore.get('currentUser')) {
-            $cookieStore.remove('currentUser');
+          if ($cookies.get('currentUser')) {
+            req.headers['x-session-token'] = $cookies.getObject('currentUser').token;
           }
 
-          $location.path('/login');
-        } else if (rejection.status == 417){
-          console.log('Silas');
+          return req;
+
+        },
+
+        'responseError': function(rejection) {
+
+          if (rejection.status == http_status.nao_autorizado) {
+            if ($cookies.getObject('currentUser')) {
+              $cookies.remove('currentUser');
+            }
+
+            $location.path('/login');
+          } else if (rejection.status == http_status.falha_na_expectativa){
+
+          }
+
+          return $q.reject(rejection);
+
         }
 
-        return $q.reject(rejection);
-
-      }
-
-    };
+      };
 
   }]);

@@ -43,9 +43,9 @@ angular
         redirectTo: '/'
       });
   })
-  .run(['$rootScope', '$location', '$cookieStore', function($rootScope, $location, $cookieStore) {
+  .run(['$rootScope', '$location', '$cookies', function($rootScope, $location, $cookies) {
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
-      if ($cookieStore.get('currentUser') == null || $cookieStore.get('currentUser').token == null) {
+      if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').token == null) {
         if (next.templateUrl != 'views/login.html') {
           $location.path('/login');
         }
