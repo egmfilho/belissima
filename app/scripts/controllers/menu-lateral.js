@@ -4,15 +4,15 @@
 'use strict';
 
 angular.module('belissimaApp')
-  .controller('MenuLateralCtrl', ['$scope', function ($scope) {
+  .controller('MenuLateralCtrl', ['$rootScope', function ($rootScope) {
 
-    $scope.minimizado = false;
+    $rootScope.minimizado = false;
 
-    $scope.menuRetratil = function() {
-      angular.element('#menu-lateral').css('left', $scope.minimizado ? 0 : -236);
-      angular.element('#menu-lateral-conteudo .logotipo').css('opacity', $scope.minimizado ? 1.0 : 0);
-      angular.element('body').css('margin-left', $scope.minimizado ? 300 : 64);
-      $scope.minimizado = !$scope.minimizado;
+    this.menuRetratil = function() {
+      angular.element('#menu-lateral').css('left', $rootScope.minimizado ? 0 : -236);
+      angular.element('#menu-lateral-conteudo .logotipo').css('opacity', $rootScope.minimizado ? 1.0 : 0);
+      //angular.element('body').css('margin-left', $scope.minimizado ? 300 : 64);
+      $rootScope.minimizado = !$rootScope.minimizado;
     };
 
   }]);

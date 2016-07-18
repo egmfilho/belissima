@@ -15,26 +15,13 @@
     <link rel="stylesheet" href="styles/global.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="belissimaApp">
+  <body ng-app="belissimaApp" ng-class="{true:'fechado', false:{true:'empurrado', false:'minimizado'}[!minimizado]}[currentPath==='/login']">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div id="menu-lateral" ng-controller="MenuLateralCtrl as menuLateral">
-      <div id="menu-lateral-conteudo">
-        <div class="logotipo" ng-click="menuRetratil()"></div>
-        <div class="controle">
-          <div class="btn btn-default" redireciona="/home">Home <span class="glyphicon glyphicon-home"></span></div>
-          <div class="btn btn-default" redireciona="/ticket">Ticket <span class="glyphicon glyphicon-shopping-cart"></span></div>
-          <div class="btn btn-default">Serviços & Produtos <span class="glyphicon glyphicon-tag"></span></div>
-          <div class="btn btn-default">Clientes <span class="glyphicon glyphicon-user"></span></div>
-          <div class="btn btn-default">Relatórios <span class="glyphicon glyphicon-print"></span></div>
-          <div class="btn btn-default">Agenda <span class="glyphicon glyphicon-calendar"></span></div>
-          <div class="btn btn-default">Configurações <span class="glyphicon glyphicon-cog"></span></div>
-        </div>
-        <div id="assinatura"><div>site design / logo © 2016 Futura <br>versão 1.0</div></div>
-      </div>
-    </div>
+    <span ng-include="'partials/menuLateral.html'" ng-hide="currentPath === '/login'"></span>
+    <!--<div id="menu-lateral" ng-controller="MenuLateralCtrl as menuLateral" ng-include="'partials/menuLateral.html'" ng-hide="currentPath === '/login'"></div>-->
 
     <div class="container">
       <div ng-view=""></div>

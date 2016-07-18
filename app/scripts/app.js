@@ -34,17 +34,14 @@ angular
         controller: 'TicketCtrl',
         controllerAs: 'ticket'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
       .otherwise({
         redirectTo: '/'
       });
   })
   .run(['$rootScope', '$location', '$cookies', function($rootScope, $location, $cookies) {
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
+      $rootScope.currentPath = $location.path();
+
       if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').token == null) {
         if (next.templateUrl != 'views/login.html') {
           $location.path('/login');

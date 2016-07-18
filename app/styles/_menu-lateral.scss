@@ -21,6 +21,10 @@
     border-right: none;
   }
 
+  .ativo {
+    background-color: $cor-menu-highlight !important;
+  }
+
   .btn {
     width: 100%;
     font-size: 1.25em;
