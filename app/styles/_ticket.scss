@@ -1,9 +1,4 @@
 #tela-ticket {
-  h1 {
-    font-size: 3.5em;
-    margin: 0 15px 25px 15px;
-  }
-
   form {
     float: right;
     margin-right: 30px;
@@ -36,17 +31,15 @@
     .btn {
       width: 100%;
       font-size: 1.2em;
-      color: $cor-de-fundo;
     }
   }
 }
 
 #tabela-ticket {
-  background-color: $cor-botao-menu-home;
+  @extend .tabela;
 
   thead, tbody, tr, td, th {
     display: block;
-    text-align: center;
   }
 
   thead {
@@ -55,17 +48,15 @@
     }
 
     tr {
-      background-color: $cor-botao-menu-home;
-      color: white;
+      padding-right: 18px;
     }
   }
 
   tbody {
-    overflow-y: auto;
+    height: 250px;
+    overflow-y: scroll;
 
     tr {
-      background-color: white;
-      color: $cor-de-fundo;
       min-width: 700px;
     }
 

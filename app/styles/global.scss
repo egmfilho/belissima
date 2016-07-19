@@ -1,10 +1,11 @@
-$cor-de-fundo: rgb(43, 43, 43);
-$cor-menu-lateral: rgb(63, 63, 65);
-$cor-menu-lateral-fundo: rgb(20, 20, 20);
-$cor-menu-lateral-borda: rgb(90, 90, 90);
-$cor-menu-highlight: rgb(186, 165, 38);
-$cor-da-tela: rgb(108, 109, 113);
-$cor-botao-menu-home: rgb(165, 169, 172);
+$cor-de-fundo:                  rgb(43, 43, 43);
+$cor-menu-lateral:              rgb(63, 63, 65);
+$cor-menu-lateral-fundo:        rgb(20, 20, 20);
+$cor-menu-lateral-borda:        rgb(90, 90, 90);
+$cor-menu-highlight:            rgb(186, 165, 38);
+$cor-menu-highlight-escuro:     #867512;
+$cor-da-tela:                   rgb(108, 109, 113);
+$cor-botao-menu-home:           rgb(165, 169, 172);
 $cor-botao-menu-home-highlight: rgb(135, 139, 142);
 
 .ease-out {
@@ -113,12 +114,61 @@ body {
 }
 
 .tela {
-  background-color: $cor-da-tela;
+  background-color: $cor-de-fundo;
   width: 100%;
   max-height: 100%;
-  padding: 20px;
   overflow-y: auto;
   position: absolute;
+  padding: 0px;
+
+  .header {
+    background-color: $cor-menu-lateral;
+    margin: 0;
+    padding: 30px;
+    height: 200px;
+    position: relative;
+
+    .content {
+      @extend .centerY;
+    }
+
+    h1, span, h4 {
+      text-shadow: 1px 1px 1px #000;
+    }
+
+    h1 {
+      font-size: 3em;
+    }
+
+    h4 {
+      margin-left: 60px;
+    }
+  }
+
+  .body {
+    padding: 20px;
+
+    button {
+      background-color: $cor-menu-highlight;
+      color: white;
+      border-color: $cor-menu-highlight-escuro;
+
+      .glyphicon {
+        color: white;
+      }
+
+      &:hover, &:focus {
+        background-color: $cor-menu-highlight-escuro;
+        color: white;
+      }
+    }
+  }
+
+  .footer {
+    background-color: $cor-menu-lateral;
+    margin: 0;
+    padding: 30px;
+  }
 }
 
 .tela-transparente {
@@ -127,16 +177,74 @@ body {
   position: absolute;
 }
 
-.uib-daypicker {
-  color: #666;
+.dropdown-menu {
+  color: white;
+  background-color: $cor-menu-lateral;
+
+  .text-info {
+    color: white;
+  }
+
+  .btn-info:active, .btn-info.active {
+    background-color: $cor-menu-lateral;
+    border-color: $cor-menu-lateral-borda;
+  }
+
+  .uib-datepicker-current, .uib-clear, .uib-close {
+    border-color: $cor-menu-highlight-escuro;
+  }
 }
 
-.linha-divisoria {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #fff;
+.tabela {
+  background-color: $cor-menu-lateral;
+
+  a {
+    color: $cor-menu-lateral;
+  }
+
+  thead {
+    background-color: $cor-menu-lateral;
+
+    tr {
+      background-color: $cor-menu-lateral !important;
+    }
+  }
+
+  th {
+    border-bottom: none;
+    background-color: $cor-menu-lateral;
+    color: white;
+    text-align: center;
+  }
+
+  td {
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  tr {
+    color: $cor-menu-lateral;
+
+    &:nth-child(odd) {
+      background-color: white;
+    }
+
+    &:nth-child(even) {
+      background-color: white;
+    }
+
+    &:hover {
+      background-color: $cor-menu-lateral;
+      color: white;
+      cursor: hand;
+      cursor: pointer;
+    }
+  }
 }
 
 @import "login";
 @import "menu-lateral";
 @import "home";
 @import "ticket";
+@import "servicosProdutos";

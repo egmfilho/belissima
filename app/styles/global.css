@@ -29,7 +29,7 @@ body {
 .fechado {
   margin-left: 0px; }
 
-.centerY {
+.centerY, .tela .header .content {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -76,24 +76,84 @@ body {
     width: 100%;
     height: 100%; } }
 .tela {
-  background-color: #6c6d71;
+  background-color: #2b2b2b;
   width: 100%;
   max-height: 100%;
-  padding: 20px;
   overflow-y: auto;
-  position: absolute; }
+  position: absolute;
+  padding: 0px; }
+  .tela .header {
+    background-color: #3f3f41;
+    margin: 0;
+    padding: 30px;
+    height: 200px;
+    position: relative; }
+    .tela .header h1, .tela .header span, .tela .header h4 {
+      text-shadow: 1px 1px 1px #000; }
+    .tela .header h1 {
+      font-size: 3em; }
+    .tela .header h4 {
+      margin-left: 60px; }
+  .tela .body {
+    padding: 20px; }
+    .tela .body button {
+      background-color: #baa526;
+      color: white;
+      border-color: #867512; }
+      .tela .body button .glyphicon {
+        color: white; }
+      .tela .body button:hover, .tela .body button:focus {
+        background-color: #867512;
+        color: white; }
+  .tela .footer {
+    background-color: #3f3f41;
+    margin: 0;
+    padding: 30px; }
 
 .tela-transparente {
   width: 100%;
   overflow: hidden;
   position: absolute; }
 
-.uib-daypicker {
-  color: #666; }
+.dropdown-menu {
+  color: white;
+  background-color: #3f3f41; }
+  .dropdown-menu .text-info {
+    color: white; }
+  .dropdown-menu .btn-info:active, .dropdown-menu .btn-info.active {
+    background-color: #3f3f41;
+    border-color: #5a5a5a; }
+  .dropdown-menu .uib-datepicker-current, .dropdown-menu .uib-clear, .dropdown-menu .uib-close {
+    border-color: #867512; }
 
-.linha-divisoria {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #fff; }
+.tabela, #tabela-ticket {
+  background-color: #3f3f41; }
+  .tabela a, #tabela-ticket a {
+    color: #3f3f41; }
+  .tabela thead, #tabela-ticket thead {
+    background-color: #3f3f41; }
+    .tabela thead tr, #tabela-ticket thead tr {
+      background-color: #3f3f41 !important; }
+  .tabela th, #tabela-ticket th {
+    border-bottom: none;
+    background-color: #3f3f41;
+    color: white;
+    text-align: center; }
+  .tabela td, #tabela-ticket td {
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap; }
+  .tabela tr, #tabela-ticket tr {
+    color: #3f3f41; }
+    .tabela tr:nth-child(odd), #tabela-ticket tr:nth-child(odd) {
+      background-color: white; }
+    .tabela tr:nth-child(even), #tabela-ticket tr:nth-child(even) {
+      background-color: white; }
+    .tabela tr:hover, #tabela-ticket tr:hover {
+      background-color: #3f3f41;
+      color: white;
+      cursor: hand;
+      cursor: pointer; }
 
 #login .login-header {
   max-width: 350px;
@@ -220,9 +280,6 @@ body {
   #menu-home .botao-menu-home > div > h4 {
     font-size: 1.5em; }
 
-#tela-ticket h1 {
-  font-size: 3.5em;
-  margin: 0 15px 25px 15px; }
 #tela-ticket form {
   float: right;
   margin-right: 30px; }
@@ -241,37 +298,31 @@ body {
     cursor: pointer; }
 #tela-ticket .controle .btn {
   width: 100%;
-  font-size: 1.2em;
-  color: #2b2b2b; }
+  font-size: 1.2em; }
 
-#tabela-ticket {
-  background-color: #a5a9ac; }
-  #tabela-ticket thead, #tabela-ticket tbody, #tabela-ticket tr, #tabela-ticket td, #tabela-ticket th {
-    display: block;
-    text-align: center; }
-  #tabela-ticket thead th {
+#tabela-ticket thead, #tabela-ticket tbody, #tabela-ticket tr, #tabela-ticket td, #tabela-ticket th {
+  display: block; }
+#tabela-ticket thead th {
+  float: left; }
+#tabela-ticket thead tr {
+  padding-right: 18px; }
+#tabela-ticket tbody {
+  height: 250px;
+  overflow-y: scroll; }
+  #tabela-ticket tbody tr {
+    min-width: 700px; }
+  #tabela-ticket tbody td {
     float: left; }
-  #tabela-ticket thead tr {
-    background-color: #a5a9ac;
-    color: white; }
-  #tabela-ticket tbody {
-    overflow-y: auto; }
-    #tabela-ticket tbody tr {
-      background-color: white;
-      color: #2b2b2b;
-      min-width: 700px; }
-    #tabela-ticket tbody td {
-      float: left; }
-  #tabela-ticket tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
-    clear: both; }
-  #tabela-ticket th:nth-child(1), #tabela-ticket th:nth-child(3), #tabela-ticket th:nth-child(4), #tabela-ticket th:nth-child(5), #tabela-ticket td:nth-child(1), #tabela-ticket td:nth-child(3), #tabela-ticket td:nth-child(4), #tabela-ticket td:nth-child(5) {
-    width: 10%; }
-  #tabela-ticket th:nth-child(2), #tabela-ticket td:nth-child(2) {
-    width: 40%; }
-  #tabela-ticket th:nth-child(6), #tabela-ticket td:nth-child(6) {
-    width: 20%; }
+#tabela-ticket tr:after {
+  content: ' ';
+  display: block;
+  visibility: hidden;
+  clear: both; }
+#tabela-ticket th:nth-child(1), #tabela-ticket th:nth-child(3), #tabela-ticket th:nth-child(4), #tabela-ticket th:nth-child(5), #tabela-ticket td:nth-child(1), #tabela-ticket td:nth-child(3), #tabela-ticket td:nth-child(4), #tabela-ticket td:nth-child(5) {
+  width: 10%; }
+#tabela-ticket th:nth-child(2), #tabela-ticket td:nth-child(2) {
+  width: 40%; }
+#tabela-ticket th:nth-child(6), #tabela-ticket td:nth-child(6) {
+  width: 20%; }
 
 /*# sourceMappingURL=global.css.map */

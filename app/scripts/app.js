@@ -34,6 +34,9 @@ angular
         controller: 'TicketCtrl',
         controllerAs: 'ticket'
       })
+      .when('/produtos', {
+        templateUrl: 'views/servicosProdutos.html',
+      })
       .otherwise({
         redirectTo: '/'
       });
