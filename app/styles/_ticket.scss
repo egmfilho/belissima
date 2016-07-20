@@ -28,6 +28,7 @@
   }
 
   .controle {
+    margin-top: 50px;
     .btn {
       width: 100%;
       font-size: 1.2em;
@@ -37,6 +38,9 @@
 
 #tabela-ticket {
   @extend .tabela;
+
+  height: 70%;
+  min-height: 250px;
 
   thead, tbody, tr, td, th {
     display: block;
@@ -48,12 +52,12 @@
     }
 
     tr {
-      padding-right: 18px;
+      //padding-right: 18px;
     }
   }
 
   tbody {
-    height: 250px;
+    height: 100%;
     overflow-y: scroll;
 
     tr {

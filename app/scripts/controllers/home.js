@@ -11,7 +11,9 @@ angular.module('belissimaApp')
       },
       {
         nome: 'Serviços &<br>Produtos',
-        icone: 'glyphicon-tag'
+        icone: 'glyphicon-tag',
+        url: '/produtos'
+
       },
       {
         nome: 'Clientes',

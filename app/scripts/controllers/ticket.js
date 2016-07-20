@@ -3,21 +3,17 @@
  */
 'use strict';
 angular.module('belissimaApp')
-  .controller('TicketCtrl', ['$scope', '$window', function ($scope, $window) {
+  .controller('TicketCtrl', ['$scope', '$window', function ($scope) {
+
+    $scope.$on('$viewContentLoaded', function() {
+      // compensa o scroll do tbody no thead se o SO nao for um MacOS
+      if (navigator.platform !== 'MacIntel') {
+        angular.element('#tabela-ticket thead tr').css('padding-right', '18px');
+      }
+    });
 
     $scope.inicial = new Date();
     $scope.final = new Date();
-
-    function resize() {
-      var height = $window.innerHeight * 0.6;
-      angular.element('#tabela-ticket > tbody').css('max-height', height > 400 ? height : 400);
-      //console.log('tabela.height: ' + height + 'px;');
-    }
-
-    angular.element('#tela-ticket').css('min-height', '100%');
-    resize();
-
-    $window.onresize = resize;
 
     $scope.format = 'dd/MM/yy';
     $scope.altInputFormats = ['d!/M!/yy'];

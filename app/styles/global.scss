@@ -1,12 +1,15 @@
-$cor-de-fundo:                  rgb(43, 43, 43);
-$cor-menu-lateral:              rgb(63, 63, 65);
-$cor-menu-lateral-fundo:        rgb(20, 20, 20);
-$cor-menu-lateral-borda:        rgb(90, 90, 90);
-$cor-menu-highlight:            rgb(186, 165, 38);
-$cor-menu-highlight-escuro:     #867512;
-$cor-da-tela:                   rgb(108, 109, 113);
-$cor-botao-menu-home:           rgb(165, 169, 172);
-$cor-botao-menu-home-highlight: rgb(135, 139, 142);
+$cor-de-fundo:                    rgb(43, 43, 43);
+$cor-menu-lateral:                rgb(63, 63, 65);
+$cor-menu-lateral-fundo:          rgb(20, 20, 20);
+$cor-menu-lateral-borda:          rgb(90, 90, 90);
+$cor-menu-highlight:              rgb(186, 165, 38);
+$cor-menu-highlight-escuro:       #867512;
+$cor-da-tela:                     rgb(108, 109, 113);
+$cor-botao-menu-home-1:           rgb(165, 169, 172);
+$cor-botao-menu-home-2:           #777;
+$cor-botao-menu-home-borda:       #ccc;
+$cor-botao-menu-home-highlight-1: rgb(135, 139, 142);
+$cor-botao-menu-home-highlight-2: #666;
 
 .ease-out {
   -webkit-transition: all ease-out 0.5s;
@@ -25,14 +28,15 @@ body {
   position: relative;
   min-height: 100%;
   max-height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   @extend .ease-out;
 
   > .container {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
+    //height: 100%;
   }
 }
 
@@ -80,13 +84,17 @@ body {
   @extend .ease-out;
 }
 
+.sombra-texto {
+  text-shadow: 1px 1px 1px #000;
+}
+
 @media (min-width: 1200px) {
   body {
     > .container {
-      margin: auto 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
+      //margin: auto 0;
+      //padding: 0;
+      //width: 100%;
+      //height: 100%;
     }
   }
 }
@@ -94,10 +102,10 @@ body {
 @media (min-width: 992px) {
   body {
     > .container {
-      margin: auto 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
+      //margin: auto 0;
+      //padding: 0;
+      //width: 100%;
+      //height: 100%;
     }
   }
 }
@@ -105,20 +113,22 @@ body {
 @media (min-width: 768px) {
   body {
     > .container {
-      margin: auto 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
+      //margin: auto 0;
+      //padding: 0;
+      //width: 100%;
+      //height: 100%;
     }
   }
 }
 
 .tela {
+  @extend .container;
+
   background-color: $cor-de-fundo;
   width: 100%;
-  max-height: 100%;
+  //max-height: 100%;
   overflow-y: auto;
-  position: absolute;
+  //position: absolute;
   padding: 0px;
 
   .header {
@@ -133,7 +143,7 @@ body {
     }
 
     h1, span, h4 {
-      text-shadow: 1px 1px 1px #000;
+      @extend .sombra-texto;
     }
 
     h1 {
@@ -147,6 +157,9 @@ body {
 
   .body {
     padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
 
     button {
       background-color: $cor-menu-highlight;
@@ -168,6 +181,7 @@ body {
     background-color: $cor-menu-lateral;
     margin: 0;
     padding: 30px;
+    height: 160px;
   }
 }
 
@@ -221,23 +235,22 @@ body {
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
+    border-color: $cor-botao-menu-home-1;
   }
 
   tr {
-    color: $cor-menu-lateral;
+    color: white;
 
     &:nth-child(odd) {
-      background-color: white;
+      background-color: $cor-botao-menu-home-2;
     }
 
     &:nth-child(even) {
-      background-color: white;
+      background-color: $cor-botao-menu-home-2;
     }
 
     &:hover {
       background-color: $cor-menu-lateral;
-      color: white;
-      cursor: hand;
       cursor: pointer;
     }
   }

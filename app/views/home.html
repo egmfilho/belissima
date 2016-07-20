@@ -1,23 +1,14 @@
-<div class="tela centerY container">
+<tela icon="glyphicon-home" titulo="Home" subtitulo="Página inicial, escolha uma opção." show-footer="false">
 
-  <page-header icon="glyphicon-home" titulo="Home" subtitulo="teste teste teste teste teste teste"></page-header>
-
-  <div class="body">
-    <div class="row">
-      <div class="col-md-12 col-lg-8 col-lg-offset-2" id="menu-home">
-        <div class="col-sm-6 col-md-4" ng-repeat="botao in botoes">
-          <div class="botao-menu-home" redireciona="{{botao.url}}">
-            <div class="centerX centerY">
-              <span class="glyphicon" ng-class="botao.icone"></span>
-              <h4 ng-bind-html="botao.nome"></h4>
-            </div>
-          </div>
+  <div class="col-md-12 col-lg-10 col-lg-offset-1" id="menu-home">
+    <div class="col-sm-6 col-md-4" ng-repeat="botao in botoes">
+      <div class="botao-menu-home" redireciona="{{botao.url}}">
+        <div class="centerX centerY">
+          <span class="glyphicon" ng-class="botao.icone"></span>
+          <h4 ng-bind-html="botao.nome"></h4>
         </div>
       </div>
     </div>
   </div>
 
-  <br>
-  <br>
-
-</div>
+</tela>
