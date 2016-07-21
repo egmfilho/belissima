@@ -163,7 +163,7 @@ body {
 
     button {
       background-color: $cor-menu-highlight;
-      color: white;
+      color: $cor-menu-lateral;
       border-color: $cor-menu-highlight-escuro;
 
       .glyphicon {
@@ -172,7 +172,7 @@ body {
 
       &:hover, &:focus {
         background-color: $cor-menu-highlight-escuro;
-        color: white;
+        //color: white;
       }
     }
   }
@@ -211,6 +211,7 @@ body {
 
 .tabela {
   background-color: $cor-menu-lateral;
+  min-width: 700px;
 
   a {
     color: $cor-menu-lateral;

@@ -36,6 +36,8 @@ angular
       })
       .when('/produtos', {
         templateUrl: 'views/servicosProdutos.html',
+        controller: 'ServicoProdutosCtrl',
+        controllerAs: 'servicoProdutos'
       })
       .otherwise({
         redirectTo: '/'

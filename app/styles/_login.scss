@@ -86,16 +86,14 @@
       height: 50px;
       font-size: 1.8em;
       margin-top: 40px;
-    }
+      background-color: $cor-menu-highlight;
+      color: $cor-menu-lateral;
+      border-color: $cor-menu-highlight-escuro;
 
-    .btn {
-      /*background-color: rgb(43, 43, 43);*/
-      color: $cor-de-fundo;
-    }
-
-    &:focus, &:hover {
-      /*transition: background-color 0.5s ease;*/
-      /*background-color: rgb(186, 165, 38);*/
+      &:hover, &:focus {
+        background-color: $cor-menu-highlight-escuro;
+        //color: white;
+      }
     }
   }
 }

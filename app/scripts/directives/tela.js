@@ -17,10 +17,6 @@ angular.module('belissimaApp')
 
     }
 
-    function compile() {
-      console.log('compile');
-    }
-
     return {
       restrict: 'E',
       scope: {

@@ -82,13 +82,12 @@ body {
     position: relative; }
     .tela .body button {
       background-color: #baa526;
-      color: white;
+      color: #3f3f41;
       border-color: #867512; }
       .tela .body button .glyphicon {
         color: white; }
       .tela .body button:hover, .tela .body button:focus {
-        background-color: #867512;
-        color: white; }
+        background-color: #867512; }
   .tela .footer {
     background-color: #3f3f41;
     margin: 0;
@@ -111,31 +110,32 @@ body {
   .dropdown-menu .uib-datepicker-current, .dropdown-menu .uib-clear, .dropdown-menu .uib-close {
     border-color: #867512; }
 
-.tabela, #tabela-ticket {
-  background-color: #3f3f41; }
-  .tabela a, #tabela-ticket a {
+.tabela, #tabela-ticket, #tabela-produtos {
+  background-color: #3f3f41;
+  min-width: 700px; }
+  .tabela a, #tabela-ticket a, #tabela-produtos a {
     color: #3f3f41; }
-  .tabela thead, #tabela-ticket thead {
+  .tabela thead, #tabela-ticket thead, #tabela-produtos thead {
     background-color: #3f3f41; }
-    .tabela thead tr, #tabela-ticket thead tr {
+    .tabela thead tr, #tabela-ticket thead tr, #tabela-produtos thead tr {
       background-color: #3f3f41 !important; }
-  .tabela th, #tabela-ticket th {
+  .tabela th, #tabela-ticket th, #tabela-produtos th {
     border-bottom: none;
     background-color: #3f3f41;
     color: white;
     text-align: center; }
-  .tabela td, #tabela-ticket td {
+  .tabela td, #tabela-ticket td, #tabela-produtos td {
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
     border-color: #a5a9ac; }
-  .tabela tr, #tabela-ticket tr {
+  .tabela tr, #tabela-ticket tr, #tabela-produtos tr {
     color: white; }
-    .tabela tr:nth-child(odd), #tabela-ticket tr:nth-child(odd) {
+    .tabela tr:nth-child(odd), #tabela-ticket tr:nth-child(odd), #tabela-produtos tr:nth-child(odd) {
       background-color: #777; }
-    .tabela tr:nth-child(even), #tabela-ticket tr:nth-child(even) {
+    .tabela tr:nth-child(even), #tabela-ticket tr:nth-child(even), #tabela-produtos tr:nth-child(even) {
       background-color: #777; }
-    .tabela tr:hover, #tabela-ticket tr:hover {
+    .tabela tr:hover, #tabela-ticket tr:hover, #tabela-produtos tr:hover {
       background-color: #3f3f41;
       cursor: pointer; }
 
@@ -196,13 +196,12 @@ body {
     width: 100%;
     height: 50px;
     font-size: 1.8em;
-    margin-top: 40px; }
-  #login .login-body .btn {
-    /*background-color: rgb(43, 43, 43);*/
-    color: #2b2b2b; }
-  #login .login-body:focus, #login .login-body:hover {
-    /*transition: background-color 0.5s ease;*/
-    /*background-color: rgb(186, 165, 38);*/ }
+    margin-top: 40px;
+    background-color: #baa526;
+    color: #3f3f41;
+    border-color: #867512; }
+    #login .login-body button:hover, #login .login-body button:focus {
+      background-color: #867512; }
 
 #menu-lateral {
   background-color: #3f3f41;
@@ -335,6 +334,41 @@ body {
   #tabela-ticket th:nth-child(2), #tabela-ticket td:nth-child(2) {
     width: 40%; }
   #tabela-ticket th:nth-child(6), #tabela-ticket td:nth-child(6) {
+    width: 20%; }
+
+.tabela, #tabela-ticket, #tabela-produtos {
+  height: 450px; }
+
+.input-group-btn span {
+  width: 16px; }
+
+#teste {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 30px 0 60px 0; }
+
+#tabela-produtos {
+  height: 70%;
+  min-height: 250px; }
+  #tabela-produtos thead, #tabela-produtos tbody, #tabela-produtos tr, #tabela-produtos td, #tabela-produtos th {
+    display: block; }
+  #tabela-produtos thead th {
+    float: left; }
+  #tabela-produtos tbody {
+    height: 100%;
+    overflow-y: scroll; }
+    #tabela-produtos tbody td {
+      float: left; }
+  #tabela-produtos tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both; }
+  #tabela-produtos th:nth-child(1), #tabela-produtos th:nth-child(3), #tabela-produtos th:nth-child(4), #tabela-produtos th:nth-child(5), #tabela-produtos td:nth-child(1), #tabela-produtos td:nth-child(3), #tabela-produtos td:nth-child(4), #tabela-produtos td:nth-child(5) {
+    width: 10%; }
+  #tabela-produtos th:nth-child(2), #tabela-produtos td:nth-child(2) {
+    width: 40%; }
+  #tabela-produtos th:nth-child(6), #tabela-produtos td:nth-child(6) {
     width: 20%; }
 
 /*# sourceMappingURL=global.css.map */
