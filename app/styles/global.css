@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .ease-out, body, .logotipo, #menu-lateral {
   -webkit-transition: all ease-out 0.5s;
   -moz-transition: all ease-out 0.5s;
@@ -370,5 +371,60 @@ body {
     width: 40%; }
   #tabela-produtos th:nth-child(6), #tabela-produtos td:nth-child(6) {
     width: 20%; }
+
+.fc-toolbar {
+  font-size: 1.2em; }
+  .fc-toolbar .fc-month-button {
+    text-indent: -9999px;
+    line-height: 0px; }
+    .fc-toolbar .fc-month-button:after {
+      content: 'Mês';
+      text-indent: 0;
+      display: block;
+      line-height: initial; }
+  .fc-toolbar .fc-agendaWeek-button {
+    text-indent: -9999px;
+    line-height: 0px; }
+    .fc-toolbar .fc-agendaWeek-button:after {
+      content: 'Semana';
+      text-indent: 0;
+      display: block;
+      line-height: initial; }
+  .fc-toolbar .fc-agendaDay-button {
+    text-indent: -9999px;
+    line-height: 0px; }
+    .fc-toolbar .fc-agendaDay-button:after {
+      content: 'Dia';
+      text-indent: 0;
+      display: block;
+      line-height: initial; }
+  .fc-toolbar .fc-today-button {
+    text-indent: -9999px;
+    line-height: 0px; }
+    .fc-toolbar .fc-today-button:after {
+      content: 'Hoje';
+      text-indent: 0;
+      display: block;
+      line-height: initial; }
+
+.fc-view-container {
+  margin-bottom: 15px; }
+  .fc-view-container .fc-view .fc-head {
+    background-color: #3f3f41; }
+  .fc-view-container .fc-view .fc-bg {
+    background-color: #555; }
+  .fc-view-container .fc-agendaWeek-view .fc-slats tr th:nth-child(1), .fc-view-container .fc-agendaWeek-view .fc-slats tr td:nth-child(1), .fc-view-container .fc-agendaWeek-view .fc-bg tr th:nth-child(1), .fc-view-container .fc-agendaWeek-view .fc-bg tr td:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-slats tr th:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-slats tr td:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-bg tr th:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-bg tr td:nth-child(1) {
+    background-color: #3f3f41; }
+
+.fc-unthemed .fc-today {
+  background: #999; }
+.fc-unthemed .fc-divider {
+  background-color: #3f3f41; }
+.fc-unthemed td, .fc-unthemed th, .fc-unthemed .fc-divider {
+  border-color: #777; }
+.fc-unthemed .fc-agendaDay-view th {
+  background-color: #3f3f41; }
+.fc-unthemed .fc-agendaDay-view td {
+  background-color: #555; }
 
 /*# sourceMappingURL=global.css.map */

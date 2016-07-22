@@ -8,6 +8,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ui.calendar',
     'ui.bootstrap'
   ])
   .config(['$httpProvider', function($httpProvider) {
@@ -39,6 +40,11 @@ angular
         controller: 'ServicoProdutosCtrl',
         controllerAs: 'servicoProdutos'
       })
+      .when('/agenda', {
+        templateUrl: 'views/agenda.html',
+        controller: 'AgendaCtrl',
+        controllerAs: 'agenda'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -49,7 +55,7 @@ angular
 
       if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').token == null) {
         if (next.templateUrl != 'views/login.html') {
-          $location.path('/login');
+          //$location.path('/login');
         }
       }
     });

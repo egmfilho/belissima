@@ -1,0 +1,100 @@
+.fc-toolbar {
+  font-size: 1.2em;
+
+  .fc-month-button {
+    text-indent: -9999px;
+    line-height: 0px;
+
+    &:after {
+      content: 'Mês';
+      text-indent: 0;
+      display: block;
+      line-height: initial;
+    }
+  }
+
+  .fc-agendaWeek-button {
+    text-indent: -9999px;
+    line-height: 0px;
+
+    &:after {
+      content: 'Semana';
+      text-indent: 0;
+      display: block;
+      line-height: initial;
+    }
+  }
+
+  .fc-agendaDay-button {
+    text-indent: -9999px;
+    line-height: 0px;
+
+    &:after {
+      content: 'Dia';
+      text-indent: 0;
+      display: block;
+      line-height: initial;
+    }
+  }
+
+  .fc-today-button {
+    text-indent: -9999px;
+    line-height: 0px;
+
+    &:after {
+      content: 'Hoje';
+      text-indent: 0;
+      display: block;
+      line-height: initial;
+    }
+  }
+}
+
+.fc-view-container {
+  margin-bottom: 15px;
+
+  .fc-view {
+    .fc-head {
+      background-color: $cor-menu-lateral;
+    }
+
+    .fc-bg {
+      background-color: $cor-calendario-fundo;
+    }
+  }
+
+  .fc-agendaWeek-view, .fc-agendaDay-view {
+    .fc-slats, .fc-bg {
+      tr {
+        th, td {
+          &:nth-child(1) {
+            background-color: $cor-menu-lateral;
+          }
+        }
+      }
+    }
+  }
+}
+
+.fc-unthemed {
+  .fc-today {
+    background: $cor-calendario-ativo;
+  }
+
+  .fc-divider {
+    background-color: $cor-menu-lateral;
+  }
+
+  td, th, .fc-divider {
+    border-color: $cor-calendario-borda;
+  }
+
+  .fc-agendaDay-view {
+    th {
+      background-color: $cor-menu-lateral;
+    }
+    td {
+      background-color: $cor-calendario-fundo;
+    }
+  }
+}

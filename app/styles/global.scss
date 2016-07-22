@@ -10,6 +10,9 @@ $cor-botao-menu-home-2:           #777;
 $cor-botao-menu-home-borda:       #ccc;
 $cor-botao-menu-home-highlight-1: rgb(135, 139, 142);
 $cor-botao-menu-home-highlight-2: #666;
+$cor-calendario-fundo:            #555;
+$cor-calendario-borda:            #777;
+$cor-calendario-ativo:            #999;
 
 .ease-out {
   -webkit-transition: all ease-out 0.5s;
@@ -262,3 +265,4 @@ body {
 @import "home";
 @import "ticket";
 @import "servicosProdutos";
+@import "agenda";
