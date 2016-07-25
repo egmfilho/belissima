@@ -84,7 +84,8 @@ body {
       background-color: #baa526;
       color: white;
       text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.75);
-      border-color: #867512; }
+      border-color: #867512;
+      outline: none; }
       .tela .body button .glyphicon {
         color: white; }
       .tela .body button:hover, .tela .body button:focus {
