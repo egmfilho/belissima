@@ -17,19 +17,23 @@ angular.module('belissimaApp')
       },
       {
         nome: 'Clientes',
-        icone: 'glyphicon-user'
+        icone: 'glyphicon-user',
+        url: '/clientes'
       },
       {
         nome: 'Relatórios',
-        icone: 'glyphicon-print'
+        icone: 'glyphicon-print',
+        url: '/relatorios'
       },
       {
         nome: 'Agenda',
-        icone: 'glyphicon-calendar'
+        icone: 'glyphicon-calendar',
+        url: '/agenda'
       },
       {
         nome: 'Configurações',
-        icone: 'glyphicon-cog'
+        icone: 'glyphicon-cog',
+        url: '/configuracoes'
       },
     ];
 

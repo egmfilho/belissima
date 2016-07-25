@@ -1,52 +1,12 @@
 .fc-toolbar {
   font-size: 1.2em;
 
-  .fc-month-button {
-    text-indent: -9999px;
-    line-height: 0px;
-
-    &:after {
-      content: 'Mês';
-      text-indent: 0;
-      display: block;
-      line-height: initial;
-    }
+  .fc-state-active {
+    background-color: $cor-menu-highlight-escuro !important;
   }
 
-  .fc-agendaWeek-button {
-    text-indent: -9999px;
-    line-height: 0px;
-
-    &:after {
-      content: 'Semana';
-      text-indent: 0;
-      display: block;
-      line-height: initial;
-    }
-  }
-
-  .fc-agendaDay-button {
-    text-indent: -9999px;
-    line-height: 0px;
-
-    &:after {
-      content: 'Dia';
-      text-indent: 0;
-      display: block;
-      line-height: initial;
-    }
-  }
-
-  .fc-today-button {
-    text-indent: -9999px;
-    line-height: 0px;
-
-    &:after {
-      content: 'Hoje';
-      text-indent: 0;
-      display: block;
-      line-height: initial;
-    }
+  .fc-state-default {
+    box-shadow: none;
   }
 }
 
@@ -97,4 +57,24 @@
       background-color: $cor-calendario-fundo;
     }
   }
+}
+
+#Agenda {
+
+  button {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+
+    background-image: none;
+    background-color: $cor-menu-highlight;
+    color: white;
+
+    &:hover {
+      background-color: $cor-menu-highlight-escuro;
+    }
+  }
+
 }
