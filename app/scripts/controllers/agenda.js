@@ -80,16 +80,24 @@ angular.module('belissimaApp')
       }];
 
       $scope.uiConfig = {
-        calendar:{
+        calendar: {
           height: 740,
           editable: true,
           eventLimit: true,
-          header:{
-            left: 'month,basicWeek,agendaDay',
-            center: 'title',
-            right: 'prev,today,next'
+          customButtons: {
+            addEvent: {
+              text: 'Adicionar',
+              click: novoEvento
+            }
           },
-          slotDuration: '00:30:00',
+          header: {
+            left: 'addEvent today',
+            center: 'prev title next',
+            right: 'agendaDay,basicWeek,month'
+          },
+          buttonText: {
+            today: 'Ver hoje'
+          },
           eventLimitText: function(a) {
             return "+ " + a + " eventos";
           },
@@ -103,6 +111,10 @@ angular.module('belissimaApp')
           eventRender: eventRender
         }
       };
+
+      function novoEvento() {
+
+      }
 
       function loading(isLoading, view) {
 
