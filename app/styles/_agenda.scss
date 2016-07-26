@@ -23,6 +23,10 @@
     }
   }
 
+  .fc-more {
+    color: white;
+  }
+
   .fc-agendaWeek-view, .fc-agendaDay-view {
     .fc-slats, .fc-bg {
       tr {
@@ -55,6 +59,18 @@
     }
     td {
       background-color: $cor-calendario-fundo;
+    }
+  }
+
+  .fc-popover {
+    border-color: $cor-calendario-borda;
+
+    .fc-widget-header {
+      background-color: $cor-menu-lateral;
+    }
+
+    .fc-body {
+      background-color: $cor-menu-lateral;
     }
   }
 }

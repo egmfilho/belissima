@@ -14,6 +14,8 @@ $cor-calendario-fundo:            #555;
 $cor-calendario-borda:            #777;
 $cor-calendario-ativo:            #999;
 $cor-text-shadow:                 rgba(0, 0, 0, 0.75);
+$cor-modal-head:                  rgb(63, 63, 65);
+$cor-modal-body:                  #555;
 
 .ease-out {
   -webkit-transition: all ease-out 0.5s;
@@ -125,6 +127,24 @@ body {
   }
 }
 
+.botao {
+  background-color: $cor-menu-highlight;
+  color: white;
+  text-shadow: 0px 1px 1px $cor-text-shadow;
+  border-color: $cor-menu-highlight-escuro;
+  outline: none;
+
+  .glyphicon {
+    color: white;
+  }
+
+  &:hover, &:focus {
+    background-color: $cor-menu-highlight-escuro;
+    color: white;
+    outline: none;
+  }
+}
+
 .tela {
   @extend .container;
 
@@ -166,20 +186,7 @@ body {
     position: relative;
 
     button {
-      background-color: $cor-menu-highlight;
-      color: white;
-      text-shadow: 0px 1px 1px $cor-text-shadow;
-      border-color: $cor-menu-highlight-escuro;
-      outline: none;
-
-      .glyphicon {
-        color: white;
-      }
-
-      &:hover, &:focus {
-        background-color: $cor-menu-highlight-escuro;
-        //color: white;
-      }
+      @extend .botao;
     }
   }
 
@@ -261,6 +268,66 @@ body {
       cursor: pointer;
     }
   }
+}
+
+.modal {
+  text-align: center;
+
+  &:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+
+  .header {
+    background-color: $cor-modal-head;
+    border-radius: 4px 4px 0 0;
+    padding-left: 5px;
+    height: 40px;
+
+    .title {
+      font-size: 1.8em;
+
+      .flag {
+        font-size: 1.2em;
+      }
+
+      .close {
+        margin: 8px;
+      }
+    }
+  }
+
+  .body {
+    background-color: $cor-modal-body;
+    height: 200px;
+    padding: 10px;
+    overflow-y: auto;
+  }
+
+  .control {
+    background-color: $cor-modal-head;
+    border-radius: 0 0 4px 4px;
+    height: 60px;
+    padding: 10px;
+
+    button {
+      @extend .botao;
+
+      float: right;
+      margin-left: 10px;
+      min-width: 120px;
+      height: 100%;
+      font-size: 1.2em;
+    }
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }
 
 @import "login";

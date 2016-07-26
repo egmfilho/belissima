@@ -60,6 +60,19 @@ body {
 .sombra-texto, .tela .header h1, .tela .header span, .tela .header h4, #menu-home .botao-menu-home > div > .glyphicon, #menu-home .botao-menu-home > div > h4 {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75); }
 
+.botao, .tela .body button, .modal .control button {
+  background-color: #baa526;
+  color: white;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.75);
+  border-color: #867512;
+  outline: none; }
+  .botao .glyphicon, .tela .body button .glyphicon, .modal .control button .glyphicon {
+    color: white; }
+  .botao:hover, .tela .body button:hover, .modal .control button:hover, .botao:focus, .tela .body button:focus, .modal .control button:focus {
+    background-color: #867512;
+    color: white;
+    outline: none; }
+
 .tela {
   background-color: #2b2b2b;
   width: 100%;
@@ -80,16 +93,6 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     position: relative; }
-    .tela .body button {
-      background-color: #baa526;
-      color: white;
-      text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.75);
-      border-color: #867512;
-      outline: none; }
-      .tela .body button .glyphicon {
-        color: white; }
-      .tela .body button:hover, .tela .body button:focus {
-        background-color: #867512; }
   .tela .footer {
     background-color: #3f3f41;
     margin: 0;
@@ -140,6 +143,46 @@ body {
     .tabela tr:hover, #tabela-ticket tr:hover, #tabela-produtos tr:hover {
       background-color: #3f3f41;
       cursor: pointer; }
+
+.modal {
+  text-align: center; }
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%; }
+  .modal .header {
+    background-color: #3f3f41;
+    border-radius: 4px 4px 0 0;
+    padding-left: 5px;
+    height: 40px; }
+    .modal .header .title {
+      font-size: 1.8em; }
+      .modal .header .title .flag {
+        font-size: 1.2em; }
+      .modal .header .title .close {
+        margin: 8px; }
+  .modal .body {
+    background-color: #555;
+    height: 200px;
+    padding: 10px;
+    overflow-y: auto; }
+  .modal .control {
+    background-color: #3f3f41;
+    border-radius: 0 0 4px 4px;
+    height: 60px;
+    padding: 10px; }
+    .modal .control button {
+      float: right;
+      margin-left: 10px;
+      min-width: 120px;
+      height: 100%;
+      font-size: 1.2em; }
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle; }
 
 #login .login-header {
   max-width: 350px;
@@ -386,6 +429,8 @@ body {
     background-color: #3f3f41; }
   .fc-view-container .fc-view .fc-bg {
     background-color: #555; }
+  .fc-view-container .fc-more {
+    color: white; }
   .fc-view-container .fc-agendaWeek-view .fc-slats tr th:nth-child(1), .fc-view-container .fc-agendaWeek-view .fc-slats tr td:nth-child(1), .fc-view-container .fc-agendaWeek-view .fc-bg tr th:nth-child(1), .fc-view-container .fc-agendaWeek-view .fc-bg tr td:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-slats tr th:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-slats tr td:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-bg tr th:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-bg tr td:nth-child(1) {
     background-color: #3f3f41; }
 
@@ -399,6 +444,12 @@ body {
   background-color: #3f3f41; }
 .fc-unthemed .fc-agendaDay-view td {
   background-color: #555; }
+.fc-unthemed .fc-popover {
+  border-color: #777; }
+  .fc-unthemed .fc-popover .fc-widget-header {
+    background-color: #3f3f41; }
+  .fc-unthemed .fc-popover .fc-body {
+    background-color: #3f3f41; }
 
 #Agenda button {
   -webkit-transition: none;

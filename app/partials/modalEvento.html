@@ -1,1 +1,15 @@
-<h1 style="color: black">{{evento.title}}</h1>
+<div class="header">
+  <div class="title">
+    <span class="glyphicon glyphicon-bookmark flag" ng-style="{'color': evento.color}"></span>
+    {{evento.start._d | date : "HH:mm"}} - {{evento.title}}
+    <span class="glyphicon glyphicon-remove close" ng-click="close()"></span>
+  </div>
+</div>
+<div class="body">
+  <p>{{evento.description}}</p>
+</div>
+<div class="control">
+  <button class="btn btn-default" ng-click="close()"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
+  <button class="btn btn-default"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+  <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Salvar</button>
+</div>

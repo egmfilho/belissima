@@ -32,7 +32,7 @@ angular.module('belissimaApp')
           }
         ],
         color: 'red',
-        textColor: 'white'
+        textColor: 'white',
       }, {
         events: [
           {
@@ -83,20 +83,16 @@ angular.module('belissimaApp')
         calendar:{
           height: 740,
           editable: true,
+          eventLimit: true,
           header:{
-            left: 'month,agendaWeek,agendaDay',
+            left: 'month,basicWeek,agendaDay',
             center: 'title',
             right: 'prev,today,next'
           },
-          buttonText: {
-            month: 'Mês',
-            week: 'Sem.',
-            day: 'Dia',
-            today: 'Hoje'
-          },
-          allDayText: 'Dia todo',
           slotDuration: '00:30:00',
-          timeFormat: 'h:mm',
+          eventLimitText: function(a) {
+            return "+ " + a + " eventos";
+          },
           defaultView: 'agendaDay',
           loading: loading,
           dayClick: dayClick,

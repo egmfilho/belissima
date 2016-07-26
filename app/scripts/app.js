@@ -49,8 +49,10 @@ angular
         redirectTo: '/'
       });
   })
-  .run(['$rootScope', '$location', '$cookies', function($rootScope, $location, $cookies) {
+  .run(['$rootScope', '$location', '$cookies', '$uibModalStack', function($rootScope, $location, $cookies, $uibModalStack) {
+
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
+      $uibModalStack.dismissAll();
       $rootScope.currentPath = $location.path();
 
       if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').token == null) {
@@ -59,4 +61,5 @@ angular
         }
       }
     });
+
   }]);
