@@ -32,6 +32,7 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/moment/moment.js',
       'bower_components/fullcalendar/dist/fullcalendar.js',
+      'bower_components/fullcalendar/dist/lang/pt-br.js',
       'bower_components/angular-ui-calendar/src/calendar.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower

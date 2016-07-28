@@ -1,15 +1,75 @@
-<div class="header">
-  <div class="title">
-    <span class="glyphicon glyphicon-bookmark flag" ng-style="{'color': evento.color}"></span>
-    {{evento.start._d | date : "HH:mm"}} - {{evento.title}}
-    <span class="glyphicon glyphicon-remove close" ng-click="close()"></span>
+<div>
+  <div class="header">
+    <div class="title">
+      <span class="glyphicon glyphicon-bookmark flag" ng-style="{'color': evento.color}"></span>
+      {{evento.title}} ({{evento.start._d | date : "HH:mm"}} - {{evento.end._d | date : "HH:mm"}})
+      <span class="glyphicon glyphicon-remove close" ng-click="close()"></span>
+    </div>
   </div>
-</div>
-<div class="body">
-  <p>{{evento.description}}</p>
-</div>
-<div class="control">
-  <button class="btn btn-default" ng-click="close()"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
-  <button class="btn btn-default"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
-  <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Salvar</button>
+  <div class="body" class="container">
+
+    <div class="row">
+      <div class="col-sm-12 col-sm-6">
+        <h4>Título</h4>
+        <input class="form-control" type="text" ng-model="evento.title">
+      </div>
+      <div class="col-xs-6 col-sm-3">
+        <h4>Início</h4>
+        <div uib-timepicker ng-model="evento.start" show-meridian="false" show-spinners="false"></div>
+      </div>
+      <div class="col-xs-6 col-sm-3">
+        <h4>Término</h4>
+        <div uib-timepicker ng-model="evento.end" show-meridian="false" show-spinners="false"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-8">
+        <h4>Cliente</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" aria-describedby="basic-addon2">
+          <span class="input-group-btn">
+            <button class="btn btn-default" tabindex="-1" ng-click=""><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <h4>Telefone</h4>
+        <input class="form-control" type="text">
+      </div>
+      <div class="col-xs-12 col-sm-8">
+        <h4>Funcionário</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" aria-describedby="basic-addon2">
+          <span class="input-group-btn">
+            <button class="btn btn-default" tabindex="-1" ng-click=""><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <h4>Serviço</h4>
+        <div class="btn-group" uib-dropdown>
+          <button type="button" class="btn btn-default btn-dropdown" uib-dropdown-toggle>
+            {{evento.tipo}}
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-tipo">
+            <li role="menuitem"><a href="">tipo 1</a></li>
+            <li role="menuitem"><a href="">tipo 2</a></li>
+            <li role="menuitem"><a href="">tipo 3</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h4>Descrição</h4>
+      <textarea class="form-control" name="" id="" rows="3" ng-model="evento.description"></textarea>
+    </div>
+  </div>
+  <div class="control">
+    <button class="btn btn-default" ng-click="close()"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
+    <button class="btn btn-default"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+    <button class="btn btn-default" ng-click="ok()"><span class="glyphicon glyphicon-ok"></span> Salvar</button>
+  </div>
 </div>

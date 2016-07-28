@@ -20,6 +20,8 @@ angular.module('belissimaApp')
             req.headers['x-session-token'] = $cookies.getObject('currentUser').token;
           }
 
+          req.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
           return req;
 
         },

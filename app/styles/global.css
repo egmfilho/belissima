@@ -162,11 +162,43 @@ body {
         font-size: 1.2em; }
       .modal .header .title .close {
         margin: 8px; }
+  .modal .modal-md .body {
+    height: 400px; }
+    .modal .modal-md .body .dropdown {
+      width: 100%; }
+      .modal .modal-md .body .dropdown button {
+        width: 100%;
+        max-width: 100%; }
+  .modal .modal-sm {
+    width: 400px; }
+    .modal .modal-sm .header {
+      padding-left: 20px;
+      padding-top: 2px; }
+    .modal .modal-sm .body {
+      height: 70px; }
+      .modal .modal-sm .body .glyphicon {
+        font-size: 2.5em;
+        vertical-align: middle;
+        margin: 5px; }
   .modal .body {
     background-color: #555;
-    height: 200px;
     padding: 10px;
+    overflow-x: hidden;
     overflow-y: auto; }
+    .modal .body .linha {
+      width: 100%;
+      margin: 0 auto; }
+      .modal .body .linha .bloco {
+        width: 25%;
+        float: left; }
+    .modal .body textarea {
+      resize: none;
+      min-width: 100%;
+      max-width: 100%; }
+    .modal .body .dropdown-menu {
+      background-color: white; }
+      .modal .body .dropdown-menu li > a:hover {
+        background-color: #ccc; }
   .modal .control {
     background-color: #3f3f41;
     border-radius: 0 0 4px 4px;

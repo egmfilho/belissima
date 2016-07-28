@@ -299,11 +299,74 @@ body {
     }
   }
 
+  .modal-md {
+    .body {
+      height: 400px;
+
+      .dropdown {
+        width: 100%;
+
+        button {
+          width: 100%;
+          max-width: 100%;
+
+          .caret {
+
+          }
+        }
+      }
+    }
+  }
+
+  .modal-sm {
+    width: 400px;
+    .header {
+      padding-left: 20px;
+      padding-top: 2px;
+    }
+
+    .body {
+      height: 70px;
+
+      .glyphicon {
+        font-size: 2.5em;
+        vertical-align: middle;
+        margin: 5px;
+      }
+    }
+  }
+
   .body {
     background-color: $cor-modal-body;
-    height: 200px;
     padding: 10px;
+    overflow-x: hidden;
     overflow-y: auto;
+
+    .linha {
+      width: 100%;
+      margin: 0 auto;
+
+      .bloco {
+        width: 25%;
+        float: left;
+      }
+    }
+
+    textarea {
+      resize: none;
+      min-width: 100%;
+      max-width: 100%;
+    }
+
+    .dropdown-menu {
+      background-color: white;
+
+      li > a {
+        &:hover {
+          background-color: #ccc;
+        }
+      }
+    }
   }
 
   .control {

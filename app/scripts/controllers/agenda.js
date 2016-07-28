@@ -7,9 +7,11 @@ angular.module('belissimaApp')
     '$compile',
     'uiCalendarConfig',
     '$uibModal',
-    function($scope, $compile, uiCalendarConfig, $uibModal) {
+    'ProviderTipoEvento',
+    function($scope, $compile, uiCalendarConfig, $uibModal, ProviderTipoEvento) {
 
-      var hoje = new Date();
+      var self = this,
+          hoje = new Date();
 
       this.eventos = [{
         events: [
@@ -113,7 +115,8 @@ angular.module('belissimaApp')
       };
 
       function novoEvento() {
-
+        console.log('Teste get tipo eventos');
+        console.log(ProviderTipoEvento.obterTipoDeEventoPorId(1001));
       }
 
       function loading(isLoading, view) {
@@ -142,7 +145,10 @@ angular.module('belissimaApp')
           resolve: {
             evento: function() { return event; }
           }
-        });
+        }).result.then(function(result) {
+            angular.extend(event, result);
+            uiCalendarConfig.calendars.meuCalendario.fullCalendar('refetchEvents');
+          });
       }
 
       function alertOnDrop(event, delta, revertFunc, jsEvent, ui, view) {

@@ -27,16 +27,28 @@ angular.module('belissimaApp')
           method: 'POST',
           url: URLS.login,
           data: $httpParamSerializerJQLike({ user: username, pass: password }),
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).success(function(response) {
-          SetCredentials({
-            user_id: response.data.user_id,
-            token: response.data.user_session_id,
-            username: response.data.user_user,
-            name: response.data.user_name,
-            mail: response.data.user_mail
-          });
-          callback(response);
+          console.log(response);
+
+          switch (response.status.code) {
+            case 404:
+              console.log('Usuário não encontrado');
+              break;
+            case 200:
+              SetCredentials({
+                user_id: response.data.user_id,
+                token: response.data.user_session_id,
+                username: response.data.user_user,
+                name: response.data.user_name,
+                mail: response.data.user_mail
+              });
+              callback(response);
+              break;
+            default:
+              break;
+          }
+        }).error(function(error) {
+          console.log(error);
         });
 
       }
