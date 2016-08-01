@@ -6,8 +6,5 @@
 
 angular.module('belissimaApp')
   .constant('URLS', {
-    root: 'http://enterprise/belissima/public/php',
-    login: 'http://enterprise/belissima/public/php/login.php',
-    logout: 'http://enterprise/belissima/public/php/logout.php',
-    home: 'http://enterprise/belissima/public/php/home.php'
+    root: 'http://172.16.4.17/belissima/public/php/'
   });

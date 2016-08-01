@@ -57,7 +57,7 @@ angular
 
       if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').token == null) {
         if (next.templateUrl != 'views/login.html') {
-          $location.path('/login');
+          //$location.path('/login');
         }
       }
     });

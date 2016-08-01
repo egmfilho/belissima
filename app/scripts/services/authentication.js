@@ -25,10 +25,13 @@ angular.module('belissimaApp')
 
         $http({
           method: 'POST',
-          url: URLS.login,
-          data: $httpParamSerializerJQLike({ user: username, pass: password }),
-        }).success(function(response) {
-          console.log(response);
+          url: URLS.root + 'login.php',
+          data: { user: username, pass: password }
+        }).then(function(success) {
+          var response = success.data;
+          //console.log(success.headers('Set-Cookie'));
+          //console.log(success.headers());
+          //console.log($cookies.get('PHPSESSID'));
 
           switch (response.status.code) {
             case 404:
@@ -47,10 +50,9 @@ angular.module('belissimaApp')
             default:
               break;
           }
-        }).error(function(error) {
+        }, function(error) {
           console.log(error);
         });
-
       }
 
       function Logout(callback) {
@@ -63,9 +65,8 @@ angular.module('belissimaApp')
 
         $http({
           method: 'POST',
-          url: URLS.logout,
-          data: $httpParamSerializerJQLike({ token: token }),
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+          url: URLS.root + 'logout.php',
+          data: { token: token },
         }).success(function(response) {
           ClearCredentials();
           callback(response);

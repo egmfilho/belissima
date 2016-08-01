@@ -4,9 +4,9 @@
 'use strict';
 
 angular.module('belissimaApp')
-  .provider('ProviderProduto', [function() {
+  .provider('ProviderProduto', ['URLS', function(urls) {
 
-    var url = '',
+    var url = urls.root + '',
         provider = null;
 
     this.$get = ['$resource', function($resource) {

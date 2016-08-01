@@ -7,82 +7,21 @@ angular.module('belissimaApp')
     '$compile',
     'uiCalendarConfig',
     '$uibModal',
-    'ProviderTipoEvento',
-    function($scope, $compile, uiCalendarConfig, $uibModal, ProviderTipoEvento) {
+    'ProviderEvento',
+    'Evento',
+    function($scope, $compile, uiCalendarConfig, $uibModal, provider, Evento) {
 
       var self = this,
-          hoje = new Date();
+          start = new Date(),
+          end = new Date();
 
-      this.eventos = [{
-        events: [
-          {
-            id: 1,
-            title: 'Evento Teste',
-            description: 'Primeiro teste de evento.',
-            allDay: false,
-            start: new Date(),
-            end: new Date(),
-            stick: true
-          }, {
-            id: 5,
-            title: 'Evento Teste 5',
-            description: 'Primeiro teste de evento.',
-            allDay: false,
-            start: new Date(),
-            end: new Date(),
-            stick: true
-          }
-        ],
-        color: 'red',
-        textColor: 'white',
-      }, {
-        events: [
-          {
-            id: 2,
-            title: 'Evento Teste 2',
-            description: 'Segundo teste de evento.',
-            allDay: false,
-            start: new Date(),
-            end: new Date(),
-            stick: true
-          }, {
-            id: 6,
-            title: 'Evento Teste 6',
-            description: 'Segundo teste de evento.',
-            allDay: false,
-            start: new Date(),
-            end: new Date(),
-            stick: true
-          }
-        ],
-        color: 'blue',
-        textColor: 'white'
-      }, {
-        events: [
-          {
-            id: 3,
-            title: 'Evento Teste 3',
-            description: 'Terceiro teste de evento.',
-            allDay: false,
-            start: new Date(),
-            end: new Date(),
-            stick: true
-          }, {
-            id: 4,
-            title: 'Evento Teste 4',
-            description: 'Terceiro teste de evento.',
-            allDay: false,
-            start: new Date(),
-            end: new Date(),
-            stick: true
-          }
-        ],
-        color: 'green',
-        textColor: 'white'
-      }];
+      end.setHours(start.getHours() + 2);
+
+      this.eventos = [ ];
 
       $scope.uiConfig = {
         calendar: {
+          timezone: 'local',
           height: 740,
           editable: true,
           eventLimit: true,
@@ -114,9 +53,25 @@ angular.module('belissimaApp')
         }
       };
 
+      function getEventos() {
+        provider.obterEventos().then(function(success) {
+          self.eventos.push({ events: [ ]});
+
+          angular.forEach(success.data, function(item, index) {
+            self.eventos[0].events.push(new Evento(Evento.converterEmEntrada(item)));
+          });
+
+        }, function(error) {
+          console.log(error.data);
+        });
+      }
+
+      $scope.$on('$viewContentLoaded', function() {
+        getEventos();
+      });
+
       function novoEvento() {
-        console.log('Teste get tipo eventos');
-        console.log(ProviderTipoEvento.obterTipoDeEventoPorId(1001));
+        console.log('Adicionar evento');
       }
 
       function loading(isLoading, view) {
@@ -147,20 +102,21 @@ angular.module('belissimaApp')
           }
         }).result.then(function(result) {
             angular.extend(event, result);
-            uiCalendarConfig.calendars.meuCalendario.fullCalendar('refetchEvents');
+            uiCalendarConfig.calendars.meuCalendario.fullCalendar('updateEvent', event);
           });
+        console.log(self.eventos);
       }
 
       function alertOnDrop(event, delta, revertFunc, jsEvent, ui, view) {
 
       }
 
-      function alertOnResize(e, delta, revertFunc, jsEvent, ui, view) {
+      function alertOnResize(event, delta, revertFunc, jsEvent, ui, view) {
         console.log();
       }
 
       function alertOnChangeView(view, element) {
-        console.log("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+        //console.log("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
       }
 
       function eventRender(event, element, view) {

@@ -9,8 +9,9 @@ angular.module('belissimaApp')
     '$q',
     '$location',
     '$cookies',
+    '$httpParamSerializerJQLike',
     'HTTP_STATUS',
-    function($q, $location, $cookies, http_status) {
+    function($q, $location, $cookies, $httpParamSerializerJQLike, http_status) {
 
       return {
 
@@ -21,6 +22,8 @@ angular.module('belissimaApp')
           }
 
           req.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+          req.data = $httpParamSerializerJQLike(req.data);
 
           return req;
 

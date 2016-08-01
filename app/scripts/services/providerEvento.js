@@ -2,21 +2,21 @@
  * Created by egmfilho on 28/07/16.
  */
 angular.module('belissimaApp')
-  .provider('ProviderEvento', [function() {
+  .provider('ProviderEvento', ['URLS', function(urls) {
 
-    var url = 'http://172.16.4.17/belissima/public/php/event.php?action=:action',
-      provider = null;
+    var url = urls.root + 'event.php?action=:action',
+        provider = null;
 
     this.$get = ['$resource', function($resource) {
 
       provider = $resource(url, { }, {
         get: {
-          method: 'GET',
+          method: 'POST',
           isArray: false
         },
         query: {
-          method: 'GET',
-          isArray: true
+          method: 'POST',
+          isArray: false
         },
         save: {
           method: 'POST',
@@ -26,15 +26,27 @@ angular.module('belissimaApp')
 
       return {
 
+        obterEventos: function() {
+          return provider.query({
+            action: 'getList'
+          }, {
+            get_event_type: true
+          }).$promise;
+        },
+
         obterEventoPorId: function(id) {
           return provider.get({
             action: 'get'
+          }, {
+            event_id: id
           }).$promise;
         },
 
         obterEventosPorTipo: function(tipoId) {
           return provider.query({
-            action: 'getList'
+            action: 'getListByType'
+          }, {
+            tipoId: tipoId
           }).$promise;
         },
 
