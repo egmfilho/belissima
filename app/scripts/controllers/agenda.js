@@ -9,13 +9,10 @@ angular.module('belissimaApp')
     '$uibModal',
     'ProviderEvento',
     'Evento',
-    function($scope, $compile, uiCalendarConfig, $uibModal, provider, Evento) {
+    'ModalConfirm',
+    function($scope, $compile, uiCalendarConfig, $uibModal, provider, Evento, modalConfirm) {
 
-      var self = this,
-          start = new Date(),
-          end = new Date();
-
-      end.setHours(start.getHours() + 2);
+      var self = this;
 
       this.eventos = [ ];
 
@@ -46,15 +43,15 @@ angular.module('belissimaApp')
           loading: loading,
           dayClick: dayClick,
           eventClick: eventClick,
-          eventDrop: alertOnDrop,
-          eventResize: alertOnResize,
+          eventDrop: alertOnResizeOrDrop,
+          eventResize: alertOnResizeOrDrop,
           viewRender: alertOnChangeView,
           eventRender: eventRender
         }
       };
 
       function getEventos() {
-        provider.obterEventos().then(function(success) {
+        provider.obterEventos(true).then(function(success) {
           self.eventos.push({ events: [ ]});
 
           angular.forEach(success.data, function(item, index) {
@@ -70,8 +67,13 @@ angular.module('belissimaApp')
         getEventos();
       });
 
+      function atualizarEvento(evento) {
+        return provider.atualizarEvento(Evento.converterEmSaida(evento));
+      }
+
       function novoEvento() {
         console.log('Adicionar evento');
+        uiCalendarConfig.calendars.meuCalendario.fullCalendar('option', 'timezone', 'America/Sao_Paulo');
       }
 
       function loading(isLoading, view) {
@@ -91,28 +93,62 @@ angular.module('belissimaApp')
         }
       }
 
+      function getFullEvent(id) {
+        return provider.obterEventoPorId(id, true, true, true).then(function(success) {
+          return new Evento(Evento.converterEmEntrada(success.data));
+        }, function(error) {
+          console.log(error);
+          return null;
+        });
+      }
+
       function eventClick(event, jsEvent, view) {
-        $uibModal.open({
-          animation: true,
-          templateUrl: 'partials/modalEvento.html',
-          controller: 'ModalEventoCtrl',
-          size: 'md',
-          resolve: {
-            evento: function() { return event; }
+
+        console.log(event);
+
+        getFullEvent(event.id).then(function(fullevent) {
+          console.log(fullevent);
+          $uibModal.open({
+            animation: true,
+            templateUrl: 'partials/modalEvento.html',
+            controller: 'ModalEventoCtrl',
+            size: 'md',
+            resolve: {
+              evento: function() { return fullevent; }
+            }
+          }).result.then(function(result) {
+              if (!angular.equals(fullevent, result)) {
+                angular.extend(event, result);
+                uiCalendarConfig.calendars.meuCalendario.fullCalendar('updateEvent', event);
+                atualizarEvento(result).then(function(success) {
+                  alert('atualizado');
+                }, function(error) {
+                  console.log(error);
+                  revertFunc();
+                  alert('nao atualizado');
+                });
+              } else {
+                revertFunc();
+              };
+            });
+        });
+
+      }
+
+      function alertOnResizeOrDrop(event, delta, revertFunc, jsEvent, ui, view) {
+        modalConfirm.show('Aviso', 'Salvar as alterações?', 'Sim', 'Não', function(result) {
+          if (result) {
+            atualizarEvento(event).then(function(success) {
+              alert('atualizado');
+            }, function(error) {
+              console.log(error);
+              revertFunc();
+              alert('nao atualizado');
+            });
+          } else {
+            revertFunc();
           }
-        }).result.then(function(result) {
-            angular.extend(event, result);
-            uiCalendarConfig.calendars.meuCalendario.fullCalendar('updateEvent', event);
-          });
-        console.log(self.eventos);
-      }
-
-      function alertOnDrop(event, delta, revertFunc, jsEvent, ui, view) {
-
-      }
-
-      function alertOnResize(event, delta, revertFunc, jsEvent, ui, view) {
-        console.log();
+        });
       }
 
       function alertOnChangeView(view, element) {

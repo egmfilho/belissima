@@ -26,69 +26,78 @@ angular.module('belissimaApp')
 
       return {
 
-        obterEventos: function() {
+        obterEventos: function(getTipo) {
           return provider.query({
             action: 'getList'
           }, {
-            get_event_type: true
+            get_event_type: getTipo
           }).$promise;
         },
 
-        obterEventoPorId: function(id) {
+        obterEventoPorId: function(id, getTipo, getFuncionario, getCliente) {
           return provider.get({
             action: 'get'
           }, {
-            event_id: id
+            event_id: id,
+            get_event_type: getTipo,
+            get_event_employee: getFuncionario,
+            get_event_client: getCliente
           }).$promise;
         },
 
-        obterEventosPorTipo: function(tipoId) {
-          return provider.query({
-            action: 'getListByType'
-          }, {
-            tipoId: tipoId
-          }).$promise;
-        },
-
-        obterEventosPorUsuario: function(usuarioId) {
-          return provider.query({
-            action: 'getList'
-          }).$promise;
-        },
-
-        obterEventosPorProduto: function(produtoId) {
-          return provider.query({
-            action: 'getList'
-          }).$promise;
-        },
-
-        obterEventosPorCliente: function(clienteId) {
-          return provider.query({
-            action: 'getList'
-          }).$promise;
-        },
-
-        obterEventosPorFuncionario: function(funcionarioId) {
-          return provider.query({
-            action: 'getList'
-          }).$promise;
-        },
-
-        obterEventosPorDataInicial: function(dataInicial) {
-          return provider.query({
-            action: 'getList'
-          }).$promise;
-        },
-
-        obterEventosPorDataFinal: function(dataFinal) {
-          return provider.query({
-            action: 'getList'
-          }).$promise;
-        },
+        //obterEventosPorTipo: function(tipoId) {
+        //  return provider.query({
+        //    action: 'getListByType'
+        //  }, {
+        //    tipoId: tipoId
+        //  }).$promise;
+        //},
+        //
+        //obterEventosPorUsuario: function(usuarioId) {
+        //  return provider.query({
+        //    action: 'getList'
+        //  }).$promise;
+        //},
+        //
+        //obterEventosPorProduto: function(produtoId) {
+        //  return provider.query({
+        //    action: 'getList'
+        //  }).$promise;
+        //},
+        //
+        //obterEventosPorCliente: function(clienteId) {
+        //  return provider.query({
+        //    action: 'getList'
+        //  }).$promise;
+        //},
+        //
+        //obterEventosPorFuncionario: function(funcionarioId) {
+        //  return provider.query({
+        //    action: 'getList'
+        //  }).$promise;
+        //},
+        //
+        //obterEventosPorDataInicial: function(dataInicial) {
+        //  return provider.query({
+        //    action: 'getList'
+        //  }).$promise;
+        //},
+        //
+        //obterEventosPorDataFinal: function(dataFinal) {
+        //  return provider.query({
+        //    action: 'getList'
+        //  }).$promise;
+        //},
 
         salvarEvento: function(evento) {
           return provider.save({
             action: ''
+          }, evento).$promise;
+        },
+
+        atualizarEvento: function(evento) {
+          return provider.save({
+            action: 'edit'
           }, evento).$promise;
         }
 

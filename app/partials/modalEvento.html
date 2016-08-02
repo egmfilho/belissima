@@ -2,7 +2,7 @@
   <div class="header">
     <div class="title">
       <span class="glyphicon glyphicon-bookmark flag" ng-style="{'color': evento.color}"></span>
-      {{evento.title}} ({{start | date : "HH:mm"}} - {{end | date : "HH:mm"}})
+      {{evento.title}} ({{evento.start | date : "HH:mm"}} - {{evento.end | date : "HH:mm"}})
       <span class="glyphicon glyphicon-remove close" ng-click="close()"></span>
     </div>
   </div>
@@ -15,11 +15,11 @@
       </div>
       <div class="col-xs-6 col-sm-3">
         <h4>Início</h4>
-        <div uib-timepicker ng-model="start" ng-change="startChanged()" show-meridian="false" show-spinners="false"></div>
+        <div uib-timepicker ng-model="evento.start" ng-change="startChanged()" show-meridian="false" show-spinners="false"></div>
       </div>
       <div class="col-xs-6 col-sm-3">
         <h4>Término</h4>
-        <div uib-timepicker ng-model="end" ng-change="endChanged()" show-meridian="false" show-spinners="false"></div>
+        <div uib-timepicker ng-model="evento.end" ng-change="endChanged()" show-meridian="false" show-spinners="false"></div>
       </div>
     </div>
 
@@ -27,7 +27,7 @@
       <div class="col-xs-12 col-sm-8">
         <h4>Cliente</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="evento.cliente.nome">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click=""><span class="glyphicon glyphicon-search"></span></button>
           </span>
@@ -40,14 +40,14 @@
       <div class="col-xs-12 col-sm-8">
         <h4>Funcionário</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="evento.funcionario.nome">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click=""><span class="glyphicon glyphicon-search"></span></button>
           </span>
         </div>
       </div>
       <div class="col-xs-12 col-sm-4">
-        <h4>Serviço</h4>
+        <h4>Tipo</h4>
         <div class="btn-group" uib-dropdown>
           <button type="button" class="btn btn-default btn-dropdown" uib-dropdown-toggle>
             {{evento.tipoEvento.title}}

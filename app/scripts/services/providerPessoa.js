@@ -6,19 +6,19 @@
 angular.module('belissimaApp')
   .provider('ProviderPessoa', ['URLS', function(urls) {
 
-    var url = urls.root + '',
+    var url = urls.root + 'person.php?action=:action',
         provider = null;
 
     this.$get = ['$resource', function($resource) {
 
       provider = $resource(url, { }, {
         get: {
-          method: 'GET',
+          method: 'POST',
           isArray: false
         },
         query: {
-          method: 'GET',
-          isArray: true
+          method: 'POST',
+          isArray: false
         },
         save: {
           method: 'POST',
@@ -30,7 +30,9 @@ angular.module('belissimaApp')
 
         obterPessoaPorId: function(id) {
           return provider.get({
-
+            action: 'get'
+          }, {
+            person_id: id
           }).$promise;
         },
 
