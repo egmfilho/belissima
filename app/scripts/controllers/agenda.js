@@ -93,8 +93,8 @@ angular.module('belissimaApp')
         }
       }
 
-      function getFullEvent(id) {
-        return provider.obterEventoPorId(id, true, true, true).then(function(success) {
+      function getEventoCompleto(id) {
+        return provider.obterEventoPorId(id, true, true, true, true, true).then(function(success) {
           return new Evento(Evento.converterEmEntrada(success.data));
         }, function(error) {
           console.log(error);
@@ -104,10 +104,7 @@ angular.module('belissimaApp')
 
       function eventClick(event, jsEvent, view) {
 
-        console.log(event);
-
-        getFullEvent(event.id).then(function(fullevent) {
-          console.log(fullevent);
+        getEventoCompleto(event.id).then(function(fullevent) {
           $uibModal.open({
             animation: true,
             templateUrl: 'partials/modalEvento.html',

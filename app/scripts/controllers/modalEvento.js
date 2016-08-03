@@ -19,6 +19,7 @@ angular.module('belissimaApp')
 
       if (evento) {
         $scope.evento = new Evento(evento);
+        console.log(evento);
       }
 
       (function getTipos() {
