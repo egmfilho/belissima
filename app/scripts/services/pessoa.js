@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('belissimaApp')
-  .factory('Pessoa', [function() {
+  .factory('Pessoa', ['ContatoPessoa', 'Endereco', function(ContatoPessoa, Endereco) {
 
     function Pessoa(pessoa) {
       this.id = pessoa.id;
@@ -16,6 +16,8 @@ angular.module('belissimaApp')
       this.cpf = pessoa.cpf;
       this.nome = pessoa.nome;
       this.apelido = pessoa.apelido;
+      this.contatos = pessoa.contatos;
+      this.endereco = pessoa.endereco;
     }
 
     Pessoa.prototype = {
@@ -34,6 +36,21 @@ angular.module('belissimaApp')
       pessoa.cpf = person.person_cpf;
       pessoa.nome = person.person_name;
       pessoa.apelido = person.person_nickname;
+
+      if (person.person_contact) {
+        pessoa.contatos = [ ];
+        angular.forEach(person.person_contact, function(item, index) {
+          pessoa.contatos.push(new ContatoPessoa(ContatoPessoa.converterEmEntrada(item)));
+        });
+      } else {
+        pessoa.contatos = [ ];
+      }
+
+      if (person.person_address) {
+        pessoa.endereco = new Endereco(Endereco.converterEmEntrada(person.person_address));
+      } else {
+        pessoa.endereco = { };
+      }
 
       return pessoa;
     };

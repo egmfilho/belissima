@@ -1,6 +1,9 @@
 /**
  * Created by egmfilho on 02/08/16.
  */
+
+'use strict';
+
 angular.module('belissimaApp')
   .factory('ModalConfirm', ['$uibModal', function($uibModal) {
 
@@ -23,6 +26,8 @@ angular.module('belissimaApp')
           }
         }).result.then(function(result) {
             callback(result);
+          }, function() {
+            callback(null);
           });
       }
     }

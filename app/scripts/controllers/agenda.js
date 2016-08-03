@@ -94,7 +94,7 @@ angular.module('belissimaApp')
       }
 
       function getEventoCompleto(id) {
-        return provider.obterEventoPorId(id, true, true, true, true, true).then(function(success) {
+        return provider.obterEventoPorId(id, true, true, true, true, true, true, true).then(function(success) {
           return new Evento(Evento.converterEmEntrada(success.data));
         }, function(error) {
           console.log(error);
@@ -109,7 +109,7 @@ angular.module('belissimaApp')
             animation: true,
             templateUrl: 'partials/modalEvento.html',
             controller: 'ModalEventoCtrl',
-            size: 'md',
+            size: 'lg',
             resolve: {
               evento: function() { return fullevent; }
             }

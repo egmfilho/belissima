@@ -34,7 +34,7 @@ angular.module('belissimaApp')
           }).$promise;
         },
 
-        obterEventoPorId: function(id, getTipo, getFuncionario, getCliente, getProduto, getGrupoProduto) {
+        obterEventoPorId: function(id, getTipo, getFuncionario, getCliente, getContatos, getContatoPrincipal, getProduto, getGrupoProduto) {
           return provider.get({
             action: 'get'
           }, {
@@ -42,6 +42,8 @@ angular.module('belissimaApp')
             get_event_type: getTipo,
             get_event_employee: getFuncionario,
             get_event_client: getCliente,
+            get_person_contact: getContatos,
+            get_person_contact_main: getContatoPrincipal,
             get_event_product: getProduto,
             get_product_group: getGrupoProduto
           }).$promise;

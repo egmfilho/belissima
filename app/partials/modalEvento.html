@@ -6,7 +6,7 @@
       <span class="glyphicon glyphicon-remove close" ng-click="close()"></span>
     </div>
   </div>
-  <div class="body" class="container">
+  <div class="body">
 
     <div class="row">
       <div class="col-sm-12 col-sm-6">
@@ -23,31 +23,76 @@
       </div>
     </div>
 
+    <br>
+
     <div class="row">
-      <div class="col-xs-12 col-sm-8">
+
+      <div class="col-xs-12 col-sm-3 col-md-2">
+        <h4>Código</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="evento.cliente.codigo">
+          <span class="input-group-btn">
+            <button class="btn btn-default" tabindex="-1" ng-click="getPessoa()"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6">
         <h4>Cliente</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="evento.cliente.nome">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" readonly="true" ng-model="evento.cliente.nome">
           <span class="input-group-btn">
-            <button class="btn btn-default" tabindex="-1" ng-click=""><span class="glyphicon glyphicon-search"></span></button>
+            <button class="btn btn-default" tabindex="-1" ng-click="getPessoa()"><span class="glyphicon glyphicon-search"></span></button>
           </span>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-4">
-        <h4>Telefone</h4>
-        <input class="form-control" type="text">
+      <div class="col-xs-12 col-sm-3 col-md-4">
+        <h4>{{evento.cliente.contatos[0].tipoContato.nome}}</h4>
+        <input class="form-control telefone" type="text" readonly="true" ng-model="evento.cliente.contatos[0].contato">
       </div>
-      <div class="col-xs-12 col-sm-8">
+
+      <div class="col-xs-12 col-sm-3 col-md-2">
+        <h4>Código</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="evento.funcionario.codigo">
+          <span class="input-group-btn">
+            <button class="btn btn-default" tabindex="-1" ng-click="getPessoa()"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6">
         <h4>Funcionário</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="evento.funcionario.nome">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" readonly="true" ng-model="evento.funcionario.nome">
+          <span class="input-group-btn">
+            <button class="btn btn-default" tabindex="-1" ng-click="getPessoa()"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-3 col-md-4">
+        <h4>{{evento.funcionario.contatos[0].tipoContato.nome}}</h4>
+        <input class="form-control telefone" type="text" readonly="true" ng-model="evento.funcionario.contatos[0].contato">
+      </div>
+
+      <div class="col-xs-12 col-sm-3 col-md-2">
+        <h4>Código</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="evento.produto.codigo">
+          <span class="input-group-btn">
+            <button class="btn btn-default" tabindex="-1" ng-click="getPessoa()"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <h4>Produto</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" readonly="true" ng-model="evento.produto.nome">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click=""><span class="glyphicon glyphicon-search"></span></button>
           </span>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-4">
-        <h4>Tipo</h4>
+      <div class="col-xs-12 col-sm-3 col-md-4">
+        <h4>Evento</h4>
         <div class="btn-group" uib-dropdown>
           <button type="button" class="btn btn-default btn-dropdown" uib-dropdown-toggle>
             {{evento.tipoEvento.title}}
@@ -58,7 +103,10 @@
           </ul>
         </div>
       </div>
+
     </div>
+
+    <br>
 
     <div>
       <h4>Descrição</h4>

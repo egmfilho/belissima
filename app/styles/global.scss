@@ -271,14 +271,14 @@ body {
 }
 
 .modal {
-  text-align: center;
-
-  &:before {
-    display: inline-block;
-    vertical-align: middle;
-    content: " ";
-    height: 100%;
-  }
+  //text-align: center;
+  //
+  //&:before {
+  //  display: inline-block;
+  //  vertical-align: middle;
+  //  content: " ";
+  //  height: 100%;
+  //}
 
   .header {
     background-color: $cor-modal-head;
@@ -297,9 +297,18 @@ body {
         margin: 8px;
       }
     }
+
+    .center-title {
+      text-align: center;
+    }
   }
 
-  .modal-md {
+  .sub-header {
+    background-color: $cor-modal-head;
+    padding: 10px;
+  }
+
+  .modal-lg {
     .body {
       height: 400px;
 
@@ -318,8 +327,14 @@ body {
     }
   }
 
+  .modal-md {
+    .body {
+      height: 250px;
+    }
+  }
+
   .modal-sm {
-    width: 400px;
+    //width: 400px;
     .header {
       padding-left: 20px;
       padding-top: 2px;
@@ -350,6 +365,10 @@ body {
         width: 25%;
         float: left;
       }
+    }
+
+    .telefone {
+      text-align: center;
     }
 
     textarea {
@@ -385,12 +404,18 @@ body {
       font-size: 1.2em;
     }
   }
+
+  .control-flex {
+    background-color: $cor-modal-head;
+    border-radius: 0 0 4px 4px;
+    padding: 10px;
+  }
 }
 
 .modal-dialog {
-  display: inline-block;
-  text-align: left;
-  vertical-align: middle;
+  //display: inline-block;
+  //text-align: left;
+  //vertical-align: middle;
 }
 
 @import "login";

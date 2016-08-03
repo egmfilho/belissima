@@ -1,0 +1,63 @@
+<div>
+  <div class="header">
+    <div class="title center-title">
+      Buscar Pessoa
+      <span class="glyphicon glyphicon-remove close" ng-click="cancel()"></span>
+    </div>
+  </div>
+  <div class="sub-header">
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-3">
+        <h4>Código</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="codigo">
+          <span class="input-group-btn">
+            <button class="btn btn-default" tabindex="-1" ng-click="getPessoaPorCodigo(codigo)"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-6">
+        <h4>Nome</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="nome">
+          <span class="input-group-btn">
+            <button class="btn btn-default" tabindex="-1" ng-click="getPessoasPorNome(nome)"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-3">
+        <h4>CPF/RG/CNPJ</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="documento">
+          <span class="input-group-btn">
+            <button class="btn btn-default" tabindex="-1" ng-click="getPessoaPorDocumento(documento)"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="body">
+    <table class="tabela table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Pessoa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="pessoa in resultado">
+          <td>{{pessoa.codigo}}</td>
+          <td>Nome: {{pessoa.nome}} CPF: {{pessoa.cpf}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="control">
+    <button class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+    <button class="btn btn-default" ng-click="ok()"><span class="glyphicon glyphicon-ok"></span> Ok</button>
+  </div>
+</div>

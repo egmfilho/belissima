@@ -5,6 +5,7 @@ angular.module('belissimaApp')
   .controller('ModalEventoCtrl', [
     '$scope',
     '$uibModalInstance',
+    'ModalBuscarPessoa',
     'ModalConfirm',
     'ProviderTipoEvento',
     'ProviderPessoa',
@@ -12,14 +13,13 @@ angular.module('belissimaApp')
     'Pessoa',
     'Evento',
     'evento',
-    function($scope, $uibModalInstance, modalConfirm, providerTipo, providerPessoa, TipoEvento, Pessoa, Evento, evento) {
+    function($scope, $uibModalInstance, modalBuscarPessoa, modalConfirm, providerTipo, providerPessoa, TipoEvento, Pessoa, Evento, evento) {
 
       $scope.evento = { };
       $scope.tipos = [ ];
 
       if (evento) {
         $scope.evento = new Evento(evento);
-        console.log(evento);
       }
 
       (function getTipos() {
@@ -32,30 +32,20 @@ angular.module('belissimaApp')
         });
       }());
 
-      function setCliente() {
-        if ($scope.evento.clienteId) {
-          getPessoa($scope.evento.clienteId).then(function(response) {
-            $scope.evento.cliente = response;
-          });
-        }
-      }
+      $scope.getPessoa = function() {
 
-      function setFuncionario() {
-        if ($scope.evento.funcionarioId) {
-          getPessoa($scope.evento.funcionarioId).then(function(response) {
-            $scope.evento.funcionario = response;
-          });
-        }
-      }
+        modalBuscarPessoa.show();
 
-      function getPessoa(id) {
-        return providerPessoa.obterPessoaPorId(id).then(function(success) {
-          return new Pessoa(Pessoa.converterEmEntrada(success.data));
-        }, function(error) {
-          console.log(error);
-          return null;
-        });
-      }
+      };
+
+      //function getPessoa(id) {
+      //  return providerPessoa.obterPessoaPorId(id).then(function(success) {
+      //    return new Pessoa(Pessoa.converterEmEntrada(success.data));
+      //  }, function(error) {
+      //    console.log(error);
+      //    return null;
+      //  });
+      //}
 
       $scope.selectTipoEvento = function(tipoEvento) {
         $scope.evento.setTipo(tipoEvento);
