@@ -17,7 +17,7 @@ angular.module('belissimaApp')
       this.nome = pessoa.nome;
       this.apelido = pessoa.apelido;
       this.contatos = pessoa.contatos;
-      this.endereco = pessoa.endereco;
+      this.enderecos = pessoa.enderecos;
     }
 
     Pessoa.prototype = {
@@ -47,9 +47,12 @@ angular.module('belissimaApp')
       }
 
       if (person.person_address) {
-        pessoa.endereco = new Endereco(Endereco.converterEmEntrada(person.person_address));
+        pessoa.enderecos = [ ]
+        angular.forEach(person.person_address, function(item, index) {
+          pessoa.enderecos.push(new Endereco(Endereco.converterEmEntrada(item)));
+        });
       } else {
-        pessoa.endereco = { };
+        pessoa.enderecos = { };
       }
 
       return pessoa;

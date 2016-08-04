@@ -41,21 +41,28 @@
     </div>
   </div>
   <div class="body">
-    <table class="tabela table">
+    <table class="tabela table-condensed" width="100%" cellspacing="0s">
       <thead>
         <tr>
           <th>Código</th>
-          <th>Pessoa</th>
+          <th>Nome</th>
+          <th>Documento</th>
+          <th>Contato</th>
+          <th>Endereço</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="pessoa in resultado">
+        <tr ng-repeat="pessoa in resultado" ng-click="selecionarPessoa(pessoa)">
           <td>{{pessoa.codigo}}</td>
-          <td>Nome: {{pessoa.nome}} CPF: {{pessoa.cpf}}</td>
+          <td>{{pessoa.nome}}</td>
+          <td>{{pessoa.cnpj == null ? (pessoa.cpf == null ? pessoa.rg : pessoa.cpf) : pessoa.cnpj}}</td>
+          <td>{{pessoa.contatos[0].contato}}</td>
+          <td>{{pessoa.enderecos[0].getEnderecoCompleto()}}</td>
         </tr>
       </tbody>
     </table>
   </div>
+  <div class="sub-header">Selecionado: {{selecionado.codigo}} - {{selecionado.nome}}</div>
   <div class="control">
     <button class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
     <button class="btn btn-default" ng-click="ok()"><span class="glyphicon glyphicon-ok"></span> Ok</button>

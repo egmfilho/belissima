@@ -40,7 +40,7 @@ angular.module('belissimaApp')
       }
 
       c.uf = cep.cep_uf;
-      c.codigo = cep.codigo.cep_code;
+      c.codigo = cep.cep_code;
       c.logradouro = cep.cep_public_place;
       c.data = new Date(cep.cep_date);
 

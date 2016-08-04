@@ -357,6 +357,16 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
 
+    table {
+      width: 100%;
+      max-width: 100%;
+
+      td {
+        white-space: normal;
+        padding: 4px;
+      }
+    }
+
     .linha {
       width: 100%;
       margin: 0 auto;

@@ -10,15 +10,13 @@ angular.module('belissimaApp')
     '$uibModalInstance',
     'ProviderPessoa',
     'Pessoa',
-    'pessoa',
-    function($scope, $uibModalInstance, provider, Pessoa, pessoa) {
+    'categoriaId',
+    function($scope, $uibModalInstance, provider, Pessoa, categoriaId) {
 
-      $scope.pessoa = { };
+      $scope.selecionado = { };
       $scope.resultado = [ ];
 
-      if (pessoa) {
-        $scope.pessoa = pessoa;
-      }
+      console.log(categoriaId);
 
       function setResultado(resultado) {
         $scope.resultado = [ ];
@@ -29,12 +27,12 @@ angular.module('belissimaApp')
           });
         } else {
           $scope.resultado.push(new Pessoa(Pessoa.converterEmEntrada(resultado)));
+          console.log($scope.resultado);
         }
       }
 
       $scope.getPessoaPorCodigo = function(codigo) {
-        provider.obterPessoaPorCodigo(codigo, true, null, true, true, true, true).then(function(success) {
-          console.log(success.data);
+        provider.obterPessoaPorCodigo(codigo, true, true, true, true, true, true, true, categoriaId).then(function(success) {
           setResultado(success.data);
         }, function(error) {
           console.log(error);
@@ -42,7 +40,7 @@ angular.module('belissimaApp')
       };
 
       $scope.getPessoaPorDocumento = function(documento) {
-        provider.obterPessoaPorDocumento(documento).then(function(success) {
+        provider.obterPessoasPorDocumento(documento, true, true, true, true, true, true, true, categoriaId).then(function(success) {
           setResultado(success.data);
         }, function(error) {
           console.log(error);
@@ -50,11 +48,15 @@ angular.module('belissimaApp')
       };
 
       $scope.getPessoasPorNome = function(nome) {
-        provider.obterPessoasPorNome(nome).then(function(success) {
+        provider.obterPessoasPorNome(nome, true, true, true, true, true, true, true, categoriaId).then(function(success) {
           setResultado(success.data);
         }, function(error) {
           console.log(error);
         });
+      };
+
+      $scope.selecionarPessoa = function(pessoa) {
+        $scope.selecionado = pessoa;
       };
 
       $scope.cancel = function() {
@@ -62,7 +64,7 @@ angular.module('belissimaApp')
       };
 
       $scope.ok = function() {
-        $uibModalInstance.close($scope.pessoa);
+        $uibModalInstance.close($scope.selecionado);
       };
 
     }]);

@@ -32,20 +32,19 @@ angular.module('belissimaApp')
         });
       }());
 
-      $scope.getPessoa = function() {
+      $scope.getPessoa = function(categoria) {
 
-        modalBuscarPessoa.show();
+        modalBuscarPessoa.show(categoria, function(result) {
+          if (result) {
+            if (categoria == $scope.categoriaPessoa.cliente) {
+              $scope.evento.setCliente(result);
+            } else if (categoria == $scope.categoriaPessoa.funcionario) {
+              $scope.evento.setFuncionario(result);
+            }
+          }
+        });
 
       };
-
-      //function getPessoa(id) {
-      //  return providerPessoa.obterPessoaPorId(id).then(function(success) {
-      //    return new Pessoa(Pessoa.converterEmEntrada(success.data));
-      //  }, function(error) {
-      //    console.log(error);
-      //    return null;
-      //  });
-      //}
 
       $scope.selectTipoEvento = function(tipoEvento) {
         $scope.evento.setTipo(tipoEvento);

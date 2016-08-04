@@ -16,9 +16,15 @@ angular.module('belissimaApp')
       this.tipo = endereco.tipo;
       this.numero = endereco.numero;
       this.complemento = endereco.complemento;
-      this.data = endereco.data;
+      //this.data = endereco.data;
       this.cep = endereco.cep;
     }
+
+    Endereco.prototype = {
+      getEnderecoCompleto: function() {
+        return this.tipo + ' ' + this.logradouro + ' ' + this.numero + ', ' + this.cep.bairro.nome + ', ' + this.cep.cidade.nome + ' - ' + this.cep.cidade.uf;
+      }
+    };
 
     Endereco.converterEmEntrada = function(address) {
       var endereco = { };
@@ -31,13 +37,15 @@ angular.module('belissimaApp')
       endereco.tipo = address.person_address_type;
       endereco.numero = address.person_address_number;
       endereco.complemento = address.person_address_complement;
-      endereco.data = new Date(address.person_address_date);
+      //endereco.data = new Date(address.person_address_date);
 
       if (address.cep) {
-        endereco.cep = new CEP(CEP.converterEmEntrada(adress.cep));
+        endereco.cep = new CEP(CEP.converterEmEntrada(address.cep));
       } else {
         endereco.cep = { };
       }
+
+      //angular.forEach(address.cep)
 
       return endereco;
     };
@@ -53,7 +61,7 @@ angular.module('belissimaApp')
       address.person_address_type = endereco.tipo;
       address.person_address_number = endereco.numero;
       address.person_address_complement = endereco.complemento;
-      address.person_address_date = data.converterEmSaida(endereco.data);
+      //address.person_address_date = data.converterEmSaida(endereco.data);
 
       return address;
     };

@@ -1,6 +1,9 @@
 /**
  * Created by egmfilho on 28/07/16.
  */
+
+'use strict';
+
 angular.module('belissimaApp')
   .provider('ProviderEvento', ['URLS', function(urls) {
 

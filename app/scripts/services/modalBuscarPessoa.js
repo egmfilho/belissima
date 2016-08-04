@@ -8,17 +8,15 @@ angular.module('belissimaApp')
   .factory('ModalBuscarPessoa', ['$uibModal', function($uibModal) {
 
     return {
-      show: function(pessoa, callback) {
+      show: function(categoriaId, callback) {
         $uibModal.open({
           animation: true,
           templateUrl: 'partials/modalBuscarPessoa.html',
           controller: 'ModalBuscarPessoaCtrl',
           size: 'lg',
           resolve: {
-            pessoa: function() {
-              return {
-                pessoa: pessoa
-              };
+            categoriaId: function() {
+              return categoriaId;
             }
           }
         }).result.then(function(result) {

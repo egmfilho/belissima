@@ -49,12 +49,23 @@ angular
         redirectTo: '/'
       });
   })
-  .run(['$rootScope', '$location', '$cookies', '$uibModalStack', function($rootScope, $location, $cookies, $uibModalStack) {
+  .run(['$rootScope', '$location', '$cookies', '$uibModalStack', 'ProviderCategoriaPessoa', function($rootScope, $location, $cookies, $uibModalStack, providerCategoria) {
 
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
       $uibModalStack.dismissAll();
       $rootScope.currentPath = $location.path();
 
+      // Carrega as categorias de pessoa (cliente, funcionario, fornecedor)
+      providerCategoria.obterCategorias().then(function(success) {
+        $rootScope.categoriaPessoa = { };
+        angular.forEach(success.data.data, function(item, index) {
+          $rootScope.categoriaPessoa[item.person_category_name_formatted.toString().toLowerCase()] = item.person_category_id;
+        });
+      }, function(error) {
+        console.log(error);
+      });
+
+      // Bloqueia acesso de usuarios nao logados
       if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').token == null) {
         if (next.templateUrl != 'views/login.html') {
           //$location.path('/login');
