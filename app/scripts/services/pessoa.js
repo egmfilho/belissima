@@ -7,17 +7,17 @@ angular.module('belissimaApp')
   .factory('Pessoa', ['ContatoPessoa', 'Endereco', function(ContatoPessoa, Endereco) {
 
     function Pessoa(pessoa) {
-      this.id = pessoa.id;
-      this.ativo = pessoa.ativo;
-      this.codigo = pessoa.codigo;
-      this.tipo = pessoa.tipo;
-      this.cnpj = pessoa.cnpj;
-      this.rg = pessoa.rg;
-      this.cpf = pessoa.cpf;
-      this.nome = pessoa.nome;
-      this.apelido = pessoa.apelido;
-      this.contatos = pessoa.contatos;
-      this.enderecos = pessoa.enderecos;
+      this.id = pessoa ? pessoa.id : '';
+      this.ativo = pessoa ? pessoa.ativo : '';
+      this.codigo = pessoa ? pessoa.codigo : '';
+      this.tipo = pessoa ? pessoa.tipo : '';
+      this.cnpj = pessoa ? pessoa.cnpj : '';
+      this.rg = pessoa ? pessoa.rg : '';
+      this.cpf = pessoa ? pessoa.cpf : '';
+      this.nome = pessoa ? pessoa.nome : '';
+      this.apelido = pessoa ? pessoa.apelido : '';
+      this.contatos = pessoa ? pessoa.contatos : '';
+      this.enderecos = pessoa ? pessoa.enderecos : '';
     }
 
     Pessoa.prototype = {
@@ -37,22 +37,26 @@ angular.module('belissimaApp')
       pessoa.nome = person.person_name;
       pessoa.apelido = person.person_nickname;
 
+      pessoa.contatos = [ ];
       if (person.person_contact) {
-        pessoa.contatos = [ ];
         angular.forEach(person.person_contact, function(item, index) {
           pessoa.contatos.push(new ContatoPessoa(ContatoPessoa.converterEmEntrada(item)));
         });
       } else {
-        pessoa.contatos = [ ];
+        angular.forEach(person.person_contact, function(item, index) {
+          pessoa.contatos.push(new ContatoPessoa());
+        });
       }
 
+      pessoa.enderecos = [ ];
       if (person.person_address) {
-        pessoa.enderecos = [ ]
         angular.forEach(person.person_address, function(item, index) {
           pessoa.enderecos.push(new Endereco(Endereco.converterEmEntrada(item)));
         });
       } else {
-        pessoa.enderecos = { };
+        angular.forEach(person.person_address, function(item, index) {
+          pessoa.enderecos.push();
+        });
       }
 
       return pessoa;

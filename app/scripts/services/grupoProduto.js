@@ -7,13 +7,13 @@ angular.module('belissimaApp')
   .factory('GrupoProduto', ['DataSaida', function(data) {
 
     function GrupoProduto(grupoProduto) {
-      this.id = grupoProduto.id;
-      this.parentId = grupoProduto.parentId;
-      this.codigo = grupoProduto.codigo;
-      this.classificacao = grupoProduto.classificacao;
-      this.nome = grupoProduto.nome;
-      this.tipo = grupoProduto.tipo;
-      this.data = grupoProduto.data;
+      this.id = grupoProduto ? grupoProduto.id : '';
+      this.parentId = grupoProduto ? grupoProduto.parentId : '';
+      this.codigo = grupoProduto ? grupoProduto.codigo : '';
+      this.classificacao = grupoProduto ? grupoProduto.classificacao : '';
+      this.nome = grupoProduto ? grupoProduto.nome : '';
+      this.tipo = grupoProduto ? grupoProduto.tipo : '';
+      this.data = grupoProduto ? grupoProduto.data : '';
     }
 
     GrupoProduto.prototype = {

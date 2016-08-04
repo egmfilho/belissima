@@ -8,9 +8,9 @@ angular.module('belissimaApp')
   .factory('TipoContato', ['DataSaida', function(data) {
 
     function TipoContato(tipoContato) {
-      this.id = tipoContato.id;
-      this.nome = tipoContato.nome;
-      this.data = tipoContato.data;
+      this.id = tipoContato ? tipoContato.id : '';
+      this.nome = tipoContato ? tipoContato.nome : '';
+      this.data = tipoContato ? tipoContato.data : '';
     }
 
     TipoContato.converterEmEntrada = function(contactType) {

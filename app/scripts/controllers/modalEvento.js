@@ -20,6 +20,10 @@ angular.module('belissimaApp')
 
       if (evento) {
         $scope.evento = new Evento(evento);
+      } else {
+        $scope.evento = new Evento();
+        $scope.evento.start = new Date();
+        $scope.evento.end = new Date();
       }
 
       (function getTipos() {
@@ -33,7 +37,6 @@ angular.module('belissimaApp')
       }());
 
       $scope.getPessoa = function(categoria) {
-
         modalBuscarPessoa.show(categoria, function(result) {
           if (result) {
             if (categoria == $scope.categoriaPessoa.cliente) {
@@ -43,7 +46,30 @@ angular.module('belissimaApp')
             }
           }
         });
+      };
 
+      function getPessoaPorCodigo(codigo, categoriaId) {
+        return providerPessoa.obterPessoaPorCodigo(codigo, categoriaId, true, true);
+      }
+
+      $scope.setPessoa = function(categoriaId) {
+        switch (categoriaId) {
+          case $scope.categoriaPessoa.cliente:
+            getPessoaPorCodigo($scope.evento.cliente.codigo, categoriaId).then(function(success) {
+              $scope.evento.setCliente(new Pessoa(Pessoa.converterEmEntrada(success.data)));
+            }, function(error) {
+              console.log(error);
+            });
+            break;
+
+          case $scope.categoriaPessoa.funcionario:
+            getPessoaPorCodigo($scope.evento.funcionario.codigo, categoriaId).then(function(success) {
+              $scope.evento.setFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
+            }, function(error) {
+              console.log(error);
+            });
+            break;
+        }
       };
 
       $scope.selectTipoEvento = function(tipoEvento) {

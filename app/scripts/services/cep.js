@@ -8,15 +8,15 @@ angular.module('belissimaApp')
   .factory('CEP', ['DataSaida', 'Bairro', 'Cidade', function(data, Bairro, Cidade) {
 
     function CEP(cep) {
-      this.id = cep.id;
-      this.bairroId = cep.bairroId;
-      this.bairro = cep.bairro;
-      this.cidadeId = cep.cidadeId;
-      this.cidade = cep.cidade;
-      this.uf = cep.uf;
-      this.codigo = cep.codigo;
-      this.logradouro = cep.logradouro;
-      this.data = cep.data;
+      this.id = cep ? cep.id : '';
+      this.bairroId = cep ? cep.bairroId : '';
+      this.bairro = cep ? cep.bairro : '';
+      this.cidadeId = cep ? cep.cidadeId : '';
+      this.cidade = cep ? cep.cidade : '';
+      this.uf = cep ? cep.uf : '';
+      this.codigo = cep ? cep.codigo : '';
+      this.logradouro = cep ? cep.logradouro : '';
+      this.data = cep ? cep.data : '';
     }
 
     CEP.converterEmEntrada = function(cep) {
@@ -28,7 +28,7 @@ angular.module('belissimaApp')
       if (cep.district) {
         c.bairro = new Bairro(Bairro.converterEmEntrada(cep.district));
       } else {
-        c.bairro = {};
+        c.bairro = new Bairro();
       }
 
       c.cidadeId = cep.city_id;
@@ -36,7 +36,7 @@ angular.module('belissimaApp')
       if (cep.city) {
         c.cidade = new Cidade(Cidade.converterEmEntrada(cep.city));
       } else {
-        c.cidade = { };
+        c.cidade = new Cidade();
       }
 
       c.uf = cep.cep_uf;

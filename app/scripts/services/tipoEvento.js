@@ -5,11 +5,11 @@ angular.module('belissimaApp')
   .factory('TipoEvento', [function() {
 
     function TipoEvento(tipo) {
-      this.id = tipo.id;
-      this.color = tipo.color;
-      this.textColor = tipo.textColor;
-      this.title = tipo.title;
-      this.description = tipo.description;
+      this.id = tipo ? tipo.id : '';
+      this.color = tipo ? tipo.color : '';
+      this.textColor = tipo ? tipo.textColor : '';
+      this.title = tipo ? tipo.title : '';
+      this.description = tipo ? tipo.description : '';
     }
 
     TipoEvento.converterEmEntrada = function(eventType) {

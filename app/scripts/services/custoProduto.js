@@ -8,11 +8,11 @@ angular.module('belissimaApp')
   .factory('CustoProduto', ['DataSaida', function(data) {
 
     function CustoProduto(custoProduto) {
-      this.id = custoProduto.id;
-      this.produtoId = custoProduto.produtoId;
-      this.usuarioId = custoProduto.usuarioId;
-      this.valor = custoProduto.valor;
-      this.data = custoProduto.data;
+      this.id = custoProduto ? custoProduto.id : '';
+      this.produtoId = custoProduto ? custoProduto.produtoId : '';
+      this.usuarioId = custoProduto ? custoProduto.usuarioId : '';
+      this.valor = custoProduto ? custoProduto.valor : '';
+      this.data = custoProduto ? custoProduto.data : '';
     }
 
     CustoProduto.converterEmEntrada = function(product_cost) {

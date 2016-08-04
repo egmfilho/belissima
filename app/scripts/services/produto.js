@@ -12,22 +12,22 @@ angular.module('belissimaApp')
     function(data, PrecoProduto, CustoProduto, GrupoProduto) {
 
       function Produto(produto) {
-        this.id = produto.id;
-        this.tipoId = produto.tipoId;
-        this.fornecedorId = produto.fornecedorId;
-        this.fornecedor = produto.fornecedor;
-        this.unidadeId = produto.unidadeId;
-        this.grupoId = produto.grupoId;
-        this.grupo = produto.grupo;
-        this.ativo = produto.ativo;
-        this.codigo = produto.codigo;
-        this.codBarras = produto.codBarras;
-        this.nome = produto.nome;
-        this.descricao = produto.descricao;
-        this.dataCadastro = produto.dataCadastro;
-        this.preco = produto.preco;
-        this.custo = produto.custo;
-        this.comissao = produto.comissao;
+        this.id = produto ? produto.id : '';
+        this.tipoId = produto ? produto.tipoId : '';
+        this.fornecedorId = produto ? produto.fornecedorId : '';
+        this.fornecedor = produto ? produto.fornecedor : '';
+        this.unidadeId = produto ? produto.unidadeId : '';
+        this.grupoId = produto ? produto.grupoId : '';
+        this.grupo = produto ? produto.grupo : '';
+        this.ativo = produto ? produto.ativo : '';
+        this.codigo = produto ? produto.codigo : '';
+        this.codBarras = produto ? produto.codBarras : '';
+        this.nome = produto ? produto.nome : '';
+        this.descricao = produto ? produto.descricao : '';
+        this.dataCadastro = produto ? produto.dataCadastro : '';
+        this.preco = produto ? produto.preco : '';
+        this.custo = produto ? produto.custo : '';
+        this.comissao = produto ? produto.comissao : '';
       }
 
       Produto.prototype = {
@@ -68,7 +68,7 @@ angular.module('belissimaApp')
         if (product.product_group) {
           produto.grupo = new GrupoProduto(GrupoProduto.converterEmEntrada(product.product_group));
         } else {
-          produto.grupo = { };
+          produto.grupo = new GrupoProduto();
         }
 
         produto.ativo = product.product_active;
@@ -82,13 +82,13 @@ angular.module('belissimaApp')
         if (product.product_price) {
           produto.preco = new PrecoProduto(PrecoProduto.converterEmEntrada(product.product_price));
         } else {
-          produto.preco = { };
+          produto.preco = new PrecoProduto();
         }
 
         if (product.product_cost) {
           produto.custo = new CustoProduto(CustoProduto.converterEmEntrada(product.product_cost));
         } else {
-          produto.custo = { };
+          produto.custo = new CustoProduto();
         }
 
         return produto;

@@ -16,8 +16,6 @@ angular.module('belissimaApp')
       $scope.selecionado = { };
       $scope.resultado = [ ];
 
-      console.log(categoriaId);
-
       function setResultado(resultado) {
         $scope.resultado = [ ];
 

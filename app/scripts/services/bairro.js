@@ -8,10 +8,10 @@ angular.module('belissimaApp')
   .factory('Bairro', ['DataSaida', function(data) {
 
     function Bairro(bairro) {
-      this.id = bairro.id;
-      this.codigo = bairro.codigo;
-      this.nome = bairro.nome;
-      this.data = bairro.data;
+      this.id = bairro ? bairro.id : '';
+      this.codigo = bairro ? bairro.codigo : '';
+      this.nome = bairro ? bairro.nome : '';
+      this.data = bairro ? bairro.data : '';
     }
 
     Bairro.converterEmEntrada = function(district) {

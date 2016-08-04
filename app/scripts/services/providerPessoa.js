@@ -44,19 +44,19 @@ angular.module('belissimaApp')
           }).$promise;
         },
 
-        obterPessoaPorCodigo: function(codigo, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoriaId) {
+        obterPessoaPorCodigo: function(codigo, categoriaId, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal) {
           return provider.get({
             action: 'get'
           }, {
             person_code: codigo,
+            person_category_id: categoriaId,
             get_person_contact: contato,
             get_person_contact_main: contatoPrincipal,
             get_person_address: endereco,
             get_cep: cep,
             get_district: bairro,
             get_city: cidade,
-            get_person_address_main: enderecoPrincipal,
-            person_category_id: categoriaId
+            get_person_address_main: enderecoPrincipal
           }).$promise;
         },
 

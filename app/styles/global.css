@@ -115,6 +115,11 @@ body {
   .dropdown-menu .uib-datepicker-current, .dropdown-menu .uib-clear, .dropdown-menu .uib-close {
     border-color: #867512; }
 
+.uib-timepicker .uib-separator {
+  text-align: center; }
+.uib-timepicker tr:nth-child(2) td:nth-child(1) input {
+  float: right; }
+
 .tabela, #tabela-ticket, #tabela-produtos {
   background-color: #3f3f41;
   min-width: 700px; }
@@ -183,10 +188,10 @@ body {
   padding: 10px;
   overflow-x: hidden;
   overflow-y: auto; }
-  .modal .body table {
+  .modal .body .tabela, .modal .body #tabela-ticket, .modal .body #tabela-produtos {
     width: 100%;
     max-width: 100%; }
-    .modal .body table td {
+    .modal .body .tabela td, .modal .body #tabela-ticket td, .modal .body #tabela-produtos td {
       white-space: normal;
       padding: 4px; }
   .modal .body .linha {

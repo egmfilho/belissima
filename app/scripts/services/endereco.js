@@ -8,16 +8,16 @@ angular.module('belissimaApp')
   .factory('Endereco', ['DataSaida', 'CEP', function(data, CEP) {
 
     function Endereco(endereco) {
-      this.id = endereco.id;
-      this.pessoaId = endereco.pessoaId;
-      this.cepId = endereco.cepId;
-      this.codigo = endereco.codigo;
-      this.logradouro = endereco.logradouro;
-      this.tipo = endereco.tipo;
-      this.numero = endereco.numero;
-      this.complemento = endereco.complemento;
-      //this.data = endereco.data;
-      this.cep = endereco.cep;
+      this.id = endereco ? endereco.id : '';
+      this.pessoaId = endereco ? endereco.pessoaId : '';
+      this.cepId = endereco ? endereco.cepId : '';
+      this.codigo = endereco ? endereco.codigo : '';
+      this.logradouro = endereco ? endereco.logradouro : '';
+      this.tipo = endereco ? endereco.tipo : '';
+      this.numero = endereco ? endereco.numero : '';
+      this.complemento = endereco ? endereco.complemento : '';
+      //this.data = endereco ? endereco.data : '';
+      this.cep = endereco ? endereco.cep : '';
     }
 
     Endereco.prototype = {
@@ -42,10 +42,8 @@ angular.module('belissimaApp')
       if (address.cep) {
         endereco.cep = new CEP(CEP.converterEmEntrada(address.cep));
       } else {
-        endereco.cep = { };
+        endereco.cep = new CEP();
       }
-
-      //angular.forEach(address.cep)
 
       return endereco;
     };

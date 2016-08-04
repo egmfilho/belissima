@@ -72,8 +72,34 @@ angular.module('belissimaApp')
       }
 
       function novoEvento() {
-        console.log('Adicionar evento');
-        uiCalendarConfig.calendars.meuCalendario.fullCalendar('option', 'timezone', 'America/Sao_Paulo');
+        $uibModal.open({
+          animation: true,
+          templateUrl: 'partials/modalEvento.html',
+          controller: 'ModalEventoCtrl',
+          size: 'lg',
+          resolve: {
+            evento: function() { return null; }
+          }
+        }).result.then(function(result) {
+            if (result) {
+              console.log('novo evento', result);
+              self.eventos.push(result);
+              uiCalendarConfig.calendars.meuCalendario.fullCalendar('renderEvent', self.eventos[self.eventos.length - 1], true);
+            }
+          //if (!angular.equals(fullevent, result)) {
+          //  angular.extend(event, result);
+          //  uiCalendarConfig.calendars.meuCalendario.fullCalendar('updateEvent', event);
+          //  atualizarEvento(result).then(function(success) {
+          //    alert('atualizado');
+          //  }, function(error) {
+          //    console.log(error);
+          //    revertFunc();
+          //    alert('nao atualizado');
+          //  });
+          //} else {
+          //  revertFunc();
+          //}
+        });
       }
 
       function loading(isLoading, view) {
@@ -103,7 +129,6 @@ angular.module('belissimaApp')
       }
 
       function eventClick(event, jsEvent, view) {
-
         getEventoCompleto(event.id).then(function(fullevent) {
           $uibModal.open({
             animation: true,
@@ -126,10 +151,9 @@ angular.module('belissimaApp')
                 });
               } else {
                 revertFunc();
-              };
+              }
             });
         });
-
       }
 
       function alertOnResizeOrDrop(event, delta, revertFunc, jsEvent, ui, view) {

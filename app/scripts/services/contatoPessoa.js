@@ -8,13 +8,13 @@ angular.module('belissimaApp')
   .factory('ContatoPessoa', ['DataSaida', 'TipoContato', function(data, TipoContato) {
 
     function ContatoPessoa(contatoPessoa) {
-      this.id = contatoPessoa.id;
-      this.pessoaId = contatoPessoa.pessoaId;
-      this.tipoId = contatoPessoa.tipoId;
-      this.tipoContato = contatoPessoa.tipoContato;
-      this.contato = contatoPessoa.contato;
-      this.nome = contatoPessoa.nome;
-      this.data = contatoPessoa.data;
+      this.id = contatoPessoa ? contatoPessoa.id : '';
+      this.pessoaId = contatoPessoa ? contatoPessoa.pessoaId : '';
+      this.tipoId = contatoPessoa ? contatoPessoa.tipoId : '';
+      this.tipoContato = contatoPessoa ? contatoPessoa.tipoContato : '';
+      this.contato = contatoPessoa ? contatoPessoa.contato : '';
+      this.nome = contatoPessoa ? contatoPessoa.nome : '';
+      this.data = contatoPessoa ? contatoPessoa.data : '';
     }
 
     ContatoPessoa.converterEmEntrada = function(personContact) {
@@ -27,7 +27,7 @@ angular.module('belissimaApp')
       if (personContact.person_contact_type) {
         contatoPessoa.tipoContato = new TipoContato(TipoContato.converterEmEntrada(personContact.person_contact_type));
       } else {
-        contatoPessoa.tipoContato = { };
+        contatoPessoa.tipoContato = new TipoContato();
       }
 
       contatoPessoa.contato = personContact.person_contact_value;

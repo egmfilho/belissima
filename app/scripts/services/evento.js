@@ -10,21 +10,21 @@ angular.module('belissimaApp')
     function(data, TipoEvento, Pessoa, Produto) {
 
       function Evento(evento) {
-        this.id = evento.id;
-        this.title = evento.title;
-        this.description = evento.description;
-        this.start = evento.start;
-        this.end = evento.end;
-        this.funcionarioId = evento.funcionarioId;
-        this.clienteId = evento.clienteId;
-        this.produtoId = evento.produtoId;
-        this.tipoId = evento.tipoId;
-        this.tipoEvento = evento.tipoEvento;
-        this.color = evento.color;
-        this.textColor = evento.textColor;
-        this.cliente = evento.cliente;
-        this.funcionario = evento.funcionario;
-        this.produto = evento.produto;
+        this.id = evento ? evento.id : '';
+        this.title = evento ? evento.title : '';
+        this.description = evento ? evento.description : '';
+        this.start = evento ? evento.start : '';
+        this.end = evento ? evento.end : '';
+        this.funcionarioId = evento ? evento.funcionarioId : '';
+        this.clienteId = evento ? evento.clienteId : '';
+        this.produtoId = evento ? evento.produtoId : '';
+        this.tipoId = evento ? evento.tipoId : '';
+        this.tipoEvento = evento ? evento.tipoEvento : '';
+        this.color = evento ? evento.color : '';
+        this.textColor = evento ? evento.textColor : '';
+        this.cliente = evento ? evento.cliente : '';
+        this.funcionario = evento ? evento.funcionario : '';
+        this.produto = evento ? evento.produto : '';
       }
 
       Evento.prototype = {
@@ -45,6 +45,11 @@ angular.module('belissimaApp')
           this.funcionarioId = this.funcionario.id;
         },
 
+        setProduto: function(produto) {
+          this.produto = new Produto(produto);
+          this.produtoId = this.produto.id;
+        },
+
         log: function() {
           console.log(this);
         }
@@ -63,30 +68,30 @@ angular.module('belissimaApp')
         evento.produtoId = event.event_product_id;
         evento.tipoId = event.event_type_id;
 
-        if (event.event_type) {
+        if (event.event_type_id && event.event_type) {
           evento.tipoEvento = new TipoEvento(TipoEvento.converterEmEntrada(event.event_type));
           evento.color = evento.tipoEvento.color;
           evento.textColor = evento.tipoEvento.textColor;
         } else {
-          evento.tipoEvento = { };
+          evento.tipoEvento = new TipoEvento();
         }
 
-        if (event.event_client) {
+        if (event.event_client_id && event.event_client) {
           evento.cliente = new Pessoa(Pessoa.converterEmEntrada(event.event_client));
         } else {
-          evento.cliente = { };
+          evento.cliente = new Pessoa();
         }
 
-        if (event.event_employee) {
+        if (event.event_employee_id && event.event_employee) {
           evento.funcionario = new Pessoa(Pessoa.converterEmEntrada(event.event_employee));
         } else {
-          evento.funcionario = { };
+          evento.funcionario = new Pessoa();
         }
 
         if (event.event_product) {
           evento.produto = new Produto(Produto.converterEmEntrada(event.event_product));
         } else {
-          evento.produto = { };
+          evento.produto = new Produto();
         }
 
         return evento;

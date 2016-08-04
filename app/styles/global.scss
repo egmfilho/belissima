@@ -222,6 +222,23 @@ body {
   }
 }
 
+.uib-timepicker {
+  .uib-separator {
+    text-align: center;
+  }
+  tr {
+    &:nth-child(2) {
+      td {
+        &:nth-child(1) {
+          input {
+            float: right;
+          }
+        }
+      }
+    }
+  }
+}
+
 .tabela {
   background-color: $cor-menu-lateral;
   min-width: 700px;
@@ -357,7 +374,7 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
 
-    table {
+    .tabela {
       width: 100%;
       max-width: 100%;
 

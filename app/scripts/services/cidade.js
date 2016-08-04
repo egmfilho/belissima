@@ -8,12 +8,12 @@ angular.module('belissimaApp')
   .factory('Cidade', ['DataSaida', function(data) {
 
     function Cidade(cidade) {
-      this.id = cidade.id;
-      this.codigo = cidade.codigo;
-      this.nome = cidade.nome;
-      this.uf = cidade.uf;
-      this.ibge = cidade.ibge;
-      this.data = cidade.data;
+      this.id = cidade ? cidade.id : '';
+      this.codigo = cidade ? cidade.codigo : '';
+      this.nome = cidade ? cidade.nome : '';
+      this.uf = cidade ? cidade.uf : '';
+      this.ibge = cidade ? cidade.ibge : '';
+      this.data = cidade ? cidade.data : '';
     }
 
     Cidade.converterEmEntrada = function(city) {
