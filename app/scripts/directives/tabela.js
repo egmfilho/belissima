@@ -28,9 +28,17 @@ angular.module('belissimaApp')
       scope: {
         idTabela: '@',
         head: '=',
-        body: '='
+        body: '=',
+        callback: '='
       },
       templateUrl: 'partials/tabela.html',
       link: link,
+      controller: function($scope) {
+        console.log($scope.head);
+
+        $scope.click = function(item) {
+          $scope.callback(item);
+        }
+      }
     };
   }]);

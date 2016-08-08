@@ -1,18 +1,15 @@
 <div style="overflow-x: auto; overflow-y: hidden; margin: 30px 0 60px 0;">
-  <table id="{{idTabela}}" class="table tabela">
+  <table id="{{idTabela}}" class="tabela table-bordered">
     <thead>
     <tr>
       <th ng-repeat="h in head">{{h}}</th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]">
-      <td>00{{n}}</td>
-      <td>Teste teste teste teste teste teste.</td>
-      <td>01/01/2016</td>
-      <td>10,00</td>
-      <td>Teste</td>
-      <td>Ninguém</td>
+    <tr ng-repeat="b in body">
+      <td ng-repeat="(key, value) in b" ng-click="click(b)">
+        {{value | truncate:90}}
+      </td>
     </tr>
     </tbody>
   </table>
