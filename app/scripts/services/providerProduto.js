@@ -28,6 +28,12 @@ angular.module('belissimaApp')
 
       return {
 
+        obterTodos: function() {
+          return provider.query({
+            action: 'getList'
+          }, { }).$promise;
+        },
+
         obterProdutoPorId: function(id) {
           return provider.get({
             action: 'get'
