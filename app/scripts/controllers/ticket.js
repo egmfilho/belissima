@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('belissimaApp')
-  .controller('TicketCtrl', ['$scope', '$window', function ($scope) {
+  .controller('TicketCtrl', ['$scope', '$window', function ($scope, $window) {
 
     $scope.$on('$viewContentLoaded', function() {
       // compensa o scroll do tbody no thead se o SO nao for um MacOS

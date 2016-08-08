@@ -12,7 +12,7 @@ angular.module('belissimaApp')
           footerHeight = parseInt(scope.showFooter ? element.find('.footer').css('height') : '0');
 
       if (parseInt(body.css('height')) + headerHeight + footerHeight < $window.innerHeight) {
-        body.css('height', ($window.innerHeight - headerHeight - footerHeight) + 'px');
+        body.css('min-height', ($window.innerHeight - headerHeight - footerHeight) + 'px');
       }
 
     }
@@ -27,6 +27,6 @@ angular.module('belissimaApp')
       },
       transclude: true,
       templateUrl: 'partials/tela.html',
-      link: link,
+      link: link
     };
   }]);

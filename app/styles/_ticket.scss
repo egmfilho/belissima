@@ -39,7 +39,7 @@
 #tabela-ticket {
   @extend .tabela;
 
-  height: 70%;
+  height: 400px;
   min-height: 250px;
 
   thead, tbody, tr, td, th {
@@ -57,7 +57,7 @@
   }
 
   tbody {
-    height: 100%;
+    height: 400px;
     overflow-y: scroll;
 
     tr {

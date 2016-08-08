@@ -401,14 +401,14 @@ body {
     font-size: 1.2em; }
 
 #tabela-ticket {
-  height: 70%;
+  height: 400px;
   min-height: 250px; }
   #tabela-ticket thead, #tabela-ticket tbody, #tabela-ticket tr, #tabela-ticket td, #tabela-ticket th {
     display: block; }
   #tabela-ticket thead th {
     float: left; }
   #tabela-ticket tbody {
-    height: 100%;
+    height: 400px;
     overflow-y: scroll; }
     #tabela-ticket tbody tr {
       min-width: 700px; }
@@ -435,14 +435,14 @@ body {
   margin: 30px 0 60px 0; }
 
 #tabela-produtos {
-  height: 70%;
+  height: 400px;
   min-height: 250px; }
   #tabela-produtos thead, #tabela-produtos tbody, #tabela-produtos tr, #tabela-produtos td, #tabela-produtos th {
     display: block; }
   #tabela-produtos thead th {
     float: left; }
   #tabela-produtos tbody {
-    height: 100%;
+    height: 400px;
     overflow-y: scroll; }
     #tabela-produtos tbody td {
       float: left; }
