@@ -24,7 +24,7 @@ angular.module('belissimaApp')
       maxDate: new Date(), // Hoje
       //minDate: new Date(2016, 5, 1),
       startingDay: 0,
-      showWeeks: false,
+      showWeeks: false
     };
 
     $scope.dateOptionsFinal = {

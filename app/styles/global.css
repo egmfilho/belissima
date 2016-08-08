@@ -202,6 +202,9 @@ body {
       float: left; }
   .modal .body .telefone {
     text-align: center; }
+  .modal .body select {
+    text-align: center;
+    text-align-last: center; }
   .modal .body textarea {
     resize: none;
     min-width: 100%;

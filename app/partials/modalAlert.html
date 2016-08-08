@@ -1,0 +1,15 @@
+<div>
+  <div class="header">
+    <div class="title">
+      {{title}}
+      <span class="glyphicon glyphicon-remove close" ng-click="close()"></span>
+    </div>
+  </div>
+  <div class="body">
+    <span class="glyphicon glyphicon-alert"></span>
+    <p style="display: inline-block;">{{message}}</p>
+  </div>
+  <div class="control">
+    <button class="btn btn-default" ng-click="close()"><span class="glyphicon glyphicon-ok"></span> {{ok}}</button>
+  </div>
+</div>

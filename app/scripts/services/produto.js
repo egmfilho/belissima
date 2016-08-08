@@ -6,10 +6,11 @@
 angular.module('belissimaApp')
   .factory('Produto', [
     'DataSaida',
+    'Fornecedor',
     'PrecoProduto',
     'CustoProduto',
     'GrupoProduto',
-    function(data, PrecoProduto, CustoProduto, GrupoProduto) {
+    function(data, Fornecedor, PrecoProduto, CustoProduto, GrupoProduto) {
 
       function Produto(produto) {
         this.id = produto ? produto.id : '';
@@ -31,10 +32,6 @@ angular.module('belissimaApp')
       }
 
       Produto.prototype = {
-        setComissao: function(comissao) {
-          this.comissao = comissao;
-        },
-
         setPreco: function(precoProduto) {
           this.preco = precoProduto;
         },
@@ -46,6 +43,16 @@ angular.module('belissimaApp')
         setFornecedor: function(fornecedor) {
           this.fornecedor = fornecedor;
           this.fornecedorId = this.fornecedor.id;
+        },
+
+        removeFornecedor: function() {
+          this.fornecedor = new Fornecedor();
+          this.fornecedorId = null;
+        },
+
+        setGrupo: function(grupo) {
+          this.grupo = grupo;
+          this.grupoId = this.grupo.id;
         }
       };
 
@@ -57,9 +64,9 @@ angular.module('belissimaApp')
         produto.fornecedorId = product.provider_id;
 
         if (product.provider) {
-          //produto.fornecedor =
+          //produto.fornecedor = new Fornecedor(Fornecedor.converterEmEntrada(product.provider));
         } else {
-          produto.fornecedor = { };
+          produto.fornecedor = new Fornecedor();
         }
 
         produto.unidadeId = product.product_unit_id;
@@ -75,7 +82,7 @@ angular.module('belissimaApp')
         produto.codigo = product.product_code;
         produto.codBarras = product.product_ean;
         produto.nome = product.product_name;
-        produto.drescricao = product.product_description;
+        produto.descricao = product.product_description;
         produto.comissao = product.product_commission;
         produto.dataCadastro = product.product_date;
 

@@ -40,14 +40,29 @@ angular.module('belissimaApp')
           this.clienteId = this.cliente.id;
         },
 
+        removeCliente: function() {
+          this.cliente = new Pessoa();
+          this.clienteId = null;
+        },
+
         setFuncionario: function(pessoa) {
           this.funcionario = new Pessoa(pessoa);
           this.funcionarioId = this.funcionario.id;
         },
 
+        removeFuncionario: function() {
+          this.funcionario = new Pessoa();
+          this.funcionarioId = null;
+        },
+
         setProduto: function(produto) {
           this.produto = new Produto(produto);
           this.produtoId = this.produto.id;
+        },
+
+        removeProduto: function() {
+          this.produto = new Produto();
+          this.produtoId = null;
         },
 
         log: function() {

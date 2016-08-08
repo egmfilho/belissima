@@ -15,7 +15,6 @@ angular.module('belissimaApp')
       provider = $resource(url, { }, {
         get: {
           method: 'POST',
-          isArray: false
         },
         query: {
           method: 'POST',
@@ -23,7 +22,9 @@ angular.module('belissimaApp')
         },
         save: {
           method: 'POST',
-          isArray: false
+        },
+        remove: {
+          method: 'POST',
         }
       });
 
@@ -96,9 +97,17 @@ angular.module('belissimaApp')
         //  }).$promise;
         //},
 
+        apagarEvento: function(id) {
+          return provider.remove({
+            action: 'del'
+          }, {
+            event_id: id
+          }).$promise;
+        },
+
         salvarEvento: function(evento) {
           return provider.save({
-            action: ''
+            action: 'insert'
           }, evento).$promise;
         },
 
