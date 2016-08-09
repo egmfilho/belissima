@@ -3,12 +3,24 @@
     <thead>
     <tr>
       <th ng-repeat="h in head">{{h}}</th>
+      <th ng-if="callbackEditar"></th>
+      <th ng-if="callbackExcluir"></th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="b in body">
+    <tr ng-repeat="b in body" uib-popover-template="'{{template}}'" popover-title="{{b.nome}}" popover-trigger="outsideClick">
       <td ng-repeat="(key, value) in b" ng-click="click(b)">
         {{value | truncate:90}}
+      </td>
+      <td ng-if="callbackEditar">
+        <a href="" ng-click="callbackEditar(b); $event.stopPropagation();">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+      </td>
+      <td ng-if="callbackExcluir">
+        <a href="" ng-click="callbackExcluir(b); $event.stopPropagation();">
+          <span class="glyphicon glyphicon-trash"></span>
+        </a>
       </td>
     </tr>
     </tbody>

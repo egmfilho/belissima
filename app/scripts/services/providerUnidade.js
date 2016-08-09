@@ -1,14 +1,14 @@
 /**
- * Created by egmfilho on 19/07/16.
+ * Created by egmfilho on 09/08/16.
  */
 
 'use strict';
 
 angular.module('belissimaApp')
-  .provider('ProviderProduto', ['URLS', function(urls) {
+  .provider('ProviderUnidade', ['URLS', function(urls) {
 
-    var url = urls.root + 'product.php?action=:action',
-        provider = null;
+    var url = urls.root + 'product_unit.php?action=:action',
+      provider = null;
 
     this.$get = ['$resource', function($resource) {
 
@@ -35,36 +35,34 @@ angular.module('belissimaApp')
           }, { }).$promise;
         },
 
-        obterProdutoPorId: function(id, getFornecedor) {
+        obterUnidadePorId: function(id) {
           return provider.get({
             action: 'get'
           }, {
-            product_id: id,
-            get_provider: getFornecedor
+            product_unit_id: id
           }).$promise;
         },
 
-        obterProdutoPorCodigo: function(codigo, getFornecedor) {
+        obterUnidadePorCodigo: function(codigo) {
           return provider.get({
             action: 'get'
           }, {
-            product_code: codigo,
-            get_provider: getFornecedor
+            product_unit_code: codigo
           }).$promise;
         },
 
-        obterProdutosPorNome: function(nome) {
+        obterUnidadesPorNome: function(nome) {
           return provider.query({
             action: 'getList'
           }, {
-            product_name: nome
+            product_unit_name: nome
           }).$promise;
         },
 
-        salvarProduto: function(produto) {
+        salvarUnidade: function(unidade) {
           return provider.save({
 
-          }, produto).$promise;
+          }, unidade).$promise;
         }
 
       }

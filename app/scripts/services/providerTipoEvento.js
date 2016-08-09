@@ -1,6 +1,9 @@
 /**
  * Created by egmfilho on 28/07/16.
  */
+
+'use strict';
+
 angular.module('belissimaApp')
   .provider('ProviderTipoEvento', ['URLS', function(urls) {
 
@@ -11,16 +14,14 @@ angular.module('belissimaApp')
 
       provider = $resource(url, {
         get: {
-          method: 'POST',
-          isArray: false,
+          method: 'POST'
         },
         query: {
           method: 'POST',
-          isArray: false,
+          isArray: false
         },
         save: {
-          method: 'POST',
-          isArray: false,
+          method: 'POST'
         }
       });
 
@@ -35,7 +36,7 @@ angular.module('belissimaApp')
         },
 
         obterTiposDeEvento: function() {
-          return provider.get({
+          return provider.query({
             action: 'getList'
           }).$promise;
         },

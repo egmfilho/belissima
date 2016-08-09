@@ -19,8 +19,8 @@ angular.module('belissimaApp')
       }
     }
 
-    function controller() {
-      console.log('controller');
+    function controller($scope) {
+      $scope.template = './partials/popoverTabela.html';
     }
 
     return {
@@ -29,16 +29,11 @@ angular.module('belissimaApp')
         idTabela: '@',
         head: '=',
         body: '=',
-        callback: '='
+        callbackEditar: '=',
+        callbackExcluir: '='
       },
       templateUrl: 'partials/tabela.html',
       link: link,
-      controller: function($scope) {
-        console.log($scope.head);
-
-        $scope.click = function(item) {
-          $scope.callback(item);
-        }
-      }
+      controller: controller
     };
   }]);

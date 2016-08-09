@@ -1,0 +1,12 @@
+<div>
+  <h4>Descrição</h4>
+  <p>{{b.descricao || '(sem descrição)'}}</p>
+  <div style="padding-bottom: 10px; float: right;">
+    <button class="btn btn-default" ng-if="callbackEditar" ng-click="callbackEditar(b)">
+      <span class="glyphicon glyphicon-pencil"></span> Editar
+    </button>
+    <button class="btn btn-default" ng-if="callbackExcluir" ng-click="callbackExcluir(b)">
+      <span class="glyphicon glyphicon-trash"></span> Excluir
+    </button>
+  </div>
+</div>

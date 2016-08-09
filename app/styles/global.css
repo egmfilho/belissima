@@ -8,6 +8,7 @@ html {
   height: 100%; }
 
 body {
+  padding-right: 0px !important;
   background-color: #2b2b2b;
   color: white;
   position: relative;
@@ -129,6 +130,10 @@ body {
     background-color: #3f3f41; }
     .tabela thead tr, #tabela-ticket thead tr {
       background-color: #3f3f41 !important; }
+  .tabela th, #tabela-ticket th, .tabela td, #tabela-ticket td {
+    padding: 3px; }
+    .tabela th a, #tabela-ticket th a, .tabela td a, #tabela-ticket td a {
+      color: white; }
   .tabela th, #tabela-ticket th {
     border-bottom: none;
     background-color: #3f3f41;
@@ -228,6 +233,9 @@ body {
   background-color: #3f3f41;
   border-radius: 0 0 4px 4px;
   padding: 10px; }
+
+.popover-inner {
+  color: #333333; }
 
 #login .login-header {
   max-width: 350px;

@@ -16,6 +16,7 @@ $cor-calendario-ativo:            #999;
 $cor-text-shadow:                 rgba(0, 0, 0, 0.75);
 $cor-modal-head:                  rgb(63, 63, 65);
 $cor-modal-body:                  #555;
+$cor-texto-escuro:                #333333;
 
 .ease-out {
   -webkit-transition: all ease-out 0.5s;
@@ -29,6 +30,7 @@ html {
 }
 
 body {
+  padding-right: 0px !important;
   background-color: $cor-de-fundo;
   color: white;
   position: relative;
@@ -255,6 +257,13 @@ body {
     }
   }
 
+  th, td {
+    padding: 3px;
+    a {
+      color: white;
+    }
+  }
+
   th {
     border-bottom: none;
     background-color: $cor-menu-lateral;
@@ -448,6 +457,10 @@ body {
   //display: inline-block;
   //text-align: left;
   //vertical-align: middle;
+}
+
+.popover-inner {
+  color: $cor-texto-escuro;
 }
 
 @import "login";
