@@ -30,11 +30,11 @@ angular.module('belissimaApp')
     CustoProduto.converterEmSaida = function(custoProduto) {
       var productCost = { };
 
-      product_cost.product_cost_id = custoProduto.id;
-      product_cost.product_id = custoProduto.produtoId;
-      product_cost.user_id = custoProduto.usuarioId;
-      product_cost.product_cost_value = custoProduto.valor;
-      product_cost.product_cost_date = data.converter(custoProduto.data);
+      productCost.product_cost_id = custoProduto.id;
+      productCost.product_id = custoProduto.produtoId;
+      productCost.user_id = custoProduto.usuarioId;
+      productCost.product_cost_value = custoProduto.valor;
+      productCost.product_cost_date = data.converter(custoProduto.data);
 
       return productCost;
     };

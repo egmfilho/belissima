@@ -9,10 +9,11 @@ angular.module('belissimaApp')
     'ProviderProduto',
     'ProviderTipoProduto',
     'ProviderUnidade',
+    'ModalPreco',
     'Produto',
     'TipoProduto',
     'Unidade',
-    function($scope, providerProduto, providerTipoProduto, providerUnidade, Produto, TipoProduto, Unidade) {
+    function($scope, providerProduto, providerTipoProduto, providerUnidade, modalPreco, Produto, TipoProduto, Unidade) {
 
       //function compensaScrollsNaTabela() {
       //
@@ -39,8 +40,13 @@ angular.module('belissimaApp')
 
       $scope.produto = new Produto();
 
-      $scope.head = ['Código', 'Nome', 'Descrição'];
-      $scope.body = [];
+      //$scope.abrirPrecos = function() {
+      //  modalPreco.show($scope.produto, function(result) {
+      //    if (result) {
+      //      $scope.produto.setPreco(result);
+      //    }
+      //  });
+      //};
 
       $scope.editar = function(item) {
         if (item) {
@@ -93,5 +99,9 @@ angular.module('belissimaApp')
           console.log(error);
         });
       }
+
+      $scope.enviar = function() {
+        console.log(Produto.converterEmSaida($scope.produto));
+      };
 
   }]);

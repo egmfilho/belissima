@@ -49,11 +49,12 @@ angular
         redirectTo: '/'
       });
   })
-  .run(['$rootScope', '$location', '$cookies', '$uibModalStack', 'ProviderCategoriaPessoa', function($rootScope, $location, $cookies, $uibModalStack, providerCategoria) {
+  .run(['$rootScope', '$location', '$cookies', '$uibModalStack', 'Usuario', 'ProviderCategoriaPessoa', function($rootScope, $location, $cookies, $uibModalStack, Usuario, providerCategoria) {
 
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
       $uibModalStack.dismissAll();
       $rootScope.currentPath = $location.path();
+      $rootScope.usuario = new Usuario();
 
       // Carrega as categorias de pessoa (cliente, funcionario, fornecedor)
       providerCategoria.obterCategorias().then(function(success) {

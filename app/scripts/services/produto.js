@@ -101,6 +101,31 @@ angular.module('belissimaApp')
         return produto;
       };
 
+      Produto.converterEmSaida = function(produto) {
+        var product = { };
+
+        product.product_id = produto.id;
+        product.product_type_id = produto.tipoId;
+        product.provider_id = produto.fornecedorId;
+
+        //product.provider = Fornecedor.converterEmSaida(produto.fornecedor);
+
+        product.product_unit_id = produto.unidadeId;
+        product.product_group_id = produto.grupoId;
+        product.product_group = GrupoProduto.converterEmSaida(produto.grupo);
+        product.product_active = produto.ativo;
+        product.product_code = produto.codigo;
+        product.product_ean = produto.codBarras;
+        product.product_name = produto.nome;
+        product.product_description = produto.descricao;
+        product.product_commission = produto.comissao;
+        product.product_date = produto.dataCadastro;
+        product.product_price = PrecoProduto.converterEmSaida(produto.preco);
+        product.product_cost = CustoProduto.converterEmSaida(produto.custo);
+
+        return product;
+      };
+
       return Produto;
 
   }]);

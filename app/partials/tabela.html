@@ -10,7 +10,7 @@
     <tbody>
     <tr ng-repeat="b in body" uib-popover-template="'{{template}}'" popover-title="{{b.nome}}" popover-trigger="outsideClick">
       <td ng-repeat="(key, value) in b" ng-click="click(b)">
-        {{value | truncate:90}}
+        {{value.toString() | truncate:90}}
       </td>
       <td ng-if="callbackEditar">
         <a href="" ng-click="callbackEditar(b); $event.stopPropagation();">

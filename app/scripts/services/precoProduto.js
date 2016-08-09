@@ -5,12 +5,13 @@
 'use strict';
 
 angular.module('belissimaApp')
-  .factory('PrecoProduto', ['DataSaida', function(data) {
+  .factory('PrecoProduto', ['DataSaida', 'Usuario', function(data, Usuario) {
 
     function PrecoProduto(precoProduto) {
       this.id = precoProduto ? precoProduto.id : '';
       this.produtoId = precoProduto ? precoProduto.produtoId : '';
       this.usuarioId = precoProduto ? precoProduto.usuarioId : '';
+      this.usuario = precoProduto ? precoProduto.usuario : new Usuario();
       this.valor = precoProduto ? precoProduto.valor : '';
       this.data = precoProduto ? precoProduto.data : '';
     }
@@ -25,8 +26,15 @@ angular.module('belissimaApp')
       precoProduto.id = productPrice.product_price_id;
       precoProduto.produtoId = productPrice.product_id;
       precoProduto.usuarioId = productPrice.user_id;
+
+      if (productPrice.user) {
+        precoProduto.usuario = new Usuario(Usuario.converterEmEntrada(productPrice.user));
+      } else {
+        precoProduto.usuario = new Usuario();
+      }
+
       precoProduto.valor = productPrice.product_price_value;
-      precoProduto.data = productPrice.product_price_date;
+      precoProduto.data = new Date(productPrice.product_price_date);
 
       return precoProduto;
     };
@@ -40,7 +48,7 @@ angular.module('belissimaApp')
       productPrice.product_price_value = precoProduto.valor;
       productPrice.product_price_date = data.converter(precoProduto.data);
 
-      return precoProduto;
+      return productPrice;
     };
 
     return PrecoProduto;
