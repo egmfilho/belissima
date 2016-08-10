@@ -10,11 +10,13 @@ angular.module('belissimaApp')
     'ProviderTipoProduto',
     'ProviderUnidade',
     'ProviderGrupo',
+    'ModalBuscarPessoa',
+    'ModalGrupo',
     'ModalPreco',
     'Produto',
     'TipoProduto',
     'Unidade',
-    function($scope, providerProduto, providerTipoProduto, providerUnidade, providerGrupo, modalPreco, Produto, TipoProduto, Unidade) {
+    function($scope, providerProduto, providerTipoProduto, providerUnidade, providerGrupo, modalBuscarPessoa, modalGrupo, modalPreco, Produto, TipoProduto, Unidade) {
 
       //function compensaScrollsNaTabela() {
       //
@@ -35,13 +37,12 @@ angular.module('belissimaApp')
 
       $scope.$on('$viewContentLoaded', function() {
         $scope.opcao = 'novo';
-
+        $scope.produto = new Produto();
         $scope.head = [ 'Data', 'Usuário', 'Valor' ];
         $scope.body = [ ];
 
         getTipos();
         getUnidades();
-        getGrupos();
         getProdutos();
       });
 
@@ -55,19 +56,19 @@ angular.module('belissimaApp')
       //  });
       //};
 
-      $scope.editar = function(item) {
-        if (item) {
-          providerProduto.obterProdutoPorCodigo(item.codigo).then(function(success) {
-            $scope.produto = new Produto(Produto.converterEmEntrada(success.data));
-          }, function(error) {
-            console.log(error);
-          });
-        }
-      };
+      //$scope.editar = function(item) {
+      //  if (item) {
+      //    providerProduto.obterProdutoPorCodigo(item.codigo).then(function(success) {
+      //      $scope.produto = new Produto(Produto.converterEmEntrada(success.data));
+      //    }, function(error) {
+      //      console.log(error);
+      //    });
+      //  }
+      //};
 
-      $scope.excluir = function(item) {
-        alert('Excluir: ' + item.codigo);
-      };
+      //$scope.excluir = function(item) {
+      //  alert('Excluir: ' + item.codigo);
+      //};
 
       function getProdutos() {
         providerProduto.obterTodos().then(function(success) {
@@ -107,23 +108,21 @@ angular.module('belissimaApp')
         });
       }
 
-      function getGrupos() {
-        $scope.grupos = [ ];
-        providerGrupo.obterTodos(true).then(function(success) {
-          angular.forEach(success.data, function(item, index) {
-            $scope.grupos.push(item);
-          });
-        }, function(error) {
-          console.log(error);
-        });
-      }
+      $scope.getFornecedor = function() {
+
+      };
+
+      $scope.getGrupo = function() {
+        console.log('getGrupo');
+        modalGrupo.show(function(result) {
+          if (result) {
+            $scope.produto.setGrupo(result);
+          }
+        })
+      };
 
       $scope.enviar = function() {
         console.log(Produto.converterEmSaida($scope.produto));
-      };
-
-      $scope.resultado = function(node) {
-        $scope.grupo = node;
       };
 
   }]);

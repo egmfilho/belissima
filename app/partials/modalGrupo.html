@@ -1,0 +1,45 @@
+<div id="modal-grupo">
+  <div class="header">
+    <div class="title">
+      Grupos
+      <span class="glyphicon glyphicon-remove close" ng-click="fechar()"></span>
+    </div>
+  </div>
+
+  <div class="sub-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Código</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="grupo.codigo" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click=""><i class="glyphicon glyphicon-search"></i></button>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h4>Nome</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="grupo.nome" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click=""><i class="glyphicon glyphicon-plus"></i></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="tree">
+      <span class="leaf">Grupos</span>
+      <ul>
+        <node-tree ng-model="grupos" callback="setGrupo(node)"></node-tree>
+      </ul>
+    </div>
+
+  </div>
+  <div class="control">
+    <button class="btn btn-default" ng-click="selecionar()"><span class="glyphicon glyphicon-ok"></span> Selecionar</button>
+  </div>
+</div>

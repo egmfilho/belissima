@@ -36,7 +36,7 @@ angular.module('belissimaApp')
         },
 
         obterTiposDeEvento: function() {
-          return provider.query({
+          return provider.get({
             action: 'getList'
           }).$promise;
         },

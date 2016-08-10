@@ -14,6 +14,7 @@ angular.module('belissimaApp')
       this.nome = grupoProduto ? grupoProduto.nome : '';
       this.tipo = grupoProduto ? grupoProduto.tipo : '';
       this.data = grupoProduto ? grupoProduto.data : '';
+      this.subgrupo = grupoProduto ? grupoProduto.subgrupo : [ ];
     }
 
     GrupoProduto.prototype = {
@@ -30,6 +31,15 @@ angular.module('belissimaApp')
       grupoProduto.nome = productGroup.product_group_name;
       grupoProduto.tipo = productGroup.product_group_type;
       grupoProduto.data = productGroup.product_group_date;
+
+      if (productGroup.product_group_subgroup) {
+        grupoProduto.subgrupo = [ ];
+        angular.forEach(productGroup.product_group_subgroup, function(item, index) {
+          grupoProduto.subgrupo.push(new GrupoProduto(GrupoProduto.converterEmEntrada(item)));
+        });
+      } else {
+        grupoProduto.subgrupo = [ ];
+      }
 
       return grupoProduto;
     };

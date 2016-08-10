@@ -355,7 +355,8 @@ body {
 
   .modal-md {
     .body {
-      height: 250px;
+      min-height: 250px;
+      max-height: 600px;
     }
   }
 
@@ -457,6 +458,16 @@ body {
   //display: inline-block;
   //text-align: left;
   //vertical-align: middle;
+}
+
+#modal-grupo {
+  .title {
+    text-align: center;
+  }
+
+  .body {
+    padding-left: 50px;
+  }
 }
 
 .popover-inner {

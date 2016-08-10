@@ -17,9 +17,9 @@ angular.module('belissimaApp')
           scope.$parent.callback({ node: node });
         };
 
-        if (scope.node.product_group_subgroup) {
-          if (scope.node.product_group_subgroup.length > 0) {
-            var childNode = $compile('<ul><node-tree ng-model="node.product_group_subgroup" callback="callback(node)"></node-tree></ul>')(scope);
+        if (scope.node.subgrupo) {
+          if (scope.node.subgrupo.length > 0) {
+            var childNode = $compile('<ul><node-tree ng-model="node.subgrupo" callback="callback(node)"></node-tree></ul>')(scope);
             elem.append(childNode);
           }
         }
@@ -49,8 +49,8 @@ angular.module('belissimaApp')
         scope.isLeaf = function(data) {
           if (!data) return false;
 
-          if (data.product_group_subgroup) {
-            if (data.product_group_subgroup.length == 0) return true;
+          if (data.subgrupo) {
+            if (data.subgrupo.length == 0) return true;
 
             return false;
           }

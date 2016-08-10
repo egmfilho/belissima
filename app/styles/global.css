@@ -178,7 +178,8 @@ body {
       width: 100%;
       max-width: 100%; }
 .modal .modal-md .body {
-  height: 250px; }
+  min-height: 250px;
+  max-height: 600px; }
 .modal .modal-sm .header {
   padding-left: 20px;
   padding-top: 2px; }
@@ -233,6 +234,11 @@ body {
   background-color: #3f3f41;
   border-radius: 0 0 4px 4px;
   padding: 10px; }
+
+#modal-grupo .title {
+  text-align: center; }
+#modal-grupo .body {
+  padding-left: 50px; }
 
 .popover-inner {
   color: #333333; }
