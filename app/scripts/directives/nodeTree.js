@@ -12,7 +12,11 @@ angular.module('belissimaApp')
       transclude: true,
       restrict: 'E',
       scope: {
-        tree: '=ngModel'
+        tree: '=ngModel',
+        callback: '&'
+      },
+      link: function(scope, elem, attrs) {
+
       }
     }
   });

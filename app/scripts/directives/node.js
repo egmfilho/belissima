@@ -13,9 +13,13 @@ angular.module('belissimaApp')
       templateUrl: 'partials/tree.html',
       link: function(scope, elem, attrs) {
 
+        scope.callback = function(node) {
+          scope.$parent.callback({ node: node });
+        };
+
         if (scope.node.product_group_subgroup) {
           if (scope.node.product_group_subgroup.length > 0) {
-            var childNode = $compile('<ul><node-tree ng-model="node.product_group_subgroup"></node-tree></ul>')(scope);
+            var childNode = $compile('<ul><node-tree ng-model="node.product_group_subgroup" callback="callback(node)"></node-tree></ul>')(scope);
             elem.append(childNode);
           }
         }
@@ -23,14 +27,18 @@ angular.module('belissimaApp')
         scope.click = function(node, event) {
           event.stopPropagation();
 
-          var children = $(event.currentTarget).find('li');
+          var children = $(event.currentTarget.parentElement).find('li');
 
-          if (children.is(':visible')) {
-            children.hide('fast');
-            $(event.currentTarget).find('span.glyphicon-minus-sign').addClass('glyphicon-plus-sign').removeClass('glyphicon-minus-sign');
+          if (scope.isLeaf(node)) {
+            scope.$parent.callback({ node: node });
           } else {
-            children.show('fast');
-            $(event.currentTarget).find('span.glyphicon-plus-sign').addClass('glyphicon-minus-sign').removeClass('glyphicon-plus-sign');
+            if (children.is(':visible')) {
+              children.hide('fast');
+              $(event.currentTarget.parentElement).find('span.glyphicon-minus-sign').addClass('glyphicon-plus-sign').removeClass('glyphicon-minus-sign');
+            } else {
+              children.show('fast');
+              $(event.currentTarget.parentElement).find('span.glyphicon-plus-sign').addClass('glyphicon-minus-sign').removeClass('glyphicon-plus-sign');
+            }
           }
         };
 
@@ -39,9 +47,10 @@ angular.module('belissimaApp')
         };
 
         scope.isLeaf = function(data) {
+          if (!data) return false;
+
           if (data.product_group_subgroup) {
-            if (data.product_group_subgroup.length == 0)
-              return true;
+            if (data.product_group_subgroup.length == 0) return true;
 
             return false;
           }

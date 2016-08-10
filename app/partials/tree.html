@@ -1,4 +1,4 @@
-<li class="parent_li" ng-click="click(node, $event)">
-  <span class="{{ switcher(isLeaf(node), '', 'glyphicon glyphicon-minus-sign')}}"></span>
-  <span class="leaf">{{node.product_group_name}}</span>
+<li class="parent_li" >
+  <span class="{{ switcher(isLeaf(node), '', 'glyphicon glyphicon-minus-sign')}}" ng-click="click(node, $event)"></span>
+  <span class="leaf" ng-click="click(node, $event)">{{node.product_group_classification | splitAt:'.'}} - {{node.product_group_name}}</span>
 </li>

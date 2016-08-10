@@ -11,10 +11,18 @@
     <tabela ng-show="opcao == 'editar'" id-tabela="tabela-produtos" head="head" body="body" callback-editar="editar" callback-excluir="excluir"></tabela>
   </div>
 
-  <div class="tree">
-    <ul>
-      <node-tree ng-model="grupos"></node-tree>
-    </ul>
+
+  <br>
+  <br>
+  <br>
+  <div class="well" style="max-width: 400px;">
+    <div class="tree">
+      <span class="leaf">Grupos - {{grupo.product_group_name}}</span>
+      <ul>
+        <node-tree ng-model="grupos" callback="resultado(node)"></node-tree>
+      </ul>
+    </div>
   </div>
+
 
 </tela>

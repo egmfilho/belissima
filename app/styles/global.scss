@@ -464,6 +464,7 @@ body {
 }
 
 .tree {
+
   li {
     list-style-type: none;
     margin: 0;
@@ -478,7 +479,7 @@ body {
     }
 
     &:before {
-      border-left: 1px solid red;
+      border-left: 1px solid $cor-menu-highlight;
       bottom: 50px;
       height: 100%;
       top: 0;
@@ -486,35 +487,40 @@ body {
     }
 
     &:after {
-      border-top: 1px solid green;
+      border-top: 1px solid $cor-menu-highlight;
       height: 20px;
-      top: 25px;
-      width: 37px;
-    }
-
-    .leaf {
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
-      border: 1px solid blue;
-      display: inline-block;
-      padding: 3px 8px;
-      text-decoration: none;
-      cursor: pointer;
+      top: 23px;
+      width: 34px;
     }
 
     &:last-child {
       &:before {
-        height: 26px;
+        height: 24px;
       }
     }
+  }
+
+  .leaf {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid $cor-menu-highlight-escuro;
+    background-color: $cor-menu-highlight;
+    display: inline-block;
+    padding: 3px 8px;
+    text-decoration: none;
+    cursor: pointer;
   }
 }
 
 .tree li.parent_li>span.leaf:hover, .tree li.parent_li>span.leaf:hover+ul li span.leaf {
-  background:#C8E9CE;
-  border:1px solid #94a0b4;
-  color:#000
+  background: $cor-menu-highlight-escuro;
+  border:1px solid $cor-menu-highlight;
+  color: white;
+}
+
+.well {
+  background: $cor-menu-lateral;
 }
 
 @import "login";

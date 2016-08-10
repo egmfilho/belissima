@@ -122,4 +122,8 @@ angular.module('belissimaApp')
         console.log(Produto.converterEmSaida($scope.produto));
       };
 
+      $scope.resultado = function(node) {
+        $scope.grupo = node;
+      };
+
   }]);
