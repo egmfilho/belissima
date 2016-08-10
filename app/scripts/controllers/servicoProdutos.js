@@ -9,11 +9,12 @@ angular.module('belissimaApp')
     'ProviderProduto',
     'ProviderTipoProduto',
     'ProviderUnidade',
+    'ProviderGrupo',
     'ModalPreco',
     'Produto',
     'TipoProduto',
     'Unidade',
-    function($scope, providerProduto, providerTipoProduto, providerUnidade, modalPreco, Produto, TipoProduto, Unidade) {
+    function($scope, providerProduto, providerTipoProduto, providerUnidade, providerGrupo, modalPreco, Produto, TipoProduto, Unidade) {
 
       //function compensaScrollsNaTabela() {
       //
@@ -33,8 +34,14 @@ angular.module('belissimaApp')
       //}
 
       $scope.$on('$viewContentLoaded', function() {
+        $scope.opcao = 'novo';
+
+        $scope.head = [ 'Data', 'Usuário', 'Valor' ];
+        $scope.body = [ ];
+
         getTipos();
         getUnidades();
+        getGrupos();
         getProdutos();
       });
 
@@ -94,6 +101,17 @@ angular.module('belissimaApp')
         providerUnidade.obterTodos().then(function(success) {
           angular.forEach(success.data, function(item, index) {
             $scope.unidades.push(new Unidade(Unidade.converterEmEntrada(item)));
+          });
+        }, function(error) {
+          console.log(error);
+        });
+      }
+
+      function getGrupos() {
+        $scope.grupos = [ ];
+        providerGrupo.obterTodos(true).then(function(success) {
+          angular.forEach(success.data, function(item, index) {
+            $scope.grupos.push(item);
           });
         }, function(error) {
           console.log(error);

@@ -463,6 +463,60 @@ body {
   color: $cor-texto-escuro;
 }
 
+.tree {
+  li {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 5px 0 5px;
+    position: relative;
+
+    &:before, &:after {
+      content: '';
+      left: -33px;
+      position: absolute;
+      right: auto;
+    }
+
+    &:before {
+      border-left: 1px solid red;
+      bottom: 50px;
+      height: 100%;
+      top: 0;
+      width: 1px;
+    }
+
+    &:after {
+      border-top: 1px solid green;
+      height: 20px;
+      top: 25px;
+      width: 37px;
+    }
+
+    .leaf {
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      border: 1px solid blue;
+      display: inline-block;
+      padding: 3px 8px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    &:last-child {
+      &:before {
+        height: 26px;
+      }
+    }
+  }
+}
+
+.tree li.parent_li>span.leaf:hover, .tree li.parent_li>span.leaf:hover+ul li span.leaf {
+  background:#C8E9CE;
+  border:1px solid #94a0b4;
+  color:#000
+}
+
 @import "login";
 @import "menu-lateral";
 @import "home";

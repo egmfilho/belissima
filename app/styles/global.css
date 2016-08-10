@@ -237,6 +237,44 @@ body {
 .popover-inner {
   color: #333333; }
 
+.tree li {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px 5px 0 5px;
+  position: relative; }
+  .tree li:before, .tree li:after {
+    content: '';
+    left: -33px;
+    position: absolute;
+    right: auto; }
+  .tree li:before {
+    border-left: 1px solid red;
+    bottom: 50px;
+    height: 100%;
+    top: 0;
+    width: 1px; }
+  .tree li:after {
+    border-top: 1px solid green;
+    height: 20px;
+    top: 25px;
+    width: 37px; }
+  .tree li .leaf {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid blue;
+    display: inline-block;
+    padding: 3px 8px;
+    text-decoration: none;
+    cursor: pointer; }
+  .tree li:last-child:before {
+    height: 26px; }
+
+.tree li.parent_li > span.leaf:hover, .tree li.parent_li > span.leaf:hover + ul li span.leaf {
+  background: #C8E9CE;
+  border: 1px solid #94a0b4;
+  color: #000; }
+
 #login .login-header {
   max-width: 350px;
   min-width: 350px;

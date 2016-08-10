@@ -1,0 +1,81 @@
+<div class="row">
+
+  <div class="col-xs-12 col-sm-8 col-md-6">
+    <div><h4>Nome</h4></div>
+    <div>
+      <input type="text" class="form-control" ng-model="produto.nome">
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-8 col-md-6">
+    <div><h4>Fornecedor</h4></div>
+    <div class="input-group">
+      <input type="text" class="form-control" aria-describedby="basic-addon2">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click=""><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-4 col-md-3">
+    <div><h4>Cód. Barras</h4></div>
+    <input type="text" class="form-control" ng-model="produto.codBarras">
+  </div>
+
+  <div class="col-xs-12 col-sm-4 col-md-3">
+    <div><h4>Tipo</h4></div>
+    <select class="form-control" ng-model="produto.tipoId" ng-options="tipo.id as tipo.nome for tipo in tipos">
+      <option value="" disabled>Escolha um tipo...</option>
+    </select>
+  </div>
+
+  <div class="col-xs-12 col-sm-4 col-md-3">
+    <div><h4>Grupo</h4></div>
+    <div class="input-group">
+      <input type="text" class="form-control" aria-describedby="basic-addon2">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click=""><span class="glyphicon glyphicon-plus"></span></button>
+          </span>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-4 col-md-3">
+    <div><h4>Unidade</h4></div>
+    <select class="form-control" ng-model="produto.unidadeId" ng-options="unidade.id as unidade.valor for unidade in unidades">
+      <option value="" disabled>Escolha uma unidade...</option>
+    </select>
+  </div>
+
+  <div class="col-xs-12 col-sm-4 col-md-4">
+    <div><h4>Custo</h4></div>
+    <div class="input-group">
+      <span class="input-group-addon">R$</span>
+      <input type="text" class="form-control" ng-model="produto.custo.valor">
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-4 col-md-4">
+    <div><h4>Preço</h4></div>
+    <div class="input-group">
+      <span class="input-group-addon">R$</span>
+      <input type="text" class="form-control" ng-model="produto.preco.valor">
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-4 col-md-4">
+    <div><h4>Comissão</h4></div>
+    <div class="input-group">
+      <input type="text" class="form-control" ng-model="produto.comissao">
+      <span class="input-group-addon">%</span>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div><h4>Descrição</h4></div>
+    <textarea class="col-md-12 form-control" rows="5" ng-model="produto.descricao"></textarea>
+  </div>
+</div>
+
+<button class="btn btn-default" ng-click="enviar()">Salvar</button>
