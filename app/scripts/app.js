@@ -67,7 +67,7 @@ angular
       });
 
       // Bloqueia acesso de usuarios nao logados
-      if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').token == null) {
+      if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').sessao == null) {
         if (next.templateUrl != 'views/login.html') {
           $location.path('/login');
         }
