@@ -6,11 +6,11 @@
 angular.module('belissimaApp')
   .factory('Produto', [
     'DataSaida',
-    'Fornecedor',
+    'Pessoa',
     'PrecoProduto',
     'CustoProduto',
     'GrupoProduto',
-    function(data, Fornecedor, PrecoProduto, CustoProduto, GrupoProduto) {
+    function(data, Pessoa, PrecoProduto, CustoProduto, GrupoProduto) {
 
       function Produto(produto) {
         this.id = produto ? produto.id : '';
@@ -20,7 +20,7 @@ angular.module('belissimaApp')
         this.unidadeId = produto ? produto.unidadeId : '';
         this.grupoId = produto ? produto.grupoId : '';
         this.grupo = produto ? produto.grupo : '';
-        this.ativo = produto ? produto.ativo : '';
+        this.ativo = produto ? produto.ativo : true;
         this.codigo = produto ? produto.codigo : '';
         this.codBarras = produto ? produto.codBarras : '';
         this.nome = produto ? produto.nome : '';
@@ -46,7 +46,7 @@ angular.module('belissimaApp')
         },
 
         removeFornecedor: function() {
-          this.fornecedor = new Fornecedor();
+          this.fornecedor = new Pessoa();
           this.fornecedorId = null;
         },
 
@@ -64,9 +64,9 @@ angular.module('belissimaApp')
         produto.fornecedorId = product.product_provider_id;
 
         if (product.provider) {
-          //produto.fornecedor = new Fornecedor(Fornecedor.converterEmEntrada(product.provider));
+          produto.fornecedor = new Pessoa(Pessoa.converterEmEntrada(product.provider));
         } else {
-          produto.fornecedor = new Fornecedor();
+          produto.fornecedor = new Pessoa();
         }
 
         produto.unidadeId = product.product_unit_id;
@@ -78,7 +78,7 @@ angular.module('belissimaApp')
           produto.grupo = new GrupoProduto();
         }
 
-        produto.ativo = product.product_active;
+        produto.ativo = product.product_active == 'Y' ? true : false;
         produto.codigo = product.product_code;
         produto.codBarras = product.product_ean;
         produto.nome = product.product_name;
@@ -107,19 +107,16 @@ angular.module('belissimaApp')
         product.product_id = produto.id;
         product.product_type_id = produto.tipoId;
         product.provider_id = produto.fornecedorId;
-
-        //product.product_provider_id = Fornecedor.converterEmSaida(produto.fornecedor);
-
+        product.product_provider_id = produto.fornecedorId;
         product.product_unit_id = produto.unidadeId;
         product.product_group_id = produto.grupoId;
         product.product_group = GrupoProduto.converterEmSaida(produto.grupo);
-        product.product_active = produto.ativo;
+        product.product_active = produto.ativo ? 'Y' : 'N';
         product.product_code = produto.codigo;
         product.product_ean = produto.codBarras;
         product.product_name = produto.nome;
         product.product_description = produto.descricao;
         product.product_commission = produto.comissao;
-        product.product_date = produto.dataCadastro;
         product.product_price = PrecoProduto.converterEmSaida(produto.preco);
         product.product_cost = CustoProduto.converterEmSaida(produto.custo);
 

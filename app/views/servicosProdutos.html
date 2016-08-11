@@ -1,14 +1,14 @@
 <tela icon="glyphicon-shopping-cart" titulo="Serviços & Produtos" subtitulo="Consulta, cadastro e edição de produtos e serviços." show-footer="true">
 
-  <div class="btn-group center">
+  <div class="btn-group">
     <label class="btn btn-primary" ng-model="opcao" uib-btn-radio="'novo'">Novo</label>
     <label class="btn btn-primary" ng-model="opcao" uib-btn-radio="'editar'">Editar</label>
   </div>
 
   <div ng-show="opcao == 'novo'" ng-include="'partials/formNovoProduto.html'"></div>
 
-  <div>
-    <tabela ng-show="opcao == 'editar'" id-tabela="tabela-produtos" head="head" body="body" callback-editar="editar" callback-excluir="excluir"></tabela>
+  <div ng-show="opcao == 'editar'">
+    <tabela id-tabela="tabela-produtos" head="head" body="body" callback-editar="editar" callback-excluir="excluir"></tabela>
   </div>
 
 </tela>

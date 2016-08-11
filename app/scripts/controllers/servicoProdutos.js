@@ -6,17 +6,21 @@
 angular.module('belissimaApp')
   .controller('ServicoProdutosCtrl', [
     '$scope',
+    '$filter',
     'ProviderProduto',
     'ProviderTipoProduto',
     'ProviderUnidade',
     'ProviderGrupo',
+    'ModalConfirm',
+    'ModalAlert',
     'ModalBuscarPessoa',
     'ModalGrupo',
     'ModalPreco',
+    'ModalEditarProduto',
     'Produto',
     'TipoProduto',
     'Unidade',
-    function($scope, providerProduto, providerTipoProduto, providerUnidade, providerGrupo, modalBuscarPessoa, modalGrupo, modalPreco, Produto, TipoProduto, Unidade) {
+    function($scope, $filter, providerProduto, providerTipoProduto, providerUnidade, providerGrupo, modalConfirm, modalAlert, modalBuscarPessoa, modalGrupo, modalPreco, modalEditarProduto, Produto, TipoProduto, Unidade) {
 
       //function compensaScrollsNaTabela() {
       //
@@ -38,7 +42,7 @@ angular.module('belissimaApp')
       $scope.$on('$viewContentLoaded', function() {
         $scope.opcao = 'novo';
         $scope.produto = new Produto();
-        $scope.head = [ 'Data', 'Usuário', 'Valor' ];
+        $scope.head = [ 'Código', 'Nome', 'Descrição', 'Preço', 'Custo', 'Ativo' ];
         $scope.body = [ ];
 
         getTipos();
@@ -48,27 +52,21 @@ angular.module('belissimaApp')
 
       $scope.produto = new Produto();
 
-      //$scope.abrirPrecos = function() {
-      //  modalPreco.show($scope.produto, function(result) {
-      //    if (result) {
-      //      $scope.produto.setPreco(result);
-      //    }
-      //  });
-      //};
+      $scope.editar = function(item) {
+        if (item) {
+          providerProduto.obterProdutoPorCodigo(item.codigo, true, true).then(function(success) {
+            modalEditarProduto.show(new Produto(Produto.converterEmEntrada(success.data)), function(result) {
+              console.log(result);
+            });
+          }, function(error) {
+            console.log(error);
+          });
+        }
+      };
 
-      //$scope.editar = function(item) {
-      //  if (item) {
-      //    providerProduto.obterProdutoPorCodigo(item.codigo).then(function(success) {
-      //      $scope.produto = new Produto(Produto.converterEmEntrada(success.data));
-      //    }, function(error) {
-      //      console.log(error);
-      //    });
-      //  }
-      //};
-
-      //$scope.excluir = function(item) {
-      //  alert('Excluir: ' + item.codigo);
-      //};
+      $scope.excluir = function(item) {
+        alert('Excluir: ' + item.codigo);
+      };
 
       function getProdutos() {
         providerProduto.obterTodos().then(function(success) {
@@ -78,7 +76,10 @@ angular.module('belissimaApp')
             $scope.body.push({
               codigo: produto.codigo,
               nome: produto.nome,
-              descricao: produto.descricao
+              descricao: produto.descricao,
+              preco: $filter('currency')(produto.preco.valor, 'R$ '),
+              custo: $filter('currency')(produto.custo.valor, 'R$ '),
+              ativo: produto.ativo ? 'Sim' : 'Não'
             });
           });
         }, function(error) {
@@ -109,11 +110,18 @@ angular.module('belissimaApp')
       }
 
       $scope.getFornecedor = function() {
+        modalBuscarPessoa.show($scope.categoriaPessoa.fornecedor, function(result) {
+          if (result) {
+            $scope.produto.setFornecedor(result);
+          }
+        });
+      };
 
+      $scope.removeFornecedor = function() {
+        $scope.produto.removeFornecedor();
       };
 
       $scope.getGrupo = function() {
-        console.log('getGrupo');
         modalGrupo.show(function(result) {
           if (result) {
             $scope.produto.setGrupo(result);
@@ -123,6 +131,20 @@ angular.module('belissimaApp')
 
       $scope.enviar = function() {
         console.log(Produto.converterEmSaida($scope.produto));
+
+        modalConfirm.show('Salvar', 'Deseja salvar um novo produto?', 'Sim', 'Não', function(result) {
+          if (result) {
+            providerProduto.salvarProduto(Produto.converterEmSaida($scope.produto)).then(function(success) {
+              modalAlert.show('Sucesso', 'Novo produto salvo!', 'Ok');
+            }, function(error) {
+              console.log(error);
+            });
+          }
+        });
       };
+
+      $scope.limpar = function() {
+        $scope.produto = new Produto();
+      }
 
   }]);

@@ -25,6 +25,17 @@ angular.module('belissimaApp')
         });
       });
 
+      $scope.getGrupoPorCodigo = function() {
+        if (!$scope.grupo.codigo) return;
+
+        console.log('getGrupoPorCodigo()');
+        provider.obterPorCodigo($scope.grupo.codigo).then(function(success) {
+          $scope.grupo = new GrupoProduto(GrupoProduto.converterEmEntrada(success.data));
+        }, function(error) {
+          console.log(error);
+        });
+      };
+
       $scope.setGrupo = function(node) {
         $scope.grupo = node;
       };

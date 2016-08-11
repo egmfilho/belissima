@@ -35,6 +35,14 @@ angular.module('belissimaApp')
           }, {
             get_product_group_tree: arvore
           }).$promise;
+        },
+
+        obterPorCodigo: function(codigo) {
+          return provider.get({
+            action: 'get'
+          }, {
+            product_group_code: codigo
+          }).$promise;
         }
       }
 

@@ -1,13 +1,13 @@
 /**
- * Created by egmfilho on 09/08/16.
+ * Created by egmfilho on 11/08/16.
  */
 
 'use strict';
 
 angular.module('belissimaApp')
-  .provider('ProviderPreco', ['URLS', function(urls) {
+  .provider('ProviderCusto', ['URLS', function(urls) {
 
-    var url = urls.root + 'product_price.php?action=:action',
+    var url = urls.root + 'product_cost.php?action=:action',
       provider = null;
 
     this.$get = ['$resource', function($resource) {
@@ -35,7 +35,7 @@ angular.module('belissimaApp')
           }, { }).$promise;
         },
 
-        obterPrecoPorId: function(id, getUser) {
+        obterCustoPorId: function(id, getUser) {
           return provider.get({
             action: 'get'
           }, {
@@ -44,7 +44,7 @@ angular.module('belissimaApp')
           }).$promise;
         },
 
-        obterPrecoPorCodigo: function(codigo, getUser) {
+        obterCustoPorCodigo: function(codigo, getUser) {
           return provider.get({
             action: 'get'
           }, {
@@ -53,7 +53,7 @@ angular.module('belissimaApp')
           }).$promise;
         },
 
-        obterPrecosPorIdDeProduto: function(idProduto, getUser) {
+        obterCustosPorIdDeProduto: function(idProduto, getUser) {
           return provider.get({
             action: 'getList'
           }, {
@@ -62,7 +62,7 @@ angular.module('belissimaApp')
           }).$promise;
         },
 
-        obterPrecosPorIdDeUsuario: function(idUsuario, getUser) {
+        obterCustosPorIdDeUsuario: function(idUsuario, getUser) {
           return provider.get({
             action: 'getList'
           }, {
@@ -71,10 +71,10 @@ angular.module('belissimaApp')
           }).$promise;
         },
 
-        salvarPreco: function(preco) {
+        salvarCusto: function(custo) {
           return provider.save({
             action: 'insert'
-          }, preco).$promise;
+          }, custo).$promise;
         }
 
       }

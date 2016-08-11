@@ -9,11 +9,12 @@ angular.module('belissimaApp')
     '$rootScope',
     '$scope',
     '$uibModalInstance',
+    'ModalConfirm',
     'ProviderPreco',
     'PrecoProduto',
     'Usuario',
     'produto',
-    function($rootScope, $scope, $uibModalInstance, provider, PrecoProduto, Usuario, produto) {
+    function($rootScope, $scope, $uibModalInstance, modalConfirm, provider, PrecoProduto, Usuario, produto) {
 
       (function() {
         $scope.produto = produto;
@@ -37,13 +38,26 @@ angular.module('belissimaApp')
       }());
 
       $scope.addPreco = function() {
-        $scope.preco.data = new Date();
-        $scope.preco.user = new Usuario($rootScope.usuario);
-        $scope.precos.push(new PrecoProduto($scope.preco));
+
+        if (!$scope.preco.valor) return;
+
+        console.log($scope.preco);
+
+        modalConfirm.show('Novo preço', 'Adicionar novo preço?', 'Sim', 'Não', function(result) {
+          if (result) {
+            $scope.preco.produtoId = produto.id;
+            provider.salvarPreco(PrecoProduto.converterEmSaida($scope.preco)).then(function(success) {
+              $scope.preco = new PrecoProduto();
+              $scope.precos.push(new PrecoProduto(PrecoProduto.converterEmEntrada(success.data)));
+            }, function(error) {
+              console.log(error);
+            });
+          }
+        });
       };
 
       $scope.fechar = function() {
-        $uibModalInstance.close($scope.preco.valor ? $scope.preco : null);
+        $uibModalInstance.close($scope.precos[$scope.precos.length - 1]);
       };
 
     }]);

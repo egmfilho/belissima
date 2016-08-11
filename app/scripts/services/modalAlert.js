@@ -8,7 +8,7 @@ angular.module('belissimaApp')
   .factory('ModalAlert', ['$uibModal', function($uibModal) {
 
     return {
-      show: function(title, message, ok) {
+      show: function(title, message, ok, callback) {
         $uibModal.open({
           animation: true,
           templateUrl: 'partials/modalAlert.html',
@@ -23,7 +23,7 @@ angular.module('belissimaApp')
               };
             }
           }
-        });
+        }).result.then(callback);
       }
     }
 

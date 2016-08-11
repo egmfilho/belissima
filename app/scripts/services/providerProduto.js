@@ -44,12 +44,13 @@ angular.module('belissimaApp')
           }).$promise;
         },
 
-        obterProdutoPorCodigo: function(codigo, getFornecedor) {
+        obterProdutoPorCodigo: function(codigo, getGrupo, getFornecedor) {
           return provider.get({
             action: 'get'
           }, {
             product_code: codigo,
-            get_provider: getFornecedor
+            get_product_group: getGrupo,
+            get_product_provider: getFornecedor
           }).$promise;
         },
 
@@ -63,7 +64,13 @@ angular.module('belissimaApp')
 
         salvarProduto: function(produto) {
           return provider.save({
+            action: 'insert'
+          }, produto).$promise;
+        },
 
+        atualizarProduto: function(produto) {
+          return provider.save({
+            action: 'edit'
           }, produto).$promise;
         }
 

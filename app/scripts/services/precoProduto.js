@@ -46,7 +46,6 @@ angular.module('belissimaApp')
       productPrice.product_id = precoProduto.produtoId;
       productPrice.user_id = precoProduto.usuarioId;
       productPrice.product_price_value = precoProduto.valor;
-      productPrice.product_price_date = data.converter(precoProduto.data);
 
       return productPrice;
     };

@@ -8,9 +8,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="b in body" uib-popover-template="'{{template}}'" popover-title="{{b.nome}}" popover-trigger="outsideClick">
+    <tr ng-repeat="b in body" ng-controller="PopoverTabelaCtrl as popover" uib-popover-template="popover.templateUrl" popover-is-open="popover.isOpen"  popover-title="{{b.nome}}" popover-trigger="outsideClick">
       <td ng-repeat="(key, value) in b" ng-click="click(b)">
-        {{value.toString() | truncate:90}}
+        {{value.toString() | truncate:50}}
       </td>
       <td ng-if="callbackEditar">
         <a href="" ng-click="callbackEditar(b); $event.stopPropagation();">

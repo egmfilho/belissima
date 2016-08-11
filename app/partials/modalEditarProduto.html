@@ -1,0 +1,18 @@
+<div>
+  <div class="header">
+    <div class="title">
+      Editar Produto
+      <span class="glyphicon glyphicon-remove close" ng-click="close()"></span>
+    </div>
+  </div>
+  <div class="body">
+
+    <div ng-include="'partials/formEditarProduto.html'"></div>
+
+  </div>
+  <div class="control">
+    <button class="btn btn-default" ng-click="close()"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
+    <!--<button class="btn btn-default" ng-click="excluir()"><span class="glyphicon glyphicon-trash"></span> Excluir</button>-->
+    <button class="btn btn-default" ng-click="ok()"><span class="glyphicon glyphicon-ok"></span> Salvar</button>
+  </div>
+</div>

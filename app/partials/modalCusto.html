@@ -1,7 +1,7 @@
 <div>
   <div class="header">
     <div class="title center-title">
-      Preço
+      Custo
       <span class="glyphicon glyphicon-remove close" ng-click="fechar()"></span>
     </div>
   </div>
@@ -21,9 +21,9 @@
       <div class="col-xs-12 col-sm-6">
         <h4>Valor</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="preco.valor">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="custo.valor">
           <span class="input-group-btn">
-            <button class="btn btn-default" tabindex="-1" ng-click="addPreco()"><span class="glyphicon glyphicon-plus"></span></button>
+            <button class="btn btn-default" tabindex="-1" ng-click="addCusto()"><span class="glyphicon glyphicon-plus"></span></button>
           </span>
         </div>
       </div>
@@ -41,10 +41,10 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="preco in precos" ng-click="selecionarProduto(produto)">
-        <td>{{preco.data | date}}</td>
-        <td>{{preco.usuario.nome}}</td>
-        <td>{{preco.valor | currency:'R$ '}}</td>
+      <tr ng-repeat="custo in custos">
+        <td>{{custo.data | date}}</td>
+        <td>{{custo.usuario.nome}}</td>
+        <td>{{custo.valor | currency:'R$ '}}</td>
       </tr>
       </tbody>
     </table>

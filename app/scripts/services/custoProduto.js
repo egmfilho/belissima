@@ -5,12 +5,13 @@
 'use strict';
 
 angular.module('belissimaApp')
-  .factory('CustoProduto', ['DataSaida', function(data) {
+  .factory('CustoProduto', ['DataSaida', 'Usuario', function(data, Usuario) {
 
     function CustoProduto(custoProduto) {
       this.id = custoProduto ? custoProduto.id : '';
       this.produtoId = custoProduto ? custoProduto.produtoId : '';
       this.usuarioId = custoProduto ? custoProduto.usuarioId : '';
+      this.usuario = custoProduto ? custoProduto.usuario : new Usuario();
       this.valor = custoProduto ? custoProduto.valor : '';
       this.data = custoProduto ? custoProduto.data : '';
     }
@@ -21,8 +22,15 @@ angular.module('belissimaApp')
       custoProduto.id = product_cost.product_cost_id;
       custoProduto.produtoId = product_cost.product_id;
       custoProduto.usuarioId = product_cost.user_id;
+
+      if (product_cost.user) {
+        custoProduto.usuario = new Usuario(Usuario.converterEmEntrada(product_cost.user));
+      } else {
+        custoProduto.usuario = new Usuario();
+      }
+
       custoProduto.valor = product_cost.product_cost_value;
-      custoProduto.data = product_cost.product_cost_date;
+      custoProduto.data = new Date(product_cost.product_cost_date);
 
       return custoProduto;
     };
@@ -34,7 +42,6 @@ angular.module('belissimaApp')
       productCost.product_id = custoProduto.produtoId;
       productCost.user_id = custoProduto.usuarioId;
       productCost.product_cost_value = custoProduto.valor;
-      productCost.product_cost_date = data.converter(custoProduto.data);
 
       return productCost;
     };
