@@ -1,6 +1,9 @@
 /**
  * Created by egmfilho on 01/08/16.
  */
+
+'use strict';
+
 angular.module('belissimaApp')
   .factory('TipoEvento', [function() {
 

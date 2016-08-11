@@ -1,6 +1,9 @@
 /**
  * Created by egmfilho on 22/07/16.
  */
+
+'use strict';
+
 angular.module('belissimaApp')
   .controller('AgendaCtrl', [
     '$scope',
