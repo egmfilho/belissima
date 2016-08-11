@@ -54,7 +54,7 @@ angular
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
       $uibModalStack.dismissAll();
       $rootScope.currentPath = $location.path();
-      $rootScope.usuario = new Usuario();
+      //$rootScope.usuario = new Usuario();
 
       // Carrega as categorias de pessoa (cliente, funcionario, fornecedor)
       providerCategoria.obterCategorias().then(function(success) {
@@ -69,7 +69,7 @@ angular
       // Bloqueia acesso de usuarios nao logados
       if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').token == null) {
         if (next.templateUrl != 'views/login.html') {
-          //$location.path('/login');
+          $location.path('/login');
         }
       }
     });

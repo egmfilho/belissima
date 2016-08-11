@@ -9,8 +9,9 @@ angular.module('belissimaApp')
     '$http',
     '$httpParamSerializerJQLike',
     '$cookies',
+    'Usuario',
     'URLS',
-    function($http, $httpParamSerializerJQLike, $cookies, URLS) {
+    function($http, $httpParamSerializerJQLike, $cookies, Usuario, URLS) {
 
       var service = {};
 
@@ -38,13 +39,14 @@ angular.module('belissimaApp')
               console.log('Usuário não encontrado');
               break;
             case 200:
-              SetCredentials({
-                user_id: response.data.user_id,
-                token: response.data.user_session_id,
-                username: response.data.user_user,
-                name: response.data.user_name,
-                mail: response.data.user_mail
-              });
+              SetCredentials(new Usuario(Usuario.converterEmEntrada(response.data)));
+              //SetCredentials({
+              //  user_id: response.data.user_id,
+              //  token: response.data.user_session_id,
+              //  username: response.data.user_user,
+              //  name: response.data.user_name,
+              //  mail: response.data.user_mail
+              //});
               callback(response);
               break;
             default:
