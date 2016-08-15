@@ -1,7 +1,17 @@
 'use strict';
 
+angular.module('belissimaApp.constants', [ ]);
+angular.module('belissimaApp.services', [ ]);
+angular.module('belissimaApp.directives', [ ]);
+angular.module('belissimaApp.filters', [ ]);
+angular.module('belissimaApp.controllers', [ ]);
 angular
   .module('belissimaApp', [
+    'belissimaApp.constants',
+    'belissimaApp.services',
+    'belissimaApp.controllers',
+    'belissimaApp.directives',
+    'belissimaApp.filters',
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -27,7 +37,7 @@ angular
         controllerAs: 'login'
       })
       .when('/logout', {
-        template: '<h1>Logging out...</h1>',
+        template: '<h3>Logging out...</h3>',
         controller: 'LogoutCtrl'
       })
       .when('/ticket', {
@@ -43,7 +53,10 @@ angular
       .when('/agenda', {
         templateUrl: 'views/agenda.html',
         controller: 'AgendaCtrl',
-        controllerAs: 'agenda'
+        controllerAs: 'agenda',
+        resolve: {
+          'categorias': ['ProviderCategoriaPessoa', function(provider) { return provider.obterCategorias(); }]
+        }
       })
       .otherwise({
         redirectTo: '/'
@@ -51,25 +64,26 @@ angular
   })
   .run(['$rootScope', '$location', '$cookies', '$uibModalStack', 'Usuario', 'ProviderCategoriaPessoa', function($rootScope, $location, $cookies, $uibModalStack, Usuario, providerCategoria) {
 
+    $rootScope.isLoading = false;
+
+    // Carrega as categorias de pessoa (cliente, funcionario, fornecedor)
+    //providerCategoria.obterCategorias().then(function(success) {
+    //  $rootScope.categoriaPessoa = { };
+    //  angular.forEach(success.data.data, function(item, index) {
+    //    $rootScope.categoriaPessoa[item.person_category_name_formatted.toString().toLowerCase()] = item.person_category_id;
+    //  });
+    //}, function(error) {
+    //  console.log(error);
+    //});
+
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
       $uibModalStack.dismissAll();
       $rootScope.currentPath = $location.path();
-      //$rootScope.usuario = new Usuario();
-
-      // Carrega as categorias de pessoa (cliente, funcionario, fornecedor)
-      providerCategoria.obterCategorias().then(function(success) {
-        $rootScope.categoriaPessoa = { };
-        angular.forEach(success.data.data, function(item, index) {
-          $rootScope.categoriaPessoa[item.person_category_name_formatted.toString().toLowerCase()] = item.person_category_id;
-        });
-      }, function(error) {
-        console.log(error);
-      });
 
       // Bloqueia acesso de usuarios nao logados
       if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').sessao == null) {
         if (next.templateUrl != 'views/login.html') {
-          $location.path('/login');
+          //$location.path('/login');
         }
       }
     });

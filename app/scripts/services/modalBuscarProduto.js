@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .factory('ModalBuscarProduto', ['$uibModal', function($uibModal) {
 
     return {

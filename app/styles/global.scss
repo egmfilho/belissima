@@ -129,6 +129,29 @@ body {
   }
 }
 
+#loading {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100000;
+  //background-image: url('../images/ring-alt.gif');
+  background-color: rgba(0, 0, 0, 0.6);
+  //background-repeat: no-repeat;
+  //background-position: center;
+
+  > div {
+    position: absolute;
+    transform: scale(0.75);
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
 .botao {
   background-color: $cor-menu-highlight;
   color: white;
@@ -534,6 +557,7 @@ body {
   background: $cor-menu-lateral;
 }
 
+@import "loading-animation";
 @import "login";
 @import "menu-lateral";
 @import "home";

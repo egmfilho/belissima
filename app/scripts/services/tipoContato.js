@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .factory('TipoContato', ['DataSaida', function(data) {
 
     function TipoContato(tipoContato) {

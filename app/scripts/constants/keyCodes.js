@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.constants')
   .constant('KEY_CODES', {
     BACKSPACE: 8,
     TAB: 9,

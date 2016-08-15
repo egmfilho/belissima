@@ -10,6 +10,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
+    <link rel="stylesheet" href="bower_components/fullcalendar-scheduler/dist/scheduler.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -21,6 +22,8 @@
       <p class="browsehappy">Você está usando um navegador <strong>desatualizado</strong>. Por favor <a href="http://browsehappy.com/">atualize seu navegador</a> para melhorar sua experiência.</p>
     <![endif]-->
 
+    <div id="loading" ng-show="isLoading" ng-include="'partials/loading.html'"></div>
+
     <span ng-include="'partials/menuLateral.html'" ng-hide="currentPath === '/login'"></span>
 
     <div class="container">
@@ -28,15 +31,15 @@
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+     <!--<script>-->
+       <!--!function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){-->
+       <!--(A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),-->
+       <!--r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)-->
+       <!--}(window,document,'script','https://www.google-analytics.com/analytics.js','ga');-->
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+       <!--ga('create', 'UA-XXXXX-X');-->
+       <!--ga('send', 'pageview');-->
+    <!--</script>-->
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -54,6 +57,8 @@
     <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
     <script src="bower_components/fullcalendar/dist/lang/pt-br.js"></script>
     <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_pt-br.js"></script>
+    <script src="bower_components/fullcalendar-scheduler/dist/scheduler.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -101,6 +106,7 @@
         <script src="scripts/services/providerPreco.js"></script>
         <script src="scripts/services/providerCusto.js"></script>
         <script src="scripts/services/providerGrupo.js"></script>
+        <script src="scripts/services/carregaCategoriaPessoa.js"></script>
         <script src="scripts/controllers/modalEvento.js"></script>
         <script src="scripts/controllers/modalConfirm.js"></script>
         <script src="scripts/controllers/modalAlert.js"></script>

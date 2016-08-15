@@ -34,6 +34,8 @@ module.exports = function(config) {
       'bower_components/fullcalendar/dist/fullcalendar.js',
       'bower_components/fullcalendar/dist/lang/pt-br.js',
       'bower_components/angular-ui-calendar/src/calendar.js',
+      'bower_components/angular-i18n/angular-locale_pt-br.js',
+      'bower_components/fullcalendar-scheduler/dist/scheduler.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

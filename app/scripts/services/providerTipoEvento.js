@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .provider('ProviderTipoEvento', ['URLS', function(urls) {
 
     var url = urls.root + 'event_type.php?action=:action',

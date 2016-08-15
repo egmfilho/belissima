@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.filters')
   .filter('splitAt', function() {
     return function(value, char) {
 

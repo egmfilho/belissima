@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.controllers')
   .controller('MenuLateralCtrl', ['$rootScope', function ($rootScope) {
 
     $rootScope.minimizado = false;

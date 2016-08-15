@@ -2,7 +2,7 @@
  * Created by egmfilho on 21/06/16.
  */
 'use strict';
-angular.module('belissimaApp')
+angular.module('belissimaApp.controllers')
   .controller('TicketCtrl', ['$scope', '$window', function ($scope, $window) {
 
     $scope.$on('$viewContentLoaded', function() {

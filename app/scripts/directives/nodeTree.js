@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.directives')
   .directive('nodeTree', function() {
     return {
       template: '<node ng-repeat="node in tree"></node>',

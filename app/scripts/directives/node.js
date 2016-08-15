@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.directives')
   .directive('node', ['$compile', function($compile) {
 
     return {

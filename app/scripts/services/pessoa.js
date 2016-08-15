@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .factory('Pessoa', ['ContatoPessoa', 'Endereco', function(ContatoPessoa, Endereco) {
 
     function Pessoa(pessoa) {

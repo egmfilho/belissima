@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.controllers')
   .controller('ModalEventoCtrl', [
     '$scope',
     '$uibModalInstance',
@@ -22,30 +22,35 @@ angular.module('belissimaApp')
     'evento',
     function($scope, $uibModalInstance, modalBuscarPessoa, modalBuscarProduto, modalConfirm, modalAlert, providerTipo, providerPessoa, providerProduto, TipoEvento, Pessoa, Evento, Produto, evento) {
 
-      $scope.evento = { };
-      $scope.tipos = [ ];
+      $uibModalInstance.opened.then(function() {
 
-      $scope.format = 'dd/MM/yy';
-      $scope.altInputFormats = ['d!/M!/yy'];
+        if (evento) {
+          $scope.evento = new Evento(evento);
+        } else {
+          $scope.evento = new Evento();
+          $scope.evento.start = new Date();
+          $scope.evento.end = new Date($scope.evento.start.getTime() + 30 * 60000);
+        }
 
-      $scope.dateOptions = {
-        formatYear: 'yy',
-        minDate: new Date(),
-        startingDay: 0,
-        showWeeks: false
-      };
+        $scope.tipos = [ ];
 
-      if (evento) {
-        $scope.evento = new Evento(evento);
-      } else {
-        $scope.evento = new Evento();
-        $scope.evento.start = new Date();
-        $scope.evento.end = new Date($scope.evento.start.getTime() + 30 * 60000);
-      }
+        $scope.data = new Date($scope.evento.start);
 
-      $scope.data = new Date($scope.evento.start);
+        $scope.format = 'dd/MM/yy';
+        $scope.altInputFormats = ['d!/M!/yy'];
 
-      (function getTipos() {
+        $scope.dateOptions = {
+          formatYear: 'yy',
+          minDate: new Date(),
+          startingDay: 0,
+          showWeeks: false
+        };
+
+        getTipos();
+
+      });
+
+      function getTipos() {
         providerTipo.obterTiposDeEvento().then(function(success) {
           angular.forEach(success.data, function(item, index) {
             $scope.tipos.push(new TipoEvento(TipoEvento.converterEmEntrada(item)));
@@ -53,7 +58,7 @@ angular.module('belissimaApp')
         }, function(error) {
           console.log(error);
         });
-      }());
+      }
 
       $scope.setData = function() {
         if (angular.isDate($scope.data)) {

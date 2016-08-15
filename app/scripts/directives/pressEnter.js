@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.directives')
   .directive('pressEnter', ['KEY_CODES', function(keys) {
     return function(scope, element, attrs) {
       element.bind("keypress", function(event) {

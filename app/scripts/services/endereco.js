@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .factory('Endereco', ['DataSaida', 'CEP', function(data, CEP) {
 
     function Endereco(endereco) {

@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .factory('AuthenticationService', [
     '$http',
     '$httpParamSerializerJQLike',
@@ -79,9 +79,9 @@ angular.module('belissimaApp')
         var expiration = new Date();
         expiration.setDate(expiration.getDate() + 1);
         //expiration.setSeconds(expiration.getSeconds() + 10);
+        //$cookies.putObject('currentUser', data, { 'expires': expiration });
 
-        //$http.defaults.headers.common['user-session-id'] = token;
-        $cookies.putObject('currentUser', data, { 'expires': expiration });
+        $cookies.putObject('currentUser', data, { });
       }
 
       function ClearCredentials() {

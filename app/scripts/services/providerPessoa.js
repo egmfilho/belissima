@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .provider('ProviderPessoa', ['URLS', function(urls) {
 
     var url = urls.root + 'person.php?action=:action',

@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.constants')
   .constant('HTTP_STATUS', {
     ok: 200,
     criado: 201,

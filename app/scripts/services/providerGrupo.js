@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .provider('ProviderGrupo', ['URLS', function(urls) {
 
     var url = urls.root + 'product_group.php?action=:action',

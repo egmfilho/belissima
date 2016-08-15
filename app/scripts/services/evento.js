@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .factory('Evento', [
     'DataSaida',
     'TipoEvento',
@@ -28,6 +28,7 @@ angular.module('belissimaApp')
         this.cliente = evento ? evento.cliente : '';
         this.funcionario = evento ? evento.funcionario : '';
         this.produto = evento ? evento.produto : '';
+        this.resourceId = evento ? evento.resourceId : '';
       }
 
       Evento.prototype = {
@@ -111,6 +112,8 @@ angular.module('belissimaApp')
         } else {
           evento.produto = new Produto();
         }
+
+        evento.resourceId = evento.funcionarioId;
 
         return evento;
       };

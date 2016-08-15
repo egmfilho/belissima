@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .factory('CustoProduto', ['DataSaida', 'Usuario', function(data, Usuario) {
 
     function CustoProduto(custoProduto) {

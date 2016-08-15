@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.directives')
   .directive('filtroMoeda', ['$filter', function($filter) {
     return {
       require: 'ngModel',

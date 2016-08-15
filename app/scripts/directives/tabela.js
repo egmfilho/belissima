@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.directives')
   .directive('tabela', [function() {
 
     function link(scope, element, attrs) {

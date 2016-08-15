@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.filters')
   .filter('truncate', function() {
     return function(value, max, tail) {
 

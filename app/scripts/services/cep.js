@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .factory('CEP', ['DataSaida', 'Bairro', 'Cidade', function(data, Bairro, Cidade) {
 
     function CEP(cep) {

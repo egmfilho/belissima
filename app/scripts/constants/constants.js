@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.constants')
   .constant('URLS', {
     root: 'http://172.16.4.17/belissima/public/php/'
   });

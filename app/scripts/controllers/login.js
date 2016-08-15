@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.controllers')
   .controller('LoginCtrl', ['$scope', '$location', 'AuthenticationService', function ($scope, $location, authentication) {
 
     this.logar = function() {

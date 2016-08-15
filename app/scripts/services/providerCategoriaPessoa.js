@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .provider('ProviderCategoriaPessoa', ['URLS', function(urls) {
 
     var url = urls.root + 'person_category.php?action=getList';

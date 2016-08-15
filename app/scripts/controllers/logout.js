@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.controllers')
   .controller('LogoutCtrl', ['$location', 'AuthenticationService', function($location, authentication) {
 
     authentication.logout(function(response) {

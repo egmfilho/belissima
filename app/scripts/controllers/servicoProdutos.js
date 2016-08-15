@@ -3,8 +3,9 @@
  */
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.controllers')
   .controller('ServicoProdutosCtrl', [
+    '$rootScope',
     '$scope',
     '$filter',
     'ProviderProduto',
@@ -20,7 +21,7 @@ angular.module('belissimaApp')
     'Produto',
     'TipoProduto',
     'Unidade',
-    function($scope, $filter, providerProduto, providerTipoProduto, providerUnidade, providerGrupo, modalConfirm, modalAlert, modalBuscarPessoa, modalGrupo, modalPreco, modalEditarProduto, Produto, TipoProduto, Unidade) {
+    function($rootScope, $scope, $filter, providerProduto, providerTipoProduto, providerUnidade, providerGrupo, modalConfirm, modalAlert, modalBuscarPessoa, modalGrupo, modalPreco, modalEditarProduto, Produto, TipoProduto, Unidade) {
 
       //function compensaScrollsNaTabela() {
       //
@@ -45,9 +46,9 @@ angular.module('belissimaApp')
         $scope.head = [ 'Código', 'Nome', 'Descrição', 'Preço', 'Custo', 'Ativo' ];
         $scope.body = [ ];
 
+        getProdutos();
         getTipos();
         getUnidades();
-        getProdutos();
       });
 
       $scope.produto = new Produto();
@@ -69,6 +70,7 @@ angular.module('belissimaApp')
       };
 
       function getProdutos() {
+        $rootScope.isLoading = true;
         providerProduto.obterTodos().then(function(success) {
           $scope.produtos = [ ];
           angular.forEach(success.data, function(item, index) {
@@ -81,31 +83,39 @@ angular.module('belissimaApp')
               custo: $filter('currency')(produto.custo.valor, 'R$ '),
               ativo: produto.ativo ? 'Sim' : 'Não'
             });
+            //$rootScope.isLoading = false;
           });
         }, function(error) {
           console.log(error);
+          //$rootScope.isLoading = false;
         });
       }
 
       function getTipos() {
         $scope.tipos = [ ];
+        $rootScope.isLoading = true;
         providerTipoProduto.obterTodos().then(function(success) {
           angular.forEach(success.data, function(item, index) {
             $scope.tipos.push(new TipoProduto(TipoProduto.converterEmEntrada(item)));
           });
+          //$rootScope.isLoading = false;
         }, function(error) {
           console.log(error);
+          //$rootScope.isLoading = false;
         });
       }
 
       function getUnidades() {
         $scope.unidades = [ ];
+        $rootScope.isLoading = true;
         providerUnidade.obterTodos().then(function(success) {
           angular.forEach(success.data, function(item, index) {
             $scope.unidades.push(new Unidade(Unidade.converterEmEntrada(item)));
           });
+          $rootScope.isLoading = false;
         }, function(error) {
           console.log(error);
+          $rootScope.isLoading = false;
         });
       }
 
@@ -134,10 +144,13 @@ angular.module('belissimaApp')
 
         modalConfirm.show('Salvar', 'Deseja salvar um novo produto?', 'Sim', 'Não', function(result) {
           if (result) {
+            $rootScope.isLoading = true;
             providerProduto.salvarProduto(Produto.converterEmSaida($scope.produto)).then(function(success) {
+              $rootScope.isLoading = false;
               modalAlert.show('Sucesso', 'Novo produto salvo!', 'Ok');
             }, function(error) {
               console.log(error);
+              $rootScope.isLoading = false;
             });
           }
         });
@@ -145,6 +158,6 @@ angular.module('belissimaApp')
 
       $scope.limpar = function() {
         $scope.produto = new Produto();
-      }
+      };
 
   }]);

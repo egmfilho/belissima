@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.controllers')
   .controller('PopoverTabelaCtrl', ['$scope', function($scope) {
 
     $scope.popover = {

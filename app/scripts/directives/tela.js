@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.directives')
   .directive('tela', ['$window', function($window) {
 
     function link(scope, element, attrs) {

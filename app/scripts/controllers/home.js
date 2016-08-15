@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.controllers')
   .controller('HomeCtrl', ['$scope', '$http', 'URLS', function ($scope, $http, urls) {
 
     $scope.botoes = [

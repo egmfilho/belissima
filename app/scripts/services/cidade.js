@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('belissimaApp')
+angular.module('belissimaApp.services')
   .factory('Cidade', ['DataSaida', function(data) {
 
     function Cidade(cidade) {
