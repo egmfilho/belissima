@@ -55,7 +55,14 @@ angular
         controller: 'AgendaCtrl',
         controllerAs: 'agenda',
         resolve: {
-          'categorias': ['ProviderCategoriaPessoa', function(provider) { return provider.obterCategorias(); }]
+          '': ['$rootScope', 'ProviderCategoriaPessoa', function($rootScope, provider) {
+            return $rootScope.categoriaPessoa || provider.obterCategorias().then(function(success) {
+                $rootScope.categoriaPessoa = { };
+                  angular.forEach(success.data.data, function(item, index) {
+                    $rootScope.categoriaPessoa[item.person_category_name_formatted.toString().toLowerCase()] = item.person_category_id;
+                  });
+              });
+          }]
         }
       })
       .otherwise({
@@ -65,16 +72,6 @@ angular
   .run(['$rootScope', '$location', '$cookies', '$uibModalStack', 'Usuario', 'ProviderCategoriaPessoa', function($rootScope, $location, $cookies, $uibModalStack, Usuario, providerCategoria) {
 
     $rootScope.isLoading = false;
-
-    // Carrega as categorias de pessoa (cliente, funcionario, fornecedor)
-    //providerCategoria.obterCategorias().then(function(success) {
-    //  $rootScope.categoriaPessoa = { };
-    //  angular.forEach(success.data.data, function(item, index) {
-    //    $rootScope.categoriaPessoa[item.person_category_name_formatted.toString().toLowerCase()] = item.person_category_id;
-    //  });
-    //}, function(error) {
-    //  console.log(error);
-    //});
 
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
       $uibModalStack.dismissAll();

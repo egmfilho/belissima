@@ -6,6 +6,7 @@
 
 angular.module('belissimaApp.controllers')
   .controller('AgendaCtrl', [
+    '$rootScope',
     '$scope',
     '$compile',
     'uiCalendarConfig',
@@ -15,8 +16,7 @@ angular.module('belissimaApp.controllers')
     'Evento',
     'Pessoa',
     'ModalConfirm',
-    'categorias',
-    function($scope, $compile, uiCalendarConfig, $uibModal, providerEvento, providerPessoa, Evento, Pessoa, modalConfirm) {
+    function($rootScope, $scope, $compile, uiCalendarConfig, $uibModal, providerEvento, providerPessoa, Evento, Pessoa, modalConfirm) {
 
       var self = this;
 
