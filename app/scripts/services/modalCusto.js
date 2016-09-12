@@ -25,6 +25,6 @@ angular.module('belissimaApp.services')
             callback(null);
           });
       }
-    }
+    };
 
   }]);

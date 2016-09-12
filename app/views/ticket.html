@@ -1,58 +1,60 @@
 <tela id="tela-ticket" icon="glyphicon-tag" titulo="Ticket" subtitulo="asidjaios iaojdoais doiajdosa" show-footer="true">
 
-  <div class="row">
-    <form name="tickets" class="form-inline">
-      <label for="inicial">Data Inicial</label>
-      <p class="input-group">
-        <input id="inicial" type="text" class="form-control" name="inicial" uib-datepicker-popup="{{format}}" ng-change="trocaMinDataFinal()" on-open-focus="false" ng-model="inicial" is-open="popupInicial.opened" datepicker-options="dateOptionsInicial" ng-required="true" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
+  <div style="width: 100%;padding: 20px;">
+    <div class="row">
+      <form name="tickets" class="form-inline">
+        <label for="inicial">Data Inicial</label>
+        <p class="input-group">
+          <input id="inicial" type="text" class="form-control" name="inicial" uib-datepicker-popup="{{format}}" ng-change="trocaMinDataFinal()" on-open-focus="false" ng-model="inicial" is-open="popupInicial.opened" datepicker-options="dateOptionsInicial" ng-required="true" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="abrirInicial()"><i class="glyphicon glyphicon-calendar"></i></button>
         </span>
-      </p>
-      <label for="final">Data Final</label>
-      <p class="input-group">
-        <input id="final" ng-disabled="tickets.inicial.$error.date || tickets.inicial.$error.required" type="text" class="form-control input-erro" name="final" uib-datepicker-popup="{{format}}" on-open-focus="false" ng-model="final" is-open="popupFinal.opened" datepicker-options="dateOptionsFinal" ng-required="true" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
+        </p>
+        <label for="final">Data Final</label>
+        <p class="input-group">
+          <input id="final" ng-disabled="tickets.inicial.$error.date || tickets.inicial.$error.required" type="text" class="form-control input-erro" name="final" uib-datepicker-popup="{{format}}" on-open-focus="false" ng-model="final" is-open="popupFinal.opened" datepicker-options="dateOptionsFinal" ng-required="true" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
           <span class="input-group-btn">
             <button  ng-disabled="tickets.inicial.$error.date || tickets.inicial.$error.required" type="button" class="btn btn-default" ng-click="abrirFinal()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
-      </p>
-      <span class="glyphicon glyphicon-refresh"></span>
-    </form>
-  </div>
-
-  <br>
-
-  <!--TABELA-->
-  <table id="tabela-ticket" class="table">
-    <thead>
-    <tr>
-      <th valign="middle">Cód</th>
-      <th>Cliente</th>
-      <th>Data</th>
-      <th>Valor</th>
-      <th>Serviço</th>
-      <th>Profissional</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]">
-      <td>00{{n}}</td>
-      <td>Teste teste teste teste teste teste.</td>
-      <td>01/01/2016</td>
-      <td>10,00</td>
-      <td>Teste</td>
-      <td>Ninguém</td>
-    </tr>
-    </tbody>
-  </table>
-
-  <div class="row controle">
-    <div class="col-xs-4 col-sm-4 col-md-8"></div>
-    <div class="col-xs-4 col-sm-4 col-md-2">
-      <button class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Novo</button>
+        </p>
+        <span class="glyphicon glyphicon-refresh"></span>
+      </form>
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-2">
-      <button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+
+    <br>
+
+    <!--TABELA-->
+    <table id="tabela-ticket" class="table">
+      <thead>
+      <tr>
+        <th valign="middle">Cód</th>
+        <th>Cliente</th>
+        <th>Data</th>
+        <th>Valor</th>
+        <th>Serviço</th>
+        <th>Profissional</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]">
+        <td>00{{n}}</td>
+        <td>Teste teste teste teste teste teste.</td>
+        <td>01/01/2016</td>
+        <td>10,00</td>
+        <td>Teste</td>
+        <td>Ninguém</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="row controle">
+      <div class="col-xs-4 col-sm-4 col-md-8"></div>
+      <div class="col-xs-4 col-sm-4 col-md-2">
+        <button class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Novo</button>
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-2">
+        <button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+      </div>
     </div>
   </div>
 

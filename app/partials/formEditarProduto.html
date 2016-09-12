@@ -61,7 +61,7 @@
     <div><h4>Custo</h4></div>
     <div class="input-group">
       <span class="input-group-addon">R$</span>
-      <input type="text" class="form-control" ng-model="produto.custo.valor" readonly="true">
+      <input type="text" class="form-control" ng-model="produto.custo.valor" readonly="true" filtro-moeda>
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="abrirCustos()"><span class="glyphicon glyphicon-plus"></span></button>
       </span>
@@ -72,7 +72,7 @@
     <div><h4>Preço</h4></div>
     <div class="input-group">
       <span class="input-group-addon">R$</span>
-      <input type="text" class="form-control" ng-model="produto.preco.valor" readonly="true">
+      <input type="text" class="form-control" ng-model="produto.preco.valor" readonly="true" filtro-moeda>
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="abrirPrecos()"><span class="glyphicon glyphicon-plus"></span></button>
       </span>
@@ -89,9 +89,9 @@
 
   <div class="col-md-3">
     <div><h4>Ativo</h4></div>
-    <div class="btn-group">
-      <label class="btn btn-primary" ng-model="produto.ativo" uib-btn-radio="true">Sim</label>
-      <label class="btn btn-primary" ng-model="produto.ativo" uib-btn-radio="false">Não</label>
+    <div class="btn-group btn-toggle">
+      <label class="btn btn-primary" ng-model="produto.ativo" uib-btn-radio="true"><span class="glyphicon glyphicon-eye-open"></span> Sim</label>
+      <label class="btn btn-primary" ng-model="produto.ativo" uib-btn-radio="false"><span class="glyphicon glyphicon-eye-close"></span> Não</label>
     </div>
   </div>
 </div>

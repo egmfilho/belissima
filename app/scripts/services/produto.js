@@ -51,6 +51,7 @@ angular.module('belissimaApp.services')
         },
 
         setGrupo: function(grupo) {
+          console.log(grupo);
           this.grupo = grupo;
           this.grupoId = this.grupo.id;
         }

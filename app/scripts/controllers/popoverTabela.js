@@ -10,6 +10,8 @@ angular.module('belissimaApp.controllers')
     $scope.popover = {
       isOpen: false,
       templateUrl: 'partials/popoverTabela.html',
+      title: '',
+      content: '',
       open: function open(data) {
         $scope.popover.isOpen = true;
         $scope.popover.data = data;
@@ -17,6 +19,11 @@ angular.module('belissimaApp.controllers')
       close: function close() {
         $scope.popover.isOpen = false;
       }
+    };
+
+    $scope.setContent = function(title, content) {
+      $scope.popover.title = title;
+      $scope.popover.content = content;
     };
 
   }]);

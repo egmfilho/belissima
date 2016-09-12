@@ -20,6 +20,7 @@ angular.module('belissimaApp.directives')
     return {
       restrict: 'E',
       scope: {
+        id: '@',
         icon: '@',
         titulo: '@',
         subtitulo: '@',

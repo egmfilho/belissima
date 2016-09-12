@@ -1,6 +1,6 @@
 <div>
-  <h4>Descrição</h4>
-  <p>{{b.descricao || '(sem descrição)'}}</p>
+  <h4>{{popover.title}}</h4>
+  <p>{{popover.content || '(vazio)'}}</p>
   <div style="padding-bottom: 10px; float: right;">
     <button class="btn btn-default" ng-click="popover.close();">
       <span class="glyphicon glyphicon-remove"></span> Fechar

@@ -11,6 +11,6 @@ angular.module('belissimaApp.services')
       converter: function(data) {
         return $filter('date')(new Date(data), 'yyyy-MM-dd HH:mm:ss');
       }
-    }
+    };
 
   }]);

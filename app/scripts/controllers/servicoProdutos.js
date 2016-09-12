@@ -120,7 +120,8 @@ angular.module('belissimaApp.controllers')
       }
 
       $scope.getFornecedor = function() {
-        modalBuscarPessoa.show($scope.categoriaPessoa.fornecedor, function(result) {
+        $rootScope.isLoading = true;
+        modalBuscarPessoa.show($rootScope.categoriaPessoa ? $rootScope.categoriaPessoa.fornecedor : null, function(result) {
           if (result) {
             $scope.produto.setFornecedor(result);
           }
@@ -132,6 +133,7 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.getGrupo = function() {
+        $rootScope.isLoading = true;
         modalGrupo.show(function(result) {
           if (result) {
             $scope.produto.setGrupo(result);

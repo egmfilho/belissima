@@ -1,7 +1,7 @@
-<tela icon="glyphicon-home" titulo="Home" subtitulo="Página inicial, escolha uma opção." show-footer="false">
+<tela id="home" icon="glyphicon-home" titulo="Home" subtitulo="Página inicial, escolha uma opção." show-footer="false">
 
-  <div class="col-md-12 col-lg-10 col-lg-offset-1" id="menu-home">
-    <div class="col-sm-6 col-md-4" ng-repeat="botao in botoes">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1" id="menu-home">
+    <div class="col-xs-6 col-sm-6 col-md-4" ng-repeat="botao in botoes">
       <div class="botao-menu-home" redireciona="{{botao.url}}">
         <div class="centerX centerY">
           <span class="glyphicon" ng-class="botao.icone"></span>

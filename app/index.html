@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <title>Belíssima</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <!--<meta name="viewport" content="width=device-width">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -23,8 +24,7 @@
     <![endif]-->
 
     <div id="loading" ng-show="isLoading" ng-include="'partials/loading.html'"></div>
-
-    <span ng-include="'partials/menuLateral.html'" ng-hide="currentPath === '/login'"></span>
+    <span class="hidden-xs" ng-include="'partials/menuLateral.html'" ng-hide="currentPath === '/login'"></span>
 
     <div class="container">
       <div ng-view=""></div>

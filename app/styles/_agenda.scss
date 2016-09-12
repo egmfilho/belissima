@@ -75,7 +75,11 @@
   }
 }
 
-#Agenda {
+#agenda {
+
+  .calendar {
+    margin: 20px;
+  }
 
   button {
     -webkit-transition: none;

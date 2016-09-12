@@ -1,5 +1,5 @@
-<div style="overflow-x: auto; overflow-y: hidden; margin: 30px 0 60px 0;">
-  <table id="{{idTabela}}" class="tabela table-bordered">
+<div style="overflow-x: auto; overflow-y: hidden; margin: 0;">
+  <table id="{{idTabela}}" class="tabela tabela-bordered">
     <thead>
     <tr>
       <th ng-repeat="h in head">{{h}}</th>
@@ -8,8 +8,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="b in body" ng-controller="PopoverTabelaCtrl as popover" uib-popover-template="popover.templateUrl" popover-is-open="popover.isOpen"  popover-title="{{b.nome}}" popover-trigger="outsideClick">
-      <td ng-repeat="(key, value) in b" ng-click="click(b)">
+    <tr ng-repeat="b in body" ng-controller="PopoverTabelaCtrl as popover" uib-popover-template="popover.templateUrl" ng-init="setContent('Descrição', b.descricao)" popover-is-open="popover.isOpen"  popover-title="{{b.nome}}" popover-trigger="outsideClick">
+    <td ng-repeat="(key, value) in b" ng-click="click(b)">
         {{value.toString() | truncate:50}}
       </td>
       <td ng-if="callbackEditar">

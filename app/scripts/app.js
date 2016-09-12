@@ -48,7 +48,17 @@ angular
       .when('/produtos', {
         templateUrl: 'views/servicosProdutos.html',
         controller: 'ServicoProdutosCtrl',
-        controllerAs: 'servicoProdutos'
+        controllerAs: 'servicoProdutos',
+        resolve: {
+          '': ['$rootScope', 'ProviderCategoriaPessoa', function($rootScope, provider) {
+            return $rootScope.categoriaPessoa || provider.obterCategorias().then(function(success) {
+                $rootScope.categoriaPessoa = { };
+                angular.forEach(success.data.data, function(item, index) {
+                  $rootScope.categoriaPessoa[item.person_category_name_formatted.toString().toLowerCase()] = item.person_category_id;
+                });
+              });
+          }]
+        }
       })
       .when('/agenda', {
         templateUrl: 'views/agenda.html',
@@ -80,7 +90,7 @@ angular
       // Bloqueia acesso de usuarios nao logados
       if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').sessao == null) {
         if (next.templateUrl != 'views/login.html') {
-          //$location.path('/login');
+          $location.path('/login');
         }
       }
     });

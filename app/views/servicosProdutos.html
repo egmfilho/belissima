@@ -1,14 +1,14 @@
-<tela icon="glyphicon-shopping-cart" titulo="Serviços & Produtos" subtitulo="Consulta, cadastro e edição de produtos e serviços." show-footer="true">
+<tela id="servico-produtos" icon="glyphicon-shopping-cart" titulo="Serviços & Produtos" subtitulo="Consulta, cadastro e edição de produtos e serviços." show-footer="true">
 
-  <div class="btn-group">
-    <label class="btn btn-primary" ng-model="opcao" uib-btn-radio="'novo'">Novo</label>
-    <label class="btn btn-primary" ng-model="opcao" uib-btn-radio="'editar'">Editar</label>
-  </div>
-
-  <div ng-show="opcao == 'novo'" ng-include="'partials/formNovoProduto.html'"></div>
-
-  <div ng-show="opcao == 'editar'">
-    <tabela id-tabela="tabela-produtos" head="head" body="body" callback-editar="editar" callback-excluir="excluir"></tabela>
+  <div class="conteudo-tela">
+    <ul class="nav nav-tabs" ng-init="opcao = 'novo'">
+      <li role="presentation" ng-class="opcao === 'novo' ? 'active' : ''"><a href="" ng-click="opcao = 'novo'">Novo</a></li>
+      <li role="presentation" ng-class="opcao === 'editar' ? 'active' : ''"><a href="" ng-click="opcao = 'editar'">Editar</a></li>
+    </ul>
+    <div class="conteudo-nav">
+      <div ng-show="opcao === 'novo'" ng-include="'partials/formNovoProduto.html'"></div>
+      <tabela ng-show="opcao === 'editar'" id-tabela="tabela-produtos" head="head" body="body" callback-editar="editar" callback-excluir="excluir"></tabela>
+    </div>
   </div>
 
 </tela>

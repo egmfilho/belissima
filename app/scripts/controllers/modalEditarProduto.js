@@ -88,7 +88,7 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.getGrupo = function() {
-        modalGrupo.show(function(result) {
+        modalGrupo.show($scope.produto.grupo, function(result) {
           if (result) {
             $scope.produto.setGrupo(result);
           }

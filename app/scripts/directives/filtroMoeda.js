@@ -11,20 +11,22 @@ angular.module('belissimaApp.directives')
         ngModelController.$parsers.push(function(data) {
           // converte o dado no formato da view para o formato do model
           if (data) {
-            return data.toString().replace(',', '.');
+            return parseFloat(data.toString().replace('.', '').replace(',', '.'));
           }
 
-          return data;
+          return parseFloat(data);
         });
 
         ngModelController.$formatters.push(function(data) {
-          // converte o dado do modelo do formato para o modelo da view
-          if (data) {
-            return $filter('number')(data, 2).replace('.', ',');
+          // converte o dado no formato do model para o formato da view
+
+          if (data != null) {
+            //return $filter('number')(data, 2).replace('.', ',');
+            return $filter('currency')(data, '');
           }
 
           return data;
         });
       }
-    }
+    };
   }]);

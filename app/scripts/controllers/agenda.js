@@ -23,6 +23,11 @@ angular.module('belissimaApp.controllers')
       this.eventos = [ ];
       this.funcionarios = [ ];
 
+      $scope.$on('$viewContentLoaded', function() {
+        getFuncionarios();
+        getEventos();
+      });
+
       $scope.uiConfig = {
         calendar: {
           timezone: 'local',
@@ -61,33 +66,33 @@ angular.module('belissimaApp.controllers')
 
       function getFuncionarios() {
         if (!$rootScope.categoriaPessoa) return;
+        $rootScope.isLoading = true;
         providerPessoa.obterPessoasPorCategoria($rootScope.categoriaPessoa.funcionario).then(function(success) {
+          self.funcionarios.push({ id: -1, title: 'Todos'});
           angular.forEach(success.data, function(item, index) {
             var pessoa = new Pessoa(Pessoa.converterEmEntrada(item));
             self.funcionarios.push({ id: pessoa.id, title: (pessoa.apelido || pessoa.nome) });
           });
+          $rootScope.isLoading = false;
         }, function(error) {
           console.log(error);
+          $rootScope.isLoading = false;
         });
       }
 
       function getEventos() {
+        $rootScope.isLoading = true;
         providerEvento.obterEventos(true).then(function(success) {
           self.eventos.push({ events: [ ]});
-
           angular.forEach(success.data, function(item, index) {
             self.eventos[0].events.push(new Evento(Evento.converterEmEntrada(item)));
           });
-
+          $rootScope.isLoading = false;
         }, function(error) {
           console.log(error.data);
+          $rootScope.isLoading = false;
         });
       }
-
-      $scope.$on('$viewContentLoaded', function() {
-        getFuncionarios();
-        getEventos();
-      });
 
       function atualizarEvento(evento) {
         return providerEvento.atualizarEvento(Evento.converterEmSaida(evento));
@@ -176,7 +181,6 @@ angular.module('belissimaApp.controllers')
                   angular.extend(event, result);
                   uiCalendarConfig.calendars.meuCalendario.fullCalendar('updateEvent', event);
                   $rootScope.isLoading = false;
-                  alert('atualizado');
                 }, function(error) {
                   console.log(error);
                   $rootScope.isLoading = false;
@@ -197,7 +201,6 @@ angular.module('belissimaApp.controllers')
             }
             atualizarEvento(event).then(function(success) {
               $rootScope.isLoading = false;
-              alert('atualizado');
             }, function(error) {
               console.log(error);
               revertFunc();

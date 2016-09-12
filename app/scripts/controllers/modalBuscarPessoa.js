@@ -6,15 +6,19 @@
 
 angular.module('belissimaApp.controllers')
   .controller('ModalBuscarPessoaCtrl', [
+    '$rootScope',
     '$scope',
     '$uibModalInstance',
     'ProviderPessoa',
     'Pessoa',
     'categoriaId',
-    function($scope, $uibModalInstance, provider, Pessoa, categoriaId) {
+    function($rootScope, $scope, $uibModalInstance, provider, Pessoa, categoriaId) {
 
-      $scope.selecionado = { };
-      $scope.resultado = [ ];
+      $uibModalInstance.opened.then(function() {
+        $rootScope.isLoading = false;
+        $scope.selecionado = { };
+        $scope.resultado = [ ];
+      });
 
       function setResultado(resultado) {
         $scope.resultado = [ ];
@@ -30,31 +34,41 @@ angular.module('belissimaApp.controllers')
       }
 
       $scope.getPessoaPorCodigo = function(codigo) {
+        $rootScope.isLoading = true;
         provider.obterPessoaPorCodigo(codigo, true, true, true, true, true, true, true, categoriaId).then(function(success) {
           setResultado(success.data);
+          $rootScope.isLoading = false;
         }, function(error) {
           console.log(error);
+          $rootScope.isLoading = false;
         });
       };
 
       $scope.getPessoaPorDocumento = function(documento) {
+        $rootScope.isLoading = true;
         provider.obterPessoasPorDocumento(documento, true, true, true, true, true, true, true, categoriaId).then(function(success) {
           setResultado(success.data);
+          $rootScope.isLoading = false;
         }, function(error) {
           console.log(error);
+          $rootScope.isLoading = false;
         });
       };
 
       $scope.getPessoasPorNome = function(nome) {
+        $rootScope.isLoading = true;
         provider.obterPessoasPorNome(nome, true, true, true, true, true, true, true, categoriaId).then(function(success) {
           setResultado(success.data);
+          $rootScope.isLoading = false;
         }, function(error) {
           console.log(error);
+          $rootScope.isLoading = false;
         });
       };
 
       $scope.selecionarPessoa = function(pessoa) {
         $scope.selecionado = pessoa;
+        $uibModalInstance.close($scope.selecionado);
       };
 
       $scope.cancel = function() {
