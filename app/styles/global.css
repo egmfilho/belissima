@@ -374,12 +374,27 @@ body {
       border-bottom-color: transparent;
       color: white; }
 
+.nav-pills a {
+  color: white; }
+.nav-pills > li a:hover {
+  background-color: #baa526; }
+.nav-pills > li.active > a {
+  background-color: #baa526; }
+  .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: #baa526; }
+
 .conteudo-nav {
   background-color: #3f3f41;
   border: 1px solid #5a5a5a;
   border-top-color: transparent;
   padding: 20px;
   min-height: 100%; }
+  .conteudo-nav .col-xs-1, .conteudo-nav .col-sm-1, .conteudo-nav .col-md-1, .conteudo-nav .col-lg-1, .conteudo-nav .col-xs-2, .conteudo-nav .col-sm-2, .conteudo-nav .col-md-2, .conteudo-nav .col-lg-2, .conteudo-nav .col-xs-3, .conteudo-nav .col-sm-3, .conteudo-nav .col-md-3, .conteudo-nav .col-lg-3, .conteudo-nav .col-xs-4, .conteudo-nav .col-sm-4, .conteudo-nav .col-md-4, .conteudo-nav .col-lg-4, .conteudo-nav .col-xs-5, .conteudo-nav .col-sm-5, .conteudo-nav .col-md-5, .conteudo-nav .col-lg-5, .conteudo-nav .col-xs-6, .conteudo-nav .col-sm-6, .conteudo-nav .col-md-6, .conteudo-nav .col-lg-6, .conteudo-nav .col-xs-7, .conteudo-nav .col-sm-7, .conteudo-nav .col-md-7, .conteudo-nav .col-lg-7, .conteudo-nav .col-xs-8, .conteudo-nav .col-sm-8, .conteudo-nav .col-md-8, .conteudo-nav .col-lg-8, .conteudo-nav .col-xs-9, .conteudo-nav .col-sm-9, .conteudo-nav .col-md-9, .conteudo-nav .col-lg-9, .conteudo-nav .col-xs-10, .conteudo-nav .col-sm-10, .conteudo-nav .col-md-10, .conteudo-nav .col-lg-10, .conteudo-nav .col-xs-11, .conteudo-nav .col-sm-11, .conteudo-nav .col-md-11, .conteudo-nav .col-lg-11, .conteudo-nav .col-xs-12, .conteudo-nav .col-sm-12, .conteudo-nav .col-md-12, .conteudo-nav .col-lg-12 {
+    padding-left: 4px;
+    padding-right: 4px; }
+  .conteudo-nav .row {
+    margin-left: 0;
+    margin-right: 0; }
 
 @media (min-width: 768px) {
   .empurrado {
@@ -787,6 +802,28 @@ body {
 
 .input-group-btn span {
   width: 16px; }
+
+#clientes .nav-pills {
+  background-color: #5a5a5a;
+  border-radius: 4px; }
+#clientes #tabela-clientes {
+  width: 100%; }
+#clientes .cabecalho {
+  margin: 10px 0 10px 0;
+  border-bottom: 1px solid white; }
+  #clientes .cabecalho a:hover, #clientes .cabecalho a:focus {
+    text-decoration: none; }
+  #clientes .cabecalho .principal {
+    font-size: 2em;
+    vertical-align: -5px;
+    color: #baa526; }
+  #clientes .cabecalho h4 {
+    display: inline-block; }
+  #clientes .cabecalho .trash {
+    float: right;
+    font-size: 1.2em;
+    margin-top: 10px;
+    color: white; }
 
 .fc-toolbar {
   font-size: 1.2em; }

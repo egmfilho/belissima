@@ -1,0 +1,40 @@
+#clientes {
+  .nav-pills {
+    background-color: $cor-menu-lateral-borda;
+    border-radius: 4px;
+  }
+
+  #tabela-clientes {
+    width: 100%;
+  }
+
+  //.form-endereco {
+    .cabecalho {
+      margin: 10px 0 10px 0;
+      border-bottom: 1px solid white;
+
+      a {
+        &:hover, &:focus {
+          text-decoration: none;
+        }
+      }
+
+      .principal {
+        font-size: 2em;
+        vertical-align: -5px;
+        color: $cor-menu-highlight;
+      }
+
+      h4 {
+        display: inline-block;
+      }
+
+      .trash {
+        float: right;
+        font-size: 1.2em;
+        margin-top: 10px;
+        color: white;
+      }
+    }
+  //}
+}

@@ -9,7 +9,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="b in body" ng-controller="PopoverTabelaCtrl as popover" uib-popover-template="popover.templateUrl" ng-init="setContent('Descrição', b.descricao)" popover-is-open="popover.isOpen"  popover-title="{{b.nome}}" popover-trigger="outsideClick">
-    <td ng-repeat="(key, value) in b" ng-click="click(b)">
+    <td ng-repeat="(key, value) in b track by $index" ng-click="click(b)">
         {{value.toString() | truncate:50}}
       </td>
       <td ng-if="callbackEditar">

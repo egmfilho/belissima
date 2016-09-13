@@ -1,0 +1,14 @@
+<tela id="clientes" icon="glyphicon-user" titulo="Clientes" subtitulo="Consulta, cadastro e edição de clientes." show-footer="true">
+
+  <div class="conteudo-tela">
+    <ul class="nav nav-tabs" ng-init="opcao = 'novo'">
+      <li role="presentation" ng-class="opcao === 'novo' ? 'active' : ''"><a href="" ng-click="opcao = 'novo'">Novo</a></li>
+      <li role="presentation" ng-class="opcao === 'editar' ? 'active' : ''"><a href="" ng-click="opcao = 'editar'">Editar</a></li>
+    </ul>
+    <div class="conteudo-nav">
+      <div ng-show="opcao === 'novo'" ng-include="'partials/formNovaPessoa.html'"></div>
+      <tabela ng-show="opcao === 'editar'" id-tabela="tabela-clientes" head="tabela.head" body="tabela.body" callback-editar="editar" callback-excluir="excluir"></tabela>
+    </div>
+  </div>
+
+</tela>

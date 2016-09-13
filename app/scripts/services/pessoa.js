@@ -22,6 +22,14 @@ angular.module('belissimaApp.services')
 
     Pessoa.prototype = {
 
+      getEnderecoPrincipalEmString: function() {
+        return this.enderecos[0].getEnderecoCompleto();
+      },
+
+      getContatoPrincipalEmString: function() {
+
+      }
+
     };
 
     Pessoa.converterEmEntrada = function(person) {
