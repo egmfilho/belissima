@@ -10,9 +10,9 @@ angular.module('belissimaApp.services')
     function CEP(cep) {
       this.id = cep ? cep.id : '';
       this.bairroId = cep ? cep.bairroId : '';
-      this.bairro = cep ? cep.bairro : '';
+      this.bairro = cep ? cep.bairro : new Bairro();
       this.cidadeId = cep ? cep.cidadeId : '';
-      this.cidade = cep ? cep.cidade : '';
+      this.cidade = cep ? cep.cidade : new Cidade();
       this.uf = cep ? cep.uf : '';
       this.codigo = cep ? cep.codigo : '';
       this.logradouro = cep ? cep.logradouro : '';

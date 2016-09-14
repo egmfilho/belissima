@@ -17,12 +17,19 @@ angular.module('belissimaApp.services')
       this.numero = endereco ? endereco.numero : '';
       this.complemento = endereco ? endereco.complemento : '';
       //this.data = endereco ? endereco.data : '';
-      this.cep = endereco ? endereco.cep : '';
+      this.cep = endereco ? endereco.cep : new CEP();
     }
 
     Endereco.prototype = {
       getEnderecoCompleto: function() {
         return this.tipo + ' ' + this.logradouro + ' ' + this.numero + ', ' + this.cep.bairro.nome + ', ' + this.cep.cidade.nome + ' - ' + this.cep.cidade.uf;
+      },
+
+      setCep: function(cep) {
+        this.cep = new CEP(cep);
+        this.cepId = this.cep.id;
+        this.logradouro = this.cep.logradouro;
+        console.log(this.cep);
       }
     };
 

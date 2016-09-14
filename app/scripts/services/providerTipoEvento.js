@@ -12,7 +12,7 @@ angular.module('belissimaApp.services')
 
     this.$get = ['$resource', function($resource) {
 
-      provider = $resource(url, {
+      provider = $resource(url, { }, {
         get: {
           method: 'POST'
         },

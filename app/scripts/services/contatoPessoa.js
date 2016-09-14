@@ -14,6 +14,8 @@ angular.module('belissimaApp.services')
       this.tipoContato = contatoPessoa ? contatoPessoa.tipoContato : '';
       this.contato = contatoPessoa ? contatoPessoa.contato : '';
       this.nome = contatoPessoa ? contatoPessoa.nome : '';
+      this.principal = contatoPessoa ? contatoPessoa.principal : false;
+      this.referencia = contatoPessoa ? contatoPessoa.referencia : '';
       this.data = contatoPessoa ? contatoPessoa.data : '';
     }
 
@@ -32,6 +34,8 @@ angular.module('belissimaApp.services')
 
       contatoPessoa.contato = personContact.person_contact_value;
       contatoPessoa.nome = personContact.person_contact_name;
+      contatoPessoa.principal = personContact.person_contact_main === 'Y';
+      contatoPessoa.referencia = personContact.person_contact_name;
       contatoPessoa.data = personContact.person_contact_date;
 
       return contatoPessoa;
@@ -45,6 +49,7 @@ angular.module('belissimaApp.services')
       personContact.person_contact_type_id = contatoPessoa.tipoId;
       personContact.person_contact_value = contatoPessoa.contato;
       personContact.person_contact_name = contatoPessoa.nome;
+      personContact.person_contact_main = contatoPessoa.principal ? 'Y' : 'F';
       personContact.person_contact_date = data.converter(contatoPessoa.data);
 
       return personContact;

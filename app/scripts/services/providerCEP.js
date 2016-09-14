@@ -12,7 +12,7 @@ angular.module('belissimaApp.services')
 
     this.$get = ['$resource', function($resource) {
 
-      provider = $resource(url, {
+      provider = $resource(url, { }, {
         get: {
           method: 'POST'
         },
@@ -42,6 +42,16 @@ angular.module('belissimaApp.services')
             action: 'getList'
           }, {
             cep_code: codigo,
+            get_district: bairro,
+            get_city: cidade
+          }).$promise;
+        },
+
+        obterPorLogradouro: function(logradouro, bairro, cidade) {
+          return provider.get({
+            action: 'getList'
+          }, {
+            '?': logradouro,
             get_district: bairro,
             get_city: cidade
           }).$promise;

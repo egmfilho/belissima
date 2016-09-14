@@ -1,0 +1,158 @@
+<ul class="nav nav-pills nav-justified nav-pills-escuro" ng-init="opt = 'pessoa'">
+  <li role="presentation" ng-class="opt === 'pessoa' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'pessoa'">Pessoa</a></li>
+  <li role="presentation" ng-class="opt === 'endereco' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'endereco'">Endereço</a></li>
+  <li role="presentation" ng-class="opt === 'contato' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'contato'">Contato</a></li>
+</ul>
+<br>
+
+<div ng-show="opt === 'pessoa'">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 cabecalho">
+      <h4>Informações</h4>
+      <!--<a href="" class="trash" ng-click="limparInfos()"><span class="glyphicon glyphicon-erase"></span> Limpar</a>-->
+    </div>
+    <div class="col-sm-12 col-md-12">
+      <h4>Nome</h4>
+      <input type="text" class="form-control" ng-model="pessoa.nome">
+    </div>
+    <div class="col-sm-3 col-md-3">
+      <h4>Tipo</h4>
+      <select name="tipo-pessoa" class="form-control" ng-model="pessoa.tipo">
+        <option value="F">Física</option>
+        <option value="J">Jurídica</option>
+      </select>
+    </div>
+    <div class="col-sm-3 col-md-3">
+      <h4>CPF</h4>
+      <input type="text" class="form-control" ng-model="pessoa.cpf" ng-readonly="pessoa.tipo === 'J'">
+    </div>
+    <div class="col-sm-3 col-md-3">
+      <h4>RG</h4>
+      <input type="text" class="form-control" ng-model="pessoa.rg" ng-readonly="pessoa.tipo === 'J'">
+    </div>
+    <div class="col-sm-3 col-md-3">
+      <h4>CNPJ</h4>
+      <input type="text" class="form-control" ng-model="pessoa.cnpj" ng-readonly="pessoa.tipo === 'F'">
+    </div>
+    <div class="col-sm-12 col-md-12">
+      <h4>Apelido</h4>
+      <input type="text" class="form-control" ng-model="pessoa.apelido">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-3 col-md-3"></div>
+    <div class="col-sm-6 col-md-6 text-center">Etapa 1 de 3</div>
+    <div class="col-sm-3 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="opt='endereco'">Avançar <span class="glyphicon glyphicon-chevron-right"></span></button>
+    </div>
+  </div>
+</div>
+
+<div ng-show="opt === 'endereco'">
+  <div class="row">
+    <div class="col-sm-9 col-md-9"></div>
+    <div class="col-sm-3 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="addEndereco()"><span class="glyphicon glyphicon-plus"></span> Novo Endereço</button>
+    </div>
+  </div>
+  <br>
+  <div class="row" ng-repeat="e in pessoa.enderecos track by $index">
+    <div class="col-sm-12 col-md-12 cabecalho">
+      <a href="" class="principal" data-toggle="tooltip" title="Endereço principal" ng-mouseenter="hovering=!e.principal" ng-mouseleave="hovering=e.principal" ng-click="pessoa.setEnderecoPrincipal($index)">
+        <span class="glyphicon" ng-class="e.principal ? 'glyphicon-star' : 'glyphicon-star-empty'"></span>
+      </a>
+      <h4>Endereço {{$index + 1}}</h4>
+      <a href="" class="trash" ng-click="removeEndereco($index)"><span class="glyphicon glyphicon-trash"></span> Excluir</a>
+    </div>
+    <div class="col-sm-3 col-md-3">
+      <h4>CEP</h4>
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="e.cep.codigo">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="getCepPorCodigo(e.cep.codigo, $index)"><span class="glyphicon glyphicon-search"></span></button>
+        </span>
+      </div>
+    </div>
+    <div class="col-sm-1 col-md-1">
+      <h4>UF</h4>
+      <input type="text" class="form-control" readonly="true" ng-model="e.cep.uf">
+    </div>
+    <div class="col-sm-4 col-md-4">
+      <h4>Cidade</h4>
+      <input type="text" class="form-control" readonly="true" ng-model="e.cep.cidade.nome">
+    </div>
+    <div class="col-sm-4 col-md-4">
+      <h4>Bairro</h4>
+      <input type="text" class="form-control" readonly="true" ng-model="e.cep.bairro.nome">
+    </div>
+    <div class="col-sm-3 col-md-3">
+      <h4>Tipo</h4>
+      <select name="tipo-logradouro" class="form-control" ng-options="tipo as tipo for tipo in tipos_logradouros" ng-model="e.tipo"></select>
+    </div>
+    <div class="col-sm-9 col-md-9">
+      <h4>Logradouro</h4>
+      <input type="text" class="form-control" ng-model="e.logradouro">
+    </div>
+    <div class="col-sm-3 col-md-3">
+      <h4>Número</h4>
+      <input type="text" class="form-control" ng-model="e.numero">
+    </div>
+    <div class="col-sm-9 col-md-9">
+      <h4>Complemento</h4>
+      <input type="text" class="form-control" ng-model="e.complemento">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-3 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="opt='pessoa'"><span class="glyphicon glyphicon-chevron-left"></span> Voltar</button>
+    </div>
+    <div class="col-sm-6 col-md-6 text-center">Etapa 2 de 3</div>
+    <div class="col-sm-3 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="opt='contato'">Avançar <span class="glyphicon glyphicon-chevron-right"></span></button>
+    </div>
+  </div>
+</div>
+
+<div ng-show="opt === 'contato'">
+  <div class="row">
+    <div class="col-sm-9 col-md-9"></div>
+    <div class="col-sm-3 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="addContato()"><span class="glyphicon glyphicon-plus"></span> Novo Contato</button>
+    </div>
+  </div>
+  <br>
+  <div class="row" ng-repeat="c in pessoa.contatos track by $index">
+    <div class="col-sm-12 col-md-12 cabecalho">
+      <a href="" class="principal" data-toggle="tooltip" title="Endereço principal" ng-click="pessoa.setContatoPrincipal($index)">
+        <span class="glyphicon" ng-class="c.principal ? 'glyphicon-star' : 'glyphicon-star-empty'"></span>
+      </a>
+      <h4>Contato {{$index + 1}}</h4>
+      <a href="" class="trash" ng-click="removeContato($index)"><span class="glyphicon glyphicon-trash"></span> Excluir</a>
+    </div>
+    <div class="col-sm-2 col-md-2">
+      <h4>Tipo</h4>
+      <select name="tipo-contato" class="form-control" ng-model="c.tipoId" ng-options="tipo.id as tipo.nome for tipo in tipos_contatos"></select>
+    </div>
+    <div class="col-sm-5 col-md-5">
+      <h4>Contato</h4>
+      <input type="text" class="form-control" ng-model="c.contato">
+    </div>
+    <div class="col-sm-5 col-md-5">
+      <h4>Referência</h4>
+      <input type="text" class="form-control" ng-model="c.referencia">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-3 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="opt='endereco'"><span class="glyphicon glyphicon-chevron-left"></span> Voltar</button>
+    </div>
+    <div class="col-sm-6 col-md-6 text-center">Etapa 3 de 3</div>
+    <div class="col-sm-3 col-md-3">
+      <!--<button class="btn btn-default botao-esticado" ng-click="salvar()"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>-->
+    </div>
+  </div>
+</div>
+

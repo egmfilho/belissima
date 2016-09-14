@@ -19,7 +19,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.calendar',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ui.mask',
   ])
   .config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('SessionInjector');

@@ -78,15 +78,15 @@ body {
     left: 0;
     right: 0; }
 
-.botao, .tela .body button, .modal .input-group-btn button, .modal .control button, .btn-toggle .btn {
+.botao, .tela .body button, .modal .input-group-btn button, .modal .body button, .modal .control button, .btn-toggle .btn {
   background-color: #baa526;
   color: white;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.75);
   border-color: #867512;
   outline: none; }
-  .botao .glyphicon, .tela .body button .glyphicon, .modal .input-group-btn button .glyphicon, .modal .control button .glyphicon, .btn-toggle .btn .glyphicon {
+  .botao .glyphicon, .tela .body button .glyphicon, .modal .input-group-btn button .glyphicon, .modal .body button .glyphicon, .modal .control button .glyphicon, .btn-toggle .btn .glyphicon {
     color: white; }
-  .botao:hover, .tela .body button:hover, .modal .input-group-btn button:hover, .modal .control button:hover, .btn-toggle .btn:hover, .botao:focus, .tela .body button:focus, .modal .input-group-btn button:focus, .modal .control button:focus, .btn-toggle .btn:focus {
+  .botao:hover, .tela .body button:hover, .modal .input-group-btn button:hover, .modal .body button:hover, .modal .control button:hover, .btn-toggle .btn:hover, .botao:focus, .tela .body button:focus, .modal .input-group-btn button:focus, .modal .body button:focus, .modal .control button:focus, .btn-toggle .btn:focus {
     background-color: #867512;
     color: white;
     outline: none; }
@@ -143,37 +143,35 @@ body {
 .uib-timepicker tr:nth-child(2) td:nth-child(1) input {
   float: right; }
 
-.tabela, #tabela-ticket {
-  min-width: 700px; }
-  .tabela a, #tabela-ticket a {
-    color: #3f3f41; }
-  .tabela thead, #tabela-ticket thead {
-    background-color: #3f3f41; }
-    .tabela thead tr, #tabela-ticket thead tr {
-      background-color: #3f3f41 !important; }
-  .tabela th, #tabela-ticket th, .tabela td, #tabela-ticket td {
-    padding: 3px; }
-    .tabela th a, #tabela-ticket th a, .tabela td a, #tabela-ticket td a {
-      color: white; }
-  .tabela th, #tabela-ticket th {
-    border-bottom: none !important;
-    background-color: #5a5a5a;
-    color: white;
-    text-align: center; }
-  .tabela td, #tabela-ticket td {
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
-    border-color: #5a5a5a; }
-  .tabela tr, #tabela-ticket tr {
+.tabela a, #tabela-ticket a {
+  color: #3f3f41; }
+.tabela thead, #tabela-ticket thead {
+  background-color: #3f3f41; }
+  .tabela thead tr, #tabela-ticket thead tr {
+    background-color: #3f3f41 !important; }
+.tabela th, #tabela-ticket th, .tabela td, #tabela-ticket td {
+  padding: 3px; }
+  .tabela th a, #tabela-ticket th a, .tabela td a, #tabela-ticket td a {
     color: white; }
-    .tabela tr:nth-child(odd), #tabela-ticket tr:nth-child(odd) {
-      background-color: #777; }
-    .tabela tr:nth-child(even), #tabela-ticket tr:nth-child(even) {
-      background-color: #777; }
-    .tabela tr:hover, #tabela-ticket tr:hover {
-      background-color: #5a5a5a;
-      cursor: pointer; }
+.tabela th, #tabela-ticket th {
+  border-bottom: none !important;
+  background-color: #5a5a5a;
+  color: white;
+  text-align: center; }
+.tabela td, #tabela-ticket td {
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  border-color: #5a5a5a; }
+.tabela tr, #tabela-ticket tr {
+  color: white; }
+  .tabela tr:nth-child(odd), #tabela-ticket tr:nth-child(odd) {
+    background-color: #777; }
+  .tabela tr:nth-child(even), #tabela-ticket tr:nth-child(even) {
+    background-color: #777; }
+  .tabela tr:hover, #tabela-ticket tr:hover {
+    background-color: #5a5a5a;
+    cursor: pointer; }
 
 .tabela-bordered td, .tabela-bordered th {
   border: 1px solid #3f3f41;
@@ -183,6 +181,9 @@ body {
 .modal-backdrop.in {
   opacity: .6; }
 
+.modal .row {
+  margin-left: 0;
+  margin-right: 0; }
 .modal .header {
   background-color: #3f3f41;
   border: 1px solid #5a5a5a;
@@ -206,7 +207,7 @@ body {
   border-bottom-color: transparent;
   padding: 10px; }
 .modal .modal-lg .body {
-  height: 400px; }
+  height: 500px; }
   .modal .modal-lg .body .dropdown {
     width: 100%; }
     .modal .modal-lg .body .dropdown button {
@@ -226,12 +227,14 @@ body {
     margin: 5px; }
 .modal .body {
   background-color: #555;
-  border: 1px solid #5a5a5a;
+  border: 1px solid #787878;
   border-top-color: transparent;
   border-bottom-color: transparent;
   padding: 10px;
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto; }
+  .modal .body .container, .modal .body .tela {
+    width: 100%; }
   .modal .body .tabela, .modal .body #tabela-ticket {
     width: 100%;
     max-width: 100%; }
@@ -383,18 +386,41 @@ body {
   .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
     background-color: #baa526; }
 
+.condensar-rows .col-xs-1, .condensar-rows .col-sm-1, .condensar-rows .col-md-1, .condensar-rows .col-lg-1, .condensar-rows .col-xs-2, .condensar-rows .col-sm-2, .condensar-rows .col-md-2, .condensar-rows .col-lg-2, .condensar-rows .col-xs-3, .condensar-rows .col-sm-3, .condensar-rows .col-md-3, .condensar-rows .col-lg-3, .condensar-rows .col-xs-4, .condensar-rows .col-sm-4, .condensar-rows .col-md-4, .condensar-rows .col-lg-4, .condensar-rows .col-xs-5, .condensar-rows .col-sm-5, .condensar-rows .col-md-5, .condensar-rows .col-lg-5, .condensar-rows .col-xs-6, .condensar-rows .col-sm-6, .condensar-rows .col-md-6, .condensar-rows .col-lg-6, .condensar-rows .col-xs-7, .condensar-rows .col-sm-7, .condensar-rows .col-md-7, .condensar-rows .col-lg-7, .condensar-rows .col-xs-8, .condensar-rows .col-sm-8, .condensar-rows .col-md-8, .condensar-rows .col-lg-8, .condensar-rows .col-xs-9, .condensar-rows .col-sm-9, .condensar-rows .col-md-9, .condensar-rows .col-lg-9, .condensar-rows .col-xs-10, .condensar-rows .col-sm-10, .condensar-rows .col-md-10, .condensar-rows .col-lg-10, .condensar-rows .col-xs-11, .condensar-rows .col-sm-11, .condensar-rows .col-md-11, .condensar-rows .col-lg-11, .condensar-rows .col-xs-12, .condensar-rows .col-sm-12, .condensar-rows .col-md-12, .condensar-rows .col-lg-12 {
+  padding-left: 4px;
+  padding-right: 4px; }
+
 .conteudo-nav {
   background-color: #3f3f41;
   border: 1px solid #5a5a5a;
   border-top-color: transparent;
   padding: 20px;
-  min-height: 100%; }
-  .conteudo-nav .col-xs-1, .conteudo-nav .col-sm-1, .conteudo-nav .col-md-1, .conteudo-nav .col-lg-1, .conteudo-nav .col-xs-2, .conteudo-nav .col-sm-2, .conteudo-nav .col-md-2, .conteudo-nav .col-lg-2, .conteudo-nav .col-xs-3, .conteudo-nav .col-sm-3, .conteudo-nav .col-md-3, .conteudo-nav .col-lg-3, .conteudo-nav .col-xs-4, .conteudo-nav .col-sm-4, .conteudo-nav .col-md-4, .conteudo-nav .col-lg-4, .conteudo-nav .col-xs-5, .conteudo-nav .col-sm-5, .conteudo-nav .col-md-5, .conteudo-nav .col-lg-5, .conteudo-nav .col-xs-6, .conteudo-nav .col-sm-6, .conteudo-nav .col-md-6, .conteudo-nav .col-lg-6, .conteudo-nav .col-xs-7, .conteudo-nav .col-sm-7, .conteudo-nav .col-md-7, .conteudo-nav .col-lg-7, .conteudo-nav .col-xs-8, .conteudo-nav .col-sm-8, .conteudo-nav .col-md-8, .conteudo-nav .col-lg-8, .conteudo-nav .col-xs-9, .conteudo-nav .col-sm-9, .conteudo-nav .col-md-9, .conteudo-nav .col-lg-9, .conteudo-nav .col-xs-10, .conteudo-nav .col-sm-10, .conteudo-nav .col-md-10, .conteudo-nav .col-lg-10, .conteudo-nav .col-xs-11, .conteudo-nav .col-sm-11, .conteudo-nav .col-md-11, .conteudo-nav .col-lg-11, .conteudo-nav .col-xs-12, .conteudo-nav .col-sm-12, .conteudo-nav .col-md-12, .conteudo-nav .col-lg-12 {
-    padding-left: 4px;
-    padding-right: 4px; }
+  min-height: 100%;
+  overflow: auto; }
   .conteudo-nav .row {
     margin-left: 0;
     margin-right: 0; }
+
+.dark-div {
+  display: none;
+  opacity: 0;
+  background-color: black;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  -webkit-transition: all ease-out 0.5s;
+  -moz-transition: all ease-out 0.5s;
+  -o-transition: all ease-out 0.5s;
+  transition: all ease-out 0.5s; }
+
+.show-dark-div {
+  display: inline;
+  opacity: .6; }
 
 @media (min-width: 768px) {
   .empurrado {
@@ -403,30 +429,23 @@ body {
   .minimizado {
     margin-left: 64px; }
 
-  .dark-div {
-    display: none;
-    opacity: 0;
-    background-color: black;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    -webkit-transition: all ease-out 0.5s;
-    -moz-transition: all ease-out 0.5s;
-    -o-transition: all ease-out 0.5s;
-    transition: all ease-out 0.5s; }
-
-  .show-dark-div {
-    display: inline;
-    opacity: .6; }
-
   .conteudo-tela {
-    padding: 20px !important; } }
+    padding: 20px !important; }
+
+  .modal-lg {
+    width: 100%; }
+
+  .modal-dialog {
+    margin: 0;
+    padding: 30px; }
+
+  .modal-sm, .modal-md {
+    margin: 0 auto; } }
 @media (min-width: 992px) {
+  .modal-lg {
+    width: 900px;
+    margin: 30px auto; } }
+@media (min-width: 1200px) {
   #menu-lateral {
     left: 0; }
 
@@ -437,7 +456,10 @@ body {
     margin-left: 64px; }
 
   #menu-lateral-conteudo .logotipo {
-    opacity: 1; } }
+    opacity: 1; }
+
+  .dark-div, .show-dark-div {
+    display: none; } }
 @-webkit-keyframes uil-default-anim {
   0% {
     opacity: 1; }
@@ -803,23 +825,26 @@ body {
 .input-group-btn span {
   width: 16px; }
 
-#clientes .nav-pills {
+.form-clientes .nav-pills-claro {
   background-color: #5a5a5a;
   border-radius: 4px; }
-#clientes #tabela-clientes {
+.form-clientes .nav-pills-escuro {
+  background-color: #3f3f41;
+  border-radius: 4px; }
+.form-clientes #tabela-clientes {
   width: 100%; }
-#clientes .cabecalho {
+.form-clientes .cabecalho {
   margin: 10px 0 10px 0;
   border-bottom: 1px solid white; }
-  #clientes .cabecalho a:hover, #clientes .cabecalho a:focus {
+  .form-clientes .cabecalho a:hover, .form-clientes .cabecalho a:focus {
     text-decoration: none; }
-  #clientes .cabecalho .principal {
+  .form-clientes .cabecalho .principal {
     font-size: 2em;
     vertical-align: -5px;
     color: #baa526; }
-  #clientes .cabecalho h4 {
+  .form-clientes .cabecalho h4 {
     display: inline-block; }
-  #clientes .cabecalho .trash {
+  .form-clientes .cabecalho .trash {
     float: right;
     font-size: 1.2em;
     margin-top: 10px;

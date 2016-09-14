@@ -1,6 +1,7 @@
 /**
  * Created by egmfilho on 19/07/16.
  */
+
 'use strict';
 
 angular.module('belissimaApp.services')
@@ -188,7 +189,23 @@ angular.module('belissimaApp.services')
         },
 
         salvarPessoa: function(pessoa) {
-          return provider.save(pessoa).$promise;
+          return provider.save({
+            action: 'insert'
+          }, pessoa).$promise;
+        },
+
+        atualizarPessoa: function(pessoa) {
+          return provider.save({
+            action: 'edit'
+          }, pessoa).$promise;
+        },
+
+        excluirPessoa: function(pessoa) {
+          return provider.save({
+            action: 'del'
+          }, {
+            person_id: pessoa.id
+          }).$promise;
         }
 
       }

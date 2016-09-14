@@ -1,0 +1,65 @@
+<div class="meu-modal">
+
+  <div class="header">
+    <div class="title"><span class="glyphicon glyphicon-envelope"></span> Buscar Endereço <span class="glyphicon glyphicon-remove close" ng-click="cancel()"></span></div>
+  </div>
+
+  <div class="body">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div><h4>CEP</h4></div>
+          <div class="input-group">
+            <input type="text" class="form-control" name="cdEndereco" aria-describedby="basic-addon2" ng-model="cdEndereco" press-enter="buscarPorCEP(cdEndereco)">
+            <span class="input-group-btn">
+              <button class="btn btn-default" tabindex="-1" ng-click="buscarPorCEP(cdEndereco)"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div><h4>Logradouro</h4></div>
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="logradouro" press-enter="avancar()" placeholder="Ex. Rua Francisco Sá">
+            <span class="input-group-addon">em</span>
+            <input type="text" name="cidade" class="form-control" ng-model="cidade" press-enter="buscarPorLogradouro(logradouro, cidade)" placeholder="Ex. Rio de Janeiro">
+            <span class="input-group-btn">
+              <button class="btn btn-default" ng-click="buscarPorLogradouro(logradouro)" tabindex="-1"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="tabela tabela-bordered tabela-selecionavel">
+            <thead>
+            <tr>
+              <th>CEP</th>
+              <th>UF</th>
+              <th>Cidade</th>
+              <th>Bairro</th>
+              <th>Logradouro</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="c in ceps" ng-click="selecionarCEP(c)">
+              <td>{{c.codigo}}</td>
+              <td>{{c.uf}}</td>
+              <td>{{c.cidade.nome}}</td>
+              <td>{{c.bairro.nome}}</td>
+              <td>{{c.logradouro}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="control">
+    <button class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span> Fechar</button>
+  </div>
+
+</div>

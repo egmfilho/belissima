@@ -1,6 +1,11 @@
-#clientes {
-  .nav-pills {
+.form-clientes {
+  .nav-pills-claro {
     background-color: $cor-menu-lateral-borda;
+    border-radius: 4px;
+  }
+
+  .nav-pills-escuro {
+    background-color: $cor-menu-lateral;
     border-radius: 4px;
   }
 
