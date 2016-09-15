@@ -63,7 +63,7 @@ angular
           }]
         }
       })
-      .when('/clientes', {
+      .when('/pessoas', {
         templateUrl: 'views/clientes.html',
         controller: 'ClientesCtrl',
         controllerAs: 'clientes',

@@ -56,8 +56,8 @@ angular.module('belissimaApp.controllers')
         }
 
         $rootScope.isLoading = true;
-        provider.obterPessoasPorCategoria($rootScope.categoriaPessoa.cliente.id, true, true, true, true, true, true, true).then(function(success) {
-        //provider.obterTodos(true, true, true, true, true, true, true, true).then(function(success) {
+        //provider.obterPessoasPorCategoria($rootScope.categoriaPessoa.cliente.id, true, true, true, true, true, true, true).then(function(success) {
+        provider.obterTodos(true, true, true, true, true, true, true, true).then(function(success) {
           $rootScope.isLoading = false;
           $scope.tabela.body = [ ];
           angular.forEach(success.data, function(item, index) {

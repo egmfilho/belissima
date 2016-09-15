@@ -35,6 +35,7 @@ html {
 
 body {
   padding-right: 0px !important;
+  margin-top: 60px;
   background-color: $cor-de-fundo;
   color: white;
   position: relative;
@@ -743,6 +744,10 @@ body {
 }
 
 @media (min-width: 768px) {
+  body {
+    margin-top: 0;
+  }
+
   .empurrado {
     margin-left: 64px;
   }

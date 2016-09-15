@@ -1,4 +1,4 @@
-<tela id="clientes" class="form-clientes" icon="glyphicon-user" titulo="Clientes" subtitulo="Consulta, cadastro e edição de clientes." show-footer="true">
+<tela id="clientes" class="form-clientes" icon="glyphicon-user" titulo="Pessoas" subtitulo="Consulta, cadastro e edição de pessoas." show-footer="true">
 
   <div class="conteudo-tela">
     <ul class="nav nav-tabs" ng-init="opcao = 'novo'">
@@ -14,6 +14,7 @@
           <tr>
             <th>Código</th>
             <th>Nome</th>
+            <th>Apelido</th>
             <th>Endereço</th>
             <th>Contato</th>
             <th>&nbsp;</th>
@@ -23,7 +24,8 @@
         <tbody>
           <tr ng-repeat="pessoa in tabela.body">
             <td>{{pessoa.codigo}}</td>
-            <td>{{pessoa.apelido || pessoa.nome}}</td>
+            <td>{{pessoa.nome | truncate:50}}</td>
+            <td>{{pessoa.apelido}}</td>
             <td>{{pessoa.endereco}}</td>
             <td>{{pessoa.contato}}</td>
             <td>

@@ -16,9 +16,9 @@ angular.module('belissimaApp.controllers')
 
       },
       {
-        nome: 'Clientes',
+        nome: 'Pessoas',
         icone: 'glyphicon-user',
-        url: '/clientes'
+        url: '/pessoas'
       },
       {
         nome: 'Relatórios',

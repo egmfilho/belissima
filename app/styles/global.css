@@ -9,6 +9,7 @@ html {
 
 body {
   padding-right: 0px !important;
+  margin-top: 60px;
   background-color: #2b2b2b;
   color: white;
   position: relative;
@@ -432,6 +433,9 @@ body {
   transition: all ease-out 0.5s; }
 
 @media (min-width: 768px) {
+  body {
+    margin-top: 0; }
+
   .empurrado {
     margin-left: 64px; }
 
@@ -908,12 +912,8 @@ body {
   resize: none; }
 #servico-produtos .tabela, #servico-produtos #tabela-ticket {
   width: 100%; }
-  #servico-produtos .tabela tr, #servico-produtos #tabela-ticket tr {
-    min-height: 50px;
-    height: 50px; }
   #servico-produtos .tabela td, #servico-produtos #tabela-ticket td {
-    white-space: normal;
-    padding: 5px; }
+    white-space: normal; }
 
 .input-group-btn span {
   width: 16px; }

@@ -12,11 +12,11 @@
       <h4>Informações</h4>
       <!--<a href="" class="trash" ng-click="limparInfos()"><span class="glyphicon glyphicon-erase"></span> Limpar</a>-->
     </div>
-    <div class="col-sm-12 col-md-8">
+    <div class="col-sm-8 col-md-8">
       <h4>Nome</h4>
       <input type="text" class="form-control" ng-model="pessoa.nome">
     </div>
-    <div class="col-sm-12 col-md-4">
+    <div class="col-sm-4 col-md-4">
       <h4>Apelido</h4>
       <input type="text" class="form-control" ng-model="pessoa.apelido">
     </div>
@@ -24,22 +24,22 @@
       <h4>Categorias</h4>
       <multiple-autocomplete  ng-model="pessoa.categorias" object-property="nome" suggestions-arr="categorias_pessoa"></multiple-autocomplete>
     </div>
-    <div class="col-sm-3 col-md-3">
+    <div class="col-xs-6 col-sm-3 col-md-3">
       <h4>Tipo</h4>
       <select name="tipo-pessoa" class="form-control" ng-model="pessoa.tipo">
         <option value="F">Física</option>
         <option value="J">Jurídica</option>
       </select>
     </div>
-    <div class="col-sm-3 col-md-3">
+    <div class="col-xs-6 col-sm-3 col-md-3">
       <h4>CPF</h4>
       <input type="text" name="cpf" class="form-control" ng-model="pessoa.cpf" ng-readonly="pessoa.tipo === 'J'" ui-mask="999.999.999.99" model-view-value="true">
     </div>
-    <div class="col-sm-3 col-md-3">
+    <div class="col-xs-6 col-sm-3 col-md-3">
       <h4>RG</h4>
       <input type="text" class="form-control" ng-model="pessoa.rg" ng-readonly="pessoa.tipo === 'J'" ui-mask="99.999.999-9" model-view-value="true">
     </div>
-    <div class="col-sm-3 col-md-3">
+    <div class="col-xs-6 col-sm-3 col-md-3">
       <h4>CNPJ</h4>
       <input type="text" class="form-control" ng-model="pessoa.cnpj" ng-readonly="pessoa.tipo === 'F'" ui-mask="99.999.999/9999-99" model-view-value="true">
     </div>
@@ -64,7 +64,7 @@
       <h4>Endereço {{$index + 1}}</h4>
       <a href="" class="trash" ng-click="removeEndereco($index)"><span class="glyphicon glyphicon-trash"></span> Excluir</a>
     </div>
-    <div class="col-sm-3 col-md-3">
+    <div class="col-xs-4 col-sm-3 col-md-3">
       <h4>CEP</h4>
       <div class="input-group">
         <input type="text" class="form-control" ng-model="e.cep.codigo" ui-mask="99999-999" model-view-value="true">
@@ -73,31 +73,31 @@
         </span>
       </div>
     </div>
-    <div class="col-sm-1 col-md-1">
+    <div class="col-xs-2 col-sm-1 col-md-1">
       <h4>UF</h4>
       <input type="text" class="form-control" readonly="true" ng-model="e.cep.uf">
     </div>
-    <div class="col-sm-4 col-md-4">
+    <div class="col-xs-6 col-sm-6 col-md-4">
       <h4>Cidade</h4>
       <input type="text" class="form-control" readonly="true" ng-model="e.cep.cidade.nome">
     </div>
-    <div class="col-sm-4 col-md-4">
+    <div class="col-xs-8 col-sm-4 col-md-4">
       <h4>Bairro</h4>
       <input type="text" class="form-control" readonly="true" ng-model="e.cep.bairro.nome">
     </div>
-    <div class="col-sm-3 col-md-3">
+    <div class="col-xs-4 col-sm-3 col-md-3">
       <h4>Tipo</h4>
       <select name="tipo-logradouro" class="form-control" ng-options="tipo as tipo for tipo in tipos_logradouros" ng-model="e.tipo"></select>
     </div>
-    <div class="col-sm-9 col-md-9">
+    <div class="col-xs-12 col-sm-9 col-md-9">
       <h4>Logradouro</h4>
       <input type="text" class="form-control" ng-model="e.logradouro">
     </div>
-    <div class="col-sm-3 col-md-3">
+    <div class="col-xs-3 col-sm-3 col-md-3">
       <h4>Número</h4>
       <input type="text" class="form-control" ng-model="e.numero">
     </div>
-    <div class="col-sm-9 col-md-9">
+    <div class="col-xs-9 col-sm-9 col-md-9">
       <h4>Complemento</h4>
       <input type="text" class="form-control" ng-model="e.complemento">
     </div>
@@ -133,15 +133,15 @@
       <h4>Contato {{$index + 1}}</h4>
       <a href="" class="trash" ng-click="removeContato($index)"><span class="glyphicon glyphicon-trash"></span> Excluir</a>
     </div>
-    <div class="col-sm-2 col-md-2">
+    <div class="col-xs-4 col-sm-2 col-md-2">
       <h4>Tipo</h4>
       <select name="tipo-contato" class="form-control" ng-model="c.tipoId" ng-options="tipo.id as tipo.nome for tipo in tipos_contatos"></select>
     </div>
-    <div class="col-sm-5 col-md-5">
+    <div class="col-xs-8 col-sm-5 col-md-5">
       <h4>Contato</h4>
       <input type="text" class="form-control" ng-model="c.contato" ui-mask="{{getMascaraContato(c.tipoId).mascara}}" model-view-value="true">
     </div>
-    <div class="col-sm-5 col-md-5">
+    <div class="col-xs-12 col-sm-5 col-md-5">
       <h4>Referência</h4>
       <input type="text" class="form-control" ng-model="c.referencia">
     </div>
@@ -170,11 +170,11 @@
 <br>
 <br>
 <div class="row rodape-salvar">
-  <div class="col-sm-3 col-md-3">
+  <div class="col-xs-6 col-sm-3 col-md-3">
     <button class="btn btn-default botao-esticado" ng-click=""><span class="glyphicon glyphicon-erase"></span> Limpar tudo</button>
   </div>
-  <div class="col-sm-6 col-md-6 text-center"></div>
-  <div class="col-sm-3 col-md-3">
+  <div class="hidden-xs col-sm-6 col-md-6 text-center"></div>
+  <div class="col-xs-6 col-sm-3 col-md-3">
     <button class="btn btn-default botao-esticado" ng-click="salvar()" ng-disabled="!validar(pessoa)"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
   </div>
 </div>
