@@ -65,9 +65,9 @@ angular.module('belissimaApp.services')
       address.cep_id = endereco.cepId;
       address.person_address_code = endereco.codigo;
       address.person_address_public_place = endereco.logradouro;
-      address.person_address_type = endereco.tipo.length ? endereco.tipo : null;
+      address.person_address_type = endereco.tipo ? endereco.tipo : null;
       address.person_address_number = endereco.numero;
-      address.person_address_complement = endereco.complemento.length ? endereco.complemento : null;
+      address.person_address_complement = endereco.complemento ? endereco.complemento : null;
       address.person_address_main = endereco.principal ? 'Y' : 'N';
       //address.person_address_date = data.converterEmSaida(endereco.data);
 

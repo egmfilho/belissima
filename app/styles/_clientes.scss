@@ -15,8 +15,9 @@
 
   //.form-endereco {
     .cabecalho {
-      margin: 10px 0 10px 0;
-      border-bottom: 1px solid white;
+      margin: 20px 0 0 0;
+      padding-top: 10px;
+      border-top: 1px solid white;
 
       a {
         &:hover, &:focus {
@@ -42,4 +43,23 @@
       }
     }
   //}
+
+  .rodape {
+    border-top: 1px solid white;
+  }
+
+  .rodape-salvar {
+    height: 50px;
+    background-color: $cor-menu-lateral-borda;
+    border-radius: 4px;
+
+    > div {
+      height: 100%;
+      padding: 6px;
+    }
+    button {
+      height: 100%;
+      font-size: 1.4em;
+    }
+  }
 }

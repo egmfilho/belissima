@@ -1,4 +1,4 @@
-.ease-out, body, .logotipo, #menu-lateral {
+.ease-out, body, .logotipo, .main-header .hamburger > span, #menu-lateral {
   -webkit-transition: all ease-out 0.5s;
   -moz-transition: all ease-out 0.5s;
   -o-transition: all ease-out 0.5s;
@@ -431,10 +431,6 @@ body {
   -o-transition: all ease-out 0.5s;
   transition: all ease-out 0.5s; }
 
-.show-dark-div {
-  display: inline;
-  opacity: .6; }
-
 @media (min-width: 768px) {
   .empurrado {
     margin-left: 64px; }
@@ -697,6 +693,67 @@ body {
     #login .login-body button:hover, #login .login-body button:focus {
       background-color: #867512; }
 
+.main-header {
+  width: 100%;
+  height: 60px;
+  background-color: #3f3f41;
+  background-image: url("../images/logotipo2.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100px;
+  border-bottom: 1px solid #5a5a5a;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
+  padding: 0;
+  position: fixed;
+  top: 0;
+  z-index: 100; }
+  .main-header .hamburger {
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    margin: 5px;
+    display: block;
+    padding: 5px; }
+    .main-header .hamburger:focus, .main-header .hamburger:active {
+      outline: none; }
+    .main-header .hamburger > span {
+      position: absolute;
+      display: block;
+      width: 40px;
+      height: 5px;
+      border-radius: 4px;
+      background-color: white; }
+      .main-header .hamburger > span:nth-child(1) {
+        top: 15px; }
+      .main-header .hamburger > span:nth-child(2) {
+        top: 28px; }
+      .main-header .hamburger > span:nth-child(3) {
+        bottom: 13px; }
+  .main-header .fechar > span {
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 5px;
+    border-radius: 4px;
+    background-color: white; }
+    .main-header .fechar > span:nth-child(1) {
+      top: 28px;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg); }
+    .main-header .fechar > span:nth-child(2) {
+      opacity: 0; }
+    .main-header .fechar > span:nth-child(3) {
+      top: 28px;
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      transform: rotate(-45deg); }
+
 #menu-lateral {
   background-color: #3f3f41;
   position: fixed;
@@ -706,10 +763,9 @@ body {
   overflow-y: auto;
   margin: 0;
   padding: 0;
-  left: 0;
-  top: 0;
+  top: 60px;
   box-shadow: 2px 0 4px #000;
-  z-index: 100; }
+  z-index: 99; }
   #menu-lateral .controle {
     background-color: #141414;
     padding: 2px 0;
@@ -754,6 +810,30 @@ body {
     padding-top: 20px;
     margin-top: auto; }
 
+.menu-lateral-aberto {
+  left: 0; }
+  .menu-lateral-aberto .logotipo {
+    opacity: 1; }
+
+.menu-lateral-fechado {
+  left: -310px; }
+  .menu-lateral-fechado .logotipo {
+    opacity: 0; }
+
+.show-dark-div {
+  display: inline;
+  opacity: .6; }
+
+.hide-dark-div {
+  display: none;
+  opacity: 0; }
+
+@media (min-width: 768px) {
+  .menu-lateral-fechado {
+    left: -236px; }
+
+  #menu-lateral {
+    top: 0; } }
 #menu-home div {
   padding: 5px;
   margin: 0px; }
@@ -853,8 +933,9 @@ body {
 .form-clientes #tabela-clientes {
   width: 100%; }
 .form-clientes .cabecalho {
-  margin: 10px 0 10px 0;
-  border-bottom: 1px solid white; }
+  margin: 20px 0 0 0;
+  padding-top: 10px;
+  border-top: 1px solid white; }
   .form-clientes .cabecalho a:hover, .form-clientes .cabecalho a:focus {
     text-decoration: none; }
   .form-clientes .cabecalho .principal {
@@ -868,6 +949,18 @@ body {
     font-size: 1.2em;
     margin-top: 10px;
     color: white; }
+.form-clientes .rodape {
+  border-top: 1px solid white; }
+.form-clientes .rodape-salvar {
+  height: 50px;
+  background-color: #5a5a5a;
+  border-radius: 4px; }
+  .form-clientes .rodape-salvar > div {
+    height: 100%;
+    padding: 6px; }
+  .form-clientes .rodape-salvar button {
+    height: 100%;
+    font-size: 1.4em; }
 
 .fc-toolbar {
   font-size: 1.2em; }

@@ -1,6 +1,13 @@
 <div ng-controller="MenuLateralCtrl as menuLateral">
-  <div class="dark-div show-dark-div hidden-lg" ng-click="menuLateral.menuRetratil()"></div>
-  <div id="menu-lateral">
+  <div class="main-header visible-xs-block">
+    <button class="hamburger" ng-class="{'fechar': minimizado}" ng-click="menuLateral.menuRetratil()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+  <div class="dark-div hidden-lg" ng-class="minimizado ? 'show-dark-div' : 'hide-dark-div'" ng-click="menuLateral.menuRetratil()"></div>
+  <div id="menu-lateral" ng-class="minimizado ? 'menu-lateral-aberto' : 'menu-lateral-fechado'">
     <div id="menu-lateral-conteudo">
       <div class="logotipo" ng-click="menuLateral.menuRetratil()"></div>
       <div class="controle">

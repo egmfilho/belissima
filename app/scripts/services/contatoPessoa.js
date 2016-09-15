@@ -46,7 +46,7 @@ angular.module('belissimaApp.services')
       personContact.person_id = contatoPessoa.pessoaId;
       personContact.person_contact_type_id = contatoPessoa.tipoId;
       personContact.person_contact_value = contatoPessoa.contato;
-      personContact.person_contact_name = contatoPessoa.referencia.length ? contatoPessoa.referencia : null;
+      personContact.person_contact_name = contatoPessoa.referencia ? contatoPessoa.referencia : null;
       personContact.person_contact_main = contatoPessoa.principal ? 'Y' : 'F';
       //personContact.person_contact_date = data.converter(contatoPessoa.data);
 

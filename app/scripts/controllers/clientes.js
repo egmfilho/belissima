@@ -27,9 +27,9 @@ angular.module('belissimaApp.controllers')
 
       $scope.$on('$viewContentLoaded', function() {
         $scope.pessoa = new Pessoa();
-        $scope.pessoa.enderecos = [ new Endereco() ];
+        //$scope.pessoa.enderecos = [ new Endereco() ];
         $scope.pessoa.setEnderecoPrincipal(0);
-        $scope.pessoa.contatos = [ new Contato() ];
+        //$scope.pessoa.contatos = [ new Contato() ];
         $scope.pessoa.setContatoPrincipal(0);
 
         $scope.categorias_pessoa = jQuery.map($rootScope.categoriaPessoa, function(item, index) {
@@ -125,10 +125,13 @@ angular.module('belissimaApp.controllers')
 
       $scope.addEndereco = function() {
         $scope.pessoa.enderecos.push(new Endereco());
+        if ($scope.pessoa.enderecos.length === 1) {
+          $scope.pessoa.setEnderecoPrincipal(0);
+        }
       };
 
       $scope.removeEndereco = function($index) {
-        if ($scope.pessoa.enderecos.length <= 1) {
+        if ($scope.pessoa.enderecos.length <= 0) {
           $scope.pessoa.enderecos[0] = new Endereco();
           $scope.pessoa.enderecos[0].principal = true;
           return;
@@ -138,10 +141,13 @@ angular.module('belissimaApp.controllers')
 
       $scope.addContato = function() {
         $scope.pessoa.contatos.push(new Contato());
+        if ($scope.pessoa.contatos.length === 1) {
+          $scope.pessoa.setContatoPrincipal(0);
+        }
       };
 
       $scope.removeContato = function($index) {
-        if ($scope.pessoa.contatos.length <= 1) {
+        if ($scope.pessoa.contatos.length <= 0) {
           $scope.pessoa.contatos[0] = new Contato();
           $scope.pessoa.contatos[0].principal = true;
           return;
@@ -210,6 +216,12 @@ angular.module('belissimaApp.controllers')
             console.log(error);
             $rootScope.isLoading = false;
           });
+        }
+      };
+
+      $scope.limparTudo = function() {
+        if (confirm('Limpar todos os campos?')) {
+          $scope.pessoa = new Pessoa();
         }
       };
 

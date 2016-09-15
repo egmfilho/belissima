@@ -44,7 +44,9 @@ angular.module('belissimaApp.services')
 
       removerEndereco: function(index) {
         if (this.enderecos.splice(index, 1)[0].principal) {
-          this.enderecos[0].principal = true;
+          if (this.enderecos.length) {
+            this.enderecos[0].principal = true;
+          }
         }
       },
 
@@ -66,7 +68,9 @@ angular.module('belissimaApp.services')
 
       removerContato: function(index) {
         if (this.contatos.splice(index, 1)[0].principal) {
-          this.contatos[0].principal = true;
+          if (this.contatos.length) {
+            this.contatos[0].principal = true;
+          }
         }
       }
 
@@ -116,11 +120,12 @@ angular.module('belissimaApp.services')
       person.person_active = pessoa.ativo ? 'Y' : 'N';
       person.person_code = pessoa.codigo;
       person.person_type = pessoa.tipo;
-      person.person_cnpj = pessoa.cnpj.length ? pessoa.cnpj : null;
-      person.person_rg = pessoa.rg.length ? pessoa.rg : null;
-      person.person_cpf = pessoa.cpf.length ? pessoa.cpf : null;
+
+      person.person_cnpj = pessoa.cnpj ? pessoa.cnpj : null;
+      person.person_rg = pessoa.rg ? pessoa.rg : null;
+      person.person_cpf = pessoa.cpf ? pessoa.cpf : null;
       person.person_name = pessoa.nome;
-      person.person_nickname = pessoa.apelido.length ? pessoa.apelido : null;
+      person.person_nickname = pessoa.apelido ? pessoa.apelido : null;
 
       person.person_address = [ ];
       angular.forEach(pessoa.enderecos, function(endereco, index) {

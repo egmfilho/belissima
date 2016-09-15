@@ -15,10 +15,12 @@ angular.module('belissimaApp.controllers')
     'TipoContato',
     'Pessoa',
     'CategoriaPessoa',
+    'Endereco',
+    'ContatoPessoa',
     'ModalConfirm',
     'TiposLogradouros',
     'pessoa',
-    function($rootScope, $scope, $uibModalInstance, provider, providerCategoriaPessoa, providerTipoContato, TipoContato, Pessoa, CategoriaPessoa, modalConfirm, TiposLogradouros, pessoa) {
+    function($rootScope, $scope, $uibModalInstance, provider, providerCategoriaPessoa, providerTipoContato, TipoContato, Pessoa, CategoriaPessoa, Endereco, Contato, modalConfirm, TiposLogradouros, pessoa) {
 
       $uibModalInstance.opened.then(function() {
         $scope.pessoa = new Pessoa(pessoa);
@@ -63,31 +65,43 @@ angular.module('belissimaApp.controllers')
         })
       }
 
-      function validar() {
-        if (!$scope.evento.title) {
-          return 'Digite um título!';
+      $scope.getMascaraContato = function(id) {
+        return $scope.tipos_contatos.find(function(tipo) {
+          return tipo.id === id;
+        });
+      };
+
+      $scope.addEndereco = function() {
+        $scope.pessoa.enderecos.push(new Endereco());
+        if ($scope.pessoa.enderecos.length === 1) {
+          $scope.pessoa.setEnderecoPrincipal(0);
         }
+      };
 
-        if (!$scope.data) {
-          return 'Verifique a data!';
+      $scope.removeEndereco = function($index) {
+        if ($scope.pessoa.enderecos.length <= 0) {
+          $scope.pessoa.enderecos[0] = new Endereco();
+          $scope.pessoa.enderecos[0].principal = true;
+          return;
         }
+        $scope.pessoa.removerEndereco($index);
+      };
 
-        if (!$scope.evento.start) {
-          return 'Verifique a hora de início!';
+      $scope.addContato = function() {
+        $scope.pessoa.contatos.push(new Contato());
+        if ($scope.pessoa.contatos.length === 1) {
+          $scope.pessoa.setContatoPrincipal(0);
         }
+      };
 
-        if (!$scope.evento.end) {
-          return 'Verifique a hora de término!';
+      $scope.removeContato = function($index) {
+        if ($scope.pessoa.contatos.length <= 0) {
+          $scope.pessoa.contatos[0] = new Contato();
+          $scope.pessoa.contatos[0].principal = true;
+          return;
         }
-
-        $scope.setData();
-
-        if (!$scope.evento.tipoId) {
-          return 'Selecione um tipo de evento!';
-        }
-
-        return null;
-      }
+        $scope.pessoa.removerContato($index);
+      };
 
       function validar(pessoa) {
         var i;
@@ -155,7 +169,7 @@ angular.module('belissimaApp.controllers')
             //  console.log(error);
             //});
             $rootScope.isLoading = true;
-            provider.atualizarPessoa($scope.pessoa).then(function(success) {
+            provider.atualizarPessoa(Pessoa.converterEmSaida($scope.pessoa)).then(function(success) {
               console.log(success);
               alert('Atualizado');
               $rootScope.isLoading = false;
