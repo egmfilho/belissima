@@ -128,15 +128,15 @@ body {
   overflow: hidden;
   position: absolute; }
 
-.dropdown-menu {
+.calendario .dropdown-menu {
   color: white;
-  background-color: #3f3f41; }
-  .dropdown-menu .text-info {
+  background-color: #3f3f41 !important; }
+  .calendario .dropdown-menu .text-info {
     color: white; }
-  .dropdown-menu .btn-info:active, .dropdown-menu .btn-info.active {
+  .calendario .dropdown-menu .btn-info:active, .calendario .dropdown-menu .btn-info.active {
     background-color: #3f3f41;
     border-color: #5a5a5a; }
-  .dropdown-menu .uib-datepicker-current, .dropdown-menu .uib-clear, .dropdown-menu .uib-close {
+  .calendario .dropdown-menu .uib-datepicker-current, .calendario .dropdown-menu .uib-clear, .calendario .dropdown-menu .uib-close {
     border-color: #867512; }
 
 .uib-timepicker .uib-separator {
@@ -924,6 +924,25 @@ body {
 .form-clientes .nav-pills-escuro {
   background-color: #3f3f41;
   border-radius: 4px; }
+.form-clientes .dropdown-toggle.btn-default {
+  font-size: 1.25em;
+  color: white;
+  background-color: #baa526;
+  border-color: #867512; }
+  .form-clientes .dropdown-toggle.btn-default:focus, .form-clientes .dropdown-toggle.btn-default:active {
+    color: white;
+    background-color: #baa526;
+    border-color: #867512; }
+.form-clientes .dropdown-menu {
+  width: 100%;
+  background-color: #5a5a5a;
+  color: white;
+  top: 26px;
+  font-size: 1.25em; }
+  .form-clientes .dropdown-menu > li > a {
+    color: white; }
+    .form-clientes .dropdown-menu > li > a:hover {
+      background-color: #baa526; }
 .form-clientes #tabela-clientes {
   width: 100%; }
 .form-clientes .cabecalho {

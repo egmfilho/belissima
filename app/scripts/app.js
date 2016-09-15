@@ -27,6 +27,20 @@ angular
     $httpProvider.interceptors.push('SessionInjector');
   }])
   .config(function ($routeProvider) {
+    function resolveCategorias() {
+      return {
+        '': ['$rootScope', 'ProviderCategoriaPessoa', 'CategoriaPessoa', function($rootScope, provider, CategoriaPessoa) {
+          return $rootScope.categoriaPessoa || provider.obterTodos().then(function(success) {
+              $rootScope.categoriaPessoa = { };
+              angular.forEach(success.data, function(item, index) {
+                var categoria = new CategoriaPessoa(CategoriaPessoa.converterEmEntrada(item));
+                $rootScope.categoriaPessoa[categoria.nomeFormatado] = categoria;
+              });
+            });
+        }]
+      };
+    }
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/home.html',
@@ -51,48 +65,19 @@ angular
         templateUrl: 'views/servicosProdutos.html',
         controller: 'ServicoProdutosCtrl',
         controllerAs: 'servicoProdutos',
-        resolve: {
-          '': ['$rootScope', 'ProviderCategoriaPessoa', 'CategoriaPessoa', function($rootScope, provider, CategoriaPessoa) {
-            return $rootScope.categoriaPessoa || provider.obterTodos().then(function(success) {
-                $rootScope.categoriaPessoa = { };
-                angular.forEach(success.data, function(item, index) {
-                  var categoria = new CategoriaPessoa(CategoriaPessoa.converterEmEntrada(item));
-                  $rootScope.categoriaPessoa[categoria.nomeFormatado] = categoria;
-                });
-              });
-          }]
-        }
+        resolve: resolveCategorias()
       })
       .when('/pessoas', {
         templateUrl: 'views/clientes.html',
         controller: 'ClientesCtrl',
         controllerAs: 'clientes',
-        resolve: {
-          '': ['$rootScope', 'ProviderCategoriaPessoa', 'CategoriaPessoa', function($rootScope, provider, CategoriaPessoa) {
-            return $rootScope.categoriaPessoa || provider.obterTodos().then(function(success) {
-                $rootScope.categoriaPessoa = { };
-                angular.forEach(success.data, function(item, index) {
-                  var categoria = new CategoriaPessoa(CategoriaPessoa.converterEmEntrada(item));
-                  $rootScope.categoriaPessoa[categoria.nomeFormatado] = categoria;
-                });
-              });
-          }]
-        }
+        resolve: resolveCategorias()
       })
       .when('/agenda', {
         templateUrl: 'views/agenda.html',
         controller: 'AgendaCtrl',
         controllerAs: 'agenda',
-        resolve: {
-          '': ['$rootScope', 'ProviderCategoriaPessoa', function($rootScope, provider) {
-            return $rootScope.categoriaPessoa || provider.obterTodos().then(function(success) {
-                $rootScope.categoriaPessoa = { };
-                  angular.forEach(success.data.data, function(item, index) {
-                    $rootScope.categoriaPessoa[item.person_category_name_formatted.toString().toLowerCase()] = item.person_category_id;
-                  });
-              });
-          }]
-        }
+        resolve: resolveCategorias()
       })
       .otherwise({
         redirectTo: '/'

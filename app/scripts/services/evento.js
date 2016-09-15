@@ -83,8 +83,8 @@ angular.module('belissimaApp.services')
         evento.start = new Date(event.event_start);
         evento.end = new Date(event.event_end);
         evento.funcionarioId = event.event_employee_id || -1;
-        evento.clienteId = event.event_client_id || -1;
-        evento.produtoId = event.event_product_id || -1;
+        evento.clienteId = event.event_client_id;
+        evento.produtoId = event.event_product_id;
         evento.tipoId = event.event_type_id;
 
         if (event.event_type_id && event.event_type) {
@@ -127,7 +127,7 @@ angular.module('belissimaApp.services')
         event.event_description = evento.description;
         event.event_start = data.converter(new Date(evento.start));
         event.event_end = data.converter(new Date(evento.end));
-        event.event_employee_id = evento.funcionarioId;
+        event.event_employee_id = evento.funcionarioId === -1 ? null : evento.funcionarioId;
         event.event_client_id = evento.clienteId;
         event.event_product_id = evento.produtoId;
 

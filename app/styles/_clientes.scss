@@ -9,6 +9,37 @@
     border-radius: 4px;
   }
 
+  .dropdown-toggle.btn-default{
+    font-size: 1.25em;
+    color: white;
+    background-color: $cor-menu-highlight;
+    border-color: $cor-menu-highlight-escuro;
+
+    &:focus, &:active {
+      color: white;
+      background-color: $cor-menu-highlight;
+      border-color: $cor-menu-highlight-escuro;
+    }
+  }
+
+  .dropdown-menu {
+    width: 100%;
+    background-color: $cor-menu-lateral-borda;
+    color: white;
+    top: 26px;
+    font-size: 1.25em;
+
+    > li {
+      > a {
+        color: white;
+
+        &:hover {
+          background-color: $cor-menu-highlight;
+        }
+      }
+    }
+  }
+
   #tabela-clientes {
     width: 100%;
   }

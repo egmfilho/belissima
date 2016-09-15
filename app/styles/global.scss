@@ -210,21 +210,23 @@ body {
   position: absolute;
 }
 
-.dropdown-menu {
-  color: white;
-  background-color: $cor-menu-lateral;
-
-  .text-info {
+.calendario {
+  .dropdown-menu {
     color: white;
-  }
+    background-color: $cor-menu-lateral !important;
 
-  .btn-info:active, .btn-info.active {
-    background-color: $cor-menu-lateral;
-    border-color: $cor-menu-lateral-borda;
-  }
+    .text-info {
+      color: white;
+    }
 
-  .uib-datepicker-current, .uib-clear, .uib-close {
-    border-color: $cor-menu-highlight-escuro;
+    .btn-info:active, .btn-info.active {
+      background-color: $cor-menu-lateral;
+      border-color: $cor-menu-lateral-borda;
+    }
+
+    .uib-datepicker-current, .uib-clear, .uib-close {
+      border-color: $cor-menu-highlight-escuro;
+    }
   }
 }
 

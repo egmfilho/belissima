@@ -67,7 +67,7 @@ angular.module('belissimaApp.controllers')
       function getFuncionarios() {
         if (!$rootScope.categoriaPessoa) return;
         $rootScope.isLoading = true;
-        providerPessoa.obterPessoasPorCategoria($rootScope.categoriaPessoa.funcionario).then(function(success) {
+        providerPessoa.obterPessoasPorCategoria($rootScope.categoriaPessoa.funcionario.id).then(function(success) {
           self.funcionarios.push({ id: -1, title: 'Todos'});
           angular.forEach(success.data, function(item, index) {
             var pessoa = new Pessoa(Pessoa.converterEmEntrada(item));
