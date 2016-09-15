@@ -31,6 +31,8 @@ angular.module('belissimaApp.services')
       },
 
       getEnderecoPrincipalEmString: function() {
+        if (!this.enderecos.length) return '';
+
         for (var i = 0; i < this.enderecos.length; i++) {
           if (this.enderecos[i].principal) {
             return this.enderecos[i].getEnderecoCompleto();
@@ -53,6 +55,8 @@ angular.module('belissimaApp.services')
       },
 
       getContatoPrincipalEmString: function() {
+        if (!this.contatos.length) return '';
+
         for (var i = 0; i < this.contatos.length; i++) {
           if (this.contatos[i].principal) {
             return this.contatos[i].contato.toString();

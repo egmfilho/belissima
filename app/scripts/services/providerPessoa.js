@@ -29,6 +29,21 @@ angular.module('belissimaApp.services')
 
       return {
 
+        obterTodos: function(contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoria) {
+          return provider.query({
+            action: 'getList'
+          }, {
+            get_person_contact: contato,
+            get_person_contact_main: contatoPrincipal,
+            get_person_address: endereco,
+            get_cep: cep,
+            get_district: bairro,
+            get_city: cidade,
+            get_person_address_main: enderecoPrincipal,
+            get_person_category: categoria
+          }).$promise;
+        },
+
         obterPessoaPorId: function(id, categoriaId, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoria) {
           return provider.get({
             action: 'get'

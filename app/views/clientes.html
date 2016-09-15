@@ -23,7 +23,7 @@
         <tbody>
           <tr ng-repeat="pessoa in tabela.body">
             <td>{{pessoa.codigo}}</td>
-            <td>{{pessoa.nome}}</td>
+            <td>{{pessoa.apelido || pessoa.nome}}</td>
             <td>{{pessoa.endereco}}</td>
             <td>{{pessoa.contato}}</td>
             <td>

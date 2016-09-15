@@ -21,10 +21,7 @@
     </div>
     <div class="col-sm-12 col-md-12">
       <h4>Categorias</h4>
-      <multiple-autocomplete  ng-model="pessoa.categorias"
-                              object-property="nome"
-                              suggestions-arr="categorias_pessoa">
-      </multiple-autocomplete>
+      <multiple-autocomplete  ng-model="pessoa.categorias" object-property="nome" suggestions-arr="categorias_pessoa"></multiple-autocomplete>
     </div>
     <div class="col-sm-3 col-md-3">
       <h4>Tipo</h4>
@@ -64,7 +61,7 @@
     </div>
   </div>
   <br>
-  <div class="row" ng-repeat="e in pessoa.enderecos track by $index">
+  <div class="row" ng-repeat="e in pessoa.enderecos track by $index" ng-init="e.codigo = '0' + ($index + 1).toString()">
     <div class="col-sm-12 col-md-12 cabecalho">
       <a href="" class="principal" data-toggle="tooltip" title="Endereço principal" ng-mouseenter="hovering=!e.principal" ng-mouseleave="hovering=e.principal" ng-click="pessoa.setEnderecoPrincipal($index)">
         <span class="glyphicon" ng-class="e.principal ? 'glyphicon-star' : 'glyphicon-star-empty'"></span>

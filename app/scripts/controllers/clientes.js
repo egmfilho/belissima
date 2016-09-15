@@ -57,11 +57,14 @@ angular.module('belissimaApp.controllers')
 
         $rootScope.isLoading = true;
         provider.obterPessoasPorCategoria($rootScope.categoriaPessoa.cliente.id, true, true, true, true, true, true, true).then(function(success) {
+        //provider.obterTodos(true, true, true, true, true, true, true, true).then(function(success) {
           $rootScope.isLoading = false;
+          $scope.tabela.body = [ ];
           angular.forEach(success.data, function(item, index) {
             var pessoa = new Pessoa(Pessoa.converterEmEntrada(item));
             $scope.tabela.body.push({
               codigo: pessoa.codigo,
+              apelido: pessoa.apelido,
               nome: pessoa.nome,
               endereco: pessoa.getEnderecoPrincipalEmString(),
               contato: pessoa.getContatoPrincipalEmString()
@@ -146,6 +149,54 @@ angular.module('belissimaApp.controllers')
         $scope.pessoa.removerContato($index);
       };
 
+      $scope.validar = function(pessoa) {
+        var i;
+
+        if (!pessoa.nome) {
+          return false;
+        }
+
+        if (!pessoa.categorias.length) {
+          return false;
+        }
+
+        if (pessoa.tipo === 'F') {
+          if (!pessoa.cpf) {
+            return false;
+          }
+        } else {
+          if (!pessoa.cnpj) {
+            return false;
+          }
+        }
+
+        for (i = 0; i < pessoa.enderecos.length; i++) {
+          if (!pessoa.enderecos[i].cep.codigo || !pessoa.enderecos[i].cep.uf || !pessoa.enderecos[i].cep.cidade.nome || !pessoa.enderecos[i].cep.bairro.nome) {
+            return false;
+          }
+
+          if (!pessoa.enderecos[i].logradouro) {
+            return false;
+          }
+
+          if (!pessoa.enderecos[i].numero) {
+            return false;
+          }
+        }
+
+        for (i = 0; i < pessoa.contatos.length; i++) {
+          if (!pessoa.contatos[i].tipoId) {
+            return false;
+          }
+
+          if (!pessoa.contatos[i].contato) {
+            return false;
+          }
+        }
+
+        return true;
+      };
+
       $scope.salvar = function() {
         console.log($scope.pessoa, Pessoa.converterEmSaida($scope.pessoa));
 
@@ -178,7 +229,7 @@ angular.module('belissimaApp.controllers')
             });
           }, function(error) {
             console.log(error);
-            $rootScope.isLoading = true;
+            $rootScope.isLoading = false;
           });
         }
       };
