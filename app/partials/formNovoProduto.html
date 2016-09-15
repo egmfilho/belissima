@@ -1,25 +1,25 @@
 <div class="row">
 
-  <div class="col-xs-12 col-md-6">
+  <div class="col-xs-12 col-sm-6 col-md-6">
     <div><h4>Nome</h4></div>
     <div>
       <input type="text" class="form-control" ng-model="produto.nome">
     </div>
   </div>
 
-  <div class="col-xs-12 col-sm-4 col-md-3">
+  <div class="col-xs-5 col-sm-3 col-md-3">
     <div><h4>Tipo</h4></div>
     <select class="form-control" ng-model="produto.tipoId" ng-options="tipo.id as tipo.nome for tipo in tipos">
-      <option value="" disabled>Escolha um tipo...</option>
+      <option value="" disabled>(Tipos)</option>
     </select>
   </div>
 
-  <div class="col-xs-12 col-sm-4 col-md-3">
+  <div class="col-xs-7 col-sm-3 col-md-3">
     <div><h4>Cód. Barras</h4></div>
     <input type="text" class="form-control" ng-model="produto.codBarras">
   </div>
 
-  <div class="col-xs-12 col-sm-8 col-md-6">
+  <div class="col-xs-12 col-sm-6 col-md-6">
     <div><h4>Fornecedor</h4></div>
     <div class="input-group">
       <input type="text" class="form-control" aria-describedby="basic-addon2" ng-value="produto.fornecedor.apelido || produto.fornecedor.nome" readonly="true">
@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <div class="col-xs-12 col-sm-4 col-md-3">
+  <div class="col-xs-7 col-sm-3 col-md-3">
     <div><h4>Grupo</h4></div>
     <div class="input-group">
       <input type="text" class="form-control" aria-describedby="basic-addon2" ng-value="produto.grupo.nome" readonly="true">
@@ -40,14 +40,14 @@
     </div>
   </div>
 
-  <div class="col-xs-12 col-sm-4 col-md-3">
+  <div class="col-xs-5 col-sm-3 col-md-3">
     <div><h4>Unidade</h4></div>
     <select class="form-control" ng-model="produto.unidadeId" ng-options="unidade.id as unidade.valor for unidade in unidades">
-      <option value="" disabled>Escolha uma unidade...</option>
+      <option value="" disabled>(Unidades)</option>
     </select>
   </div>
 
-  <div class="col-xs-12 col-sm-4 col-md-4">
+  <div class="col-xs-4 col-sm-4 col-md-4">
     <div><h4>Custo</h4></div>
     <div class="input-group">
       <span class="input-group-addon">R$</span>
@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <div class="col-xs-12 col-sm-4 col-md-4">
+  <div class="col-xs-4 col-sm-4 col-md-4">
     <div><h4>Preço</h4></div>
     <div class="input-group">
       <span class="input-group-addon">R$</span>
@@ -63,7 +63,7 @@
     </div>
   </div>
 
-  <div class="col-xs-12 col-sm-4 col-md-4">
+  <div class="col-xs-4 col-sm-4 col-md-4">
     <div><h4>Comissão</h4></div>
     <div class="input-group">
       <input type="text" class="form-control" ng-model="produto.comissao">
@@ -80,11 +80,11 @@
 </div>
 <br>
 <div class="row">
-  <div class="col-md-8"></div>
-  <div class="col-md-2">
-    <button class="btn btn-default botao-esticado" ng-click="limpar()">Limpar</button>
+  <div class="hidden-xs col-sm-6 col-md-8"></div>
+  <div class="col-xs-6 col-sm-3 col-md-2">
+    <button class="btn btn-default botao-esticado" ng-click="limpar()"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
   </div>
-  <div class="col-md-2">
-    <button class="btn btn-default botao-esticado" ng-click="enviar()">Salvar</button>
+  <div class="col-xs-6 col-sm-3 col-md-2">
+    <button class="btn btn-default botao-esticado" ng-click="enviar()"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
   </div>
 </div>

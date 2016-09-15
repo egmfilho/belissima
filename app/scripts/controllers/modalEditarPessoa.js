@@ -161,17 +161,12 @@ angular.module('belissimaApp.controllers')
         //if (!erros) {
         modalConfirm.show('Aviso', 'Salvar as alterações?', 'Sim', 'Não', function(result) {
           if (result) {
-            //providerProduto.atualizarProduto(Produto.converterEmSaida($scope.produto)).then(function(success) {
-            //  modalAlert.show('Successo', 'Produto atualizado com sucesso!', 'Ok', function() {
-            //    $uibModalInstance.close();
-            //  });
-            //}, function(error) {
-            //  console.log(error);
-            //});
             $rootScope.isLoading = true;
+            console.log(Pessoa.converterEmSaida($scope.pessoa));
             provider.atualizarPessoa(Pessoa.converterEmSaida($scope.pessoa)).then(function(success) {
               console.log(success);
               alert('Atualizado');
+              $uibModalInstance.dismiss('cancel');
               $rootScope.isLoading = false;
             }, function(error) {
               console.log(error);
