@@ -121,7 +121,7 @@ angular.module('belissimaApp.controllers')
 
       $scope.getFornecedor = function() {
         $rootScope.isLoading = true;
-        modalBuscarPessoa.show($rootScope.categoriaPessoa ? $rootScope.categoriaPessoa.fornecedor : null, function(result) {
+        modalBuscarPessoa.show($rootScope.categoriaPessoa ? $rootScope.categoriaPessoa.fornecedor.id : null, function(result) {
           if (result) {
             $scope.produto.setFornecedor(result);
           }

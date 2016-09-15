@@ -11,9 +11,20 @@
       <h4>Informações</h4>
       <!--<a href="" class="trash" ng-click="limparInfos()"><span class="glyphicon glyphicon-erase"></span> Limpar</a>-->
     </div>
-    <div class="col-sm-12 col-md-12">
+    <div class="col-sm-12 col-md-8">
       <h4>Nome</h4>
       <input type="text" class="form-control" ng-model="pessoa.nome">
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <h4>Apelido</h4>
+      <input type="text" class="form-control" ng-model="pessoa.apelido">
+    </div>
+    <div class="col-sm-12 col-md-12">
+      <h4>Categorias</h4>
+      <multiple-autocomplete  ng-model="pessoa.categorias"
+                              object-property="nome"
+                              suggestions-arr="categorias_pessoa">
+      </multiple-autocomplete>
     </div>
     <div class="col-sm-3 col-md-3">
       <h4>Tipo</h4>
@@ -24,19 +35,15 @@
     </div>
     <div class="col-sm-3 col-md-3">
       <h4>CPF</h4>
-      <input type="text" class="form-control" ng-model="pessoa.cpf" ng-readonly="pessoa.tipo === 'J'">
+      <input type="text" name="cpf" class="form-control" ng-model="pessoa.cpf" ng-readonly="pessoa.tipo === 'J'" ui-mask="999.999.999.99" model-view-value="true">
     </div>
     <div class="col-sm-3 col-md-3">
       <h4>RG</h4>
-      <input type="text" class="form-control" ng-model="pessoa.rg" ng-readonly="pessoa.tipo === 'J'">
+      <input type="text" class="form-control" ng-model="pessoa.rg" ng-readonly="pessoa.tipo === 'J'" ui-mask="99.999.999-9" model-view-value="true">
     </div>
     <div class="col-sm-3 col-md-3">
       <h4>CNPJ</h4>
-      <input type="text" class="form-control" ng-model="pessoa.cnpj" ng-readonly="pessoa.tipo === 'F'">
-    </div>
-    <div class="col-sm-12 col-md-12">
-      <h4>Apelido</h4>
-      <input type="text" class="form-control" ng-model="pessoa.apelido">
+      <input type="text" class="form-control" ng-model="pessoa.cnpj" ng-readonly="pessoa.tipo === 'F'" ui-mask="99.999.999/9999-99" model-view-value="true">
     </div>
   </div>
   <br>
@@ -68,7 +75,7 @@
     <div class="col-sm-3 col-md-3">
       <h4>CEP</h4>
       <div class="input-group">
-        <input type="text" class="form-control" ng-model="e.cep.codigo">
+        <input type="text" class="form-control" ng-model="e.cep.codigo" ui-mask="99999-999" model-view-value="true">
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="getCepPorCodigo(e.cep.codigo, $index)"><span class="glyphicon glyphicon-search"></span></button>
         </span>
@@ -137,7 +144,7 @@
     </div>
     <div class="col-sm-5 col-md-5">
       <h4>Contato</h4>
-      <input type="text" class="form-control" ng-model="c.contato">
+      <input type="text" class="form-control" ng-model="c.contato" ui-mask="{{getMascaraContato(c.tipoId).mascara}}" model-view-value="true">
     </div>
     <div class="col-sm-5 col-md-5">
       <h4>Referência</h4>
@@ -150,9 +157,7 @@
       <button class="btn btn-default botao-esticado" ng-click="opt='endereco'"><span class="glyphicon glyphicon-chevron-left"></span> Voltar</button>
     </div>
     <div class="col-sm-6 col-md-6 text-center">Etapa 3 de 3</div>
-    <div class="col-sm-3 col-md-3">
-      <!--<button class="btn btn-default botao-esticado" ng-click="salvar()"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>-->
-    </div>
+    <div class="col-sm-3 col-md-3"></div>
   </div>
 </div>
 

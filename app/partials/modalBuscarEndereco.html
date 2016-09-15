@@ -43,7 +43,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="c in ceps" ng-click="selecionarCEP(c)">
+            <tr ng-repeat="vazio in tabela_vazia" ng-if="!ceps.length">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr ng-repeat="c in ceps" ng-click="selecionarCEP(c)" ng-if="ceps.length">
               <td>{{c.codigo}}</td>
               <td>{{c.uf}}</td>
               <td>{{c.cidade.nome}}</td>

@@ -10,18 +10,28 @@ angular.module('belissimaApp.controllers')
     '$scope',
     '$uibModalInstance',
     'ProviderPessoa',
+    'ProviderCategoriaPessoa',
     'ProviderTipoContato',
     'TipoContato',
     'Pessoa',
+    'CategoriaPessoa',
     'ModalConfirm',
     'TiposLogradouros',
     'pessoa',
-    function($rootScope, $scope, $uibModalInstance, provider, providerTipoContato, TipoContato, Pessoa, modalConfirm, TiposLogradouros, pessoa) {
+    function($rootScope, $scope, $uibModalInstance, provider, providerCategoriaPessoa, providerTipoContato, TipoContato, Pessoa, CategoriaPessoa, modalConfirm, TiposLogradouros, pessoa) {
 
       $uibModalInstance.opened.then(function() {
-        console.log(pessoa);
         $scope.pessoa = new Pessoa(pessoa);
         $scope.tipos_logradouros = TiposLogradouros;
+
+        $scope.categorias_pessoa = [ ];
+        if ($rootScope.categoriaPessoa) {
+          $scope.categorias_pessoa = jQuery.map($rootScope.categoriaPessoa, function(item, index) {
+            return [item];
+          });
+        } else {
+          getContatosPessoa();
+        }
 
         getTiposContato();
       });
@@ -38,6 +48,19 @@ angular.module('belissimaApp.controllers')
           console.log(error);
           $rootScope.isLoading = false;
         });
+      }
+
+      function getContatosPessoa() {
+        $rootScope.isLoading = true;
+        providerCategoriaPessoa.obterTodos().then(function(success) {
+          angular.forEach(success.data, function(contato, index) {
+            $scope.categorias_pessoa.push(new CategoriaPessoa(CategoriaPessoa.converterEmEntrada(contato)));
+          });
+          $rootScope.isLoading = false;
+        }, function(error) {
+          console.log(error);
+          $rootScope.isLoading = false;
+        })
       }
 
       function validar() {

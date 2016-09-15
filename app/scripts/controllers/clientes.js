@@ -9,6 +9,7 @@ angular.module('belissimaApp.controllers')
     '$rootScope',
     '$scope',
     'ProviderPessoa',
+    'ProviderCategoriaPessoa',
     'ProviderTipoContato',
     'ProviderCEP',
     'TipoContato',
@@ -16,10 +17,11 @@ angular.module('belissimaApp.controllers')
     'CEP',
     'ContatoPessoa',
     'Pessoa',
+    'CategoriaPessoa',
     'TiposLogradouros',
     'ModalBuscarEndereco',
     'ModalEditarPessoa',
-    function($rootScope, $scope, provider, providerTipoContato, providerCEP, TipoContato, Endereco, CEP, Contato, Pessoa, TiposLogradouros, ModalBuscarEndereco, ModalEditarPessoa) {
+    function($rootScope, $scope, provider, providerCategoriaPessoa, providerTipoContato, providerCEP, TipoContato, Endereco, CEP, Contato, Pessoa, CategoriaPessoa, TiposLogradouros, ModalBuscarEndereco, ModalEditarPessoa) {
 
       var self = this;
 
@@ -30,13 +32,16 @@ angular.module('belissimaApp.controllers')
         $scope.pessoa.contatos = [ new Contato() ];
         $scope.pessoa.setContatoPrincipal(0);
 
+        $scope.categorias_pessoa = jQuery.map($rootScope.categoriaPessoa, function(item, index) {
+          return [item];
+        });
+
         $scope.tipos_logradouros = TiposLogradouros;
 
         $scope.tabela = { };
         $scope.tabela.head = [ 'Código', 'Nome', 'Endereço', 'Contato' ];
         $scope.tabela.body = [ ];
 
-        $scope.mascara_tel = '(99) 9999?9-9999';
 
         getClientes();
         getTiposContato();
@@ -51,7 +56,7 @@ angular.module('belissimaApp.controllers')
         }
 
         $rootScope.isLoading = true;
-        provider.obterPessoasPorCategoria($rootScope.categoriaPessoa.cliente, true, true, true, true, true, true, true).then(function(success) {
+        provider.obterPessoasPorCategoria($rootScope.categoriaPessoa.cliente.id, true, true, true, true, true, true, true).then(function(success) {
           $rootScope.isLoading = false;
           angular.forEach(success.data, function(item, index) {
             var pessoa = new Pessoa(Pessoa.converterEmEntrada(item));
@@ -89,6 +94,14 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.getCepPorCodigo = function(codigo, $index) {
+        if (!codigo) {
+          ModalBuscarEndereco.show(null, function(result) {
+            if (result) $scope.pessoa.enderecos[$index].setCep(result);
+          });
+
+          return;
+        }
+
         $rootScope.isLoading = true;
         providerCEP.obterPorCodigo(codigo, true, true).then(function(success) {
           $rootScope.isLoading = false;
@@ -152,7 +165,7 @@ angular.module('belissimaApp.controllers')
       $scope.editar = function(pessoa) {
         $rootScope.isLoading = true;
         if (pessoa) {
-          provider.obterPessoaPorCodigo(pessoa.codigo, $rootScope.categoriaPessoa.cliente, true, null, true, true, true, true).then(function(success) {
+          provider.obterPessoaPorCodigo(pessoa.codigo, $rootScope.categoriaPessoa.cliente.id, true, null, true, true, true, true, null, true).then(function(success) {
             $rootScope.isLoading = false;
             ModalEditarPessoa.show(new Pessoa(Pessoa.converterEmEntrada(success.data)), function(result) {
               if (result) {

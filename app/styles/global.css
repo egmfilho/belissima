@@ -386,7 +386,20 @@ body {
   .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
     background-color: #baa526; }
 
-.condensar-rows .col-xs-1, .condensar-rows .col-sm-1, .condensar-rows .col-md-1, .condensar-rows .col-lg-1, .condensar-rows .col-xs-2, .condensar-rows .col-sm-2, .condensar-rows .col-md-2, .condensar-rows .col-lg-2, .condensar-rows .col-xs-3, .condensar-rows .col-sm-3, .condensar-rows .col-md-3, .condensar-rows .col-lg-3, .condensar-rows .col-xs-4, .condensar-rows .col-sm-4, .condensar-rows .col-md-4, .condensar-rows .col-lg-4, .condensar-rows .col-xs-5, .condensar-rows .col-sm-5, .condensar-rows .col-md-5, .condensar-rows .col-lg-5, .condensar-rows .col-xs-6, .condensar-rows .col-sm-6, .condensar-rows .col-md-6, .condensar-rows .col-lg-6, .condensar-rows .col-xs-7, .condensar-rows .col-sm-7, .condensar-rows .col-md-7, .condensar-rows .col-lg-7, .condensar-rows .col-xs-8, .condensar-rows .col-sm-8, .condensar-rows .col-md-8, .condensar-rows .col-lg-8, .condensar-rows .col-xs-9, .condensar-rows .col-sm-9, .condensar-rows .col-md-9, .condensar-rows .col-lg-9, .condensar-rows .col-xs-10, .condensar-rows .col-sm-10, .condensar-rows .col-md-10, .condensar-rows .col-lg-10, .condensar-rows .col-xs-11, .condensar-rows .col-sm-11, .condensar-rows .col-md-11, .condensar-rows .col-lg-11, .condensar-rows .col-xs-12, .condensar-rows .col-sm-12, .condensar-rows .col-md-12, .condensar-rows .col-lg-12 {
+.ng-ms {
+  padding: 0 7px; }
+  .ng-ms li {
+    padding: 0 4px; }
+    .ng-ms li span {
+      border-color: #3f3f41 !important; }
+
+.autocomplete-list {
+  color: #2b2b2b !important; }
+
+.autocomplete-active {
+  background-color: #baa526 !important; }
+
+.condensar-rows .col-xs-1, .modal .meu-modal .col-xs-1, .condensar-rows .col-sm-1, .modal .meu-modal .col-sm-1, .condensar-rows .col-md-1, .modal .meu-modal .col-md-1, .condensar-rows .col-lg-1, .modal .meu-modal .col-lg-1, .condensar-rows .col-xs-2, .modal .meu-modal .col-xs-2, .condensar-rows .col-sm-2, .modal .meu-modal .col-sm-2, .condensar-rows .col-md-2, .modal .meu-modal .col-md-2, .condensar-rows .col-lg-2, .modal .meu-modal .col-lg-2, .condensar-rows .col-xs-3, .modal .meu-modal .col-xs-3, .condensar-rows .col-sm-3, .modal .meu-modal .col-sm-3, .condensar-rows .col-md-3, .modal .meu-modal .col-md-3, .condensar-rows .col-lg-3, .modal .meu-modal .col-lg-3, .condensar-rows .col-xs-4, .modal .meu-modal .col-xs-4, .condensar-rows .col-sm-4, .modal .meu-modal .col-sm-4, .condensar-rows .col-md-4, .modal .meu-modal .col-md-4, .condensar-rows .col-lg-4, .modal .meu-modal .col-lg-4, .condensar-rows .col-xs-5, .modal .meu-modal .col-xs-5, .condensar-rows .col-sm-5, .modal .meu-modal .col-sm-5, .condensar-rows .col-md-5, .modal .meu-modal .col-md-5, .condensar-rows .col-lg-5, .modal .meu-modal .col-lg-5, .condensar-rows .col-xs-6, .modal .meu-modal .col-xs-6, .condensar-rows .col-sm-6, .modal .meu-modal .col-sm-6, .condensar-rows .col-md-6, .modal .meu-modal .col-md-6, .condensar-rows .col-lg-6, .modal .meu-modal .col-lg-6, .condensar-rows .col-xs-7, .modal .meu-modal .col-xs-7, .condensar-rows .col-sm-7, .modal .meu-modal .col-sm-7, .condensar-rows .col-md-7, .modal .meu-modal .col-md-7, .condensar-rows .col-lg-7, .modal .meu-modal .col-lg-7, .condensar-rows .col-xs-8, .modal .meu-modal .col-xs-8, .condensar-rows .col-sm-8, .modal .meu-modal .col-sm-8, .condensar-rows .col-md-8, .modal .meu-modal .col-md-8, .condensar-rows .col-lg-8, .modal .meu-modal .col-lg-8, .condensar-rows .col-xs-9, .modal .meu-modal .col-xs-9, .condensar-rows .col-sm-9, .modal .meu-modal .col-sm-9, .condensar-rows .col-md-9, .modal .meu-modal .col-md-9, .condensar-rows .col-lg-9, .modal .meu-modal .col-lg-9, .condensar-rows .col-xs-10, .modal .meu-modal .col-xs-10, .condensar-rows .col-sm-10, .modal .meu-modal .col-sm-10, .condensar-rows .col-md-10, .modal .meu-modal .col-md-10, .condensar-rows .col-lg-10, .modal .meu-modal .col-lg-10, .condensar-rows .col-xs-11, .modal .meu-modal .col-xs-11, .condensar-rows .col-sm-11, .modal .meu-modal .col-sm-11, .condensar-rows .col-md-11, .modal .meu-modal .col-md-11, .condensar-rows .col-lg-11, .modal .meu-modal .col-lg-11, .condensar-rows .col-xs-12, .modal .meu-modal .col-xs-12, .condensar-rows .col-sm-12, .modal .meu-modal .col-sm-12, .condensar-rows .col-md-12, .modal .meu-modal .col-md-12, .condensar-rows .col-lg-12, .modal .meu-modal .col-lg-12 {
   padding-left: 4px;
   padding-right: 4px; }
 
@@ -440,11 +453,17 @@ body {
     padding: 30px; }
 
   .modal-sm, .modal-md {
-    margin: 0 auto; } }
+    margin: 0 auto; }
+
+  .modal-sm {
+    width: 500px; } }
 @media (min-width: 992px) {
   .modal-lg {
     width: 900px;
-    margin: 30px auto; } }
+    margin: 30px auto; }
+
+  .modal-sm {
+    width: 500px; } }
 @media (min-width: 1200px) {
   #menu-lateral {
     left: 0; }

@@ -20,7 +20,7 @@
   <div class="col-xs-12 col-sm-8 col-md-5">
     <div><h4>Fornecedor</h4></div>
     <div class="input-group">
-      <input type="text" class="form-control" aria-describedby="basic-addon2" ng-value="produto.fornecedor.nome" readonly="true">
+      <input type="text" class="form-control" aria-describedby="basic-addon2" ng-value="produto.fornecedor.apelido || produto.fornecedor.nome" readonly="true">
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="removeFornecedor()"><span class="glyphicon glyphicon-remove"></span></button>
         <button type="button" class="btn btn-default" ng-click="getFornecedor()"><span class="glyphicon glyphicon-search"></span></button>

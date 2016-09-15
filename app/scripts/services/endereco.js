@@ -16,6 +16,7 @@ angular.module('belissimaApp.services')
       this.tipo = endereco ? endereco.tipo : '';
       this.numero = endereco ? endereco.numero : '';
       this.complemento = endereco ? endereco.complemento : '';
+      this.principal = endereco ? endereco.principal : false;
       //this.data = endereco ? endereco.data : '';
       this.cep = endereco ? endereco.cep : new CEP();
     }
@@ -44,6 +45,7 @@ angular.module('belissimaApp.services')
       endereco.tipo = address.person_address_type;
       endereco.numero = address.person_address_number;
       endereco.complemento = address.person_address_complement;
+      endereco.principal = address.person_address_main;
       //endereco.data = new Date(address.person_address_date);
 
       if (address.cep) {
@@ -63,9 +65,10 @@ angular.module('belissimaApp.services')
       address.cep_id = endereco.cepId;
       address.person_address_code = endereco.codigo;
       address.person_address_public_place = endereco.logradouro;
-      address.person_address_type = endereco.tipo;
+      address.person_address_type = endereco.tipo.length ? endereco.tipo : null;
       address.person_address_number = endereco.numero;
-      address.person_address_complement = endereco.complemento;
+      address.person_address_complement = endereco.complemento.length ? endereco.complemento : null;
+      address.person_address_main = endereco.principal ? 'Y' : 'N';
       //address.person_address_date = data.converterEmSaida(endereco.data);
 
       return address;

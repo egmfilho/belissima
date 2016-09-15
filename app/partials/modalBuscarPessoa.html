@@ -1,4 +1,4 @@
-<div>
+<div class="meu-modal">
   <div class="header">
     <div class="title">
       <span class="glyphicon glyphicon-user"></span>
@@ -42,20 +42,30 @@
     </div>
   </div>
   <div class="body">
-    <table class="tabela table-condensed" width="100%" cellspacing="0s">
+    <table class="tabela tabela-bordered" width="100%" cellspacing="0s">
       <thead>
         <tr>
           <th>Código</th>
           <th>Nome</th>
+          <th>Apelido</th>
           <th>Documento</th>
           <th>Contato</th>
           <th>Endereço</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="pessoa in resultado" ng-click="selecionarPessoa(pessoa)">
+      <tr ng-repeat="vazio in tabela_vazia" ng-if="!resultado.length">
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+        <tr ng-repeat="pessoa in resultado" ng-click="selecionarPessoa(pessoa)" ng-if="resultado.length">
           <td>{{pessoa.codigo}}</td>
           <td>{{pessoa.nome}}</td>
+          <td>{{pessoa.apelido}}</td>
           <td>{{pessoa.cnpj == null ? (pessoa.cpf == null ? pessoa.rg : pessoa.cpf) : pessoa.cnpj}}</td>
           <td>{{pessoa.contatos[0].contato}}</td>
           <td>{{pessoa.enderecos[0].getEnderecoCompleto()}}</td>

@@ -5,7 +5,7 @@
 'use strict';
 
 angular.module('belissimaApp.services')
-  .factory('Pessoa', ['ContatoPessoa', 'Endereco', function(ContatoPessoa, Endereco) {
+  .factory('Pessoa', ['ContatoPessoa', 'Endereco', 'CategoriaPessoa', function(ContatoPessoa, Endereco, CategoriaPessoa) {
 
     function Pessoa(pessoa) {
       this.id = pessoa ? pessoa.id : '';
@@ -17,8 +17,9 @@ angular.module('belissimaApp.services')
       this.cpf = pessoa ? pessoa.cpf : '';
       this.nome = pessoa ? pessoa.nome : '';
       this.apelido = pessoa ? pessoa.apelido : '';
-      this.contatos = pessoa ? pessoa.contatos : '';
-      this.enderecos = pessoa ? pessoa.enderecos : '';
+      this.contatos = pessoa ? pessoa.contatos : [ ];
+      this.enderecos = pessoa ? pessoa.enderecos : [ ];
+      this.categorias = pessoa ? pessoa.categorias : [ ];
     }
 
     Pessoa.prototype = {
@@ -85,10 +86,6 @@ angular.module('belissimaApp.services')
         angular.forEach(person.person_contact, function(item, index) {
           pessoa.contatos.push(new ContatoPessoa(ContatoPessoa.converterEmEntrada(item)));
         });
-      } else {
-        angular.forEach(person.person_contact, function(item, index) {
-          pessoa.contatos.push(new ContatoPessoa());
-        });
       }
 
       pessoa.enderecos = [ ];
@@ -96,9 +93,12 @@ angular.module('belissimaApp.services')
         angular.forEach(person.person_address, function(item, index) {
           pessoa.enderecos.push(new Endereco(Endereco.converterEmEntrada(item)));
         });
-      } else {
-        angular.forEach(person.person_address, function(item, index) {
-          pessoa.enderecos.push();
+      }
+
+      pessoa.categorias = [ ];
+      if (person.person_category) {
+        angular.forEach(person.person_category, function(item, index) {
+          pessoa.categorias.push(new CategoriaPessoa(CategoriaPessoa.converterEmEntrada(item)));
         });
       }
 
@@ -112,32 +112,25 @@ angular.module('belissimaApp.services')
       person.person_active = pessoa.ativo ? 'Y' : 'N';
       person.person_code = pessoa.codigo;
       person.person_type = pessoa.tipo;
-      person.person_cnpj = pessoa.cnpj;
-      person.person_rg = pessoa.rg;
-      person.person_cpf = pessoa.cpf;
+      person.person_cnpj = pessoa.cnpj.length ? pessoa.cnpj : null;
+      person.person_rg = pessoa.rg.length ? pessoa.rg : null;
+      person.person_cpf = pessoa.cpf.length ? pessoa.cpf : null;
       person.person_name = pessoa.nome;
-      person.person_nickname = pessoa.apelido;
+      person.person_nickname = pessoa.apelido.length ? pessoa.apelido : null;
 
       person.person_address = [ ];
       angular.forEach(pessoa.enderecos, function(endereco, index) {
-        address = { };
-        address.cep_id = endereco.cepId;
-        address.person_address_main = endereco.principal ? 'Y' : 'N';
-        address.person_address_code = '0' + (index + 1).toString();
-        address.person_address_type = endereco.tipo;
-        address.person_address_number = endereco.numero;
-        address.person_address_complement = endereco.complemento;
-        person.person_address.push(address);
+        person.person_address.push(Endereco.converterEmSaida(endereco));
       });
 
       person.person_contact = [ ];
       angular.forEach(pessoa.contatos, function(contato, index) {
-        contact = { };
-        contact.person_contact_type_id = contato.tipoId;
-        contact.person_contact_value = contato.contato;
-        contact.person_contact_main = contato.principal ? 'Y' : 'N';
-        contact.person_contact_name = contato.referencia;
-        person.person_contact.push(contact);
+        person.person_contact.push(ContatoPessoa.converterEmSaida(contato));
+      });
+
+      person.person_category = [ ];
+      angular.forEach(pessoa.categorias, function(categoria, index) {
+        person.person_category.push(CategoriaPessoa.converterEmSaida(categoria))
       });
 
       return person;

@@ -37,6 +37,7 @@ module.exports = function(config) {
       'bower_components/angular-i18n/angular-locale_pt-br.js',
       'bower_components/fullcalendar-scheduler/dist/scheduler.js',
       'bower_components/angular-ui-mask/dist/mask.js',
+      'bower_components/angularMultipleSelect/build/multiple-select.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

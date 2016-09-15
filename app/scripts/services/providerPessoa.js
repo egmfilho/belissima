@@ -29,11 +29,12 @@ angular.module('belissimaApp.services')
 
       return {
 
-        obterPessoaPorId: function(id, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoriaId) {
+        obterPessoaPorId: function(id, categoriaId, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoria) {
           return provider.get({
             action: 'get'
           }, {
             person_id: id,
+            person_category_id: categoriaId,
             get_person_contact: contato,
             get_person_contact_main: contatoPrincipal,
             get_person_address: endereco,
@@ -41,11 +42,11 @@ angular.module('belissimaApp.services')
             get_district: bairro,
             get_city: cidade,
             get_person_address_main: enderecoPrincipal,
-            person_category_id: categoriaId
+            get_person_category: categoria
           }).$promise;
         },
 
-        obterPessoaPorCodigo: function(codigo, categoriaId, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal) {
+        obterPessoaPorCodigo: function(codigo, categoriaId, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoria) {
           return provider.get({
             action: 'get'
           }, {
@@ -57,7 +58,8 @@ angular.module('belissimaApp.services')
             get_cep: cep,
             get_district: bairro,
             get_city: cidade,
-            get_person_address_main: enderecoPrincipal
+            get_person_address_main: enderecoPrincipal,
+            get_person_category: categoria
           }).$promise;
         },
 
@@ -73,6 +75,7 @@ angular.module('belissimaApp.services')
             get_district: bairro,
             get_city: cidade,
             get_person_address_main: enderecoPrincipal,
+            get_person_category: categoria,
             person_category_id: categoriaId
           }).$promise;
         },
@@ -89,6 +92,7 @@ angular.module('belissimaApp.services')
             get_district: bairro,
             get_city: cidade,
             get_person_address_main: enderecoPrincipal,
+            get_person_category: categoria,
             person_category_id: categoriaId
           }).$promise;
         },
@@ -105,11 +109,12 @@ angular.module('belissimaApp.services')
             get_district: bairro,
             get_city: cidade,
             get_person_address_main: enderecoPrincipal,
+            get_person_category: categoria,
             person_category_id: categoriaId
           }).$promise;
         },
 
-        obterPessoasPorNome: function(nome, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoriaId) {
+        obterPessoasPorNome: function(nome, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoriaId, categoria) {
           return provider.query({
             action: 'getList'
           }, {
@@ -121,6 +126,7 @@ angular.module('belissimaApp.services')
             get_district: bairro,
             get_city: cidade,
             get_person_address_main: enderecoPrincipal,
+            get_person_category: categoria,
             person_category_id: categoriaId
           }).$promise;
         },
@@ -137,11 +143,12 @@ angular.module('belissimaApp.services')
             get_district: bairro,
             get_city: cidade,
             get_person_address_main: enderecoPrincipal,
+            get_person_category: categoria,
             person_category_id: categoriaId
           }).$promise;
         },
 
-        obterPessoasPorCategoria: function(categoriaId, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal) {
+        obterPessoasPorCategoria: function(categoriaId, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoria) {
           return provider.query({
             action: 'getList'
           }, {
@@ -153,6 +160,7 @@ angular.module('belissimaApp.services')
             get_district: bairro,
             get_city: cidade,
             get_person_address_main: enderecoPrincipal,
+            get_person_category: categoria,
           }).$promise;
         },
 
@@ -168,6 +176,7 @@ angular.module('belissimaApp.services')
             get_district: bairro,
             get_city: cidade,
             get_person_address_main: enderecoPrincipal,
+            get_person_category: categoria,
             person_category_id: categoriaId
           }).$promise;
         },
@@ -184,6 +193,7 @@ angular.module('belissimaApp.services')
             get_district: bairro,
             get_city: cidade,
             get_person_address_main: enderecoPrincipal,
+            get_person_category: categoria,
             person_category_id: categoriaId
           }).$promise;
         },

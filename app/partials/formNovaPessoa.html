@@ -11,9 +11,20 @@
       <h4>Informações</h4>
       <!--<a href="" class="trash" ng-click="limparInfos()"><span class="glyphicon glyphicon-erase"></span> Limpar</a>-->
     </div>
-    <div class="col-sm-12 col-md-12">
+    <div class="col-sm-12 col-md-8">
       <h4>Nome</h4>
       <input type="text" class="form-control" ng-model="pessoa.nome">
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <h4>Apelido</h4>
+      <input type="text" class="form-control" ng-model="pessoa.apelido">
+    </div>
+    <div class="col-sm-12 col-md-12">
+      <h4>Categorias</h4>
+      <multiple-autocomplete  ng-model="pessoa.categorias"
+                             object-property="nome"
+                             suggestions-arr="categorias_pessoa">
+      </multiple-autocomplete>
     </div>
     <div class="col-sm-3 col-md-3">
       <h4>Tipo</h4>
@@ -28,15 +39,11 @@
     </div>
     <div class="col-sm-3 col-md-3">
       <h4>RG</h4>
-      <input type="text" class="form-control" ng-model="pessoa.rg" ng-readonly="pessoa.tipo === 'J'">
+      <input type="text" class="form-control" ng-model="pessoa.rg" ng-readonly="pessoa.tipo === 'J'" ui-mask="99.999.999-9" model-view-value="true">
     </div>
     <div class="col-sm-3 col-md-3">
       <h4>CNPJ</h4>
       <input type="text" class="form-control" ng-model="pessoa.cnpj" ng-readonly="pessoa.tipo === 'F'" ui-mask="99.999.999/9999-99" model-view-value="true">
-    </div>
-    <div class="col-sm-12 col-md-12">
-      <h4>Apelido</h4>
-      <input type="text" class="form-control" ng-model="pessoa.apelido">
     </div>
   </div>
   <br>
@@ -68,7 +75,7 @@
     <div class="col-sm-3 col-md-3">
       <h4>CEP</h4>
       <div class="input-group">
-        <input type="text" class="form-control" ng-model="e.cep.codigo">
+        <input type="text" class="form-control" ng-model="e.cep.codigo" ui-mask="99999-999" model-view-value="true">
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="getCepPorCodigo(e.cep.codigo, $index)"><span class="glyphicon glyphicon-search"></span></button>
         </span>
