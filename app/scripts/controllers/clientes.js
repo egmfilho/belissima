@@ -61,14 +61,15 @@ angular.module('belissimaApp.controllers')
           $rootScope.isLoading = false;
           $scope.tabela.body = [ ];
           angular.forEach(success.data, function(item, index) {
-            var pessoa = new Pessoa(Pessoa.converterEmEntrada(item));
-            $scope.tabela.body.push({
-              codigo: pessoa.codigo,
-              apelido: pessoa.apelido,
-              nome: pessoa.nome,
-              endereco: pessoa.getEnderecoPrincipalEmString(),
-              contato: pessoa.getContatoPrincipalEmString()
-            });
+            $scope.tabela.body.push(new Pessoa(Pessoa.converterEmEntrada(item)));
+            //var pessoa = new Pessoa(Pessoa.converterEmEntrada(item));
+            //$scope.tabela.body.push({
+            //  codigo: pessoa.codigo,
+            //  apelido: pessoa.apelido,
+            //  nome: pessoa.nome,
+            //  endereco: pessoa.getEnderecoPrincipalEmString(),
+            //  contato: pessoa.getContatoPrincipalEmString()
+            //});
           });
         }, function(error) {
           console.log(error);
@@ -228,7 +229,7 @@ angular.module('belissimaApp.controllers')
       $scope.editar = function(pessoa) {
         $rootScope.isLoading = true;
         if (pessoa) {
-          provider.obterPessoaPorCodigo(pessoa.codigo, $rootScope.categoriaPessoa.cliente.id, true, null, true, true, true, true, null, true).then(function(success) {
+          provider.obterPessoaPorCodigo(pessoa.codigo, pessoa.categorias[0].id, true, null, true, true, true, true, null, true).then(function(success) {
             $rootScope.isLoading = false;
             ModalEditarPessoa.show(new Pessoa(Pessoa.converterEmEntrada(success.data)), function(result) {
               if (result) {

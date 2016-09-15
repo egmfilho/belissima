@@ -26,8 +26,8 @@
             <td>{{pessoa.codigo}}</td>
             <td>{{pessoa.nome | truncate:50}}</td>
             <td>{{pessoa.apelido}}</td>
-            <td>{{pessoa.endereco}}</td>
-            <td>{{pessoa.contato}}</td>
+            <td>{{pessoa.getEnderecoPrincipalEmString()}}</td>
+            <td>{{pessoa.getContatoPrincipalEmString()}}</td>
             <td>
               <a href="" ng-click="editar(pessoa)">
                 <span class="glyphicon glyphicon-pencil"></span>
