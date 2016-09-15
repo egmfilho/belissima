@@ -786,22 +786,12 @@ body {
 }
 
 @media (min-width: 1200px) {
-  #menu-lateral {
-    left: 0;
-  }
-
   .empurrado {
     margin-left: 300px;
   }
 
   .minimizado {
     margin-left: 64px;
-  }
-
-  #menu-lateral-conteudo {
-    .logotipo {
-      opacity: 1;
-    }
   }
 
   .dark-div, .show-dark-div {

@@ -461,17 +461,11 @@ body {
   .modal-sm {
     width: 500px; } }
 @media (min-width: 1200px) {
-  #menu-lateral {
-    left: 0; }
-
   .empurrado {
     margin-left: 300px; }
 
   .minimizado {
     margin-left: 64px; }
-
-  #menu-lateral-conteudo .logotipo {
-    opacity: 1; }
 
   .dark-div, .show-dark-div {
     display: none; } }
@@ -793,7 +787,7 @@ body {
       background-color: #baa526; }
 
 #menu-lateral-conteudo {
-  min-height: 680px;
+  min-height: 760px;
   height: 100%; }
 
 #assinatura {
