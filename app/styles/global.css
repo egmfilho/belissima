@@ -179,6 +179,9 @@ body {
   border-spacing: 0;
   border-collapse: collapse; }
 
+.tabela-esticada {
+  width: 100%; }
+
 .modal-backdrop.in {
   opacity: .6; }
 
@@ -415,6 +418,28 @@ body {
     margin-left: 0;
     margin-right: 0; }
 
+@media (max-width: 767px) {
+  .tabela thead, #tabela-ticket thead {
+    display: none; }
+  .tabela tr, #tabela-ticket tr {
+    margin-bottom: 10px;
+    display: block;
+    padding: 5px;
+    border-radius: 6px; }
+  .tabela td, #tabela-ticket td {
+    border: none;
+    border-bottom: 1px solid #3f3f41;
+    display: block;
+    text-align: right; }
+    .tabela td button, #tabela-ticket td button {
+      margin-top: 5px; }
+    .tabela td:before, #tabela-ticket td:before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase; }
+    .tabela td:last-child, #tabela-ticket td:last-child {
+      border-bottom: none; } }
 @media (min-width: 768px) {
   body {
     margin-top: 0; }
@@ -1024,5 +1049,58 @@ body {
   color: white; }
   #agenda button:hover {
     background-color: #867512; }
+
+.teste table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+  color: black; }
+.teste table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em; }
+.teste table tr {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em; }
+.teste table th,
+.teste table td {
+  padding: .625em;
+  text-align: center; }
+.teste table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase; }
+
+.teste2 table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase; }
+
+@media screen and (max-width: 600px) {
+  .teste table {
+    border: 0; }
+  .teste table caption {
+    font-size: 1.3em; }
+  .teste table thead {
+    display: none; }
+  .teste table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em; }
+  .teste table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right; }
+  .teste table td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase; }
+  .teste table td:last-child {
+    border-bottom: 0; } }
 
 /*# sourceMappingURL=global.css.map */

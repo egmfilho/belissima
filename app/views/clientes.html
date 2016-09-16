@@ -9,32 +9,34 @@
       <div ng-show="opcao === 'novo'" ng-include="'partials/formNovaPessoa.html'"></div>
       <!--<tabela ng-show="opcao === 'editar'" id-tabela="tabela-clientes" head="tabela.head" body="tabela.body" callback-editar="editar" callback-excluir="excluir"></tabela>-->
 
-      <table class="tabela tabela-bordered" ng-show="opcao === 'editar'" style="width: 100%">
+      <table class="tabela tabela-bordered tabela-esticada" ng-show="opcao === 'editar'">
         <thead>
           <tr>
             <th>Código</th>
             <th>Nome</th>
             <th>Apelido</th>
-            <th>Endereço</th>
+            <!--<th>Endereço</th>-->
+            <th>CPF</th>
             <th>Contato</th>
-            <th>&nbsp;</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="pessoa in tabela.body">
-            <td>{{pessoa.codigo}}</td>
-            <td>{{pessoa.nome | truncate:50}}</td>
-            <td>{{pessoa.apelido}}</td>
-            <td>{{pessoa.getEnderecoPrincipalEmString()}}</td>
-            <td>{{pessoa.getContatoPrincipalEmString()}}</td>
+            <td data-label="Código">{{pessoa.codigo}}</td>
+            <td data-label="Nome">{{pessoa.nome | truncate:40}}</td>
+            <td data-label="Apelido">{{pessoa.apelido}}</td>
+            <!--<td data-label="Endereço">{{pessoa.getEnderecoPrincipalEmString()}}</td>-->
+            <td data-label="CPF">{{pessoa.cpf}}</td>
+            <td data-label="Contato">{{pessoa.getContatoPrincipalEmString()}}</td>
             <td>
-              <a href="" ng-click="editar(pessoa)">
+              <button class="visible-xs-inline btn" ng-click="excluir(pessoa)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+              <button class="visible-xs-inline btn" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+              <a href="" ng-click="editar(pessoa)" class="hidden-xs">
                 <span class="glyphicon glyphicon-pencil"></span>
               </a>
-            </td>
-            <td>
-              <a href="" ng-click="excluir(pessoa)">
+              <span class="hidden-xs">&nbsp;</span>
+              <a href="" ng-click="excluir(pessoa)" class="hidden-xs">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
             </td>

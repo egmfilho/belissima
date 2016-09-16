@@ -6,7 +6,7 @@
 angular.module('belissimaApp.controllers')
   .controller('MenuLateralCtrl', ['$rootScope', function ($rootScope) {
 
-    $rootScope.minimizado = false;
+    $rootScope.minimizado = true;
 
     function preventers(id) {
       var elem = $(id),

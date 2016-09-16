@@ -74,20 +74,21 @@ angular.module('belissimaApp.controllers')
         providerProduto.obterTodos().then(function(success) {
           $scope.produtos = [ ];
           angular.forEach(success.data, function(item, index) {
-            var produto = new Produto(Produto.converterEmEntrada(item));
-            $scope.body.push({
-              codigo: produto.codigo,
-              nome: produto.nome,
-              descricao: produto.descricao,
-              preco: $filter('currency')(produto.preco.valor, 'R$ '),
-              custo: $filter('currency')(produto.custo.valor, 'R$ '),
-              ativo: produto.ativo ? 'Sim' : 'Não'
-            });
-            //$rootScope.isLoading = false;
+            $scope.produtos.push(new Produto(Produto.converterEmEntrada(item)));
+            //var produto = new Produto(Produto.converterEmEntrada(item));
+            //$scope.body.push({
+            //  codigo: produto.codigo,
+            //  nome: produto.nome,
+            //  descricao: produto.descricao,
+            //  preco: $filter('currency')(produto.preco.valor, 'R$ '),
+            //  custo: $filter('currency')(produto.custo.valor, 'R$ '),
+            //  ativo: produto.ativo ? 'Sim' : 'Não'
+            //});
           });
+          $rootScope.isLoading = false;
         }, function(error) {
           console.log(error);
-          //$rootScope.isLoading = false;
+          $rootScope.isLoading = false;
         });
       }
 

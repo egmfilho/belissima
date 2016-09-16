@@ -84,6 +84,9 @@ angular
         controllerAs: 'agenda',
         resolve: resolveCategorias()
       })
+      .when('/configuracoes', {
+        templateUrl: 'views/configuracoes.html'
+      })
       .otherwise({
         redirectTo: '/'
       });
