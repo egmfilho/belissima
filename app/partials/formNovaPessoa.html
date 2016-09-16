@@ -75,16 +75,16 @@
       <h4>Endereço {{$index + 1}}</h4>
       <a href="" class="trash" ng-click="removeEndereco($index)"><span class="glyphicon glyphicon-trash"></span> Excluir</a>
     </div>
-    <div class="col-xs-4 col-sm-3 col-md-3">
+    <div class="col-xs-4 col-sm-4 col-md-3">
       <h4>CEP</h4>
       <div class="input-group">
         <input type="text" class="form-control" ng-model="e.cep.codigo" ui-mask="99999-999" model-view-value="true">
         <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="getCepPorCodigo(e.cep.codigo, $index)"><span class="glyphicon glyphicon-search"></span></button>
+          <button type="button" class="btn btn-default" ng-click="getCEPPorCodigo(e.cep.codigo, $index)"><span class="glyphicon glyphicon-search"></span></button>
         </span>
       </div>
     </div>
-    <div class="col-xs-2 col-sm-1 col-md-1">
+    <div class="col-xs-2 col-sm-2 col-md-1">
       <h4>UF</h4>
       <input type="text" class="form-control" readonly="true" ng-model="e.cep.uf">
     </div>
@@ -92,15 +92,15 @@
       <h4>Cidade</h4>
       <input type="text" class="form-control" readonly="true" ng-model="e.cep.cidade.nome">
     </div>
-    <div class="col-xs-8 col-sm-4 col-md-4">
+    <div class="col-xs-8 col-sm-8 col-md-4">
       <h4>Bairro</h4>
       <input type="text" class="form-control" readonly="true" ng-model="e.cep.bairro.nome">
     </div>
-    <div class="col-xs-4 col-sm-3 col-md-3">
+    <div class="col-xs-4 col-sm-4 col-md-3">
       <h4>Tipo</h4>
       <select name="tipo-logradouro" class="form-control" ng-options="tipo as tipo for tipo in tipos_logradouros" ng-model="e.tipo"></select>
     </div>
-    <div class="col-xs-12 col-sm-9 col-md-9">
+    <div class="col-xs-12 col-sm-12 col-md-9">
       <h4>Logradouro</h4>
       <input type="text" class="form-control" ng-model="e.logradouro">
     </div>
@@ -158,7 +158,7 @@
     </div>
   </div>
   <br>
-  <div class="row" ng-class="{'rodape': pessoa.enderecos.length}">
+  <div class="row" ng-class="{'rodape': pessoa.contatos.length}">
     <br>
     <div class="col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
       <button class="btn btn-default botao-esticado" ng-click="addContato()"><span class="glyphicon glyphicon-plus"></span> Novo Contato</button>
@@ -182,7 +182,7 @@
 <br>
 <div class="row rodape-salvar">
   <div class="col-xs-6 col-sm-3 col-md-3">
-    <button class="btn btn-default botao-esticado" ng-click=""><span class="glyphicon glyphicon-erase"></span> Limpar tudo</button>
+    <button class="btn btn-default botao-esticado" ng-click="limparTudo()"><span class="glyphicon glyphicon-erase"></span> Limpar tudo</button>
   </div>
   <div class="hidden-xs col-sm-6 col-md-6 text-center"></div>
   <div class="col-xs-6 col-sm-3 col-md-3">

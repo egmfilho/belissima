@@ -8,15 +8,22 @@ angular.module('belissimaApp.controllers')
 
     $rootScope.minimizado = false;
 
+    function preventers(id) {
+      var elem = $(id),
+          height = elem.height(),
+          scrollHeight = elem.get(0).scrollHeight;
+
+      elem.bind('mousewheel', function(e, d) {
+        if ((this.scrollTop <= 0 && e.originalEvent.deltaY < 0) || (this.scrollTop >= (scrollHeight - height) && e.originalEvent.deltaY > 0 )) {
+          e.preventDefault();
+        }
+      });
+    }
+
+    preventers('#menu-lateral');
+    preventers('#fundo-escuro-menu');
+
     this.menuRetratil = function() {
-      //angular.element('#menu-lateral').css('left', $rootScope.minimizado ? 0 : -236);
-      //angular.element('#menu-lateral-conteudo .logotipo').css('opacity', $rootScope.minimizado ? 1.0 : 0);
-      //jQuery('.dark-div').fadeTo(100, $rootScope.minimizado ? .6 : 0, function() {
-      //  if ($rootScope.minimizado) {
-      //    //jQuery(this).css('display', 'none');
-      //  }
-      //});
-      //angular.element('.dark-div').toggleClass('show-dark-div');
       $rootScope.minimizado = !$rootScope.minimizado;
     };
 

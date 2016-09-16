@@ -12,15 +12,18 @@ angular.module('belissimaApp.controllers')
     'ProviderPessoa',
     'ProviderCategoriaPessoa',
     'ProviderTipoContato',
+    'ProviderCEP',
+    'CEP',
     'TipoContato',
     'Pessoa',
     'CategoriaPessoa',
     'Endereco',
     'ContatoPessoa',
+    'ModalBuscarEndereco',
     'ModalConfirm',
     'TiposLogradouros',
     'pessoa',
-    function($rootScope, $scope, $uibModalInstance, provider, providerCategoriaPessoa, providerTipoContato, TipoContato, Pessoa, CategoriaPessoa, Endereco, Contato, modalConfirm, TiposLogradouros, pessoa) {
+    function($rootScope, $scope, $uibModalInstance, provider, providerCategoriaPessoa, providerTipoContato, providerCEP, CEP, TipoContato, Pessoa, CategoriaPessoa, Endereco, Contato, ModalBuscarEndereco, modalConfirm, TiposLogradouros, pessoa) {
 
       $uibModalInstance.opened.then(function() {
         $scope.pessoa = new Pessoa(pessoa);
@@ -85,6 +88,35 @@ angular.module('belissimaApp.controllers')
           return;
         }
         $scope.pessoa.removerEndereco($index);
+      };
+
+      $scope.getCEPPorCodigo = function(codigo, $index) {
+        if (!codigo) {
+          ModalBuscarEndereco.show(null, function(result) {
+            if (result) $scope.pessoa.enderecos[$index].setCEP(result);
+          });
+
+          return;
+        }
+
+        $rootScope.isLoading = true;
+        providerCEP.obterPorCodigo(codigo, true, true).then(function(success) {
+          $rootScope.isLoading = false;
+          var ceps = [ ];
+          angular.forEach(success.data, function(item, index) {
+            ceps.push(new CEP(CEP.converterEmEntrada(item)));
+          });
+          if (ceps.length > 1) {
+            ModalBuscarEndereco.show(ceps, function(result) {
+              if (result) $scope.pessoa.enderecos[$index].setCEP(result);
+            });
+          } else {
+            $scope.pessoa.enderecos[$index].setCEP(ceps[0]);
+          }
+        }, function(error) {
+          console.log(error);
+          $rootScope.isLoading = false;
+        });
       };
 
       $scope.addContato = function() {

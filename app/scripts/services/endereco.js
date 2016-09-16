@@ -26,7 +26,7 @@ angular.module('belissimaApp.services')
         return this.tipo + ' ' + this.logradouro + ' ' + this.numero + ', ' + this.cep.bairro.nome + ', ' + this.cep.cidade.nome + ' - ' + this.cep.cidade.uf;
       },
 
-      setCep: function(cep) {
+      setCEP: function(cep) {
         this.cep = new CEP(cep);
         this.cepId = this.cep.id;
         this.logradouro = this.cep.logradouro;

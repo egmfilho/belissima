@@ -31,11 +31,16 @@ angular
       return {
         '': ['$rootScope', 'ProviderCategoriaPessoa', 'CategoriaPessoa', function($rootScope, provider, CategoriaPessoa) {
           return $rootScope.categoriaPessoa || provider.obterTodos().then(function(success) {
+              $rootScope.isLoading = true;
               $rootScope.categoriaPessoa = { };
               angular.forEach(success.data, function(item, index) {
                 var categoria = new CategoriaPessoa(CategoriaPessoa.converterEmEntrada(item));
                 $rootScope.categoriaPessoa[categoria.nomeFormatado] = categoria;
               });
+              $rootScope.isLoading = false;
+            }, function(error) {
+              console.log(error);
+              $rootScope.isLoading = false;
             });
         }]
       };

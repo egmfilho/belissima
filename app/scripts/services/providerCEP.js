@@ -51,7 +51,7 @@ angular.module('belissimaApp.services')
           return provider.get({
             action: 'getList'
           }, {
-            '?': logradouro,
+            'cep_public_place': logradouro,
             get_district: bairro,
             get_city: cidade
           }).$promise;

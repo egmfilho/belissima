@@ -28,14 +28,13 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.buscarPorCEP = function(cep) {
-
         if (!cep || cep.length < 9) {
           alert('Informe corretamente um CEP!');
           return;
         }
 
         $rootScope.isLoading = true;
-        provider.obterPorCodigo(cep, true, true).then(function (success) {
+        provider.obterPorCodigo(cep, true, true).then(function(success) {
           $scope.ceps = [ ];
           angular.forEach(success.data, function (item, index) {
             $scope.ceps.push(new CEP(CEP.converterEmEntrada(item)));
@@ -48,15 +47,15 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.buscarPorLogradouro = function(logradouro) {
-        if (!logradouro) {
-          alert('Informe corretamente um logradouro');
+        if(!$scope.logradouro) {
+          alert('Preencha corretamente!');
           return;
         }
 
         $rootScope.isLoading = true;
-        provider.obterCEPsPorLogradouro(logradouro).then(function(success) {
+        provider.obterPorLogradouro(logradouro, true, true).then(function(success) {
           $scope.ceps = [ ];
-          angular.forEach(success.data, function (item, index) {
+          angular.forEach(success.data, function(item, index) {
             $scope.ceps.push(new CEP(CEP.converterEmEntrada(item)));
           });
           $rootScope.isLoading = false;

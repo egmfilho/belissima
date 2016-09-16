@@ -97,10 +97,10 @@ angular.module('belissimaApp.controllers')
         });
       };
 
-      $scope.getCepPorCodigo = function(codigo, $index) {
+      $scope.getCEPPorCodigo = function(codigo, $index) {
         if (!codigo) {
           ModalBuscarEndereco.show(null, function(result) {
-            if (result) $scope.pessoa.enderecos[$index].setCep(result);
+            if (result) $scope.pessoa.enderecos[$index].setCEP(result);
           });
 
           return;
@@ -113,10 +113,12 @@ angular.module('belissimaApp.controllers')
           angular.forEach(success.data, function(item, index) {
             ceps.push(new CEP(CEP.converterEmEntrada(item)));
           });
-          if (ceps.length > 0) {
+          if (ceps.length > 1) {
             ModalBuscarEndereco.show(ceps, function(result) {
-              if (result) $scope.pessoa.enderecos[$index].setCep(result);
+              if (result) $scope.pessoa.enderecos[$index].setCEP(result);
             });
+          } else {
+            $scope.pessoa.enderecos[$index].setCEP(ceps[0]);
           }
         }, function(error) {
           console.log(error);
