@@ -3,16 +3,16 @@
     <div class="login-header centerX">
       <div class="logotipo centerX"></div>
     </div>
-    <form ng-submit="login.logar()" class="login-body centerX">
+    <form ng-submit="login.logar(user, pass)" class="login-body centerX">
       <!--<span class="glyphicon glyphicon-user"></span>-->
       <h4>Digite seu nome de usuário e senha.</h4>
       <div class="inner-addon left-addon">
         <i class="glyphicon glyphicon-user"></i>
-        <input type="text" class="usuario form-control" placeholder="Nome de usuário" ng-model="login.username">
+        <input type="text" class="usuario form-control" placeholder="Nome de usuário" ng-model="user">
       </div>
       <div class="inner-addon left-addon">
         <i class="glyphicon glyphicon-lock"></i>
-        <input type="password" class="senha form-control" placeholder="Senha" ng-model="login.password">
+        <input type="password" name="senha" class="senha form-control" placeholder="Senha" ng-model="pass">
       </div>
       <button class="btn btn-default" type="submit">ENTRAR</button>
     </form>

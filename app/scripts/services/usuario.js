@@ -5,7 +5,7 @@
 'use strict';
 
 angular.module('belissimaApp.services')
-  .factory('Usuario', [function() {
+  .factory('Usuario', ['PerfilUsuario', function(PerfilUsuario) {
 
     function Usuario(usuario) {
       this.id = usuario ? usuario.id : '';
@@ -14,6 +14,8 @@ angular.module('belissimaApp.services')
       this.ativo = usuario ? usuario.ativo : true;
       this.nome = usuario ? usuario.nome : '';
       this.email = usuario ? usuario.email : '';
+
+      this.perfil = usuario ? new PerfilUsuario(usuario.perfil) : new PerfilUsuario();
     }
 
     Usuario.converterEmEntrada = function(user) {
@@ -21,10 +23,16 @@ angular.module('belissimaApp.services')
 
       usuario.id = user.user_id;
       usuario.perfilId = user.user_profile_id;
-      usuario.sessao = user.user_session_id;
-      usuario.ativo = user.user_active == 'Y' ? true : false;
+      usuario.sessao = user.user_current_session_id;
+      usuario.ativo = user.user_active == 'Y';
       usuario.nome = user.user_name;
       usuario.email = user.user_mail;
+
+      if (user.user_profile) {
+        usuario.perfil = new PerfilUsuario(PerfilUsuario.converterEmEntrada(user.user_profile));
+      } else {
+        usuario.perfil = new PerfilUsuario();
+      }
 
       return usuario;
     };

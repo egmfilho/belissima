@@ -18,6 +18,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'egmfilho.keys',
     'ui.calendar',
     'ui.bootstrap',
     'ui.mask',
@@ -85,13 +86,15 @@ angular
         resolve: resolveCategorias()
       })
       .when('/configuracoes', {
-        templateUrl: 'views/configuracoes.html'
+        templateUrl: 'views/configuracoes.html',
+        controller: 'ConfiguracoesCtrl',
+        controllerAs: 'configuracoes'
       })
       .otherwise({
         redirectTo: '/'
       });
   })
-  .run(['$rootScope', '$location', '$cookies', '$uibModalStack', 'Usuario', 'ProviderCategoriaPessoa', function($rootScope, $location, $cookies, $uibModalStack, Usuario, providerCategoria) {
+  .run(['$rootScope', '$location', '$cookies', '$uibModalStack', function($rootScope, $location, $cookies, $uibModalStack) {
 
     $rootScope.isLoading = false;
 
@@ -100,10 +103,12 @@ angular
       $rootScope.currentPath = $location.path();
 
       // Bloqueia acesso de usuarios nao logados
-      if ($cookies.getObject('currentUser') == null || $cookies.getObject('currentUser').sessao == null) {
-        if (next.templateUrl != 'views/login.html') {
+      if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
+        if (next.templateUrl !== 'views/login.html') {
+          console.log('volta aqui!');
           $location.path('/login');
         }
+        return;
       }
     });
 

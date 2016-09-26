@@ -17,9 +17,9 @@ angular.module('belissimaApp.services')
 
         'request': function(req) {
 
-          if ($cookies.get('currentUser')) {
-            req.headers['x-session-token'] = $cookies.getObject('currentUser').token;
-          }
+          // if ($cookies.get('currentUser')) {
+          //   req.headers['x-session-token'] = $cookies.getObject('currentUser').token;
+          // }
 
           req.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -32,7 +32,7 @@ angular.module('belissimaApp.services')
         'responseError': function(rejection) {
 
           if (rejection.status == http_status.nao_autorizado) {
-            if ($cookies.getObject('currentUser')) {
+            if ($cookies.get('currentUser')) {
               $cookies.remove('currentUser');
             }
 

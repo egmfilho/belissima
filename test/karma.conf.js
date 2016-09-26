@@ -38,6 +38,7 @@ module.exports = function(config) {
       'bower_components/fullcalendar-scheduler/dist/scheduler.js',
       'bower_components/angular-ui-mask/dist/mask.js',
       'bower_components/angularMultipleSelect/build/multiple-select.min.js',
+      'bower_components/egmfilho-keys-shortcuts/src/keys.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

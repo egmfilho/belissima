@@ -87,8 +87,9 @@
       font-size: 1.8em;
       margin-top: 40px;
       background-color: $cor-menu-highlight;
-      color: $cor-menu-lateral;
+      color: white;
       border-color: $cor-menu-highlight-escuro;
+      text-shadow: 0px 1px 1px $cor-text-shadow;
 
       &:hover, &:focus {
         background-color: $cor-menu-highlight-escuro;
