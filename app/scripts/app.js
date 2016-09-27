@@ -98,7 +98,7 @@ angular
 
     // para ser usado no ng-repeat
     $rootScope.getNumber = function(num) {
-      return new Array(num);
+      return new Array(num <= 0 ? 0 : num);
     };
 
     $rootScope.isLoading = false;

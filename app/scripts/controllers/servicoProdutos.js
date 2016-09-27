@@ -44,6 +44,12 @@ angular.module('belissimaApp.controllers')
         $scope.opcao = 'novo';
         $scope.produto = new Produto();
 
+        $scope.pagination = {
+          current: 1,
+          max: 3,
+          total: 0
+        };
+
         getProdutos();
         getTipos();
         getUnidades();
@@ -65,7 +71,9 @@ angular.module('belissimaApp.controllers')
 
       function getProdutos() {
         $rootScope.isLoading = true;
-        providerProduto.obterTodos().then(function(success) {
+        providerProduto.obterTodos(($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function(success) {
+          console.log(success);
+          $scope.pagination.total = success.info.product_quantity;
           $scope.produtos = [ ];
           angular.forEach(success.data, function(item, index) {
             $scope.produtos.push(new Produto(Produto.converterEmEntrada(item)));
@@ -76,6 +84,10 @@ angular.module('belissimaApp.controllers')
           $rootScope.isLoading = false;
         });
       }
+
+      $scope.pageChanged = function() {
+        getProdutos();
+      };
 
       function getTipos() {
         $scope.tipos = [ ];

@@ -38,7 +38,11 @@ angular.module('belissimaApp.controllers')
 
         $scope.tipos_logradouros = TiposLogradouros;
 
-        $scope.tabela = { };
+        $scope.pagination = {
+          current: 1,
+          max: 15,
+          total: 0
+        };
 
         getClientes();
         getTiposContato();
@@ -53,18 +57,22 @@ angular.module('belissimaApp.controllers')
         }
 
         $rootScope.isLoading = true;
-        //provider.obterPessoasPorCategoria($rootScope.categoriaPessoa.cliente.id, true, true, true, true, true, true, true).then(function(success) {
-        provider.obterTodos(true, true, true, true, true, true, true, true).then(function(success) {
-          $rootScope.isLoading = false;
+        provider.obterTodos(true, true, true, true, true, true, true, true, ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function(success) {
+          $scope.pagination.total = success.info.person_quantity;
           $scope.pessoas = [ ];
           angular.forEach(success.data, function(item, index) {
             $scope.pessoas.push(new Pessoa(Pessoa.converterEmEntrada(item)));
           });
+          $rootScope.isLoading = false;
         }, function(error) {
           console.log(error);
           $rootScope.isLoading = false;
         });
       }
+
+      $scope.pageChanged = function() {
+        getClientes();
+      };
 
       function getTiposContato() {
         $scope.tipos_contatos = [ ];

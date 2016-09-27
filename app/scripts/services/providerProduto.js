@@ -29,10 +29,12 @@ angular.module('belissimaApp.services')
 
       return {
 
-        obterTodos: function() {
+        obterTodos: function(limite) {
           return provider.query({
             action: 'getList'
-          }, { }).$promise;
+          }, {
+            product_limit: limite
+          }).$promise;
         },
 
         obterProdutoPorId: function(id, getFornecedor) {

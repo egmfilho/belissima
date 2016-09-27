@@ -7,10 +7,10 @@
     </ul>
     <div class="conteudo-nav condensar-rows">
       <div ng-show="opcao === 'novo'" ng-include="'partials/formNovaPessoa.html'"></div>
-      <!--<tabela ng-show="opcao === 'editar'" id-tabela="tabela-clientes" head="tabela.head" body="tabela.body" callback-editar="editar" callback-excluir="excluir"></tabela>-->
 
-      <table class="tabela tabela-bordered tabela-esticada" ng-show="opcao === 'editar'">
-        <thead>
+      <div ng-show="opcao === 'editar'">
+        <table class="tabela tabela-bordered tabela-esticada">
+          <thead>
           <tr>
             <th>Código</th>
             <th>Nome</th>
@@ -20,8 +20,8 @@
             <th>Contato</th>
             <th>&nbsp;</th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           <tr ng-repeat="pessoa in pessoas">
             <td data-label="Código">{{pessoa.codigo}}</td>
             <td data-label="Nome">{{pessoa.nome | truncate:40}}</td>
@@ -37,12 +37,23 @@
               </a>
               <!--<span class="hidden-xs">&nbsp;</span>-->
               <!--<a href="" ng-click="excluir(pessoa)" class="hidden-xs">-->
-                <!--<span class="glyphicon glyphicon-trash"></span>-->
+              <!--<span class="glyphicon glyphicon-trash"></span>-->
               <!--</a>-->
             </td>
           </tr>
-        </tbody>
-      </table>
+          <tr ng-repeat="n in getNumber(pagination.max - pessoas.length) track by $index" ng-if="pessoas.length < pagination.max">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          </tbody>
+        </table>
+        <br>
+        <ul style="float: right" uib-pagination total-items="pagination.total" items-per-page="pagination.max" ng-model="pagination.current" ng-change="pageChanged()" next-text="próximo" previous-text="anterior"></ul>
+      </div>
     </div>
   </div>
 

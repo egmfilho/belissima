@@ -79,12 +79,14 @@
   </div>
 </div>
 <br>
-<div class="row">
-  <div class="hidden-xs col-sm-6 col-md-8"></div>
-  <div class="col-xs-6 col-sm-3 col-md-2">
-    <button class="btn btn-default botao-esticado" ng-click="limpar()"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
+<br>
+<br>
+<div class="row rodape-salvar">
+  <div class="col-xs-6 col-sm-3 col-md-3">
+    <button class="btn btn-default botao-esticado" ng-click="limpar()"><span class="glyphicon glyphicon-erase"></span> Limpar tudo</button>
   </div>
-  <div class="col-xs-6 col-sm-3 col-md-2">
-    <button class="btn btn-default botao-esticado" ng-click="salvar()"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
+  <div class="hidden-xs col-sm-6 col-md-6 text-center"></div>
+  <div class="col-xs-6 col-sm-3 col-md-3">
+    <button class="btn btn-default botao-esticado" ng-click="salvar()" ng-disabled="!validar(pessoa)"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
   </div>
 </div>

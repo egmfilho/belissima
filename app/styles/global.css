@@ -59,7 +59,7 @@ body {
   width: 300px;
   height: 200px; }
 
-.sombra-texto, .tela .header h1, .tela .header span, .tela .header h4, .calendario .dropdown-menu small, .modal .header .title, #menu-home .botao-menu-home > div > .glyphicon, #menu-home .botao-menu-home > div > h4 {
+.sombra-texto, .input-group-addon, .tela .header h1, .tela .header span, .tela .header h4, .pagination li a, .calendario .dropdown-menu small, .modal .header .title, #menu-home .botao-menu-home > div > .glyphicon, #menu-home .botao-menu-home > div > h4 {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75); }
 
 #loading {
@@ -80,7 +80,7 @@ body {
     right: 0; }
 
 .form-control[readonly] {
-  background-color: #aaa;
+  background-color: #dadada;
   border-color: #888; }
 
 .botao, .tela .body button, .modal .input-group-btn button, .modal .body button, .modal .control button, .btn-toggle .btn, .botao[disabled], .tela .body button[disabled], .modal .input-group-btn button[disabled], .modal .body button[disabled], .modal .control button[disabled], .btn-toggle [disabled].btn {
@@ -99,6 +99,11 @@ body {
 
 .botao-esticado {
   width: 100%; }
+
+.input-group-addon {
+  background-color: #867512;
+  border-color: #6e5f23;
+  color: white; }
 
 .tela {
   background-color: #2b2b2b;
@@ -133,30 +138,58 @@ body {
   overflow: hidden;
   position: absolute; }
 
+.pagination .disabled a {
+  background-color: rgba(186, 165, 38, 0.3);
+  border-color: rgba(134, 117, 18, 0.3); }
+  .pagination .disabled a:hover, .pagination .disabled a:active, .pagination .disabled a:focus {
+    background-color: rgba(186, 165, 38, 0.3);
+    border-color: rgba(134, 117, 18, 0.3); }
+.pagination .active a {
+  background-color: #867512;
+  border-color: #6e5f23; }
+  .pagination .active a:hover, .pagination .active a:active, .pagination .active a:focus {
+    background-color: #867512;
+    border-color: #6e5f23; }
+.pagination li a {
+  background-color: #baa526;
+  color: white;
+  border-color: #867512; }
+  .pagination li a:hover {
+    color: white;
+    background-color: #867512;
+    border-color: #6e5f23; }
+
 .calendario .dropdown-menu {
   color: white;
-  background-color: #baa526 !important; }
+  background-color: #baa526 !important;
+  padding: 2px;
+  border-color: #9e8a15; }
   .calendario .dropdown-menu .text-info {
     color: white; }
   .calendario .dropdown-menu small {
     font-weight: 200; }
+  .calendario .dropdown-menu thead button {
+    width: 100%; }
   .calendario .dropdown-menu button {
-    background-color: rgba(134, 117, 18, 0.7);
+    background-color: rgba(134, 117, 18, 0.7) !important;
     border-radius: 0;
-    border-color: #baa526;
+    border-color: #baa526 !important;
     font-weight: 200; }
     .calendario .dropdown-menu button span.text-muted {
       color: rgba(187, 187, 187, 0.7);
       text-shadow: none; }
   .calendario .dropdown-menu .btn[disabled] {
-    opacity: .4; }
+    opacity: .5 !important; }
   .calendario .dropdown-menu .btn-info:active, .calendario .dropdown-menu .btn-info.active {
-    background-color: rgba(219, 193, 46, 0.8);
-    border-color: #baa526; }
+    background-color: rgba(219, 193, 46, 0.8) !important;
+    border-color: #baa526 !important; }
+  .calendario .dropdown-menu .uib-datepicker-current {
+    margin-right: 10px; }
   .calendario .dropdown-menu .uib-datepicker-current, .calendario .dropdown-menu .uib-clear, .calendario .dropdown-menu .uib-close {
-    border-color: #867512;
-    border-radius: 2px;
-    font-weight: 400; }
+    border-color: #867512 !important;
+    border-radius: 2px !important;
+    font-weight: 400 !important;
+    margin-bottom: 8px; }
 
 .uib-timepicker .uib-separator {
   text-align: center; }
@@ -853,6 +886,16 @@ body {
   width: 100%; }
   #servico-produtos .tabela td, #servico-produtos #tabela-ticket td {
     white-space: normal; }
+#servico-produtos .rodape-salvar {
+  height: 50px;
+  background-color: #5a5a5a;
+  border-radius: 4px; }
+  #servico-produtos .rodape-salvar > div {
+    height: 100%;
+    padding: 6px; }
+  #servico-produtos .rodape-salvar button {
+    height: 100%;
+    font-size: 1.4em; }
 
 .input-group-btn span {
   width: 16px; }
@@ -885,9 +928,13 @@ body {
 .form-clientes #tabela-clientes {
   width: 100%; }
 .form-clientes .cabecalho {
-  margin: 20px 0 0 0;
+  margin: 20px 0 10px 0;
   padding-top: 10px;
   border-top: 1px solid white; }
+  .form-clientes .cabecalho .btn-toggle {
+    float: right;
+    width: 25%;
+    margin-top: 5px; }
   .form-clientes .cabecalho a:hover, .form-clientes .cabecalho a:focus {
     text-decoration: none; }
   .form-clientes .cabecalho .principal {

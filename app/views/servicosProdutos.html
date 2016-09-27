@@ -7,41 +7,55 @@
     </ul>
     <div class="conteudo-nav condensar-rows">
       <div ng-show="opcao === 'novo'" ng-include="'partials/formNovoProduto.html'"></div>
-      <!--<tabela ng-show="opcao === 'editar'" id-tabela="tabela-produtos" head="head" body="body" callback-editar="editar" callback-excluir="excluir"></tabela>-->
-      <table class="tabela tabela-bordered tabela-esticada" ng-show="opcao === 'editar'">
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Preço</th>
-            <th>Custo</th>
-            <th>Ativo</th>
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="p in produtos">
-            <td data-label="Código">{{p.codigo}}</td>
-            <td data-label="Nome">{{p.nome}}</td>
-            <td data-label="Descrição">{{p.descricao | truncate: '50'}}</td>
-            <td data-label="Preço">{{p.preco.valor | currency: 'R$ '}}</td>
-            <td data-label="Custo">{{p.custo.valor | currency: 'R$ '}}</td>
-            <td data-label="Ativo">{{p.ativo}}</td>
-            <td>
-              <!--<button class="visible-xs-inline btn" ng-click="excluir(pessoa)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>-->
-              <button class="visible-xs-inline btn" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-              <a href="" ng-click="editar(p)" class="hidden-xs">
-                <span class="glyphicon glyphicon-pencil"></span>
-              </a>
-              <!--<span class="hidden-xs">&nbsp;</span>-->
-              <!--<a href="" ng-click="excluir(pessoa)" class="hidden-xs">-->
+
+      <div ng-show="opcao === 'editar'">
+        <table class="tabela tabela-bordered tabela-esticada">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Preço</th>
+              <th>Custo</th>
+              <th>Ativo</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="p in produtos">
+              <td data-label="Código">{{p.codigo}}</td>
+              <td data-label="Nome">{{p.nome}}</td>
+              <td data-label="Descrição">{{p.descricao | truncate: '50'}}</td>
+              <td data-label="Preço">{{p.preco.valor | currency: 'R$ '}}</td>
+              <td data-label="Custo">{{p.custo.valor | currency: 'R$ '}}</td>
+              <td data-label="Ativo">{{p.ativo}}</td>
+              <td>
+                <!--<button class="visible-xs-inline btn" ng-click="excluir(pessoa)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>-->
+                <button class="visible-xs-inline btn" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+                <a href="" ng-click="editar(p)" class="hidden-xs">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <!--<span class="hidden-xs">&nbsp;</span>-->
+                <!--<a href="" ng-click="excluir(pessoa)" class="hidden-xs">-->
                 <!--<span class="glyphicon glyphicon-trash"></span>-->
-              <!--</a>-->
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <!--</a>-->
+              </td>
+            </tr>
+            <tr ng-repeat="n in getNumber(pagination.max - produtos.length) track by $index" ng-if="produtos.length < pagination.max">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <ul style="float: right" uib-pagination total-items="pagination.total" items-per-page="pagination.max" ng-model="pagination.current" ng-change="pageChanged()" next-text="próximo" previous-text="anterior"></ul>
+      </div>
+
     </div>
   </div>
 

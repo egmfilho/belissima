@@ -127,7 +127,7 @@ body {
 }
 
 .form-control[readonly] {
-  background-color: #aaa;
+  background-color: #dadada;
   border-color: #888;
 }
 
@@ -152,6 +152,13 @@ body {
 
 .botao-esticado {
   width: 100%;
+}
+
+.input-group-addon {
+  background-color: $cor-menu-highlight-escuro;
+  border-color: $cor-menu-highlight-mais-escuro;
+  color: white;
+  @extend .sombra-texto;
 }
 
 .tela {
@@ -218,10 +225,54 @@ body {
   position: absolute;
 }
 
+.pagination {
+
+  .disabled {
+    a {
+      background-color: rgba($cor-menu-highlight, .3);
+      border-color: rgba($cor-menu-highlight-escuro, .3);
+
+      &:hover, &:active, &:focus {
+        background-color: rgba($cor-menu-highlight, .3);
+        border-color: rgba($cor-menu-highlight-escuro, .3);
+      }
+    }
+  }
+
+  .active {
+    a {
+      background-color: $cor-menu-highlight-escuro;
+      border-color: $cor-menu-highlight-mais-escuro;
+
+      &:hover, &:active, &:focus {
+        background-color: $cor-menu-highlight-escuro;
+        border-color: $cor-menu-highlight-mais-escuro;
+      }
+    }
+  }
+
+  li {
+    a {
+      background-color: $cor-menu-highlight;
+      color: white;
+      @extend .sombra-texto;
+      border-color: $cor-menu-highlight-escuro;
+
+      &:hover {
+        color: white;
+        background-color: $cor-menu-highlight-escuro;
+        border-color: $cor-menu-highlight-mais-escuro;
+      }
+    }
+  }
+}
+
 .calendario {
   .dropdown-menu {
     color: white;
     background-color: $cor-menu-highlight !important;
+    padding: 2px;
+    border-color: $cor-menu-highlight-medio;
 
     .text-info {
       color: white;
@@ -232,10 +283,16 @@ body {
       font-weight: 200;
     }
 
+    thead {
+      button {
+        width: 100%;
+      }
+    }
+
     button {
-      background-color: rgba($cor-menu-highlight-escuro, .7);
+      background-color: rgba($cor-menu-highlight-escuro, .7) !important;
       border-radius: 0;
-      border-color: rgba($cor-menu-highlight, 1);
+      border-color: rgba($cor-menu-highlight, 1) !important;
       font-weight: 200;
 
       span.text-muted {
@@ -245,18 +302,23 @@ body {
     }
 
     .btn[disabled] {
-      opacity: .4;
+      opacity: .5 !important;
     }
 
     .btn-info:active, .btn-info.active {
-      background-color: rgba($cor-menu-highlight-claro, .8);
-      border-color: $cor-menu-highlight;
+      background-color: rgba($cor-menu-highlight-claro, .8) !important;
+      border-color: $cor-menu-highlight !important;
+    }
+
+    .uib-datepicker-current {
+      margin-right: 10px;
     }
 
     .uib-datepicker-current, .uib-clear, .uib-close {
-      border-color: $cor-menu-highlight-escuro;
-      border-radius: 2px;
-      font-weight: 400;
+      border-color: $cor-menu-highlight-escuro !important;
+      border-radius: 2px !important;
+      font-weight: 400 !important;
+      margin-bottom: 8px;
     }
   }
 }
