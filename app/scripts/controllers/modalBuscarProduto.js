@@ -12,7 +12,6 @@ angular.module('belissimaApp.controllers')
     'Produto',
     function($scope, $uibModalInstance, provider, Produto) {
 
-      $scope.selecionado = { };
       $scope.resultado = [ ];
 
       function setResultado(resultado) {
@@ -45,15 +44,11 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.selecionarProduto = function(produto) {
-        $scope.selecionado = produto;
+        $uibModalInstance.close(produto);
       };
 
       $scope.cancel = function() {
         $uibModalInstance.dismiss();
-      };
-
-      $scope.ok = function() {
-        $uibModalInstance.close($scope.selecionado);
       };
 
     }]);

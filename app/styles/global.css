@@ -59,7 +59,7 @@ body {
   width: 300px;
   height: 200px; }
 
-.sombra-texto, .tela .header h1, .tela .header span, .tela .header h4, .modal .header .title, #menu-home .botao-menu-home > div > .glyphicon, #menu-home .botao-menu-home > div > h4 {
+.sombra-texto, .tela .header h1, .tela .header span, .tela .header h4, .calendario .dropdown-menu small, .modal .header .title, #menu-home .botao-menu-home > div > .glyphicon, #menu-home .botao-menu-home > div > h4 {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75); }
 
 #loading {
@@ -130,14 +130,28 @@ body {
 
 .calendario .dropdown-menu {
   color: white;
-  background-color: #3f3f41 !important; }
+  background-color: #baa526 !important; }
   .calendario .dropdown-menu .text-info {
     color: white; }
+  .calendario .dropdown-menu small {
+    font-weight: 200; }
+  .calendario .dropdown-menu button {
+    background-color: rgba(134, 117, 18, 0.7);
+    border-radius: 0;
+    border-color: #baa526;
+    font-weight: 200; }
+    .calendario .dropdown-menu button span.text-muted {
+      color: rgba(187, 187, 187, 0.7);
+      text-shadow: none; }
+  .calendario .dropdown-menu .btn[disabled] {
+    opacity: .4; }
   .calendario .dropdown-menu .btn-info:active, .calendario .dropdown-menu .btn-info.active {
-    background-color: #3f3f41;
-    border-color: #5a5a5a; }
+    background-color: rgba(219, 193, 46, 0.8);
+    border-color: #baa526; }
   .calendario .dropdown-menu .uib-datepicker-current, .calendario .dropdown-menu .uib-clear, .calendario .dropdown-menu .uib-close {
-    border-color: #867512; }
+    border-color: #867512;
+    border-radius: 2px;
+    font-weight: 400; }
 
 .uib-timepicker .uib-separator {
   text-align: center; }
@@ -198,7 +212,11 @@ body {
   .modal .header .title {
     font-size: 1.8em; }
     .modal .header .title .flag {
-      font-size: 1.2em; }
+      position: absolute;
+      font-size: 46px; }
+    .modal .header .title .espacador {
+      width: 50px;
+      display: inline-block; }
     .modal .header .title .close {
       margin: 0px;
       font-size: 1.2em; }
@@ -481,160 +499,49 @@ body {
 
   .dark-div, .show-dark-div {
     display: none; } }
-@-webkit-keyframes uil-default-anim {
-  0% {
-    opacity: 1; }
-  100% {
-    opacity: 0; } }
-@keyframes uil-default-anim {
-  0% {
-    opacity: 1; }
-  100% {
-    opacity: 0; } }
-.uil-default-css > div:nth-of-type(1) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: -0.5s;
-  animation-delay: -0.5s; }
+.spinner {
+  margin: 100px auto;
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px; }
 
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
+.spinner > div {
+  background-color: rgba(186, 165, 38, 0.9);
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out; }
 
-.uil-default-css > div:nth-of-type(2) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: -0.4166666666666667s;
-  animation-delay: -0.4166666666666667s; }
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s; }
 
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s; }
 
-.uil-default-css > div:nth-of-type(3) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: -0.33333333333333337s;
-  animation-delay: -0.33333333333333337s; }
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s; }
 
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s; }
 
-.uil-default-css > div:nth-of-type(4) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: -0.25s;
-  animation-delay: -0.25s; }
-
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
-
-.uil-default-css > div:nth-of-type(5) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: -0.16666666666666669s;
-  animation-delay: -0.16666666666666669s; }
-
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
-
-.uil-default-css > div:nth-of-type(6) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: -0.08333333333333331s;
-  animation-delay: -0.08333333333333331s; }
-
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
-
-.uil-default-css > div:nth-of-type(7) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s; }
-
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
-
-.uil-default-css > div:nth-of-type(8) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: 0.08333333333333337s;
-  animation-delay: 0.08333333333333337s; }
-
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
-
-.uil-default-css > div:nth-of-type(9) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: 0.16666666666666663s;
-  animation-delay: 0.16666666666666663s; }
-
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
-
-.uil-default-css > div:nth-of-type(10) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: 0.25s;
-  animation-delay: 0.25s; }
-
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
-
-.uil-default-css > div:nth-of-type(11) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: 0.33333333333333337s;
-  animation-delay: 0.33333333333333337s; }
-
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
-
-.uil-default-css > div:nth-of-type(12) {
-  -webkit-animation: uil-default-anim 1s linear infinite;
-  animation: uil-default-anim 1s linear infinite;
-  -webkit-animation-delay: 0.41666666666666663s;
-  animation-delay: 0.41666666666666663s; }
-
-.uil-default-css {
-  position: relative;
-  background: none;
-  width: 200px;
-  height: 200px; }
-
+@-webkit-keyframes sk-stretchdelay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(0.4); }
+  20% {
+    -webkit-transform: scaleY(1); } }
+@keyframes sk-stretchdelay {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4); }
+  20% {
+    transform: scaleY(1);
+    -webkit-transform: scaleY(1); } }
 #login .login-header {
   max-width: 350px;
   min-width: 350px;

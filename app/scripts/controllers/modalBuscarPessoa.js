@@ -16,9 +16,7 @@ angular.module('belissimaApp.controllers')
 
       $uibModalInstance.opened.then(function() {
         $rootScope.isLoading = false;
-        $scope.selecionado = { };
         $scope.resultado = [ ];
-        $scope.tabela_vazia = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
       });
 
       function setResultado(resultado) {
@@ -68,16 +66,11 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.selecionarPessoa = function(pessoa) {
-        $scope.selecionado = pessoa;
-        $uibModalInstance.close($scope.selecionado);
+        $uibModalInstance.close(pessoa);
       };
 
       $scope.cancel = function() {
         $uibModalInstance.dismiss();
-      };
-
-      $scope.ok = function() {
-        $uibModalInstance.close($scope.selecionado);
       };
 
     }]);

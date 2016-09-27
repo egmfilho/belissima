@@ -29,15 +29,15 @@
             <td data-label="Custo">{{p.custo.valor | currency: 'R$ '}}</td>
             <td data-label="Ativo">{{p.ativo}}</td>
             <td>
-              <button class="visible-xs-inline btn" ng-click="excluir(pessoa)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+              <!--<button class="visible-xs-inline btn" ng-click="excluir(pessoa)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>-->
               <button class="visible-xs-inline btn" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-              <a href="" ng-click="editar(pessoa)" class="hidden-xs">
+              <a href="" ng-click="editar(p)" class="hidden-xs">
                 <span class="glyphicon glyphicon-pencil"></span>
               </a>
-              <span class="hidden-xs">&nbsp;</span>
-              <a href="" ng-click="excluir(pessoa)" class="hidden-xs">
-                <span class="glyphicon glyphicon-trash"></span>
-              </a>
+              <!--<span class="hidden-xs">&nbsp;</span>-->
+              <!--<a href="" ng-click="excluir(pessoa)" class="hidden-xs">-->
+                <!--<span class="glyphicon glyphicon-trash"></span>-->
+              <!--</a>-->
             </td>
           </tr>
         </tbody>

@@ -2,7 +2,7 @@
   <div class="header">
     <div class="title">
       <span class="glyphicon glyphicon-bookmark flag" ng-style="{'color': evento.color}"></span>
-      {{evento.title}} ({{evento.start | date : "HH:mm"}} - {{evento.end | date : "HH:mm"}})
+      <span class="espacador"></span>{{evento.title}} ({{evento.start | date : "HH:mm"}} - {{evento.end | date : "HH:mm"}})
       <span class="glyphicon glyphicon-remove close" ng-click="close()"></span>
     </div>
   </div>
@@ -41,7 +41,7 @@
         <div class="input-group">
           <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="evento.cliente.codigo">
           <span class="input-group-btn">
-            <button class="btn btn-default" tabindex="-1" ng-click="setPessoa(categoriaPessoa.cliente)"><span class="glyphicon glyphicon-refresh"></span></button>
+            <button class="btn btn-default" tabindex="-1" ng-click="setPessoa(categoriaPessoa.cliente.id)"><span class="glyphicon glyphicon-refresh"></span></button>
           </span>
         </div>
       </div>
@@ -50,10 +50,10 @@
         <div class="input-group">
           <input type="text" class="form-control" aria-describedby="basic-addon2" readonly="true" ng-model="evento.cliente.nome">
           <span class="input-group-btn">
-            <button class="btn btn-default" tabindex="-1" ng-click="getPessoa(categoriaPessoa.cliente)"><span class="glyphicon glyphicon-search"></span></button>
+            <button class="btn btn-default" tabindex="-1" ng-click="getPessoa(categoriaPessoa.cliente.id)"><span class="glyphicon glyphicon-search"></span></button>
           <!--</span>-->
           <!--<span class="input-group-btn">-->
-            <button class="btn btn-default" tabindex="-1" ng-click="removePessoa(categoriaPessoa.cliente)"><span class="glyphicon glyphicon-remove"></span></button>
+            <button class="btn btn-default" tabindex="-1" ng-click="removePessoa(categoriaPessoa.cliente.id)"><span class="glyphicon glyphicon-remove"></span></button>
           </span>
         </div>
       </div>
@@ -67,7 +67,7 @@
         <div class="input-group">
           <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="evento.funcionario.codigo">
           <span class="input-group-btn">
-            <button class="btn btn-default" tabindex="-1" ng-click="setPessoa(categoriaPessoa.funcionario)"><span class="glyphicon glyphicon-refresh"></span></button>
+            <button class="btn btn-default" tabindex="-1" ng-click="setPessoa(categoriaPessoa.funcionario.id)"><span class="glyphicon glyphicon-refresh"></span></button>
           </span>
         </div>
       </div>
@@ -76,10 +76,10 @@
         <div class="input-group">
           <input type="text" class="form-control" aria-describedby="basic-addon2" readonly="true" ng-model="evento.funcionario.nome">
           <span class="input-group-btn">
-            <button class="btn btn-default" tabindex="-1" ng-click="getPessoa(categoriaPessoa.funcionario)"><span class="glyphicon glyphicon-search"></span></button>
+            <button class="btn btn-default" tabindex="-1" ng-click="getPessoa(categoriaPessoa.funcionario.id)"><span class="glyphicon glyphicon-search"></span></button>
           <!--</span>-->
           <!--<span class="input-group-btn">-->
-            <button class="btn btn-default" tabindex="-1" ng-click="removePessoa(categoriaPessoa.funcionario)"><span class="glyphicon glyphicon-remove"></span></button>
+            <button class="btn btn-default" tabindex="-1" ng-click="removePessoa(categoriaPessoa.funcionario.id)"><span class="glyphicon glyphicon-remove"></span></button>
           </span>
         </div>
       </div>

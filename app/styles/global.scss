@@ -3,9 +3,11 @@ $cor-menu-lateral:                #3f3f41;
 $cor-menu-lateral-escuro:         #343434;
 $cor-menu-lateral-fundo:          rgb(20, 20, 20);
 $cor-menu-lateral-borda:          rgb(90, 90, 90);
+$cor-menu-highlight-claro: rgb(219, 193, 46);
 $cor-menu-highlight:              rgb(186, 165, 38);
 $cor-menu-highlight-medio:        #9e8a15;
 $cor-menu-highlight-escuro:       #867512;
+$cor-menu-highlight-mais-escuro:  #6e5f23;
 $cor-da-tela:                     rgb(108, 109, 113);
 $cor-botao-menu-home-1:           rgb(165, 169, 172);
 $cor-botao-menu-home-2:           #777;
@@ -213,19 +215,42 @@ body {
 .calendario {
   .dropdown-menu {
     color: white;
-    background-color: $cor-menu-lateral !important;
+    background-color: $cor-menu-highlight !important;
 
     .text-info {
       color: white;
     }
 
+    small {
+      @extend .sombra-texto;
+      font-weight: 200;
+    }
+
+    button {
+      background-color: rgba($cor-menu-highlight-escuro, .7);
+      border-radius: 0;
+      border-color: rgba($cor-menu-highlight, 1);
+      font-weight: 200;
+
+      span.text-muted {
+        color: rgba(#bbb, .7);
+        text-shadow: none;
+      }
+    }
+
+    .btn[disabled] {
+      opacity: .4;
+    }
+
     .btn-info:active, .btn-info.active {
-      background-color: $cor-menu-lateral;
-      border-color: $cor-menu-lateral-borda;
+      background-color: rgba($cor-menu-highlight-claro, .8);
+      border-color: $cor-menu-highlight;
     }
 
     .uib-datepicker-current, .uib-clear, .uib-close {
       border-color: $cor-menu-highlight-escuro;
+      border-radius: 2px;
+      font-weight: 400;
     }
   }
 }
@@ -352,7 +377,13 @@ body {
       @extend .sombra-texto;
 
       .flag {
-        font-size: 1.2em;
+        position: absolute;
+        font-size: 46px;
+      }
+
+      .espacador {
+        width: 50px;
+        display: inline-block;
       }
 
       .close {

@@ -122,12 +122,12 @@ angular.module('belissimaApp.controllers')
         }
       };
 
-      $scope.getPessoa = function(categoria) {
-        modalBuscarPessoa.show(categoria, function(result) {
+      $scope.getPessoa = function(categoriaId) {
+        modalBuscarPessoa.show(categoriaId, function(result) {
           if (result) {
-            if (categoria == $scope.categoriaPessoa.cliente) {
+            if (categoriaId == $scope.categoriaPessoa.cliente.id) {
               $scope.evento.setCliente(result);
-            } else if (categoria == $scope.categoriaPessoa.funcionario) {
+            } else if (categoriaId == $scope.categoriaPessoa.funcionario.id) {
               $scope.evento.setFuncionario(result);
             }
           }

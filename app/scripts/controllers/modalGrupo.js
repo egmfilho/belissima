@@ -43,12 +43,8 @@ angular.module('belissimaApp.controllers')
         });
       };
 
-      $scope.setGrupo = function(node) {
-        $scope.grupo = node;
-      };
-
-      $scope.selecionar = function() {
-        $uibModalInstance.close($scope.grupo ? $scope.grupo : null);
+      $scope.selecionar = function(node) {
+        $uibModalInstance.close(node);
       };
 
       $scope.fechar = function() {

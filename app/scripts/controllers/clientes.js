@@ -39,9 +39,6 @@ angular.module('belissimaApp.controllers')
         $scope.tipos_logradouros = TiposLogradouros;
 
         $scope.tabela = { };
-        $scope.tabela.head = [ 'Código', 'Nome', 'Endereço', 'Contato' ];
-        $scope.tabela.body = [ ];
-
 
         getClientes();
         getTiposContato();
@@ -59,17 +56,9 @@ angular.module('belissimaApp.controllers')
         //provider.obterPessoasPorCategoria($rootScope.categoriaPessoa.cliente.id, true, true, true, true, true, true, true).then(function(success) {
         provider.obterTodos(true, true, true, true, true, true, true, true).then(function(success) {
           $rootScope.isLoading = false;
-          $scope.tabela.body = [ ];
+          $scope.pessoas = [ ];
           angular.forEach(success.data, function(item, index) {
-            $scope.tabela.body.push(new Pessoa(Pessoa.converterEmEntrada(item)));
-            //var pessoa = new Pessoa(Pessoa.converterEmEntrada(item));
-            //$scope.tabela.body.push({
-            //  codigo: pessoa.codigo,
-            //  apelido: pessoa.apelido,
-            //  nome: pessoa.nome,
-            //  endereco: pessoa.getEnderecoPrincipalEmString(),
-            //  contato: pessoa.getContatoPrincipalEmString()
-            //});
+            $scope.pessoas.push(new Pessoa(Pessoa.converterEmEntrada(item)));
           });
         }, function(error) {
           console.log(error);
@@ -209,10 +198,11 @@ angular.module('belissimaApp.controllers')
       $scope.salvar = function() {
         console.log($scope.pessoa, Pessoa.converterEmSaida($scope.pessoa));
 
-        if (confirm('Tentar a sorte?')) {
+        if (confirm('Salvar?')) {
           $rootScope.isLoading = true;
           provider.salvarPessoa(Pessoa.converterEmSaida($scope.pessoa)).then(function(success) {
             console.log(success);
+            $scope.pessoa = new Pessoa();
             $rootScope.isLoading = false;
             getClientes();
           }, function(error) {
@@ -229,9 +219,10 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.editar = function(pessoa) {
+        console.log(pessoa);
         $rootScope.isLoading = true;
         if (pessoa) {
-          provider.obterPessoaPorCodigo(pessoa.codigo, pessoa.categorias[0].id, true, null, true, true, true, true, null, true).then(function(success) {
+          provider.obterPessoaPorCodigo(pessoa.codigo, pessoa.categorias.length ? pessoa.categorias[0].id : null, true, null, true, true, true, true, null, true).then(function(success) {
             $rootScope.isLoading = false;
             ModalEditarPessoa.show(new Pessoa(Pessoa.converterEmEntrada(success.data)), function(result) {
               if (result) {

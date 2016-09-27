@@ -43,8 +43,6 @@ angular.module('belissimaApp.controllers')
       $scope.$on('$viewContentLoaded', function() {
         $scope.opcao = 'novo';
         $scope.produto = new Produto();
-        $scope.head = [ 'Código', 'Nome', 'Descrição', 'Preço', 'Custo', 'Ativo' ];
-        $scope.body = [ ];
 
         getProdutos();
         getTipos();
@@ -65,25 +63,12 @@ angular.module('belissimaApp.controllers')
         }
       };
 
-      $scope.excluir = function(item) {
-        alert('Excluir: ' + item.codigo);
-      };
-
       function getProdutos() {
         $rootScope.isLoading = true;
         providerProduto.obterTodos().then(function(success) {
           $scope.produtos = [ ];
           angular.forEach(success.data, function(item, index) {
             $scope.produtos.push(new Produto(Produto.converterEmEntrada(item)));
-            //var produto = new Produto(Produto.converterEmEntrada(item));
-            //$scope.body.push({
-            //  codigo: produto.codigo,
-            //  nome: produto.nome,
-            //  descricao: produto.descricao,
-            //  preco: $filter('currency')(produto.preco.valor, 'R$ '),
-            //  custo: $filter('currency')(produto.custo.valor, 'R$ '),
-            //  ativo: produto.ativo ? 'Sim' : 'Não'
-            //});
           });
           $rootScope.isLoading = false;
         }, function(error) {
@@ -142,7 +127,7 @@ angular.module('belissimaApp.controllers')
         })
       };
 
-      $scope.enviar = function() {
+      $scope.salvar = function() {
         console.log(Produto.converterEmSaida($scope.produto));
 
         modalConfirm.show('Salvar', 'Deseja salvar um novo produto?', 'Sim', 'Não', function(result) {

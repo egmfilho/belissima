@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="pessoa in tabela.body">
+          <tr ng-repeat="pessoa in pessoas">
             <td data-label="Código">{{pessoa.codigo}}</td>
             <td data-label="Nome">{{pessoa.nome | truncate:40}}</td>
             <td data-label="Apelido">{{pessoa.apelido}}</td>
@@ -30,15 +30,15 @@
             <td data-label="CPF">{{pessoa.cpf}}</td>
             <td data-label="Contato">{{pessoa.getContatoPrincipalEmString()}}</td>
             <td>
-              <button class="visible-xs-inline btn" ng-click="excluir(pessoa)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+              <!--<button class="visible-xs-inline btn" ng-click="excluir(pessoa)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>-->
               <button class="visible-xs-inline btn" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
               <a href="" ng-click="editar(pessoa)" class="hidden-xs">
                 <span class="glyphicon glyphicon-pencil"></span>
               </a>
-              <span class="hidden-xs">&nbsp;</span>
-              <a href="" ng-click="excluir(pessoa)" class="hidden-xs">
-                <span class="glyphicon glyphicon-trash"></span>
-              </a>
+              <!--<span class="hidden-xs">&nbsp;</span>-->
+              <!--<a href="" ng-click="excluir(pessoa)" class="hidden-xs">-->
+                <!--<span class="glyphicon glyphicon-trash"></span>-->
+              <!--</a>-->
             </td>
           </tr>
         </tbody>

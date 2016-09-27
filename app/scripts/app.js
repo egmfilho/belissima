@@ -31,8 +31,8 @@ angular
     function resolveCategorias() {
       return {
         '': ['$rootScope', 'ProviderCategoriaPessoa', 'CategoriaPessoa', function($rootScope, provider, CategoriaPessoa) {
+          $rootScope.isLoading = true;
           return $rootScope.categoriaPessoa || provider.obterTodos().then(function(success) {
-              $rootScope.isLoading = true;
               $rootScope.categoriaPessoa = { };
               angular.forEach(success.data, function(item, index) {
                 var categoria = new CategoriaPessoa(CategoriaPessoa.converterEmEntrada(item));
@@ -96,6 +96,11 @@ angular
   })
   .run(['$rootScope', '$location', '$cookies', '$uibModalStack', function($rootScope, $location, $cookies, $uibModalStack) {
 
+    // para ser usado no ng-repeat
+    $rootScope.getNumber = function(num) {
+      return new Array(num);
+    };
+
     $rootScope.isLoading = false;
 
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
@@ -103,13 +108,13 @@ angular
       $rootScope.currentPath = $location.path();
 
       // Bloqueia acesso de usuarios nao logados
-      if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
-        if (next.templateUrl !== 'views/login.html') {
-          console.log('volta aqui!');
-          $location.path('/login');
-        }
-        return;
-      }
+      //if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
+      //  if (next.templateUrl !== 'views/login.html') {
+      //    console.log('volta aqui!');
+      //    $location.path('/login');
+      //  }
+      //  return;
+      //}
     });
 
   }]);
