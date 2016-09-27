@@ -126,7 +126,12 @@ body {
   }
 }
 
-.botao {
+.form-control[readonly] {
+  background-color: #aaa;
+  border-color: #888;
+}
+
+.botao, .botao[disabled] {
   background-color: $cor-menu-highlight;
   color: white;
   text-shadow: 0px 1px 1px $cor-text-shadow;
@@ -139,6 +144,7 @@ body {
 
   &:hover, &:focus {
     background-color: $cor-menu-highlight-escuro;
+    border-color: $cor-menu-highlight-mais-escuro;
     color: white;
     outline: none;
   }

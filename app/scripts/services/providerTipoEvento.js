@@ -28,7 +28,7 @@ angular.module('belissimaApp.services')
       return {
 
         obterTipoDeEventoPorId: function(id) {
-          return provider.save({
+          return provider.query({
             action: 'get'
           }, {
             event_type_id: id
@@ -36,9 +36,9 @@ angular.module('belissimaApp.services')
         },
 
         obterTiposDeEvento: function() {
-          return provider.get({
+          return provider.query({
             action: 'getList'
-          }).$promise;
+          }, { }).$promise;
         },
 
         salvarEvento: function(evento) {

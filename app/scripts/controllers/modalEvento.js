@@ -6,6 +6,7 @@
 
 angular.module('belissimaApp.controllers')
   .controller('ModalEventoCtrl', [
+    '$rootScope',
     '$scope',
     '$uibModalInstance',
     'ModalBuscarPessoa',
@@ -20,7 +21,7 @@ angular.module('belissimaApp.controllers')
     'Evento',
     'Produto',
     'evento',
-    function($scope, $uibModalInstance, modalBuscarPessoa, modalBuscarProduto, modalConfirm, modalAlert, providerTipo, providerPessoa, providerProduto, TipoEvento, Pessoa, Evento, Produto, evento) {
+    function($rootScope, $scope, $uibModalInstance, modalBuscarPessoa, modalBuscarProduto, modalConfirm, modalAlert, providerTipo, providerPessoa, providerProduto, TipoEvento, Pessoa, Evento, Produto, evento) {
 
       $uibModalInstance.opened.then(function() {
 
@@ -47,16 +48,19 @@ angular.module('belissimaApp.controllers')
         };
 
         getTipos();
-
+        $rootScope.isLoading = false;
       });
 
       function getTipos() {
+        $rootScope.isLoading = true;
         providerTipo.obterTiposDeEvento().then(function(success) {
           angular.forEach(success.data, function(item, index) {
             $scope.tipos.push(new TipoEvento(TipoEvento.converterEmEntrada(item)));
           });
+          $rootScope.isLoading = false;
         }, function(error) {
           console.log(error);
+          $rootScope.isLoading = false;
         });
       }
 

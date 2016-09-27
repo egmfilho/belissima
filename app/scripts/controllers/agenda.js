@@ -162,7 +162,6 @@ angular.module('belissimaApp.controllers')
       function eventClick(event, jsEvent, view) {
         $rootScope.isLoading = true;
         getEventoCompleto(event.id).then(function(fullevent) {
-          $rootScope.isLoading = false;
           $uibModal.open({
             animation: true,
             templateUrl: 'partials/modalEvento.html',
@@ -190,6 +189,7 @@ angular.module('belissimaApp.controllers')
             }
           });
         });
+        $rootScope.isLoading = true;
       }
 
       function alertOnResizeOrDrop(event, delta, revertFunc, jsEvent, ui, view) {
