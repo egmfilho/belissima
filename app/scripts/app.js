@@ -19,6 +19,7 @@ angular
     'ngSanitize',
     'ngTouch',
     'egmfilho.keys',
+    'egmfilho.inputFilters',
     'ui.calendar',
     'ui.bootstrap',
     'ui.mask',

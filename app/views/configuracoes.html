@@ -79,5 +79,11 @@
 </div>
 
 <br>
-<input type="text" ng-model="model" keys-shortcuts prevent-default="true" enter="configuracoes.testar('enter')" f8="configuracoes.testar('f8')" style="color: black; margin-left: 100px;">
+<input type="text" ng-model="configuracoes.model" currency keys-shortcuts prevent-default="true" enter="configuracoes.testar('enter')" f8="configuracoes.testar('f8')" style="color: black; margin-left: 100px;">
+{{configuracoes.model}}
 <button ng-click="configuracoes.testar('botao')">Testar</button>
+<input type="text" number-only ng-model="configuracoes.model2" style="color: black; margin-left: 100px;">
+
+<input keys-shortcuts prevent-default="true" f8="configuracoes.testar('evento f8')" f9="configuracoes.testar('evento f9')" style="color: black; margin-left: 100px;">
+
+
