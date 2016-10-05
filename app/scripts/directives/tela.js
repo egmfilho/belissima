@@ -7,14 +7,14 @@ angular.module('belissimaApp.directives')
   .directive('tela', ['$window', function($window) {
 
     function link(scope, element, attrs) {
-      var headerHeight = parseInt(element.find('.header').css('height')),
+      var headerHeight = $window.innerWidth >= 768 ? parseInt(element.find('.header').css('height')) : parseInt(element.find('.header-xs').css('height')),
           body = element.find('.body'),
           footerHeight = parseInt(scope.showFooter ? element.find('.footer').css('height') : '0');
+      console.log(headerHeight);
 
       if (parseInt(body.css('height')) + headerHeight + footerHeight < $window.innerHeight) {
         body.css('min-height', ($window.innerHeight - headerHeight - footerHeight) + 'px');
       }
-
     }
 
     return {

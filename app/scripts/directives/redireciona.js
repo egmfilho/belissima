@@ -5,7 +5,7 @@
 'use strict';
 
 angular.module('belissimaApp.directives')
-    .directive('redireciona', ['$location', function($location) {
+    .directive('redireciona', ['$rootScope', '$location', function($rootScope, $location) {
 
     return function(scope, element, attrs) {
       var path;
@@ -16,6 +16,7 @@ angular.module('belissimaApp.directives')
 
       element.bind('click', function() {
         scope.$apply(function() {
+          $rootScope.minimizado = true;
           $location.path(path);
         });
       });

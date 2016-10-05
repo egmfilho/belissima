@@ -29,21 +29,21 @@ angular.module('belissimaApp.services')
 
         },
 
-        'responseError': function(rejection) {
-
-          if (rejection.status == http_status.nao_autorizado) {
-            if ($cookies.get('currentUser')) {
-              $cookies.remove('currentUser');
-            }
-
-            $location.path('/login');
-          } else if (rejection.status == http_status.falha_na_expectativa){
-
-          }
-
-          return $q.reject(rejection);
-
-        }
+        //'responseError': function(rejection) {
+        //
+        //  if (rejection.status == http_status.nao_autorizado) {
+        //    if ($cookies.get('currentUser')) {
+        //      $cookies.remove('currentUser');
+        //    }
+        //
+        //    $location.path('/login');
+        //  } else if (rejection.status == http_status.falha_na_expectativa){
+        //
+        //  }
+        //
+        //  return $q.reject(rejection);
+        //
+        //}
 
       };
 

@@ -50,43 +50,51 @@ angular
 
     $routeProvider
       .when('/', {
+        modulo: 'home',
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl',
         controllerAs: 'home'
       })
       .when('/login', {
+        modulo: 'login',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
       .when('/logout', {
+        modulo: 'logout',
         template: '<h3>Logging out...</h3>',
         controller: 'LogoutCtrl'
       })
       .when('/ticket', {
+        modulo: 'ticket',
         templateUrl: 'views/ticket.html',
         controller: 'TicketCtrl',
         controllerAs: 'ticket'
       })
       .when('/produtos', {
+        modulo: 'product',
         templateUrl: 'views/servicosProdutos.html',
         controller: 'ServicoProdutosCtrl',
         controllerAs: 'servicoProdutos',
         resolve: resolveCategorias()
       })
       .when('/pessoas', {
+        modulo: 'person',
         templateUrl: 'views/clientes.html',
         controller: 'ClientesCtrl',
         controllerAs: 'clientes',
         resolve: resolveCategorias()
       })
       .when('/agenda', {
+        modulo: 'agenda',
         templateUrl: 'views/agenda.html',
         controller: 'AgendaCtrl',
         controllerAs: 'agenda',
         resolve: resolveCategorias()
       })
       .when('/configuracoes', {
+        modulo: 'config',
         templateUrl: 'views/configuracoes.html',
         controller: 'ConfiguracoesCtrl',
         controllerAs: 'configuracoes'
@@ -95,6 +103,9 @@ angular
         redirectTo: '/'
       });
   })
+  .run(['$rootScope', function($rootScope) {
+    $rootScope.versao = '0.7.1';
+  }])
   .run(['$rootScope', '$location', '$cookies', '$uibModalStack', function($rootScope, $location, $cookies, $uibModalStack) {
 
     // para ser usado no ng-repeat
@@ -115,6 +126,14 @@ angular
       //    $location.path('/login');
       //  }
       //  return;
+      //}
+
+      // Bloqueia acessos pelas permissoes
+      //var user = JSON.parse(window.atob($cookies.get('currentUser')));
+      //if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
+      //  if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
+      //    $location.path('/home');
+      //  }
       //}
     });
 

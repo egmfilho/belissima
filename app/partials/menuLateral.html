@@ -9,10 +9,10 @@
   <div id="fundo-escuro-menu" class="dark-div hidden-lg" ng-class="minimizado ? 'hide-dark-div' : 'show-dark-div'" ng-click="menuLateral.menuRetratil()"></div>
   <div id="menu-lateral" ng-class="minimizado ? 'menu-lateral-fechado' : 'menu-lateral-aberto'">
     <div id="menu-lateral-conteudo">
-      <div class="logotipo" ng-click="menuLateral.menuRetratil()"></div>
+      <div class="logotipo hidden-xs" ng-click="menuLateral.menuRetratil()"></div>
       <div class="controle">
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/'}" redireciona="/">
+        <div class="btn btn-default hidden-xs ng-class:{'ativo': currentPath === '/'}" redireciona="/">
           Home <span class="glyphicon glyphicon-home"></span>
         </div>
 
@@ -41,7 +41,7 @@
         </div>
 
       </div>
-      <div id="assinatura"><div>site design / logo © 2016 Futura <br>versão 1.0</div></div>
+      <div id="assinatura"><div>site design / logo © 2016 Futura <br>versão {{versao}}</div></div>
     </div>
   </div>
 </div>

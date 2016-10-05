@@ -3,6 +3,8 @@
 angular.module('belissimaApp.controllers')
   .controller('HomeCtrl', ['$scope', '$http', 'URLS', function ($scope, $http, urls) {
 
+    jQuery('.super-logo').width(jQuery(window).width()).height(jQuery(window).height());
+
     $scope.botoes = [
       {
         nome: 'Ticket',
