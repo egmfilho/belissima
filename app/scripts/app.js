@@ -115,26 +115,52 @@ angular
 
     $rootScope.isLoading = false;
 
+    $rootScope.alerta = {
+      mensagem: '',
+      classe: 'alert-warning',
+      elem: jQuery('.alerta'),
+      hide: null,
+      show: function (mensagem, classe) {
+        if (mensagem) this.mensagem = mensagem;
+        this.classe = classe || 'alert-warning';
+
+        if (this.hide) {
+          clearTimeout(this.hide);
+          this.hide = null;
+        }
+
+        var self = this;
+        this.elem.css('opacity', '0');
+        this.elem.css('display', 'inline');
+        this.elem.fadeTo('slow', 1, function () {
+          self.hide = setTimeout(function () {
+            self.elem.fadeTo('slow', 0, function () {
+              self.elem.css('display', 'none');
+            });
+          }, 3000);
+        });
+      }
+    };
+
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
       $uibModalStack.dismissAll();
       $rootScope.currentPath = $location.path();
 
       // Bloqueia acesso de usuarios nao logados
-      //if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
-      //  if (next.templateUrl !== 'views/login.html') {
-      //    console.log('volta aqui!');
-      //    $location.path('/login');
-      //  }
-      //  return;
-      //}
+      if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
+        if (next.templateUrl !== 'views/login.html') {
+          $location.path('/login');
+        }
+        return;
+      }
 
       // Bloqueia acessos pelas permissoes
-      //var user = JSON.parse(window.atob($cookies.get('currentUser')));
-      //if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
-      //  if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
-      //    $location.path('/home');
-      //  }
-      //}
+      var user = JSON.parse(window.atob($cookies.get('currentUser')));
+      if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
+        if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
+          $location.path('/home');
+        }
+      }
     });
 
   }]);

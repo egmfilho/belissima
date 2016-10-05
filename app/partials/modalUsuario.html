@@ -1,0 +1,104 @@
+<div class="meu-modal">
+
+  <div class="header">
+    <div class="title"><span class="glyphicon glyphicon-user"></span> Usuário <span
+      class="glyphicon glyphicon-remove close" ng-click="cancel()"></span></div>
+  </div>
+
+  <div class="body sm condensar-rows" ng-init="opt = 'info'">
+
+    <!--<ul class="nav nav-tabs nav-justified">-->
+      <!--<li role="presentation" ng-class="opt === 'info' ? 'active' : ''">-->
+        <!--<a href="" class="sombra-texto" ng-click="opt = 'info'">-->
+          <!--Informações-->
+        <!--</a>-->
+      <!--</li>-->
+      <!--<li role="presentation" ng-class="opt === 'permissoes' ? 'active' : ''">-->
+        <!--<a href="" class="sombra-texto" ng-click="opt = 'permissoes'">-->
+          <!--Permissões-->
+        <!--</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+
+    <!--<div class="container corpo-tabs">-->
+      <div ng-show="opt === 'info'">
+        <div class="col-md-12">
+          <h4>Nome</h4>
+          <input type="text" class="form-control" ng-model="modal.usuario.nome">
+        </div>
+        <div class="col-md-6">
+          <h4>Email</h4>
+          <input type="text" class="form-control" ng-model="modal.usuario.email">
+        </div>
+        <div class="col-md-6">
+          <h4>Nome de usuário</h4>
+          <input type="text" class="form-control" ng-model="modal.usuario.usuario">
+        </div>
+        <div class="col-md-6">
+          <h4>Nova senha</h4>
+          <input type="password" class="form-control" ng-model="modal.usuario.senha">
+        </div>
+        <div class="col-md-6">
+          <h4>Confirme a senha</h4>
+          <input type="password" class="form-control" ng-model="modal.senhaCheck">
+        </div>
+        <div class="col-md-6">
+          <h4>Perfil</h4>
+          <select class="form-control" ng-model="modal.usuario.perfilId"
+                  ng-options="perfil.id as perfil.nome for perfil in modal.perfis">
+            <option value="" disabled>Selecione um perfil</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <div><h4>Ativo</h4></div>
+          <div class="btn-group btn-toggle botao-esticado">
+            <label class="btn btn-primary" ng-model="modal.usuario.ativo" uib-btn-radio="true">
+              <span class="glyphicon glyphicon-eye-open"></span>
+              Sim
+            </label>
+            <label class="btn btn-primary" ng-model="modal.usuario.ativo" uib-btn-radio="false">
+              <span class="glyphicon glyphicon-eye-close"></span> Não
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!--<div ng-show="opt === 'permissoes'">-->
+        <!--<uib-accordion close-others="false">-->
+          <!--<div class="col-md-12">-->
+            <!--<div uib-accordion-group class="panel-default" heading="{{modulo.nome}}"-->
+                 <!--ng-repeat="modulo in modal.usuario.perfil.permissoes track by $index">-->
+              <!--<div ng-repeat="(key, value) in modulo.permissoes">-->
+                <!--<div class="col-md-6" ng-if="value.tipo === 'percent'">-->
+                  <!--<label>{{value.nome}}</label>-->
+
+                  <!--<div class="input-group">-->
+                    <!--<input type="text" class="form-control text-right" currency symbol="" number-only ng-model="value.valor">-->
+                    <!--<span class="input-group-addon">%</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6" ng-if="value.tipo === 'bool'">-->
+                  <!--<label><input type="checkbox" ng-model="value.valor"> {{value.nome}}</label>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</uib-accordion>-->
+      <!--</div>-->
+
+    <!--</div>-->
+
+  </div>
+
+  <div class="control">
+    <button class="btn btn-default botao-principal" ng-click="cancel()"><span
+      class="glyphicon glyphicon-remove"></span> Fechar
+    </button>
+    <!--<button class="btn btn-default botao-esticado botao-principal" ng-click="excluir()"><span-->
+    <!--class="glyphicon glyphicon-trash"></span> Excluir-->
+    <!--</button>-->
+    <button class="btn btn-default botao-principal" ng-click="salvar()"><span
+      class="glyphicon glyphicon-floppy-save"></span> Salvar
+    </button>
+  </div>
+</div>

@@ -88,6 +88,22 @@ body {
     left: 0;
     right: 0; }
 
+.alerta {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  text-align: center;
+  height: 50px;
+  margin: 10px;
+  z-index: 100000;
+  opacity: 0;
+  -webkit-box-shadow: 0px 2px 10px #444;
+  -moz-box-shadow: 0px 2px 10px #444;
+  box-shadow: 0px 2px 10px #444;
+  display: none;
+  pointer-events: none; }
+
 .form-control[readonly] {
   background-color: #dadada;
   border-color: #888; }
@@ -489,6 +505,16 @@ body {
   .conteudo-nav .row {
     margin-left: 0;
     margin-right: 0; }
+
+.panel.panel-default {
+  border-color: #5a5a5a; }
+  .panel.panel-default .panel-heading {
+    background-color: #3f3f41; }
+    .panel.panel-default .panel-heading h4.panel-title {
+      color: white; }
+  .panel.panel-default .panel-body {
+    background-color: #777;
+    border-top-color: #5a5a5a !important; }
 
 @media (max-width: 767px) {
   .tabela thead, #tabela-ticket thead {

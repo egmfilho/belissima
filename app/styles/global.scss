@@ -137,6 +137,23 @@ body {
   }
 }
 
+.alerta {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  text-align: center;
+  height: 50px;
+  margin: 10px;
+  z-index: 100000;
+  opacity: 0;
+  -webkit-box-shadow: 0px 2px 10px #444;
+  -moz-box-shadow: 0px 2px 10px #444;
+  box-shadow: 0px 2px 10px #444;
+  display: none;
+  pointer-events: none;
+}
+
 .form-control[readonly] {
   background-color: #dadada;
   border-color: #888;
@@ -847,6 +864,23 @@ body {
   .row {
     margin-left: 0;
     margin-right: 0;
+  }
+}
+
+.panel.panel-default {
+  border-color: $cor-menu-lateral-borda;
+
+  .panel-heading {
+    background-color: $cor-menu-lateral;
+    h4.panel-title {
+      color: white;
+    }
+  }
+
+  .panel-body {
+    //color: white;
+    background-color: $cor-calendario-borda;
+    border-top-color: $cor-menu-lateral-borda !important;
   }
 }
 

@@ -17,6 +17,19 @@ angular.module('belissimaApp.controllers')
       $uibModalInstance.opened.then(function() {
         $rootScope.isLoading = false;
         $scope.resultado = [ ];
+        //setTimeout(function() {
+        //  var windowH = parseInt(jQuery(window).height()),
+        //      header = parseInt(jQuery('.meu-modal .header').height()),
+        //      subHeader = parseInt(jQuery('.meu-modal .sub-header').height()),
+        //      control = parseInt(jQuery('.meu-modal .control').height());
+        //  console.log('body', jQuery('.meu-modal .body').height());
+        //  console.log('window', windowH);
+        //  console.log('header', header);
+        //  console.log('subheader', subHeader);
+        //  console.log('control', control);
+        //  jQuery('.meu-modal .body').css('background-color', 'red').height(windowH - header - subHeader - control);
+        //  console.log('body', jQuery('.meu-modal .body').height());
+        //}, 1500);
       });
 
       function setResultado(resultado) {
