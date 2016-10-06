@@ -36,9 +36,9 @@ angular.module('belissimaApp.controllers')
 
       function getUsuarios() {
         $rootScope.isLoading = true;
+        self.usuarios = [];
         providerUsuario.obterTodos(true).then(function (success) {
-          self.usuariosPagination.total = success.data.length;
-          self.usuarios = [];
+          self.usuariosPagination.total = success.info.quantity;
           angular.forEach(success.data, function (item, index) {
             self.usuarios.push(new Usuario(Usuario.converterEmEntrada(item)));
           });
@@ -50,9 +50,9 @@ angular.module('belissimaApp.controllers')
 
       function getPerfis() {
         $rootScope.isLoading = true;
+        self.perfis = [];
         providerPerfil.obterTodos().then(function (success) {
-          self.perfisPagination.total = success.data.length;
-          self.perfis = [];
+          self.perfisPagination.total = success.info.quantity;
           angular.forEach(success.data, function (item, index) {
             self.perfis.push(new PerfilUsuario(PerfilUsuario.converterEmEntrada(item)));
           });

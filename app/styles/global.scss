@@ -36,7 +36,7 @@ html {
 }
 
 body {
-  padding-right: 0px !important;
+  padding-right: 0 !important;
   margin-top: 60px;
   background-color: $cor-de-fundo;
   color: white;
@@ -56,15 +56,15 @@ body {
 }
 
 .empurrado {
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 .minimizado {
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 .fechado {
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 .centerY {
@@ -100,14 +100,98 @@ body {
   filter: opacity(20%);
 }
 
-.logotipo {
-  background-image: url('../images/logotipo.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 70%;
-  width: 300px;
-  height: 200px;
-  @extend .ease-out;
+@mixin animation($animate...) {
+  $max: length($animate);
+  $animations: '';
+
+  @for $i from 1 through $max {
+    $animations: #{$animations + nth($animate, $i)};
+
+    @if $i < $max {
+      $animations: #{$animations + ", "};
+    }
+  }
+  -webkit-animation: $animations;
+  -moz-animation:    $animations;
+  -o-animation:      $animations;
+  animation:         $animations;
+}
+
+@mixin keyframes ($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+@include keyframes (seta-animation) {
+  0%   { left: 250px; }
+  50%  { left: 260px; }
+  100% { left: 250px; }
+}
+
+#menu-lateral-conteudo {
+  .header {
+    width: 300px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+
+    .logotipo {
+      background-image: url('../images/logotipo.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 70%;
+      width: 100%;
+      height: 100%;
+      @extend .ease-out;
+    }
+
+    .seta {
+      position: absolute;
+      top: 50%;
+      right: 40px;
+      line-height: 15px;
+      -webkit-transform: translate(0, -50%);
+      transform: translate(0, -50%);
+      opacity: 0;
+      @include animation('seta-animation 1s infinite normal ease-out');
+
+      .texto {
+        width: 2px;
+        word-wrap: break-word;
+        font-family: monospace;
+        font-weight: 100;
+        visibility: hidden;
+      }
+
+      .linha1 {
+        border-right: 2px solid white;
+        height: 20px;
+        position: absolute;
+        top: -7px;
+        left: 18px;
+        transform: rotate(-45deg);
+      }
+
+      .linha2 {
+        border-right: 2px solid white;
+        height: 20px;
+        position: absolute;
+        top: 7px;
+        left: 18px;
+        transform: rotate(45deg);
+      }
+    }
+  }
 }
 
 .sombra-texto {
@@ -139,17 +223,17 @@ body {
 
 .alerta {
   position: fixed;
-  top: 0px;
-  right: 0px;
-  left: 0px;
+  top: 0;
+  right: 0;
+  left: 0;
   text-align: center;
   height: 50px;
   margin: 10px;
   z-index: 100000;
   opacity: 0;
-  -webkit-box-shadow: 0px 2px 10px #444;
-  -moz-box-shadow: 0px 2px 10px #444;
-  box-shadow: 0px 2px 10px #444;
+  -webkit-box-shadow: 0 2px 10px #444;
+  -moz-box-shadow: 0 2px 10px #444;
+  box-shadow: 0 2px 10px #444;
   display: none;
   pointer-events: none;
 }
@@ -162,7 +246,7 @@ body {
 .botao, .botao[disabled] {
   background-color: $cor-menu-highlight;
   color: white;
-  text-shadow: 0px 1px 1px $cor-text-shadow;
+  text-shadow: 0 1px 1px $cor-text-shadow;
   border-color: $cor-menu-highlight-escuro;
   outline: none;
 
@@ -202,7 +286,7 @@ body {
   //max-height: 100%;
   overflow-y: auto;
   //position: absolute;
-  padding: 0px;
+  padding: 0;
 
   .header {
     background-color: $cor-menu-lateral;
@@ -496,7 +580,7 @@ body {
       }
 
       .close {
-        margin: 0px;
+        margin: 0;
         font-size: 1.2em;
       }
     }
@@ -884,7 +968,43 @@ body {
   }
 }
 
+.dropdown-toggle.btn-default {
+  font-size: 1.25em;
+  color: white;
+  background-color: $cor-menu-highlight;
+  border-color: $cor-menu-highlight-escuro;
+
+  &:focus, &:active {
+    color: white;
+    background-color: $cor-menu-highlight;
+    border-color: $cor-menu-highlight-escuro;
+  }
+}
+
+.dropdown-menu {
+  width: 100%;
+  background-color: $cor-menu-lateral-borda;
+  color: white;
+  top: 26px;
+  font-size: 1.25em;
+
+  > li {
+    > a {
+      color: white;
+
+      &:hover {
+        background-color: $cor-menu-highlight;
+      }
+    }
+  }
+}
+
 @media (max-width: 767px) {
+  .container-tabela {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
   .tabela {
     thead {
       display: none;
@@ -905,6 +1025,7 @@ body {
 
       button {
         margin-top: 5px;
+        margin-left: 5px;
       }
 
       &:before {

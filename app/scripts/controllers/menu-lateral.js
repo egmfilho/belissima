@@ -8,6 +8,14 @@ angular.module('belissimaApp.controllers')
 
     $rootScope.minimizado = true;
 
+    jQuery('#menu-lateral').mouseenter(function() {
+      if ($rootScope.minimizado) {
+        jQuery(this).find('.seta').stop().fadeTo('slow', .5);
+      }
+    }).mouseleave(function() {
+      jQuery(this).find('.seta').stop().fadeTo('slow', 0);
+    });
+
     function preventers(id) {
       var elem = $(id),
           height = elem.height(),
@@ -24,6 +32,10 @@ angular.module('belissimaApp.controllers')
     preventers('#fundo-escuro-menu');
 
     this.menuRetratil = function() {
+      if ($rootScope.minimizado) {
+        jQuery('#menu-lateral-conteudo .header .seta').stop().fadeTo('slow', 0);
+      }
+
       $rootScope.minimizado = !$rootScope.minimizado;
     };
 

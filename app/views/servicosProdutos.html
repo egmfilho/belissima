@@ -9,8 +9,9 @@
       <div ng-show="opcao === 'novo'" ng-include="'partials/formNovoProduto.html'"></div>
 
       <div ng-show="opcao === 'editar'">
-        <table class="tabela tabela-bordered tabela-esticada">
-          <thead>
+        <div class="container-tabela">
+          <table class="tabela tabela-bordered tabela-esticada">
+            <thead>
             <tr>
               <th>Código</th>
               <th>Nome</th>
@@ -20,8 +21,8 @@
               <th>Ativo</th>
               <th>&nbsp;</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             <tr ng-repeat="p in produtos">
               <td data-label="Código">{{p.codigo}}</td>
               <td data-label="Nome">{{p.nome}}</td>
@@ -41,7 +42,7 @@
                 <!--</a>-->
               </td>
             </tr>
-            <tr ng-repeat="n in getNumber(pagination.max - produtos.length) track by $index" ng-if="produtos.length < pagination.max">
+            <tr class="hidden-xs" ng-repeat="n in getNumber(pagination.max - produtos.length) track by $index" ng-if="produtos.length < pagination.max">
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
@@ -50,10 +51,10 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
             </tr>
-          </tbody>
-        </table>
-        <br>
-        <ul style="float: right" uib-pagination total-items="pagination.total" items-per-page="pagination.max" ng-model="pagination.current" ng-change="pageChanged()" next-text="próximo" previous-text="anterior"></ul>
+            </tbody>
+          </table>
+        </div>
+        <ul class="pull-right" uib-pagination total-items="pagination.total" items-per-page="pagination.max" ng-model="pagination.current" ng-change="pageChanged()" next-text="próximo" previous-text="anterior"></ul>
       </div>
 
     </div>

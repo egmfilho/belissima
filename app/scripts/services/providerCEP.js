@@ -5,14 +5,14 @@
 'use strict';
 
 angular.module('belissimaApp.services')
-  .provider('ProviderCEP', ['URLS', function(urls) {
+  .provider('ProviderCEP', ['URLS', function (urls) {
 
     var url = urls.root + 'cep.php?action=:action',
       provider = null;
 
-    this.$get = ['$resource', function($resource) {
+    this.$get = ['$resource', function ($resource) {
 
-      provider = $resource(url, { }, {
+      provider = $resource(url, {}, {
         get: {
           method: 'POST'
         },
@@ -27,7 +27,17 @@ angular.module('belissimaApp.services')
 
       return {
 
-        obterPorId: function(id, bairro, cidade) {
+        obterTodos: function (bairro, cidade, limite) {
+          return provider.query({
+            action: 'getList'
+          },{
+            get_district: bairro,
+            get_city: cidade,
+            cep_limit: limite
+          }).$promise;
+        },
+
+        obterPorId: function (id, bairro, cidade) {
           return provider.get({
             action: 'get'
           }, {
@@ -37,7 +47,7 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
-        obterPorCodigo: function(codigo, bairro, cidade) {
+        obterPorCodigo: function (codigo, bairro, cidade) {
           return provider.get({
             action: 'getList'
           }, {
@@ -47,7 +57,7 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
-        obterPorLogradouro: function(logradouro, bairro, cidade) {
+        obterPorLogradouro: function (logradouro, bairro, cidade) {
           return provider.get({
             action: 'getList'
           }, {
@@ -57,19 +67,13 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
-        obterTodos: function() {
-          return provider.get({
-            action: 'getList'
-          }).$promise;
-        },
-
-        salvar: function(tipo) {
+        salvar: function (tipo) {
           return provider.save({
             action: 'insert'
           }, tipo).$promise;
         },
 
-        editar: function(tipo) {
+        editar: function (tipo) {
           return provider.save({
             action: 'edit'
           }, tipo);

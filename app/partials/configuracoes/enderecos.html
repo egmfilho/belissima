@@ -1,0 +1,162 @@
+<span ng-controller="EnderecosCtrl as enderecos">
+  <ul class="hidden-xs nav nav-pills nav-justified nav-pills-escuro" ng-init="opt = 'cidade'">
+    <li role="presentation" ng-class="opt === 'cidade' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'cidade'">Cidade</a></li>
+    <li role="presentation" ng-class="opt === 'bairro' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'bairro'">Bairro</a></li>
+    <li role="presentation" ng-class="opt === 'cep' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'cep'">CEP</a></li>
+  </ul>
+  <div class="dropdown visible-xs-inline" ng-init="label='Cidade'">
+    <button class="btn btn-default botao-esticado dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      {{label}}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <li><a href="" ng-click="opt = 'cidade'; label = 'Cidade'"><span class="glyphicon glyphicon-ok" ng-show="opt==='cidade'"></span>&nbsp; Cidade</a></li>
+      <li><a href="" ng-click="opt = 'bairro'; label = 'Bairro'"><span class="glyphicon glyphicon-ok" ng-show="opt==='bairro'"></span>&nbsp; Bairro</a></li>
+      <li><a href="" ng-click="opt = 'cep'; label = 'CEP'"><span class="glyphicon glyphicon-ok" ng-show="opt==='cep'"></span>&nbsp; CEP</a></li>
+    </ul>
+  </div>
+
+  <div class="col-md-12"><h4>&nbsp;</h4></div>
+
+  <div class="col-md-12" ng-if="opt === 'cidade'">
+    <div class="col-xs-6 col-sm-3 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="enderecos.atualizarCidades()"><span
+        class="glyphicon glyphicon-refresh"></span> Atualizar
+      </button>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="enderecos.adicionarCidade()"><span
+        class="glyphicon glyphicon-plus"></span> Nova Cidade
+      </button>
+    </div>
+    <div class="col-md-12"><h5>&nbsp;</h5></div>
+    <div class="container-tabela">
+      <table class="tabela tabela-esticada tabela-bordered">
+        <thead>
+        <tr>
+          <th>Código</th>
+          <th>Cidade</th>
+          <th>UF</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="cidade in enderecos.cidades">
+          <td data-label="Código">{{cidade.codigo}}</td>
+          <td data-label="Cidade">{{cidade.nome}}</td>
+          <td data-label="UF">{{cidade.uf}}</td>
+          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
+          <td class="visible-xs-block">
+            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+          </td>
+        </tr>
+        <tr class="hidden-xs" ng-repeat="n in getNumber(enderecos.cidades.length < enderecos.paginationCidade.max ? enderecos.paginationCidade.max - enderecos.cidades.length : 0) track by $index">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="pull-right" uib-pagination total-items="enderecos.paginationCidade.total" items-per-page="enderecos.paginationCidade.max" ng-model="enderecos.paginationCidade.current" ng-change="enderecos.paginationCidade.pageChanged()" next-text="próximo" previous-text="anterior"></ul>
+  </div>
+
+  <div class="col-md-12" ng-if="opt === 'bairro'">
+    <div class="col-xs-6 col-sm-3 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="enderecos.atualizarBairros()"><span
+        class="glyphicon glyphicon-refresh"></span> Atualizar
+      </button>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="enderecos.adicionarBairro()"><span
+        class="glyphicon glyphicon-plus"></span> Novo Bairro
+      </button>
+    </div>
+    <div class="col-md-12"><h5>&nbsp;</h5></div>
+    <div class="container-tabela">
+      <table class="tabela tabela-esticada tabela-bordered">
+        <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nome</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="bairro in enderecos.bairros">
+          <td data-label="Código">{{bairro.codigo}}</td>
+          <td data-label="Bairro">{{bairro.nome}}</td>
+          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
+          <td class="visible-xs-block">
+            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+          </td>
+        </tr>
+        <tr class="hidden-xs" ng-repeat="n in getNumber(enderecos.bairros.length < enderecos.paginationBairro.max ? enderecos.paginationBairro.max - enderecos.bairros.length : 0) track by $index">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="pull-right" uib-pagination total-items="enderecos.paginationBairro.total" items-per-page="enderecos.paginationBairro.max" ng-model="enderecos.paginationBairro.current" ng-change="enderecos.paginationBairro.pageChanged()" next-text="próximo" previous-text="anterior"></ul>
+  </div>
+
+  <div class="col-md-12" ng-if="opt === 'cep'">
+    <div class="col-xs-6 col-sm-3 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="enderecos.atualizarCEPs()"><span
+        class="glyphicon glyphicon-refresh"></span> Atualizar
+      </button>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="enderecos.adicionarCEP()"><span
+        class="glyphicon glyphicon-plus"></span> Novo CEP
+      </button>
+    </div>
+    <div class="col-md-12"><h5>&nbsp;</h5></div>
+    <div class="container-tabela">
+      <table class="tabela tabela-esticada tabela-bordered">
+        <thead>
+        <tr>
+          <th>CEP</th>
+          <th>UF</th>
+          <th>Logradouro</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="cep in enderecos.ceps">
+          <td data-label="CEP">{{cep.codigo}}</td>
+          <td data-label="UF">{{cep.uf}}</td>
+          <td data-label="Logradouro">{{cep.logradouro}}</td>
+          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
+          <td class="visible-xs-block">
+            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+          </td>
+        </tr>
+        <tr class="hidden-xs" ng-repeat="n in getNumber(enderecos.ceps.length < enderecos.paginationCEP.max ? enderecos.paginationCEP.max - enderecos.ceps.length : 0) track by $index">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="pull-right" uib-pagination total-items="enderecos.paginationCEP.total" items-per-page="enderecos.paginationCEP.max" ng-model="enderecos.paginationCEP.current" ng-change="enderecos.paginationCEP.pageChanged()" next-text="próximo" previous-text="anterior"></ul>
+  </div>
+
+</span>

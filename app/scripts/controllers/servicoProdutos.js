@@ -46,7 +46,7 @@ angular.module('belissimaApp.controllers')
 
         $scope.pagination = {
           current: 1,
-          max: 3,
+          max: 15,
           total: 0
         };
 
