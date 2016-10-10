@@ -6,6 +6,7 @@
 
 angular.module('belissimaApp.controllers')
   .controller('ModalEditarProdutoCtrl', [
+    '$rootScope',
     '$scope',
     '$uibModalInstance',
     'ModalBuscarPessoa',
@@ -23,7 +24,7 @@ angular.module('belissimaApp.controllers')
     'Pessoa',
     'Produto',
     'produto',
-    function($scope, $uibModalInstance, modalBuscarPessoa, modalConfirm, modalAlert, modalGrupo, modalPreco, modalCusto, providerTipoProduto, providerUnidade, providerPessoa, providerProduto, TipoProduto, Unidade, Pessoa, Produto, produto) {
+    function($rootScope, $scope, $uibModalInstance, modalBuscarPessoa, modalConfirm, modalAlert, modalGrupo, modalPreco, modalCusto, providerTipoProduto, providerUnidade, providerPessoa, providerProduto, TipoProduto, Unidade, Pessoa, Produto, produto) {
 
       $uibModalInstance.opened.then(function() {
 
@@ -122,32 +123,23 @@ angular.module('belissimaApp.controllers')
       }
 
       $scope.ok = function() {
-        //var erros = validar();
-        //
-        //if (!erros) {
-        modalConfirm.show('Aviso', 'Salvar as alterações?', 'Sim', 'Não', function(result) {
-          if (result) {
-            providerProduto.atualizarProduto(Produto.converterEmSaida($scope.produto)).then(function(success) {
-              modalAlert.show('Successo', 'Produto atualizado com sucesso!', 'Ok', function() {
-                $uibModalInstance.close();
-              });
-            }, function(error) {
-              console.log(error);
-            });
-          }
+        modalConfirm.show('Aviso', 'Salvar as alterações?', 'Sim', 'Não').then(function(result) {
+          $rootScope.isLoading = true;
+          providerProduto.atualizarProduto(Produto.converterEmSaida($scope.produto)).then(function(success) {
+            $rootScope.isLoading = true;
+            $uibModalInstance.close();
+          }, function(error) {
+            console.log(error);
+            $rootScope.isLoading = true;
+          });
         });
-        //} else {
-        //  modalAlert.show('Erro', erros, 'Ok');
-        //}
 
         console.log($scope.produto);
       };
 
       $scope.excluir = function() {
-        modalConfirm.show('Aviso', 'Deseja excluir o evento?', 'Sim', 'Não', function(result) {
-          if (result) {
-            $uibModalInstance.close('excluir');
-          }
+        modalConfirm.show('Aviso', 'Deseja excluir o evento?', 'Sim', 'Não').then(function(result) {
+          $uibModalInstance.close('excluir');
         });
       };
 

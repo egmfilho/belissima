@@ -70,6 +70,14 @@ angular.module('belissimaApp.services')
           }, produto).$promise;
         },
 
+        excluir: function(id) {
+          return provider.save({
+            action: 'del'
+          }, {
+            product_id: id
+          }).$promise;
+        },
+
         atualizarProduto: function(produto) {
           return provider.save({
             action: 'edit'

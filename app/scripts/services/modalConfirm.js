@@ -8,8 +8,8 @@ angular.module('belissimaApp.services')
   .factory('ModalConfirm', ['$uibModal', function($uibModal) {
 
     return {
-      show: function(title, message, positive, negative, callback) {
-        $uibModal.open({
+      show: function(title, message, positive, negative) {
+        return $uibModal.open({
           animation: true,
           templateUrl: 'partials/modalConfirm.html',
           controller: 'ModalConfirmCtrl',
@@ -24,11 +24,7 @@ angular.module('belissimaApp.services')
               };
             }
           }
-        }).result.then(function(result) {
-            callback(result);
-          }, function() {
-            callback(null);
-          });
+        }).result;
       }
     }
 

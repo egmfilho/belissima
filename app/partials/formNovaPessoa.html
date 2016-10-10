@@ -138,7 +138,7 @@
 <div ng-show="opt === 'contato'">
   <div class="row" ng-repeat="c in pessoa.contatos track by $index">
     <div class="col-sm-12 col-md-12 cabecalho">
-      <a href="" class="principal" data-toggle="tooltip" title="Endereço principal" ng-click="pessoa.setContatoPrincipal($index)">
+      <a href="" class="principal" data-toggle="tooltip" title="Contato principal" ng-click="pessoa.setContatoPrincipal($index)">
         <span class="glyphicon" ng-class="c.principal ? 'glyphicon-star' : 'glyphicon-star-empty'"></span>
       </a>
       <h4>Contato {{$index + 1}}</h4>
@@ -186,7 +186,7 @@
   </div>
   <div class="hidden-xs col-sm-6 col-md-6 text-center"></div>
   <div class="col-xs-6 col-sm-3 col-md-3">
-    <button class="btn btn-default botao-esticado" ng-click="salvar()" ng-disabled="!validar(pessoa)"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
+    <button class="btn btn-default botao-esticado" ng-click="salvar()"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
   </div>
 </div>
 

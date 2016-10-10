@@ -16,7 +16,8 @@ angular.module('belissimaApp.controllers')
     'Evento',
     'Pessoa',
     'ModalConfirm',
-    function($rootScope, $scope, $compile, uiCalendarConfig, $uibModal, providerEvento, providerPessoa, Evento, Pessoa, modalConfirm) {
+    'ModalAlert',
+    function($rootScope, $scope, $compile, uiCalendarConfig, $uibModal, providerEvento, providerPessoa, Evento, Pessoa, modalConfirm, modalAlert) {
 
       var self = this;
 
@@ -108,17 +109,22 @@ angular.module('belissimaApp.controllers')
             evento: function() { return null; }
           }
         }).result.then(function(result) {
+            //if (result) {
+            //  $rootScope.isLoading = true;
+            //  providerEvento.salvarEvento(Evento.converterEmSaida(result)).then(function(success) {
+            //    self.eventos.push(new Evento(Evento.converterEmEntrada(success.data)));
+            //    uiCalendarConfig.calendars.meuCalendario.fullCalendar('renderEvent', self.eventos[self.eventos.length - 1], true);
+            //    $rootScope.isLoading = false;
+            //  }, function(error) {
+            //    console.log(error);
+            //    $rootScope.isLoading = false;
+            //    alert('Nao salvo');
+            //  });
+            //}
+
             if (result) {
-              $rootScope.isLoading = true;
-              providerEvento.salvarEvento(Evento.converterEmSaida(result)).then(function(success) {
-                self.eventos.push(new Evento(Evento.converterEmEntrada(success.data)));
-                uiCalendarConfig.calendars.meuCalendario.fullCalendar('renderEvent', self.eventos[self.eventos.length - 1], true);
-                $rootScope.isLoading = false;
-              }, function(error) {
-                console.log(error);
-                $rootScope.isLoading = false;
-                alert('Nao salvo');
-              });
+              self.eventos.push(new Evento(result));
+              uiCalendarConfig.calendars.meuCalendario.fullCalendar('renderEvent', self.eventos[self.eventos.length - 1], true);
             }
         });
       }
@@ -152,7 +158,7 @@ angular.module('belissimaApp.controllers')
         providerEvento.apagarEvento(evento.id).then(function(success) {
           uiCalendarConfig.calendars.meuCalendario.fullCalendar('removeEvents', evento._id);
           $rootScope.isLoading = false;
-          alert('apagado');
+          modalAlert.show(null, 'Evento excluído!');
         }, function(error) {
           $rootScope.isLoading = false;
           alert('nao apagado');
@@ -193,23 +199,23 @@ angular.module('belissimaApp.controllers')
       }
 
       function alertOnResizeOrDrop(event, delta, revertFunc, jsEvent, ui, view) {
-        modalConfirm.show('Aviso', 'Salvar as alterações?', 'Sim', 'Não', function(result) {
-          if (result) {
-            $rootScope.isLoading = true;
-            if (event.funcionarioId != event.resourceId) {
-              event.funcionarioId = event.resourceId;
-            }
-            atualizarEvento(event).then(function(success) {
-              $rootScope.isLoading = false;
-            }, function(error) {
-              console.log(error);
-              revertFunc();
-              $rootScope.isLoading = false;
-              alert('nao atualizado');
-            });
-          } else {
-            revertFunc();
+        modalConfirm.show(null, 'Salvar as alterações?', 'Sim', 'Não').then(function() {
+          $rootScope.isLoading = true;
+          if (event.funcionarioId != event.resourceId) {
+            event.funcionarioId = event.resourceId;
           }
+          atualizarEvento(event).then(function(success) {
+            $rootScope.isLoading = false;
+          }, function(error) {
+            console.log(error);
+            revertFunc();
+            $rootScope.isLoading = false;
+            if (error.status == 420) {
+              modalAlert.show('Falha', 'Já existe um evento neste horário!');
+            }
+          });
+        }, function() {
+          revertFunc();
         });
       }
 

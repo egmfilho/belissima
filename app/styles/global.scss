@@ -341,6 +341,18 @@ body {
     margin: 0;
     padding: 30px;
     height: 160px;
+    color: #999;
+
+    a {
+      text-decoration: none;
+      color: #aaa;
+      font-weight: bold;
+
+      &:hover {
+        color: #bbb;
+        text-decoration: none;
+      }
+    }
   }
 }
 
@@ -910,6 +922,16 @@ body {
   }
 }
 
+.nav-pills-claro {
+  background-color: $cor-menu-lateral-borda;
+  border-radius: 4px;
+}
+
+.nav-pills-escuro {
+  background-color: $cor-menu-lateral;
+  border-radius: 4px;
+}
+
 .ng-ms {
   padding: 0 7px;
 
@@ -968,36 +990,36 @@ body {
   }
 }
 
-.dropdown-toggle.btn-default {
-  font-size: 1.25em;
-  color: white;
-  background-color: $cor-menu-highlight;
-  border-color: $cor-menu-highlight-escuro;
-
-  &:focus, &:active {
-    color: white;
-    background-color: $cor-menu-highlight;
-    border-color: $cor-menu-highlight-escuro;
-  }
-}
-
-.dropdown-menu {
-  width: 100%;
-  background-color: $cor-menu-lateral-borda;
-  color: white;
-  top: 26px;
-  font-size: 1.25em;
-
-  > li {
-    > a {
-      color: white;
-
-      &:hover {
-        background-color: $cor-menu-highlight;
-      }
-    }
-  }
-}
+//.dropdown-toggle.btn-default {
+//  font-size: 1.25em;
+//  color: white;
+//  background-color: $cor-menu-highlight;
+//  border-color: $cor-menu-highlight-escuro;
+//
+//  &:focus, &:active {
+//    color: white;
+//    background-color: $cor-menu-highlight;
+//    border-color: $cor-menu-highlight-escuro;
+//  }
+//}
+//
+//.dropdown-menu {
+//  //width: 100%;
+//  background-color: $cor-menu-lateral-borda;
+//  color: white;
+//  top: 26px;
+//  font-size: 1.25em;
+//
+//  > li {
+//    > a {
+//      color: white;
+//
+//      &:hover {
+//        background-color: $cor-menu-highlight;
+//      }
+//    }
+//  }
+//}
 
 @media (max-width: 767px) {
   .container-tabela {
@@ -1065,8 +1087,8 @@ body {
   }
 
   .modal-dialog {
-    margin: 0;
-    padding: 30px;
+    //margin: 0;
+    //padding: 30px;
   }
 
   .modal-sm, .modal-md {

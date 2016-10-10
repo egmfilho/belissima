@@ -12,7 +12,8 @@ angular.module('belissimaApp.controllers')
     'ModalPerfil',
     'ProviderConfig',
     'PermissoesUsuario',
-    function ($rootScope, $scope, providerUsuario, Usuario, providerPerfil, PerfilUsuario, ModalUsuario, ModalPerfil, providerConfig, PermissoesUsuario) {
+    'ModalConfirm',
+    function ($rootScope, $scope, providerUsuario, Usuario, providerPerfil, PerfilUsuario, ModalUsuario, ModalPerfil, providerConfig, PermissoesUsuario, modalConfirm) {
 
       var self = this;
 
@@ -109,6 +110,20 @@ angular.module('belissimaApp.controllers')
         });
       };
 
+      this.excluirUsuario = function (usuario) {
+        modalConfirm.show(null, 'Excluir usuário "' + usuario.usuario + '"?').then(function() {
+          $rootScope.isLoading = true;
+          providerUsuario.excluir(usuario.id).then(function (success) {
+            $rootScope.isLoading = false;
+            self.atualizarUsuarios();
+            $rootScope.alerta.show('Usuário excluído!', 'alert-success');
+          }, function (error) {
+            console.log(error);
+            $rootScope.isLoading = false;
+          });
+        });
+      };
+
       this.atualizarPerfis = function () {
         getPerfis();
       };
@@ -137,19 +152,16 @@ angular.module('belissimaApp.controllers')
       };
 
       this.excluirPerfil = function (perfil) {
-        if (!confirm('Excluir perfil?')) {
-          return;
-        }
-
-        $rootScope.isLoading = true;
-        providerPerfil.excluir(perfil.id).then(function (success) {
-          $rootScope.isLoading = false;
-          self.atualizarPerfis();
-          $rootScope.alerta.show('Perfil excluído!', 'alert-success');
-          self.getPerfis();
-        }, function (error) {
-          console.log(error);
-          $rootScope.isLoading = false;
+        modalConfirm.show(null, 'Excluir perfil "' + perfil.nome + '"?').then(function() {
+          $rootScope.isLoading = true;
+          providerPerfil.excluir(perfil.id).then(function (success) {
+            $rootScope.isLoading = false;
+            self.atualizarPerfis();
+            $rootScope.alerta.show('Perfil excluído!', 'alert-success');
+          }, function (error) {
+            console.log(error);
+            $rootScope.isLoading = false;
+          });
         });
       }
 

@@ -124,6 +124,10 @@
     border-right: none;
     margin: 2px 0;
 
+    // provisorio para caber em telas pequenas
+    height: 44px;
+    padding: 10px 25px;
+
     > .glyphicon {
       padding-left: 20px;
     }

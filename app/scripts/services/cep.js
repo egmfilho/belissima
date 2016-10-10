@@ -5,7 +5,7 @@
 'use strict';
 
 angular.module('belissimaApp.services')
-  .factory('CEP', ['DataSaida', 'Bairro', 'Cidade', function(data, Bairro, Cidade) {
+  .factory('CEP', ['DataSaida', 'Bairro', 'Cidade', function (data, Bairro, Cidade) {
 
     function CEP(cep) {
       this.id = cep ? cep.id : '';
@@ -16,10 +16,22 @@ angular.module('belissimaApp.services')
       this.uf = cep ? cep.uf : '';
       this.codigo = cep ? cep.codigo : '';
       this.logradouro = cep ? cep.logradouro : '';
-      this.data = cep ? cep.data : '';
+      this.data = cep ? cep.data : new Date();
     }
 
-    CEP.converterEmEntrada = function(cep) {
+    CEP.prototype = {
+      setBairro: function (bairro) {
+        this.bairro = new Bairro(bairro);
+        this.bairroId = bairro.id;
+      },
+
+      setCidade: function (cidade) {
+        this.cidade = new Cidade(cidade);
+        this.cidadeId = cidade.id;
+      }
+    };
+
+    CEP.converterEmEntrada = function (cep) {
       var c = {};
 
       c.id = cep.cep_id;
@@ -47,14 +59,15 @@ angular.module('belissimaApp.services')
       return c;
     };
 
-    CEP.converterEmSaida = function(cep) {
-      var c = { };
+    CEP.converterEmSaida = function (cep) {
+      var c = {};
 
       c.cep_id = cep.id;
+      c.cep_code = cep.codigo;
       c.district_id = cep.bairroId;
-      c.district = cep.bairro;
+      //c.district = cep.bairro;
       c.city_id = cep.cidadeId;
-      c.city = cep.cidade;
+      //c.city = cep.cidade;
       c.cep_uf = cep.uf;
       c.cep_public_place = cep.logradouro;
       c.cep_date = data.converter(cep.data);

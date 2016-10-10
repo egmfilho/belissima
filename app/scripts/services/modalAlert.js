@@ -9,7 +9,7 @@ angular.module('belissimaApp.services')
 
     return {
       show: function(title, message, ok, callback) {
-        $uibModal.open({
+        return $uibModal.open({
           animation: true,
           templateUrl: 'partials/modalAlert.html',
           controller: 'ModalAlertCtrl',
@@ -23,7 +23,7 @@ angular.module('belissimaApp.services')
               };
             }
           }
-        }).result.then(callback);
+        }).result;
       }
     }
 

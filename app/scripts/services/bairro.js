@@ -11,7 +11,7 @@ angular.module('belissimaApp.services')
       this.id = bairro ? bairro.id : '';
       this.codigo = bairro ? bairro.codigo : '';
       this.nome = bairro ? bairro.nome : '';
-      this.data = bairro ? bairro.data : '';
+      this.data = bairro ? bairro.data : new Date();
     }
 
     Bairro.converterEmEntrada = function(district) {
@@ -28,10 +28,9 @@ angular.module('belissimaApp.services')
     Bairro.converterEmSaida = function(bairro) {
       var district = { };
 
-      district.id = bairro.id;
-      district.codigo = bairro.codigo;
-      district.nome = bairro.nome;
-      district.data = data.converter(bairro);
+      district.district_id = bairro.id;
+      district.district_code = bairro.codigo;
+      district.district_name  = bairro.nome;
 
       return district;
     };

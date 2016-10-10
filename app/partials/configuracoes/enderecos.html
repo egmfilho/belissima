@@ -1,18 +1,27 @@
 <span ng-controller="EnderecosCtrl as enderecos">
-  <ul class="hidden-xs nav nav-pills nav-justified nav-pills-escuro" ng-init="opt = 'cidade'">
-    <li role="presentation" ng-class="opt === 'cidade' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'cidade'">Cidade</a></li>
-    <li role="presentation" ng-class="opt === 'bairro' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'bairro'">Bairro</a></li>
-    <li role="presentation" ng-class="opt === 'cep' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'cep'">CEP</a></li>
+  <ul class="hidden-xs nav nav-pills nav-justified nav-pills-claro" ng-init="opt = 'cidade'">
+    <li role="presentation" ng-class="opt === 'cidade' ? 'active' : ''"><a href="" class="sombra-texto"
+                                                                           ng-click="opt = 'cidade'">Cidade</a></li>
+    <li role="presentation" ng-class="opt === 'bairro' ? 'active' : ''"><a href="" class="sombra-texto"
+                                                                           ng-click="opt = 'bairro'">Bairro</a></li>
+    <li role="presentation" ng-class="opt === 'cep' ? 'active' : ''"><a href="" class="sombra-texto"
+                                                                        ng-click="opt = 'cep'">CEP</a></li>
   </ul>
   <div class="dropdown visible-xs-inline" ng-init="label='Cidade'">
-    <button class="btn btn-default botao-esticado dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <button class="btn btn-default botao-esticado dropdown-toggle" type="button" id="dropdownMenu1"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
       {{label}}
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-      <li><a href="" ng-click="opt = 'cidade'; label = 'Cidade'"><span class="glyphicon glyphicon-ok" ng-show="opt==='cidade'"></span>&nbsp; Cidade</a></li>
-      <li><a href="" ng-click="opt = 'bairro'; label = 'Bairro'"><span class="glyphicon glyphicon-ok" ng-show="opt==='bairro'"></span>&nbsp; Bairro</a></li>
-      <li><a href="" ng-click="opt = 'cep'; label = 'CEP'"><span class="glyphicon glyphicon-ok" ng-show="opt==='cep'"></span>&nbsp; CEP</a></li>
+      <li><a href="" ng-click="opt = 'cidade'; label = 'Cidade'"><span class="glyphicon glyphicon-ok"
+                                                                       ng-show="opt==='cidade'"></span>&nbsp; Cidade</a>
+      </li>
+      <li><a href="" ng-click="opt = 'bairro'; label = 'Bairro'"><span class="glyphicon glyphicon-ok"
+                                                                       ng-show="opt==='bairro'"></span>&nbsp; Bairro</a>
+      </li>
+      <li><a href="" ng-click="opt = 'cep'; label = 'CEP'"><span class="glyphicon glyphicon-ok"
+                                                                 ng-show="opt==='cep'"></span>&nbsp; CEP</a></li>
     </ul>
   </div>
 
@@ -25,10 +34,49 @@
       </button>
     </div>
     <div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="enderecos.adicionarCidade()"><span
+      <button class="btn btn-default botao-esticado" data-toggle="modal" data-target="#modalCidade"><span
         class="glyphicon glyphicon-plus"></span> Nova Cidade
       </button>
     </div>
+
+    <!--MODAL CIDADE-->
+    <div class="modal meu-modal fade" id="modalCidade" tabindex="-1" role="dialog" aria-labelledby="modalCidade">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="header">
+            <div class="title"><span class="glyphicon glyphicon-pencil"></span> Cidade <span
+              class="glyphicon glyphicon-remove close" ng-click="enderecos.cancelarModalCidade()"></span></div>
+          </div>
+          <div class="body">
+            <div class="col-md-3">
+              <h4>Código</h4>
+              <input type="text" class="form-control" ng-model="enderecos.cidade.codigo" readonly="true">
+            </div>
+            <div class="col-md-5">
+              <h4>Cidade</h4>
+              <input type="text" class="form-control" ng-model="enderecos.cidade.nome">
+            </div>
+            <div class="col-md-2">
+              <h4>UF</h4>
+              <select class="form-control" ng-model="enderecos.cidade.uf">
+                <option value="RJ">RJ</option>
+                <option value="SP">SP</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <h4>IBGE</h4>
+              <input type="text" class="form-control" ng-model="enderecos.cidade.ibge">
+            </div>
+          </div>
+          <div class="control">
+            <button type="button" class="btn btn-default" ng-click="enderecos.cancelarModalCidade()">Cancelar</button>
+            <button type="button" class="btn btn-primary" ng-click="enderecos.salvarCidade()">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--FIM MODAL-->
+
     <div class="col-md-12"><h5>&nbsp;</h5></div>
     <div class="container-tabela">
       <table class="tabela tabela-esticada tabela-bordered">
@@ -46,14 +94,15 @@
           <td data-label="Código">{{cidade.codigo}}</td>
           <td data-label="Cidade">{{cidade.nome}}</td>
           <td data-label="UF">{{cidade.uf}}</td>
-          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-pencil"></span></a></td>
-          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
+          <td class="hidden-xs"><a href="" ng-click="enderecos.editarCidade(cidade)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td class="hidden-xs"><a href="" ng-click="enderecos.excluirCidade(cidade)"><span class="glyphicon glyphicon-trash"></span></a></td>
           <td class="visible-xs-block">
-            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+            <button class="btn btn-default pull-right" ng-click="enderecos.editarCidade(cidade)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+            <button class="btn btn-default pull-right" ng-click="enderecos.excluirCidade(cidade)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
           </td>
         </tr>
-        <tr class="hidden-xs" ng-repeat="n in getNumber(enderecos.cidades.length < enderecos.paginationCidade.max ? enderecos.paginationCidade.max - enderecos.cidades.length : 0) track by $index">
+        <tr class="hidden-xs"
+            ng-repeat="n in getNumber(enderecos.cidades.length < enderecos.paginationCidade.max ? enderecos.paginationCidade.max - enderecos.cidades.length : 0) track by $index">
           <td>&nbsp;</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
@@ -63,7 +112,9 @@
         </tbody>
       </table>
     </div>
-    <ul class="pull-right" uib-pagination total-items="enderecos.paginationCidade.total" items-per-page="enderecos.paginationCidade.max" ng-model="enderecos.paginationCidade.current" ng-change="enderecos.paginationCidade.pageChanged()" next-text="próximo" previous-text="anterior"></ul>
+    <ul class="pull-right" uib-pagination total-items="enderecos.paginationCidade.total"
+        items-per-page="enderecos.paginationCidade.max" ng-model="enderecos.paginationCidade.current"
+        ng-change="enderecos.paginationCidade.pageChanged()" next-text="próximo" previous-text="anterior"></ul>
   </div>
 
   <div class="col-md-12" ng-if="opt === 'bairro'">
@@ -73,10 +124,38 @@
       </button>
     </div>
     <div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="enderecos.adicionarBairro()"><span
+      <button class="btn btn-default botao-esticado" data-toggle="modal" data-target="#modalBairro"><span
         class="glyphicon glyphicon-plus"></span> Novo Bairro
       </button>
     </div>
+
+    <!--MODAL BAIRRO-->
+    <div class="modal meu-modal fade" id="modalBairro" tabindex="-1" role="dialog" aria-labelledby="modalBairro">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="header">
+            <div class="title"><span class="glyphicon glyphicon-pencil"></span> Bairro <span
+              class="glyphicon glyphicon-remove close" ng-click="enderecos.cancelarModalBairro()"></span></div>
+          </div>
+          <div class="body">
+            <div class="col-md-3">
+              <h4>Código</h4>
+              <input type="text" class="form-control" ng-model="enderecos.bairro.codigo" readonly="true">
+            </div>
+            <div class="col-md-9">
+              <h4>Bairro</h4>
+              <input type="text" class="form-control" ng-model="enderecos.bairro.nome">
+            </div>
+          </div>
+          <div class="control">
+            <button type="button" class="btn btn-default" ng-click="enderecos.cancelarModalBairro()">Cancelar</button>
+            <button type="button" class="btn btn-primary" ng-click="enderecos.salvarBairro()">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--FIM MODAL-->
+
     <div class="col-md-12"><h5>&nbsp;</h5></div>
     <div class="container-tabela">
       <table class="tabela tabela-esticada tabela-bordered">
@@ -92,14 +171,15 @@
         <tr ng-repeat="bairro in enderecos.bairros">
           <td data-label="Código">{{bairro.codigo}}</td>
           <td data-label="Bairro">{{bairro.nome}}</td>
-          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-pencil"></span></a></td>
-          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
+          <td class="hidden-xs"><a href="" ng-click="enderecos.editarBairro(bairro)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td class="hidden-xs"><a href="" ng-click="enderecos.excluirBairro(bairro)"><span class="glyphicon glyphicon-trash"></span></a></td>
           <td class="visible-xs-block">
-            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+            <button class="btn btn-default pull-right" ng-click="enderecos.editarBairro(bairro)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+            <button class="btn btn-default pull-right" ng-click="enderecos.excluirBairro(bairro)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
           </td>
         </tr>
-        <tr class="hidden-xs" ng-repeat="n in getNumber(enderecos.bairros.length < enderecos.paginationBairro.max ? enderecos.paginationBairro.max - enderecos.bairros.length : 0) track by $index">
+        <tr class="hidden-xs"
+            ng-repeat="n in getNumber(enderecos.bairros.length < enderecos.paginationBairro.max ? enderecos.paginationBairro.max - enderecos.bairros.length : 0) track by $index">
           <td>&nbsp;</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
@@ -108,7 +188,9 @@
         </tbody>
       </table>
     </div>
-    <ul class="pull-right" uib-pagination total-items="enderecos.paginationBairro.total" items-per-page="enderecos.paginationBairro.max" ng-model="enderecos.paginationBairro.current" ng-change="enderecos.paginationBairro.pageChanged()" next-text="próximo" previous-text="anterior"></ul>
+    <ul class="pull-right" uib-pagination total-items="enderecos.paginationBairro.total"
+        items-per-page="enderecos.paginationBairro.max" ng-model="enderecos.paginationBairro.current"
+        ng-change="enderecos.paginationBairro.pageChanged()" next-text="próximo" previous-text="anterior"></ul>
   </div>
 
   <div class="col-md-12" ng-if="opt === 'cep'">
@@ -118,10 +200,71 @@
       </button>
     </div>
     <div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="enderecos.adicionarCEP()"><span
+      <button class="btn btn-default botao-esticado" data-toggle="modal" data-target="#modalCEP"><span
         class="glyphicon glyphicon-plus"></span> Novo CEP
       </button>
     </div>
+
+    <!--MODAL CEP-->
+    <div class="modal meu-modal fade" id="modalCEP" tabindex="-1" role="dialog" aria-labelledby="modalCEP">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="header">
+            <div class="title"><span class="glyphicon glyphicon-pencil"></span> CEP <span
+              class="glyphicon glyphicon-remove close" ng-click="enderecos.cancelarModalCEP()"></span></div>
+          </div>
+          <div class="body">
+            <div class="col-md-3">
+              <h4>Código</h4>
+              <div class="input-group">
+                <input type="text" class="form-control" ng-model="enderecos.cep.cidade.codigo">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="enderecos.getCidadePorCodigo(enderecos.cep.cidade.codigo)"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <h4>Cidade</h4>
+              <input type="text" class="form-control" ng-model="enderecos.cep.cidade.nome" readonly="true">
+            </div>
+            <div class="col-md-3">
+              <h4>Código</h4>
+              <div class="input-group">
+                <input type="text" class="form-control" ng-model="enderecos.cep.bairro.codigo">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="enderecos.getBairroPorCodigo(enderecos.cep.bairro.codigo)"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <h4>Bairro</h4>
+              <input type="text" class="form-control" ng-model="enderecos.cep.bairro.nome" readonly="true">
+            </div>
+            <div class="col-md-3">
+              <h4>CEP</h4>
+              <input type="text" class="form-control" ng-model="enderecos.cep.codigo">
+            </div>
+            <div class="col-md-2">
+              <h4>UF</h4>
+              <select class="form-control" ng-model="enderecos.cep.uf">
+                <option value="RJ">RJ</option>
+                <option value="SP">SP</option>
+              </select>
+            </div>
+            <div class="col-md-7">
+              <h4>Logradouro</h4>
+              <input type="text" class="form-control" ng-model="enderecos.cep.logradouro">
+            </div>
+          </div>
+          <div class="control">
+            <button type="button" class="btn btn-default" ng-click="enderecos.cancelarModalCEP()">Cancelar</button>
+            <button type="button" class="btn btn-primary" ng-click="enderecos.salvarCEP()">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--FIM MODAL-->
+
     <div class="col-md-12"><h5>&nbsp;</h5></div>
     <div class="container-tabela">
       <table class="tabela tabela-esticada tabela-bordered">
@@ -139,14 +282,15 @@
           <td data-label="CEP">{{cep.codigo}}</td>
           <td data-label="UF">{{cep.uf}}</td>
           <td data-label="Logradouro">{{cep.logradouro}}</td>
-          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-pencil"></span></a></td>
-          <td class="hidden-xs"><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
+          <td class="hidden-xs"><a href="" ng-click="enderecos.editarCEP(cep)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td class="hidden-xs"><a href="" ng-click="enderecos.excluirCEP(cep)"><span class="glyphicon glyphicon-trash"></span></a></td>
           <td class="visible-xs-block">
-            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-            <button class="btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+            <button class="btn btn-default pull-right" ng-click="enderecos.editarCEP(cep)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+            <button class="btn btn-default pull-right" ng-click="enderecos.excluirCEP(cep)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
           </td>
         </tr>
-        <tr class="hidden-xs" ng-repeat="n in getNumber(enderecos.ceps.length < enderecos.paginationCEP.max ? enderecos.paginationCEP.max - enderecos.ceps.length : 0) track by $index">
+        <tr class="hidden-xs"
+            ng-repeat="n in getNumber(enderecos.ceps.length < enderecos.paginationCEP.max ? enderecos.paginationCEP.max - enderecos.ceps.length : 0) track by $index">
           <td>&nbsp;</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
@@ -156,7 +300,9 @@
         </tbody>
       </table>
     </div>
-    <ul class="pull-right" uib-pagination total-items="enderecos.paginationCEP.total" items-per-page="enderecos.paginationCEP.max" ng-model="enderecos.paginationCEP.current" ng-change="enderecos.paginationCEP.pageChanged()" next-text="próximo" previous-text="anterior"></ul>
+    <ul class="pull-right" uib-pagination total-items="enderecos.paginationCEP.total"
+        items-per-page="enderecos.paginationCEP.max" ng-model="enderecos.paginationCEP.current"
+        ng-change="enderecos.paginationCEP.pageChanged()" next-text="próximo" previous-text="anterior"></ul>
   </div>
 
 </span>

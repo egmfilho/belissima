@@ -8,11 +8,13 @@ angular.module('belissimaApp.controllers')
   .controller('ModalEventoCtrl', [
     '$rootScope',
     '$scope',
+    '$timeout',
     '$uibModalInstance',
     'ModalBuscarPessoa',
     'ModalBuscarProduto',
     'ModalConfirm',
     'ModalAlert',
+    'ProviderEvento',
     'ProviderTipoEvento',
     'ProviderPessoa',
     'ProviderProduto',
@@ -21,9 +23,9 @@ angular.module('belissimaApp.controllers')
     'Evento',
     'Produto',
     'evento',
-    function($rootScope, $scope, $uibModalInstance, modalBuscarPessoa, modalBuscarProduto, modalConfirm, modalAlert, providerTipo, providerPessoa, providerProduto, TipoEvento, Pessoa, Evento, Produto, evento) {
+    function ($rootScope, $scope, $timeout, $uibModalInstance, modalBuscarPessoa, modalBuscarProduto, modalConfirm, modalAlert, providerEvento, providerTipo, providerPessoa, providerProduto, TipoEvento, Pessoa, Evento, Produto, evento) {
 
-      $uibModalInstance.opened.then(function() {
+      $uibModalInstance.opened.then(function () {
 
         if (evento) {
           $scope.evento = new Evento(evento);
@@ -33,7 +35,7 @@ angular.module('belissimaApp.controllers')
           $scope.evento.end = new Date($scope.evento.start.getTime() + 30 * 60000);
         }
 
-        $scope.tipos = [ ];
+        $scope.tipos = [];
 
         $scope.data = new Date($scope.evento.start);
 
@@ -53,18 +55,18 @@ angular.module('belissimaApp.controllers')
 
       function getTipos() {
         $rootScope.isLoading = true;
-        providerTipo.obterTiposDeEvento().then(function(success) {
-          angular.forEach(success.data, function(item, index) {
+        providerTipo.obterTiposDeEvento().then(function (success) {
+          angular.forEach(success.data, function (item, index) {
             $scope.tipos.push(new TipoEvento(TipoEvento.converterEmEntrada(item)));
           });
           $rootScope.isLoading = false;
-        }, function(error) {
+        }, function (error) {
           console.log(error);
           $rootScope.isLoading = false;
         });
       }
 
-      $scope.setData = function() {
+      $scope.setData = function () {
         if (angular.isDate($scope.data)) {
           var start, end;
 
@@ -80,54 +82,64 @@ angular.module('belissimaApp.controllers')
         }
       };
 
-      $scope.startChanged = function() {
+      $scope.startChanged = function () {
         if (!$scope.evento.start)
           return;
 
-        if ($scope.evento.start >= $scope.evento.end) {
-          $scope.evento.end = new Date($scope.evento.start.getTime() + 30 * 60000);
-        }
+        $timeout(function () {
+          if ($scope.evento.start >= $scope.evento.end) {
+            $scope.evento.end = new Date($scope.evento.start.getTime() + 30 * 60000);
+          }
+        }, 1000);
       };
 
-      $scope.endChanged = function() {
+      $scope.endChanged = function () {
         if (!$scope.evento.end)
           return;
 
-        if ($scope.evento.end <= $scope.evento.start) {
-          $scope.evento.start = new Date($scope.evento.end.getTime() - 30 * 60000);
-        }
+        $timeout(function () {
+          if ($scope.evento.end <= $scope.evento.start) {
+            $scope.evento.start = new Date($scope.evento.end.getTime() - 30 * 60000);
+          }
+        }, 1000);
       };
 
       function getPessoaPorCodigo(codigo, categoriaId) {
         return providerPessoa.obterPessoaPorCodigo(codigo, categoriaId, true, true);
       }
 
-      $scope.setPessoa = function(categoriaId) {
+      $scope.setPessoa = function (categoriaId) {
         switch (categoriaId) {
-          case $scope.categoriaPessoa.cliente:
-            getPessoaPorCodigo($scope.evento.cliente.codigo, categoriaId).then(function(success) {
+          case $scope.categoriaPessoa.cliente.id:
+            $rootScope.isLoading = true;
+            getPessoaPorCodigo($scope.evento.cliente.codigo, categoriaId).then(function (success) {
               $scope.evento.setCliente(new Pessoa(Pessoa.converterEmEntrada(success.data)));
-            }, function(error) {
+              $rootScope.isLoading = false;
+            }, function (error) {
               if (error.status == 404) {
-                alert('Cliente não encontrado!');
+                $rootScope.isLoading = false;
+                $rootScope.alerta.show('Cliente não encontrado');
               }
             });
             break;
 
-          case $scope.categoriaPessoa.funcionario:
-            getPessoaPorCodigo($scope.evento.funcionario.codigo, categoriaId).then(function(success) {
+          case $scope.categoriaPessoa.funcionario.id:
+            $rootScope.isLoading = true;
+            getPessoaPorCodigo($scope.evento.funcionario.codigo, categoriaId).then(function (success) {
               $scope.evento.setFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
-            }, function(error) {
+              $rootScope.isLoading = false;
+            }, function (error) {
               if (error.status == 404) {
-                alert('Funcionário não encontrado!');
+                $rootScope.isLoading = false;
+                $rootScope.alerta.show('Aviso', 'Funcionário não encontrado');
               }
             });
             break;
         }
       };
 
-      $scope.getPessoa = function(categoriaId) {
-        modalBuscarPessoa.show(categoriaId, function(result) {
+      $scope.getPessoa = function (categoriaId) {
+        modalBuscarPessoa.show(categoriaId, function (result) {
           if (result) {
             if (categoriaId == $scope.categoriaPessoa.cliente.id) {
               $scope.evento.setCliente(result);
@@ -138,7 +150,7 @@ angular.module('belissimaApp.controllers')
         });
       };
 
-      $scope.removePessoa = function(categoriaId) {
+      $scope.removePessoa = function (categoriaId) {
         switch (categoriaId) {
           case $scope.categoriaPessoa.cliente:
             $scope.evento.removeCliente();
@@ -150,82 +162,88 @@ angular.module('belissimaApp.controllers')
         }
       };
 
-      $scope.setProduto = function() {
-        providerProduto.obterProdutoPorCodigo($scope.evento.produto.codigo).then(function(success) {
+      $scope.setProduto = function () {
+        providerProduto.obterProdutoPorCodigo($scope.evento.produto.codigo).then(function (success) {
           $scope.evento.setProduto(new Produto(Produto.converterEmEntrada(success.data)));
-        }, function(error) {
+        }, function (error) {
           if (error.status == 404) {
-            alert('Produto não encontrado!');
+            modalAlert.show('Aviso', 'Produto não encontrado');
           }
         });
       };
 
-      $scope.getProduto = function() {
-        modalBuscarProduto.show(function(result) {
+      $scope.getProduto = function () {
+        modalBuscarProduto.show(function (result) {
           if (result) {
             $scope.evento.setProduto(result);
           }
         });
       };
 
-      $scope.removeProduto = function() {
+      $scope.removeProduto = function () {
         $scope.evento.removeProduto();
       };
 
-      $scope.selectTipoEvento = function(tipoEvento) {
+      $scope.selectTipoEvento = function (tipoEvento) {
         $scope.evento.setTipo(tipoEvento);
       };
 
       function validar() {
         if (!$scope.evento.title) {
-          return 'Digite um título!';
+          $rootScope.alerta.show('Digite um título!', 'alert-danger');
+          return false;
         }
 
         if (!$scope.data) {
-          return 'Verifique a data!';
+          $rootScope.alerta.show('Verifique a data!', 'alert-danger');
+          return false;
         }
 
         if (!$scope.evento.start) {
-          return 'Verifique a hora de início!';
+          $rootScope.alerta.show('Verifique a hora de início!', 'alert-danger');
+          return false;
         }
 
         if (!$scope.evento.end) {
-          return 'Verifique a hora de término!';
+          $rootScope.alerta.show('Verifique a hora de término!', 'alert-danger');
+          return false;
         }
 
         $scope.setData();
 
         if (!$scope.evento.tipoId) {
-          return 'Selecione um tipo de evento!';
+          $rootScope.alerta.show('Selecione um tipo de evento!', 'alert-danger');
+          return false;
         }
 
-        return null;
+        return true;
       }
 
-      $scope.ok = function() {
-        var erros = validar();
-
-        if (!erros) {
-          modalConfirm.show('Aviso', 'Salvar as alterações?', 'Sim', 'Não', function(result) {
-            if (result) {
-              $uibModalInstance.close($scope.evento);
-            }
-          });
-        } else {
-          modalAlert.show('Erro', erros, 'Ok');
+      $scope.ok = function () {
+        if (!validar()) {
+          return;
         }
-      };
 
-      $scope.excluir = function() {
-        modalConfirm.show('Aviso', 'Deseja excluir o evento?', 'Sim', 'Não', function(result) {
-          if (result) {
-            $uibModalInstance.close('excluir');
-          }
+        modalConfirm.show('Aviso', 'Salvar as alterações?', 'Sim', 'Não').then(function () {
+          $rootScope.isLoading = true;
+          providerEvento.salvarEvento(Evento.converterEmSaida($scope.evento)).then(function (success) {
+            $rootScope.isLoading = false;
+            $uibModalInstance.close(Evento.converterEmEntrada(success.data));
+          }, function (error) {
+            console.log(error);
+            $rootScope.isLoading = false;
+          });
         });
       };
 
-      $scope.close = function() {
-        $uibModalInstance.dismiss('cancel');
+      $scope.excluir = function () {
+        modalConfirm.show('Aviso', 'Deseja excluir o evento?', 'Sim', 'Não').then(function () {
+          $uibModalInstance.close('excluir');
+        });
       };
 
-  }]);
+      $scope.close = function () {
+        $uibModalInstance.dismiss();
+      };
+
+    }]);

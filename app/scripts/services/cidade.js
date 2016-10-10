@@ -37,7 +37,7 @@ angular.module('belissimaApp.services')
       city.city_name = cidade.nome;
       city.city_uf = cidade.uf;
       city.city_ibge = cidade.ibge;
-      city.city_date = data.converter(cidade.data);
+      //city.city_date = data.converter(cidade.data);
 
       return city;
     };

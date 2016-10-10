@@ -20,6 +20,7 @@
               <th>CPF</th>
               <th>Contato</th>
               <th>&nbsp;</th>
+              <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
@@ -30,19 +31,23 @@
               <!--<td data-label="Endereço">{{pessoa.getEnderecoPrincipalEmString()}}</td>-->
               <td data-label="CPF">{{pessoa.cpf}}</td>
               <td data-label="Contato">{{pessoa.getContatoPrincipalEmString()}}</td>
-              <td>
-                <!--<button class="visible-xs-inline btn" ng-click="excluir(pessoa)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>-->
-                <button class="visible-xs-inline btn" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+              <td class="hidden-xs">
                 <a href="" ng-click="editar(pessoa)" class="hidden-xs">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </a>
-                <!--<span class="hidden-xs">&nbsp;</span>-->
-                <!--<a href="" ng-click="excluir(pessoa)" class="hidden-xs">-->
-                <!--<span class="glyphicon glyphicon-trash"></span>-->
-                <!--</a>-->
+              </td>
+              <td class="hidden-xs">
+                <a href="" ng-click="excluir(pessoa)" class="hidden-xs">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>
+              </td>
+              <td class="visible-xs-inline-block">
+                <button class="btn pull-right" ng-click="excluir(pessoa)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+                <button class="btn pull-right" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
               </td>
             </tr>
             <tr class="hidden-xs" ng-repeat="n in getNumber(pagination.max - pessoas.length) track by $index" ng-if="pessoas.length < pagination.max">
+              <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>

@@ -17,11 +17,11 @@ angular.module('belissimaApp.controllers')
       $scope.negative = options.negative;
 
       $scope.ok = function() {
-        $uibModalInstance.close(true);
+        $uibModalInstance.close();
       };
 
       $scope.cancel = function() {
-        $uibModalInstance.close(false);
+        $uibModalInstance.dismiss();
       };
 
   }]);

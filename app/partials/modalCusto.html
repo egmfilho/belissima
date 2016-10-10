@@ -1,6 +1,6 @@
 <div class="meu-modal">
   <div class="header">
-    <div class="title center-title">
+    <div class="title">
       <span class="glyphicon glyphicon-credit-card"></span>&nbsp; Custo
       <span class="glyphicon glyphicon-remove close" ng-click="fechar()"></span>
     </div>
@@ -8,24 +8,21 @@
   <div class="sub-header">
     <div class="row">
 
-      <div class="col-xs-12 col-sm-3">
+      <div class="col-md-2">
         <h4>Cód. Produto</h4>
-        <!--<div class="input-group">-->
-          <input type="text" readonly="true" class="form-control" aria-describedby="basic-addon2" ng-value="produto.codigo">
-          <!--<span class="input-group-btn">-->
-            <!--<button class="btn btn-default" tabindex="-1" ng-click="getProdutoPorCodigo(produto.codigo)"><span class="glyphicon glyphicon-search"></span></button>-->
-          <!--</span>-->
-        <!--</div>-->
+        <input type="text" readonly="true" class="form-control" ng-value="produto.codigo">
       </div>
-
-      <div class="col-xs-12 col-sm-6">
+      <div class="col-md-6">
+        <h4>Produto</h4>
+        <input type="text" class="form-control" readonly="true" ng-value="produto.nome">
+      </div>
+      <div class="col-md-2">
         <h4>Valor</h4>
-        <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="custo.valor">
-          <span class="input-group-btn">
-            <button class="btn btn-default" tabindex="-1" ng-click="addCusto()"><span class="glyphicon glyphicon-plus"></span></button>
-          </span>
-        </div>
+        <input type="text" class="form-control text-right" aria-describedby="basic-addon2" ng-model="custo.valor" currency symbol="R$ " number-only>
+      </div>
+      <div class="col-md-2">
+        <h4>&nbsp;</h4>
+        <button class="btn btn-default botao botao-esticado" ng-click="addCusto()"><span class="glyphicon glyphicon-plus"></span> Adicionar</button>
       </div>
 
     </div>
@@ -40,12 +37,17 @@
         <th>Valor</th>
       </tr>
       </thead>
-      <tbody>
-      <tr ng-repeat="custo in custos">
-        <td>{{custo.data | date}}</td>
-        <td>{{custo.usuario.nome}}</td>
-        <td>{{custo.valor | currency:'R$ '}}</td>
-      </tr>
+      <tbody ng-init="max = 15">
+        <tr ng-repeat="c in custos">
+          <td>{{c.data | date}}</td>
+          <td>{{c.usuario.nome}}</td>
+          <td>{{c.valor | currency:'R$ '}}</td>
+        </tr>
+        <tr ng-if="custos.length < max" ng-repeat="n in getNumber(custos.length > max ? 0 : max - custos.length) track by $index">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
       </tbody>
     </table>
 

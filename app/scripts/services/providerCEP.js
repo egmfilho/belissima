@@ -30,7 +30,7 @@ angular.module('belissimaApp.services')
         obterTodos: function (bairro, cidade, limite) {
           return provider.query({
             action: 'getList'
-          },{
+          }, {
             get_district: bairro,
             get_city: cidade,
             cep_limit: limite
@@ -67,16 +67,24 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
-        salvar: function (tipo) {
+        adicionar: function (cep) {
           return provider.save({
             action: 'insert'
-          }, tipo).$promise;
+          }, cep).$promise;
         },
 
-        editar: function (tipo) {
+        editar: function (cep) {
           return provider.save({
             action: 'edit'
-          }, tipo);
+          }, cep).$promise;
+        },
+
+        remover: function (id) {
+          return provider.save({
+            action: 'del'
+          }, {
+            cep_id: id
+          }).$promise;
         }
 
       }

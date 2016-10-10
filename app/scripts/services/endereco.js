@@ -45,7 +45,7 @@ angular.module('belissimaApp.services')
       endereco.tipo = address.person_address_type;
       endereco.numero = address.person_address_number;
       endereco.complemento = address.person_address_complement;
-      endereco.principal = address.person_address_main;
+      endereco.principal = address.person_address_main === 'Y';
       //endereco.data = new Date(address.person_address_date);
 
       if (address.cep) {

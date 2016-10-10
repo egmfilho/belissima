@@ -1,6 +1,7 @@
 /**
  * Created by egmfilho on 19/07/16.
  */
+
 'use strict';
 
 angular.module('belissimaApp.controllers')
@@ -21,7 +22,7 @@ angular.module('belissimaApp.controllers')
     'Produto',
     'TipoProduto',
     'Unidade',
-    function($rootScope, $scope, $filter, providerProduto, providerTipoProduto, providerUnidade, providerGrupo, modalConfirm, modalAlert, modalBuscarPessoa, modalGrupo, modalPreco, modalEditarProduto, Produto, TipoProduto, Unidade) {
+    function ($rootScope, $scope, $filter, providerProduto, providerTipoProduto, providerUnidade, providerGrupo, modalConfirm, modalAlert, modalBuscarPessoa, modalGrupo, modalPreco, modalEditarProduto, Produto, TipoProduto, Unidade) {
 
       //function compensaScrollsNaTabela() {
       //
@@ -40,7 +41,7 @@ angular.module('belissimaApp.controllers')
       //  }
       //}
 
-      $scope.$on('$viewContentLoaded', function() {
+      $scope.$on('$viewContentLoaded', function () {
         $scope.opcao = 'novo';
         $scope.produto = new Produto();
 
@@ -57,13 +58,14 @@ angular.module('belissimaApp.controllers')
 
       $scope.produto = new Produto();
 
-      $scope.editar = function(item) {
+      $scope.editar = function (item) {
         if (item) {
-          providerProduto.obterProdutoPorCodigo(item.codigo, true, true).then(function(success) {
-            modalEditarProduto.show(new Produto(Produto.converterEmEntrada(success.data)), function(result) {
+          providerProduto.obterProdutoPorCodigo(item.codigo, true, true).then(function (success) {
+            modalEditarProduto.show(new Produto(Produto.converterEmEntrada(success.data)), function (result) {
+              getProdutos();
               console.log(result);
             });
-          }, function(error) {
+          }, function (error) {
             console.log(error);
           });
         }
@@ -71,93 +73,140 @@ angular.module('belissimaApp.controllers')
 
       function getProdutos() {
         $rootScope.isLoading = true;
-        providerProduto.obterTodos(($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function(success) {
-          console.log(success);
+        providerProduto.obterTodos(($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function (success) {
           $scope.pagination.total = success.info.product_quantity;
-          $scope.produtos = [ ];
-          angular.forEach(success.data, function(item, index) {
+          $scope.produtos = [];
+          angular.forEach(success.data, function (item, index) {
             $scope.produtos.push(new Produto(Produto.converterEmEntrada(item)));
           });
           $rootScope.isLoading = false;
-        }, function(error) {
+        }, function (error) {
           console.log(error);
           $rootScope.isLoading = false;
         });
       }
 
-      $scope.pageChanged = function() {
+      $scope.pageChanged = function () {
         getProdutos();
       };
 
       function getTipos() {
-        $scope.tipos = [ ];
+        $scope.tipos = [];
         $rootScope.isLoading = true;
-        providerTipoProduto.obterTodos().then(function(success) {
-          angular.forEach(success.data, function(item, index) {
+        providerTipoProduto.obterTodos().then(function (success) {
+          angular.forEach(success.data, function (item, index) {
             $scope.tipos.push(new TipoProduto(TipoProduto.converterEmEntrada(item)));
           });
           //$rootScope.isLoading = false;
-        }, function(error) {
+        }, function (error) {
           console.log(error);
           //$rootScope.isLoading = false;
         });
       }
 
       function getUnidades() {
-        $scope.unidades = [ ];
+        $scope.unidades = [];
         $rootScope.isLoading = true;
-        providerUnidade.obterTodos().then(function(success) {
-          angular.forEach(success.data, function(item, index) {
+        providerUnidade.obterTodos().then(function (success) {
+          angular.forEach(success.data, function (item, index) {
             $scope.unidades.push(new Unidade(Unidade.converterEmEntrada(item)));
           });
           $rootScope.isLoading = false;
-        }, function(error) {
+        }, function (error) {
           console.log(error);
           $rootScope.isLoading = false;
         });
       }
 
-      $scope.getFornecedor = function() {
+      $scope.getFornecedor = function () {
         $rootScope.isLoading = true;
-        modalBuscarPessoa.show($rootScope.categoriaPessoa ? $rootScope.categoriaPessoa.fornecedor.id : null, function(result) {
+        modalBuscarPessoa.show($rootScope.categoriaPessoa ? $rootScope.categoriaPessoa.fornecedor.id : null, function (result) {
           if (result) {
             $scope.produto.setFornecedor(result);
           }
         });
       };
 
-      $scope.removeFornecedor = function() {
+      $scope.removeFornecedor = function () {
         $scope.produto.removeFornecedor();
       };
 
-      $scope.getGrupo = function() {
+      $scope.getGrupo = function () {
         $rootScope.isLoading = true;
-        modalGrupo.show(function(result) {
+        modalGrupo.show(function (result) {
           if (result) {
             $scope.produto.setGrupo(result);
           }
         })
       };
 
-      $scope.salvar = function() {
+      function validar() {
+
+        if (!$scope.produto.nome) {
+          $rootScope.alerta.show('Insira o nome do produto/serviço!', 'alert-danger');
+          return false;
+        }
+
+        if (!$scope.produto.tipoId) {
+          $rootScope.alerta.show('Escolha o tipo do produto/serviço!', 'alert-danger');
+          return false;
+        }
+
+        if (!$scope.produto.grupoId) {
+          $rootScope.alerta.show('Escolha o grupo do produto/serviço!', 'alert-danger');
+          return false;
+        }
+
+        if (!$scope.produto.unidadeId) {
+          $rootScope.alerta.show('Insira a unidade do produto/serviço!', 'alert-danger');
+          return false;
+        }
+
+        if (!$scope.produto.preco.valor) {
+          $rootScope.alerta.show('Insira o valor do produto/serviço!', 'alert-danger');
+          return false;
+        }
+
+        return true;
+      }
+
+      $scope.salvar = function () {
+        if (!validar()) {
+          return;
+        }
+
         console.log(Produto.converterEmSaida($scope.produto));
 
-        modalConfirm.show('Salvar', 'Deseja salvar um novo produto?', 'Sim', 'Não', function(result) {
-          if (result) {
-            $rootScope.isLoading = true;
-            providerProduto.salvarProduto(Produto.converterEmSaida($scope.produto)).then(function(success) {
-              $rootScope.isLoading = false;
-              modalAlert.show('Sucesso', 'Novo produto salvo!', 'Ok');
-            }, function(error) {
-              console.log(error);
-              $rootScope.isLoading = false;
-            });
-          }
+        modalConfirm.show('Salvar', 'Deseja salvar um novo produto?', 'Sim', 'Não').then(function () {
+          $rootScope.isLoading = true;
+          providerProduto.salvarProduto(Produto.converterEmSaida($scope.produto)).then(function (success) {
+            $scope.produto = new Produto();
+            $rootScope.isLoading = false;
+            getProdutos();
+            modalAlert.show('Sucesso', 'Novo produto salvo!', 'Ok');
+          }, function (error) {
+            console.log(error);
+            $rootScope.isLoading = false;
+          });
         });
       };
 
-      $scope.limpar = function() {
+      $scope.excluir = function (produto) {
+        modalConfirm.show('Aviso', 'Deseja excluir o produto/serviço?').then(function () {
+          $rootScope.isLoading = true;
+          providerProduto.excluir(produto.id).then(function(success) {
+            $rootScope.isLoading = false;
+            $rootScope.alerta.show('Produto/serviço excluído!', 'alert-success');
+            getProdutos();
+          }, function(error) {
+            console.log(error);
+            $rootScope.isLoading = false;
+          });
+        });
+      };
+
+      $scope.limpar = function () {
         $scope.produto = new Produto();
       };
 
-  }]);
+    }]);

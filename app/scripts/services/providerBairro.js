@@ -30,8 +30,43 @@ angular.module('belissimaApp.services')
           }, {
             district_limit: limite,
           }).$promise;
-        }
+        },
 
+        obterPorId: function(id) {
+          return provider.get({
+            action: 'get'
+          }, {
+            district_id: id
+          }).$promise;
+        },
+
+        obterPorCodigo: function (codigo) {
+          return provider.get({
+            action: 'get'
+          }, {
+            district_code: codigo
+          }).$promise;
+        },
+
+        editar: function(bairro) {
+          return provider.save({
+            action: 'edit'
+          }, bairro).$promise;
+        },
+
+        adicionar: function(bairro) {
+          return provider.save({
+            action: 'insert'
+          }, bairro).$promise;
+        },
+
+        remover: function(id) {
+          return provider.save({
+            action: 'del'
+          }, {
+            district_id: id
+          }).$promise;
+        }
       }
 
     }];

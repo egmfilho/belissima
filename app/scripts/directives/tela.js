@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('belissimaApp.directives')
-  .directive('tela', ['$window', function($window) {
+  .directive('tela', ['$rootScope', '$window', function($rootScope, $window) {
 
     function link(scope, element, attrs) {
       var headerHeight = $window.innerWidth >= 768 ? parseInt(element.find('.header').css('height')) : parseInt(element.find('.header-xs').css('height')),
@@ -14,6 +14,8 @@ angular.module('belissimaApp.directives')
       if (parseInt(body.css('height')) + headerHeight + footerHeight < $window.innerHeight) {
         body.css('min-height', ($window.innerHeight - headerHeight - footerHeight) + 'px');
       }
+
+      scope.versao = $rootScope.versao;
     }
 
     return {
