@@ -12,7 +12,7 @@
       <div class="col-xs-5 col-sm-3">
         <h4>Código</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="codigo">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="codigo" keys-shortcuts enter="getPessoaPorCodigo(codigo)">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click="getPessoaPorCodigo(codigo)"><span class="glyphicon glyphicon-search"></span></button>
           </span>
@@ -22,7 +22,7 @@
       <div class="col-xs-7 col-sm-3">
         <h4>CPF/RG/CNPJ</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="documento">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="documento" keys-shortcuts enter="getPessoaPorDocumento(documento)">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click="getPessoaPorDocumento(documento)"><span class="glyphicon glyphicon-search"></span></button>
           </span>
@@ -32,7 +32,7 @@
       <div class="col-xs-12 col-sm-6">
         <h4>Nome</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="nome">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="nome" keys-shortcuts enter="getPessoasPorNome(nome)">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click="getPessoasPorNome(nome)"><span class="glyphicon glyphicon-search"></span></button>
           </span>

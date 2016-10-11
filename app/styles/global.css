@@ -1,4 +1,4 @@
-.ease-out, body, #menu-lateral-conteudo .header .logotipo, .main-header .hamburger > span, #menu-lateral {
+.ease-out, body, .main-header .hamburger > span, #menu-lateral, #menu-lateral-conteudo .header .logotipo {
   -webkit-transition: all ease-out 0.5s;
   -moz-transition: all ease-out 0.5s;
   -o-transition: all ease-out 0.5s;
@@ -59,79 +59,6 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   filter: opacity(20%); }
-
-@-webkit-keyframes seta-animation {
-  0% {
-    left: 250px; }
-  50% {
-    left: 260px; }
-  100% {
-    left: 250px; } }
-@-moz-keyframes seta-animation {
-  0% {
-    left: 250px; }
-  50% {
-    left: 260px; }
-  100% {
-    left: 250px; } }
-@-o-keyframes seta-animation {
-  0% {
-    left: 250px; }
-  50% {
-    left: 260px; }
-  100% {
-    left: 250px; } }
-@keyframes seta-animation {
-  0% {
-    left: 250px; }
-  50% {
-    left: 260px; }
-  100% {
-    left: 250px; } }
-#menu-lateral-conteudo .header {
-  width: 300px;
-  height: 200px;
-  position: relative;
-  cursor: pointer; }
-  #menu-lateral-conteudo .header .logotipo {
-    background-image: url("../images/logotipo.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 70%;
-    width: 100%;
-    height: 100%; }
-  #menu-lateral-conteudo .header .seta {
-    position: absolute;
-    top: 50%;
-    right: 40px;
-    line-height: 15px;
-    -webkit-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-    opacity: 0;
-    -webkit-animation: seta-animation 1s infinite normal ease-out;
-    -moz-animation: seta-animation 1s infinite normal ease-out;
-    -o-animation: seta-animation 1s infinite normal ease-out;
-    animation: seta-animation 1s infinite normal ease-out; }
-    #menu-lateral-conteudo .header .seta .texto {
-      width: 2px;
-      word-wrap: break-word;
-      font-family: monospace;
-      font-weight: 100;
-      visibility: hidden; }
-    #menu-lateral-conteudo .header .seta .linha1 {
-      border-right: 2px solid white;
-      height: 20px;
-      position: absolute;
-      top: -7px;
-      left: 18px;
-      transform: rotate(-45deg); }
-    #menu-lateral-conteudo .header .seta .linha2 {
-      border-right: 2px solid white;
-      height: 20px;
-      position: absolute;
-      top: 7px;
-      left: 18px;
-      transform: rotate(45deg); }
 
 .sombra-texto, .input-group-addon, .tela .header h1, .tela .header span, .tela .header h4, .pagination li a, .calendario .dropdown-menu small, .modal .header .title, #menu-home .botao-menu-home > div > .glyphicon, #menu-home .botao-menu-home > div > h4 {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75); }
@@ -371,6 +298,8 @@ body {
   border-top-color: transparent;
   border-bottom-color: transparent;
   padding: 10px; }
+.modal .body {
+  overflow: auto; }
 .modal .modal-lg .body {
   height: 500px; }
   .modal .modal-lg .body .dropdown {
@@ -442,11 +371,6 @@ body {
   background-color: #3f3f41;
   border-radius: 0 0 4px 4px;
   padding: 10px; }
-
-#modal-grupo .title {
-  text-align: center; }
-#modal-grupo .body {
-  padding-left: 50px; }
 
 .popover {
   z-index: 100; }
@@ -639,9 +563,6 @@ body {
 
   .modal-lg {
     width: 100%; }
-
-  .modal-sm, .modal-md {
-    margin: 0 auto; }
 
   .modal-sm {
     width: 500px; } }
@@ -874,6 +795,87 @@ body {
     #menu-lateral .btn:focus, #menu-lateral .btn:hover {
       transition: background-color 0.5s ease;
       background-color: #baa526; }
+
+@-webkit-keyframes seta-animation {
+  0% {
+    left: 250px; }
+  50% {
+    left: 260px; }
+  100% {
+    left: 250px; } }
+@-moz-keyframes seta-animation {
+  0% {
+    left: 250px; }
+  50% {
+    left: 260px; }
+  100% {
+    left: 250px; } }
+@-o-keyframes seta-animation {
+  0% {
+    left: 250px; }
+  50% {
+    left: 260px; }
+  100% {
+    left: 250px; } }
+@keyframes seta-animation {
+  0% {
+    left: 250px; }
+  50% {
+    left: 260px; }
+  100% {
+    left: 250px; } }
+#menu-lateral-conteudo .header {
+  width: 300px;
+  height: 200px;
+  position: relative;
+  cursor: pointer; }
+  #menu-lateral-conteudo .header .logotipo {
+    background-image: url("../images/logotipo.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 70%;
+    width: 100%;
+    height: 100%; }
+  #menu-lateral-conteudo .header .seta {
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    line-height: 15px;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    opacity: 0;
+    -webkit-animation: seta-animation 1s infinite normal ease-out;
+    -moz-animation: seta-animation 1s infinite normal ease-out;
+    -o-animation: seta-animation 1s infinite normal ease-out;
+    animation: seta-animation 1s infinite normal ease-out; }
+    #menu-lateral-conteudo .header .seta .texto {
+      width: 2px;
+      word-wrap: break-word;
+      font-family: monospace;
+      font-weight: 100;
+      visibility: hidden; }
+    #menu-lateral-conteudo .header .seta .linha1 {
+      border-right: 2px solid white;
+      height: 20px;
+      position: absolute;
+      top: -7px;
+      left: 18px;
+      transform: rotate(-45deg); }
+    #menu-lateral-conteudo .header .seta .linha2 {
+      border-right: 2px solid white;
+      height: 20px;
+      position: absolute;
+      top: 7px;
+      left: 18px;
+      transform: rotate(45deg); }
+  #menu-lateral-conteudo .header .info {
+    font-weight: 200;
+    font-size: .85em;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 5px; }
 
 #menu-lateral-conteudo {
   min-height: 760px;

@@ -1,6 +1,7 @@
 /**
  * Created by egmfilho on 23/06/16.
  */
+
 'use strict';
 
 angular.module('belissimaApp.controllers')
@@ -10,10 +11,13 @@ angular.module('belissimaApp.controllers')
 
     jQuery('#menu-lateral').mouseenter(function () {
       if ($rootScope.minimizado) {
-        jQuery(this).find('.seta').stop().fadeTo('slow', .5);
+        jQuery(this).find('.seta').stop().fadeTo('slow', .3);
+      } else {
+        jQuery(this).find('.info').stop().fadeTo('slow', .3);
       }
     }).mouseleave(function () {
       jQuery(this).find('.seta').stop().fadeTo('slow', 0);
+      jQuery(this).find('.info').stop().fadeTo('slow', 0);
     });
 
     function preventers(id) {

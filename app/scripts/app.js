@@ -104,7 +104,7 @@ angular
       });
   })
   .run(['$rootScope', function($rootScope) {
-    $rootScope.versao = '0.7.1';
+    $rootScope.versao = '0.7.2';
   }])
   .run(['$rootScope', '$location', '$cookies', '$uibModalStack', function($rootScope, $location, $cookies, $uibModalStack) {
 

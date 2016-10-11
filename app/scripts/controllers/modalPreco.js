@@ -21,8 +21,8 @@ angular.module('belissimaApp.controllers')
         $scope.preco = new PrecoProduto();
         $scope.precos = [ ];
 
-        if (!produto.preco.produtoId) {
-          $scope.preco = produto.preco;
+        if (produto.preco.produtoId) {
+          $scope.preco = new PrecoProduto(produto.preco);
         }
 
         if (produto.id) {
@@ -30,6 +30,9 @@ angular.module('belissimaApp.controllers')
           provider.obterPrecosPorIdDeProduto(produto.id, true).then(function(success) {
             angular.forEach(success.data, function(item, index) {
               $scope.precos.push(new PrecoProduto(PrecoProduto.converterEmEntrada(item)));
+            });
+            $scope.precos = $scope.precos.sort(function (a, b) {
+              return new Date(b.data) - new Date(a.data);
             });
             $rootScope.isLoading = false;
           }, function(error) {
@@ -50,7 +53,7 @@ angular.module('belissimaApp.controllers')
           $rootScope.isLoading = true;
           provider.salvarPreco(PrecoProduto.converterEmSaida($scope.preco)).then(function(success) {
             $scope.preco = new PrecoProduto();
-            $scope.precos.push(new PrecoProduto(PrecoProduto.converterEmEntrada(success.data)));
+            $scope.precos.unshift(new PrecoProduto(PrecoProduto.converterEmEntrada(success.data)));
             $rootScope.isLoading = false;
           }, function(error) {
             console.log(error);
@@ -60,7 +63,7 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.fechar = function() {
-        $uibModalInstance.close($scope.precos[$scope.precos.length - 1]);
+        $uibModalInstance.close($scope.precos[0]);
       };
 
     }]);

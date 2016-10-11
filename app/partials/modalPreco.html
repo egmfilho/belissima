@@ -18,7 +18,7 @@
       </div>
       <div class="col-md-2">
         <h4>Valor</h4>
-        <input type="text" class="form-control text-right" aria-describedby="basic-addon2" ng-model="preco.valor" currency symbol="R$ " number-only>
+        <input type="text" class="form-control text-right" aria-describedby="basic-addon2" ng-model="preco.valor" currency symbol="R$ " number-only keys-shortcuts enter=addPreco()>
       </div>
       <div class="col-md-2">
         <h4>&nbsp;</h4>
@@ -39,7 +39,7 @@
       </thead>
       <tbody ng-init="max = 15">
         <tr ng-repeat="p in precos">
-          <td>{{p.data | date}}</td>
+          <td>{{p.data | date:'dd/MM/yyyy HH:mm:ss'}}</td>
           <td>{{p.usuario.nome}}</td>
           <td>{{p.valor | currency:'R$ '}}</td>
         </tr>

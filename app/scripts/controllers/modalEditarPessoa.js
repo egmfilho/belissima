@@ -82,12 +82,14 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.removeEndereco = function ($index) {
-        if ($scope.pessoa.enderecos.length <= 0) {
-          $scope.pessoa.enderecos[0] = new Endereco();
-          $scope.pessoa.enderecos[0].principal = true;
-          return;
-        }
-        $scope.pessoa.removerEndereco($index);
+        modalConfirm.show(null, 'Remover Endereço?').then(function () {
+          if ($scope.pessoa.enderecos.length <= 0) {
+            $scope.pessoa.enderecos[0] = new Endereco();
+            $scope.pessoa.enderecos[0].principal = true;
+            return;
+          }
+          $scope.pessoa.removerEndereco($index);
+        });
       };
 
       $scope.getCEPPorCodigo = function (codigo, $index) {
@@ -127,12 +129,14 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.removeContato = function ($index) {
-        if ($scope.pessoa.contatos.length <= 0) {
-          $scope.pessoa.contatos[0] = new Contato();
-          $scope.pessoa.contatos[0].principal = true;
-          return;
-        }
-        $scope.pessoa.removerContato($index);
+        modalConfirm.show(null, 'Remover Contato?').then(function () {
+          if ($scope.pessoa.contatos.length <= 0) {
+            $scope.pessoa.contatos[0] = new Contato();
+            $scope.pessoa.contatos[0].principal = true;
+            return;
+          }
+          $scope.pessoa.removerContato($index);
+        });
       };
 
       function validar(pessoa) {

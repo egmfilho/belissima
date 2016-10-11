@@ -18,7 +18,7 @@
       </div>
       <div class="col-md-2">
         <h4>Valor</h4>
-        <input type="text" class="form-control text-right" aria-describedby="basic-addon2" ng-model="custo.valor" currency symbol="R$ " number-only>
+        <input type="text" class="form-control text-right" aria-describedby="basic-addon2" ng-model="custo.valor" currency symbol="'R$ '" number-only keys-shortcuts enter="addCusto()">
       </div>
       <div class="col-md-2">
         <h4>&nbsp;</h4>
@@ -39,7 +39,7 @@
       </thead>
       <tbody ng-init="max = 15">
         <tr ng-repeat="c in custos">
-          <td>{{c.data | date}}</td>
+          <td>{{c.data | date:'dd/MM/yyyy HH:mm:ss'}}</td>
           <td>{{c.usuario.nome}}</td>
           <td>{{c.valor | currency:'R$ '}}</td>
         </tr>

@@ -1,7 +1,7 @@
-<div class="meu-modal" id="modal-grupo">
+<div class="meu-modal">
   <div class="header">
     <div class="title">
-      Grupos
+      <span class="glyphicon glyphicon-list-alt"></span> Grupos
       <span class="glyphicon glyphicon-remove close" ng-click="fechar()"></span>
     </div>
   </div>
@@ -11,7 +11,7 @@
       <div class="col-sm-4 col-md-4">
         <h4>Código</h4>
         <div class="input-group">
-          <input type="text" class="form-control" ng-model="grupo.codigo" />
+          <input type="text" class="form-control" ng-model="grupo.codigo" keys-shortcuts enter="getGrupoPorCodigo()"/>
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="getGrupoPorCodigo()"><i class="glyphicon glyphicon-search"></i></button>
           </span>
@@ -20,7 +20,7 @@
       <div class="col-sm-8 col-md-8">
         <h4>Nome</h4>
         <!--<div class="input-group">-->
-          <input type="text" class="form-control" ng-model="grupo.nome" />
+          <input type="text" class="form-control" ng-model="grupo.nome" readonly="true" />
           <!--<span class="input-group-btn">-->
             <!--<button type="button" class="btn btn-default" ng-click="getGrupoPorCodigo"><i class="glyphicon glyphicon-search"></i></button>-->
           <!--</span>-->
