@@ -15,7 +15,7 @@ angular.module('belissimaApp.controllers')
     function($rootScope, $scope, $uibModalInstance, provider, Pessoa, categoriaId) {
 
       $uibModalInstance.opened.then(function() {
-        $rootScope.isLoading = false;
+        $rootScope.loading.unload();
         $scope.resultado = [ ];
         //setTimeout(function() {
         //  var windowH = parseInt(jQuery(window).height()),
@@ -46,35 +46,35 @@ angular.module('belissimaApp.controllers')
       }
 
       $scope.getPessoaPorCodigo = function(codigo) {
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         provider.obterPessoaPorCodigo(codigo, true, true, true, true, true, true, true, categoriaId).then(function(success) {
           setResultado(success.data);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function(error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       };
 
       $scope.getPessoaPorDocumento = function(documento) {
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         provider.obterPessoasPorDocumento(documento, true, true, true, true, true, true, true, categoriaId).then(function(success) {
           setResultado(success.data);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function(error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       };
 
       $scope.getPessoasPorNome = function(nome) {
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         provider.obterPessoasPorNome(nome, true, true, true, true, true, true, true, categoriaId).then(function(success) {
           setResultado(success.data);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function(error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       };
 

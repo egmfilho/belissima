@@ -26,7 +26,7 @@ angular.module('belissimaApp.controllers')
         }
 
         if (produto.id) {
-          $rootScope.isLoading = true;
+          $rootScope.loading.load();
           provider.obterCustosPorIdDeProduto(produto.id, true).then(function (success) {
             angular.forEach(success.data, function (item, index) {
               $scope.custos.push(new CustoProduto(CustoProduto.converterEmEntrada(item)));
@@ -34,10 +34,10 @@ angular.module('belissimaApp.controllers')
             $scope.custos = $scope.custos.sort(function(a, b) {
               return new Date(b.data) - new Date(a.data);
             });
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           }, function (error) {
             console.log(error);
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           });
         }
       });
@@ -50,15 +50,15 @@ angular.module('belissimaApp.controllers')
 
         modalConfirm.show('Novo custo', 'Adicionar novo custo?', 'Sim', 'Não').then(function (result) {
           $scope.custo.produtoId = produto.id;
-          $rootScope.isLoading = true;
+          $rootScope.loading.load();
           provider.salvarCusto(CustoProduto.converterEmSaida($scope.custo)).then(function (success) {
             $scope.custo = new CustoProduto();
             console.log(success.data);
             $scope.custos.unshift(new CustoProduto(CustoProduto.converterEmEntrada(success.data)));
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           }, function (error) {
             console.log(error);
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           });
         });
       };

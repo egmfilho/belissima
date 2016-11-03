@@ -49,7 +49,7 @@ angular.module('belissimaApp.controllers')
         getClientes();
         getTiposContato();
 
-        $rootScope.isLoading = false;
+        $rootScope.loading.unload();
       });
 
       function getClientes() {
@@ -58,17 +58,17 @@ angular.module('belissimaApp.controllers')
           return;
         }
 
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         provider.obterTodos(true, true, true, true, true, true, true, true, ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function (success) {
           $scope.pagination.total = success.info.person_quantity;
           $scope.pessoas = [];
           angular.forEach(success.data, function (item, index) {
             $scope.pessoas.push(new Pessoa(Pessoa.converterEmEntrada(item)));
           });
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function (error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       }
 
@@ -78,15 +78,15 @@ angular.module('belissimaApp.controllers')
 
       function getTiposContato() {
         $scope.tipos_contatos = [];
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         providerTipoContato.obterTodos().then(function (success) {
           angular.forEach(success.data, function (item, index) {
             $scope.tipos_contatos.push(new TipoContato(TipoContato.converterEmEntrada(item)));
           });
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function (error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       }
 
@@ -105,9 +105,9 @@ angular.module('belissimaApp.controllers')
           return;
         }
 
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         providerCEP.obterPorCodigo(codigo, true, true).then(function (success) {
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
           var ceps = [];
           angular.forEach(success.data, function (item, index) {
             ceps.push(new CEP(CEP.converterEmEntrada(item)));
@@ -121,7 +121,7 @@ angular.module('belissimaApp.controllers')
           }
         }, function (error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       };
 
@@ -225,15 +225,15 @@ angular.module('belissimaApp.controllers')
         console.log($scope.pessoa, Pessoa.converterEmSaida($scope.pessoa));
 
         modalConfirm.show('Aviso', 'Salvar as alterações?', 'Sim', 'Não').then(function () {
-          $rootScope.isLoading = true;
+          $rootScope.loading.load();
           provider.salvarPessoa(Pessoa.converterEmSaida($scope.pessoa)).then(function (success) {
             console.log(success);
             $scope.pessoa = new Pessoa();
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
             getClientes();
           }, function (error) {
             console.log(error);
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           });
         });
       };
@@ -245,10 +245,10 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.editar = function (pessoa) {
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         if (pessoa) {
           provider.obterPessoaPorCodigo(pessoa.codigo, pessoa.categorias.length ? pessoa.categorias[0].id : null, true, null, true, true, true, true, null, true).then(function (success) {
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
             ModalEditarPessoa.show(new Pessoa(Pessoa.converterEmEntrada(success.data)), function (result) {
               if (result) {
                 console.log(result);
@@ -260,7 +260,7 @@ angular.module('belissimaApp.controllers')
             });
           }, function (error) {
             console.log(error);
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           });
         }
       };
@@ -268,15 +268,15 @@ angular.module('belissimaApp.controllers')
       $scope.excluir = function (pessoa) {
 
         modalConfirm.show('Aviso', 'Excluir pessoa código: ' + pessoa.codigo + '?', 'Sim', 'Não').then(function () {
-          $rootScope.isLoading = true;
+          $rootScope.loading.load();
           provider.excluirPessoa(pessoa).then(function (success) {
             console.log(success);
             modalAlert.show('Excluído', 'Pessoa excluída!');
             getClientes();
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           }, function (error) {
             console.log(error);
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           });
         });
       };

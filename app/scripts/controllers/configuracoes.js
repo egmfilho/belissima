@@ -36,42 +36,43 @@ angular.module('belissimaApp.controllers')
       });
 
       function getUsuarios() {
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         self.usuarios = [];
         providerUsuario.obterTodos(true).then(function (success) {
           self.usuariosPagination.total = success.info.quantity;
           angular.forEach(success.data, function (item, index) {
             self.usuarios.push(new Usuario(Usuario.converterEmEntrada(item)));
           });
-          $rootScope.isLoading = false;
+          console.log(success.data, self.usuarios);
+          $rootScope.loading.unload();
         }, function (error) {
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       }
 
       function getPerfis() {
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         self.perfis = [];
         providerPerfil.obterTodos().then(function (success) {
           self.perfisPagination.total = success.info.quantity;
           angular.forEach(success.data, function (item, index) {
             self.perfis.push(new PerfilUsuario(PerfilUsuario.converterEmEntrada(item)));
           });
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function (error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       }
 
       function getPermissoes() {
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         providerConfig.obterPermissoes().then(function (success) {
           self.permissoes = new PermissoesUsuario(PermissoesUsuario.converterEmEntrada(success.data));
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function (error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       }
 
@@ -84,15 +85,15 @@ angular.module('belissimaApp.controllers')
           getPerfis();
         }
 
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         providerUsuario.obterPorId(usuario.id, true, true).then(function (success) {
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
           ModalUsuario.show(new Usuario(Usuario.converterEmEntrada(success.data)), self.perfis).then(function (success) {
             self.atualizarUsuarios();
           });
         }, function (error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       };
 
@@ -112,14 +113,14 @@ angular.module('belissimaApp.controllers')
 
       this.excluirUsuario = function (usuario) {
         modalConfirm.show(null, 'Excluir usuário "' + usuario.usuario + '"?').then(function() {
-          $rootScope.isLoading = true;
+          $rootScope.loading.load();
           providerUsuario.excluir(usuario.id).then(function (success) {
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
             self.atualizarUsuarios();
             $rootScope.alerta.show('Usuário excluído!', 'alert-success');
           }, function (error) {
             console.log(error);
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           });
         });
       };
@@ -129,15 +130,15 @@ angular.module('belissimaApp.controllers')
       };
 
       this.editarPerfil = function (perfil) {
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         providerPerfil.obterPorId(perfil.id, true).then(function (success) {
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
           ModalPerfil.show(new PerfilUsuario(PerfilUsuario.converterEmEntrada(success.data))).then(function (success) {
             self.atualizarPerfis();
           });
         }, function (error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       };
 
@@ -153,14 +154,14 @@ angular.module('belissimaApp.controllers')
 
       this.excluirPerfil = function (perfil) {
         modalConfirm.show(null, 'Excluir perfil "' + perfil.nome + '"?').then(function() {
-          $rootScope.isLoading = true;
+          $rootScope.loading.load();
           providerPerfil.excluir(perfil.id).then(function (success) {
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
             self.atualizarPerfis();
             $rootScope.alerta.show('Perfil excluído!', 'alert-success');
           }, function (error) {
             console.log(error);
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           });
         });
       }

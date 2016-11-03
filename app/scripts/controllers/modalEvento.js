@@ -50,19 +50,19 @@ angular.module('belissimaApp.controllers')
         };
 
         getTipos();
-        $rootScope.isLoading = false;
+        $rootScope.loading.unload();
       });
 
       function getTipos() {
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         providerTipo.obterTiposDeEvento().then(function (success) {
           angular.forEach(success.data, function (item, index) {
             $scope.tipos.push(new TipoEvento(TipoEvento.converterEmEntrada(item)));
           });
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function (error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       }
 
@@ -111,26 +111,26 @@ angular.module('belissimaApp.controllers')
       $scope.setPessoa = function (categoriaId) {
         switch (categoriaId) {
           case $scope.categoriaPessoa.cliente.id:
-            $rootScope.isLoading = true;
+            $rootScope.loading.load();
             getPessoaPorCodigo($scope.evento.cliente.codigo, categoriaId).then(function (success) {
               $scope.evento.setCliente(new Pessoa(Pessoa.converterEmEntrada(success.data)));
-              $rootScope.isLoading = false;
+              $rootScope.loading.unload();
             }, function (error) {
               if (error.status == 404) {
-                $rootScope.isLoading = false;
+                $rootScope.loading.unload();
                 $rootScope.alerta.show('Cliente não encontrado');
               }
             });
             break;
 
           case $scope.categoriaPessoa.funcionario.id:
-            $rootScope.isLoading = true;
+            $rootScope.loading.load();
             getPessoaPorCodigo($scope.evento.funcionario.codigo, categoriaId).then(function (success) {
               $scope.evento.setFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
-              $rootScope.isLoading = false;
+              $rootScope.loading.unload();
             }, function (error) {
               if (error.status == 404) {
-                $rootScope.isLoading = false;
+                $rootScope.loading.unload();
                 $rootScope.alerta.show('Aviso', 'Funcionário não encontrado');
               }
             });
@@ -225,14 +225,24 @@ angular.module('belissimaApp.controllers')
         }
 
         modalConfirm.show('Aviso', 'Salvar as alterações?', 'Sim', 'Não').then(function () {
-          $rootScope.isLoading = true;
-          providerEvento.salvarEvento(Evento.converterEmSaida($scope.evento)).then(function (success) {
-            $rootScope.isLoading = false;
-            $uibModalInstance.close(Evento.converterEmEntrada(success.data));
-          }, function (error) {
-            console.log(error);
-            $rootScope.isLoading = false;
-          });
+          $rootScope.loading.load();
+          if ($scope.evento.id) {
+            providerEvento.atualizarEvento(Evento.converterEmSaida($scope.evento)).then(function (success) {
+              $rootScope.loading.unload();
+              $uibModalInstance.close(Evento.converterEmEntrada(success.data));
+            }, function (error) {
+              console.log(error);
+              $rootScope.loading.unload();
+            });
+          } else {
+            providerEvento.salvarEvento(Evento.converterEmSaida($scope.evento)).then(function (success) {
+              $rootScope.loading.unload();
+              $uibModalInstance.close(Evento.converterEmEntrada(success.data));
+            }, function (error) {
+              console.log(error);
+              $rootScope.loading.unload();
+            });
+          }
         });
       };
 

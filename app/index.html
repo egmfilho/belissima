@@ -24,7 +24,7 @@
       <p class="browsehappy">Você está usando um navegador <strong>desatualizado</strong>. Por favor <a href="http://browsehappy.com/">atualize seu navegador</a> para melhorar sua experiência.</p>
     <![endif]-->
 
-    <div id="loading" ng-show="isLoading" ng-include="'partials/loading.html'"></div>
+    <div id="loading" ng-show="loading.isLoading()" ng-include="'partials/loading.html'"></div>
     <span class="" ng-include="'partials/menuLateral.html'" ng-hide="currentPath === '/login'"></span>
 
     <div class="container">

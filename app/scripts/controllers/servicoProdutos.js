@@ -72,17 +72,17 @@ angular.module('belissimaApp.controllers')
       };
 
       function getProdutos() {
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         providerProduto.obterTodos(($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function (success) {
           $scope.pagination.total = success.info.product_quantity;
           $scope.produtos = [];
           angular.forEach(success.data, function (item, index) {
             $scope.produtos.push(new Produto(Produto.converterEmEntrada(item)));
           });
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function (error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       }
 
@@ -92,34 +92,34 @@ angular.module('belissimaApp.controllers')
 
       function getTipos() {
         $scope.tipos = [];
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         providerTipoProduto.obterTodos().then(function (success) {
           angular.forEach(success.data, function (item, index) {
             $scope.tipos.push(new TipoProduto(TipoProduto.converterEmEntrada(item)));
           });
-          //$rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function (error) {
           console.log(error);
-          //$rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       }
 
       function getUnidades() {
         $scope.unidades = [];
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         providerUnidade.obterTodos().then(function (success) {
           angular.forEach(success.data, function (item, index) {
             $scope.unidades.push(new Unidade(Unidade.converterEmEntrada(item)));
           });
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function (error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       }
 
       $scope.getFornecedor = function () {
-        $rootScope.isLoading = true;
+        // $rootScope.loading.load();
         modalBuscarPessoa.show($rootScope.categoriaPessoa ? $rootScope.categoriaPessoa.fornecedor.id : null, function (result) {
           if (result) {
             $scope.produto.setFornecedor(result);
@@ -132,7 +132,7 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.getGrupo = function () {
-        $rootScope.isLoading = true;
+        // $rootScope.loading.load();
         modalGrupo.show(function (result) {
           if (result) {
             $scope.produto.setGrupo(result);
@@ -178,29 +178,29 @@ angular.module('belissimaApp.controllers')
         console.log(Produto.converterEmSaida($scope.produto));
 
         modalConfirm.show('Salvar', 'Deseja salvar um novo produto?', 'Sim', 'Não').then(function () {
-          $rootScope.isLoading = true;
+          $rootScope.loading.load();
           providerProduto.salvarProduto(Produto.converterEmSaida($scope.produto)).then(function (success) {
             $scope.produto = new Produto();
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
             getProdutos();
             modalAlert.show('Sucesso', 'Novo produto salvo!', 'Ok');
           }, function (error) {
             console.log(error);
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           });
         });
       };
 
       $scope.excluir = function (produto) {
         modalConfirm.show('Aviso', 'Deseja excluir o produto/serviço?').then(function () {
-          $rootScope.isLoading = true;
+          $rootScope.loading.load();
           providerProduto.excluir(produto.id).then(function(success) {
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
             $rootScope.alerta.show('Produto/serviço excluído!', 'alert-success');
             getProdutos();
           }, function(error) {
             console.log(error);
-            $rootScope.isLoading = false;
+            $rootScope.loading.unload();
           });
         });
       };

@@ -32,17 +32,17 @@ angular
     function resolveCategorias() {
       return {
         '': ['$rootScope', 'ProviderCategoriaPessoa', 'CategoriaPessoa', function($rootScope, provider, CategoriaPessoa) {
-          $rootScope.isLoading = true;
           return $rootScope.categoriaPessoa || provider.obterTodos().then(function(success) {
+              $rootScope.loading.load();
               $rootScope.categoriaPessoa = { };
               angular.forEach(success.data, function(item, index) {
                 var categoria = new CategoriaPessoa(CategoriaPessoa.converterEmEntrada(item));
                 $rootScope.categoriaPessoa[categoria.nomeFormatado] = categoria;
               });
-              $rootScope.isLoading = false;
+              $rootScope.loading.unload();
             }, function(error) {
               console.log(error);
-              $rootScope.isLoading = false;
+              $rootScope.loading.unload();
             });
         }]
       };
@@ -104,7 +104,7 @@ angular
       });
   })
   .run(['$rootScope', function($rootScope) {
-    $rootScope.versao = '0.7.2';
+    $rootScope.versao = '0.7.3';
   }])
   .run(['$rootScope', '$location', '$cookies', '$uibModalStack', function($rootScope, $location, $cookies, $uibModalStack) {
 
@@ -113,7 +113,12 @@ angular
       return new Array(num <= 0 ? 0 : num);
     };
 
-    $rootScope.isLoading = false;
+    $rootScope.loading = {
+      count: 0,
+      isLoading: function() { return this.count > 0 },
+      load: function() { this.count++; },
+      unload: function() { this.count--; this.count < 0 ? this.count = 0 : null; }
+    };
 
     $rootScope.alerta = {
       mensagem: '',

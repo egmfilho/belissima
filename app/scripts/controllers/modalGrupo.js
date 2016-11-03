@@ -14,32 +14,32 @@ angular.module('belissimaApp.controllers')
     function($rootScope, $scope, $uibModalInstance, provider, GrupoProduto) {
 
       $uibModalInstance.opened.then(function() {
-        $rootScope.isLoading = false;
+        $rootScope.loading.unload();
         $scope.grupo = {};
         $scope.grupos = [ ];
 
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         provider.obterTodos(true).then(function(success) {
           angular.forEach(success.data, function(item, index) {
             $scope.grupos.push(new GrupoProduto(GrupoProduto.converterEmEntrada(item)));
           });
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function(error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       });
 
       $scope.getGrupoPorCodigo = function() {
         if (!$scope.grupo.codigo) return;
 
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         provider.obterPorCodigo($scope.grupo.codigo).then(function(success) {
           $scope.grupo = new GrupoProduto(GrupoProduto.converterEmEntrada(success.data));
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function(error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       };
 

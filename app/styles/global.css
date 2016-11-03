@@ -1086,6 +1086,12 @@ body {
   .fc-view-container .fc-agendaWeek-view .fc-slats tr th:nth-child(1), .fc-view-container .fc-agendaWeek-view .fc-slats tr td:nth-child(1), .fc-view-container .fc-agendaWeek-view .fc-bg tr th:nth-child(1), .fc-view-container .fc-agendaWeek-view .fc-bg tr td:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-slats tr th:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-slats tr td:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-bg tr th:nth-child(1), .fc-view-container .fc-agendaDay-view .fc-bg tr td:nth-child(1) {
     background-color: #3f3f41; }
 
+.fc-now-indicator {
+  border-color: #baa526; }
+
+.fc-time-grid .fc-now-indicator-line {
+  z-index: 3 !important; }
+
 .fc-unthemed .fc-today {
   background: #999; }
 .fc-unthemed .fc-divider {
@@ -1102,6 +1108,9 @@ body {
     background-color: #3f3f41; }
   .fc-unthemed .fc-popover .fc-body {
     background-color: #3f3f41; }
+.fc-unthemed .fc-more-popover {
+  max-height: 400px;
+  overflow-y: auto; }
 
 #agenda .calendar {
   margin: 20px; }

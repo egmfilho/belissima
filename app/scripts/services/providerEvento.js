@@ -30,11 +30,13 @@ angular.module('belissimaApp.services')
 
       return {
 
-        obterEventos: function(getTipo) {
+        obterEventos: function(getTipo, inicio, fim) {
           return provider.query({
             action: 'getList'
           }, {
-            get_event_type: getTipo
+            get_event_type: getTipo,
+            event_start: inicio,
+            event_end: fim
           }).$promise;
         },
 

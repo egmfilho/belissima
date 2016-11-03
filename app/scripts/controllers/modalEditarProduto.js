@@ -124,13 +124,13 @@ angular.module('belissimaApp.controllers')
 
       $scope.ok = function() {
         modalConfirm.show('Aviso', 'Salvar as alterações?', 'Sim', 'Não').then(function(result) {
-          $rootScope.isLoading = true;
+          $rootScope.loading.load();
           providerProduto.atualizarProduto(Produto.converterEmSaida($scope.produto)).then(function(success) {
-            $rootScope.isLoading = true;
+            $rootScope.loading.unload();
             $uibModalInstance.close();
           }, function(error) {
             console.log(error);
-            $rootScope.isLoading = true;
+            $rootScope.loading.unload();
           });
         });
 

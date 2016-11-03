@@ -17,7 +17,7 @@ angular.module('belissimaApp.controllers')
       $uibModalInstance.opened.then(function() {
         $scope.ceps = enderecos || [ ];
         $scope.tabela_vazia = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
-        $rootScope.isLoading = false;
+        $rootScope.loading.unload();
         setTimeout(function() {
           jQuery('input[name="cdCEP"]').focus();
         }, 300);
@@ -33,16 +33,16 @@ angular.module('belissimaApp.controllers')
           return;
         }
 
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         provider.obterPorCodigo(cep, true, true).then(function(success) {
           $scope.ceps = [ ];
           angular.forEach(success.data, function (item, index) {
             $scope.ceps.push(new CEP(CEP.converterEmEntrada(item)));
           });
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function (error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       };
 
@@ -52,16 +52,16 @@ angular.module('belissimaApp.controllers')
           return;
         }
 
-        $rootScope.isLoading = true;
+        $rootScope.loading.load();
         provider.obterPorLogradouro(logradouro, true, true).then(function(success) {
           $scope.ceps = [ ];
           angular.forEach(success.data, function(item, index) {
             $scope.ceps.push(new CEP(CEP.converterEmEntrada(item)));
           });
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         }, function(error) {
           console.log(error);
-          $rootScope.isLoading = false;
+          $rootScope.loading.unload();
         });
       };
 

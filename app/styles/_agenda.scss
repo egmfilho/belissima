@@ -40,6 +40,14 @@
   }
 }
 
+.fc-now-indicator {
+  border-color: $cor-menu-highlight;
+}
+
+.fc-time-grid .fc-now-indicator-line {
+  z-index: 3 !important;
+}
+
 .fc-unthemed {
   .fc-today {
     background: $cor-calendario-ativo;
@@ -73,6 +81,11 @@
       background-color: $cor-menu-lateral;
     }
   }
+
+  .fc-more-popover {
+    max-height: 400px;
+    overflow-y: auto;
+  }
 }
 
 #agenda {
@@ -96,5 +109,4 @@
       background-color: $cor-menu-highlight-escuro;
     }
   }
-
 }
