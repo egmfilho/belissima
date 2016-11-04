@@ -34,6 +34,8 @@ angular.module('belissimaApp.controllers')
         //$scope.pessoa.contatos = [ new Contato() ];
         $scope.pessoa.setContatoPrincipal(0);
 
+        $scope.filtro = { categoria: null };
+
         $scope.categorias_pessoa = jQuery.map($rootScope.categoriaPessoa, function (item, index) {
           return [item];
         });
@@ -46,20 +48,13 @@ angular.module('belissimaApp.controllers')
           total: 0
         };
 
-        getClientes();
+        $scope.getClientes();
         getTiposContato();
-
-        $rootScope.loading.unload();
       });
 
-      function getClientes() {
-        if (!$rootScope.categoriaPessoa) {
-          console.log('$rootScope.categoriaPessoa is undefined');
-          return;
-        }
-
+      $scope.getClientes = function () {
         $rootScope.loading.load();
-        provider.obterTodos(true, true, true, true, true, true, true, true, ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function (success) {
+        provider.obterPessoasPorCategoria($scope.filtro.categoria, true, true, true, true, true, true, true, true, ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function (success) {
           $scope.pagination.total = success.info.person_quantity;
           $scope.pessoas = [];
           angular.forEach(success.data, function (item, index) {
@@ -70,10 +65,10 @@ angular.module('belissimaApp.controllers')
           console.log(error);
           $rootScope.loading.unload();
         });
-      }
+      };
 
       $scope.pageChanged = function () {
-        getClientes();
+        $scope.getClientes();
       };
 
       function getTiposContato() {
@@ -230,7 +225,7 @@ angular.module('belissimaApp.controllers')
             console.log(success);
             $scope.pessoa = new Pessoa();
             $rootScope.loading.unload();
-            getClientes();
+            $scope.getClientes();
           }, function (error) {
             console.log(error);
             $rootScope.loading.unload();
@@ -254,7 +249,7 @@ angular.module('belissimaApp.controllers')
                 console.log(result);
                 if (result === 'excluir') {
                   $scope.excluir(pessoa);
-                  getClientes();
+                  $scope.getClientes();
                 }
               }
             });
@@ -272,7 +267,7 @@ angular.module('belissimaApp.controllers')
           provider.excluirPessoa(pessoa).then(function (success) {
             console.log(success);
             modalAlert.show('Excluído', 'Pessoa excluída!');
-            getClientes();
+            $scope.getClientes();
             $rootScope.loading.unload();
           }, function (error) {
             console.log(error);

@@ -164,7 +164,7 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
-        obterPessoasPorCategoria: function(categoriaId, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoria) {
+        obterPessoasPorCategoria: function(categoriaId, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoria, limite) {
           return provider.query({
             action: 'getList'
           }, {
@@ -177,6 +177,7 @@ angular.module('belissimaApp.services')
             get_city: cidade,
             get_person_address_main: enderecoPrincipal,
             get_person_category: categoria,
+            person_limit: limite
           }).$promise;
         },
 

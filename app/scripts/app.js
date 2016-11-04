@@ -66,12 +66,12 @@ angular
         template: '<h3>Logging out...</h3>',
         controller: 'LogoutCtrl'
       })
-      //.when('/ticket', {
-      //  modulo: 'ticket',
-      //  templateUrl: 'views/ticket.html',
-      //  controller: 'TicketCtrl',
-      //  controllerAs: 'ticket'
-      //})
+      .when('/ticket', {
+       modulo: 'ticket',
+       templateUrl: 'views/ticket.html',
+       controller: 'TicketCtrl',
+       controllerAs: 'ticket'
+      })
       .when('/produtos', {
         modulo: 'product',
         templateUrl: 'views/servicosProdutos.html',
@@ -151,21 +151,21 @@ angular
       $uibModalStack.dismissAll();
       $rootScope.currentPath = $location.path();
 
-      // Bloqueia acesso de usuarios nao logados
-      if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
-        if (next.templateUrl !== 'views/login.html') {
-          $location.path('/login');
-        }
-        return;
-      }
-
-      // Bloqueia acessos pelas permissoes
-      var user = JSON.parse(window.atob($cookies.get('currentUser')));
-      if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
-        if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
-          $location.path('/home');
-        }
-      }
+      // // Bloqueia acesso de usuarios nao logados
+      // if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
+      //   if (next.templateUrl !== 'views/login.html') {
+      //     $location.path('/login');
+      //   }
+      //   return;
+      // }
+      //
+      // // Bloqueia acessos pelas permissoes
+      // var user = JSON.parse(window.atob($cookies.get('currentUser')));
+      // if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
+      //   if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
+      //     $location.path('/home');
+      //   }
+      // }
     });
 
   }]);

@@ -9,6 +9,13 @@
       <div ng-show="opcao === 'novo'" ng-include="'partials/formNovaPessoa.html'"></div>
 
       <div ng-show="opcao === 'editar'">
+        <div class="col-xs-12 filtros">
+          <h4>Filtrar por:</h4>
+          <select class="form-control" ng-options="cat.id as cat.nome for cat in categoriaPessoa" ng-model="filtro.categoria">
+            <option value="">Todos</option>
+          </select>
+          <button class="btn btn-default" ng-click="getClientes()"><span class="glyphicon glyphicon-refresh"></span> Atualizar</button>
+        </div>
         <div class="container-tabela">
           <table class="tabela tabela-bordered tabela-esticada">
             <thead>

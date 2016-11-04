@@ -33,6 +33,8 @@ angular.module('belissimaApp.controllers')
           $scope.evento = new Evento();
           $scope.evento.start = new Date();
           $scope.evento.end = new Date($scope.evento.start.getTime() + 30 * 60000);
+          $scope.evento.start.setSeconds(0);
+          $scope.evento.end.setSeconds(0);
         }
 
         $scope.tipos = [];
@@ -74,11 +76,13 @@ angular.module('belissimaApp.controllers')
           $scope.evento.start = new Date($scope.data);
           $scope.evento.start.setHours(start.getHours());
           $scope.evento.start.setMinutes(start.getMinutes());
+          $scope.evento.start.setSeconds(0);
 
           end = $scope.evento.end ? new Date($scope.evento.end) : new Date();
           $scope.evento.end = new Date($scope.data);
           $scope.evento.end.setHours(end.getHours());
           $scope.evento.end.setMinutes(end.getMinutes());
+          $scope.evento.end.setSeconds(0);
         }
       };
 

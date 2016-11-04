@@ -55,6 +55,7 @@ angular.module('belissimaApp.controllers')
           editable: true,
           resources: self.funcionarios,
           eventLimit: true,
+          navLinks: true,
           // customButtons: {
           //   addEvent: {
           //     text: 'Adicionar',
@@ -92,7 +93,7 @@ angular.module('belissimaApp.controllers')
       function getNow() {
         var currentTime = new Date();
 
-        return currentTime.getHours() + ':' + currentTime.getMinutes() + ':' + currentTime.getSeconds();
+        return Math.max(currentTime.getHours() - 1, 0) + ':' + currentTime.getMinutes() + ':' + currentTime.getSeconds();
       }
 
       function getFuncionarios() {
@@ -139,7 +140,10 @@ angular.module('belissimaApp.controllers')
           if (success.data.length) {
             self.eventos.array.push({events: []});
             angular.forEach(success.data, function (item, index) {
-              self.eventos.array[self.eventos.array.length - 1].events.push(new Evento(Evento.converterEmEntrada(item)));
+              var evento = new Evento(Evento.converterEmEntrada(item));
+              evento.start.setSeconds(0);
+              evento.end.setSeconds(0);
+              self.eventos.array[self.eventos.array.length - 1].events.push(evento);
             });
             // console.log(self.eventos);
             if (inicio < self.eventos.inicio) {

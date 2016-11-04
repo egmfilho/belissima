@@ -60,3 +60,18 @@
     }
   }
 }
+
+#clientes {
+  .filtros {
+    margin-bottom: 20px;
+
+    h4, select, button {
+      display: inline;
+    }
+
+    select {
+      width: 160px;
+      margin: 0 10px;
+    }
+  }
+}

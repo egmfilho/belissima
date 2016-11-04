@@ -228,33 +228,33 @@ body {
 .uib-timepicker tr:nth-child(2) td:nth-child(1) input {
   float: right; }
 
-.tabela a, #tabela-ticket a {
+.tabela a {
   color: #3f3f41; }
-.tabela thead, #tabela-ticket thead {
+.tabela thead {
   background-color: #3f3f41; }
-  .tabela thead tr, #tabela-ticket thead tr {
+  .tabela thead tr {
     background-color: #3f3f41 !important; }
-.tabela th, #tabela-ticket th, .tabela td, #tabela-ticket td {
+.tabela th, .tabela td {
   padding: 3px; }
-  .tabela th a, #tabela-ticket th a, .tabela td a, #tabela-ticket td a {
+  .tabela th a, .tabela td a {
     color: white; }
-.tabela th, #tabela-ticket th {
+.tabela th {
   border-bottom: none !important;
   background-color: #5a5a5a;
   color: white;
   text-align: center; }
-.tabela td, #tabela-ticket td {
+.tabela td {
   text-align: center;
   overflow: hidden;
   white-space: nowrap;
   border-color: #5a5a5a; }
-.tabela tr, #tabela-ticket tr {
+.tabela tr {
   color: white; }
-  .tabela tr:nth-child(odd), #tabela-ticket tr:nth-child(odd) {
+  .tabela tr:nth-child(odd) {
     background-color: #777; }
-  .tabela tr:nth-child(even), #tabela-ticket tr:nth-child(even) {
+  .tabela tr:nth-child(even) {
     background-color: #777; }
-  .tabela tr:hover, #tabela-ticket tr:hover {
+  .tabela tr:hover {
     background-color: #5a5a5a;
     cursor: pointer; }
 
@@ -329,10 +329,10 @@ body {
   overflow-y: auto; }
   .modal .body .container, .modal .body .tela {
     width: 100%; }
-  .modal .body .tabela, .modal .body #tabela-ticket {
+  .modal .body .tabela {
     width: 100%;
     max-width: 100%; }
-    .modal .body .tabela td, .modal .body #tabela-ticket td {
+    .modal .body .tabela td {
       white-space: normal;
       padding: 4px; }
   .modal .body .linha {
@@ -526,27 +526,27 @@ body {
     max-height: 300px;
     overflow-y: auto; }
 
-  .tabela thead, #tabela-ticket thead {
+  .tabela thead {
     display: none; }
-  .tabela tr, #tabela-ticket tr {
+  .tabela tr {
     margin-bottom: 10px;
     display: block;
     padding: 5px;
     border-radius: 6px; }
-  .tabela td, #tabela-ticket td {
+  .tabela td {
     border: none;
     border-bottom: 1px solid #3f3f41;
     display: block;
     text-align: right; }
-    .tabela td button, #tabela-ticket td button {
+    .tabela td button {
       margin-top: 5px;
       margin-left: 5px; }
-    .tabela td:before, #tabela-ticket td:before {
+    .tabela td:before {
       content: attr(data-label);
       float: left;
       font-weight: bold;
       text-transform: uppercase; }
-    .tabela td:last-child, #tabela-ticket td:last-child {
+    .tabela td:last-child {
       border-bottom: none; } }
 @media (min-width: 768px) {
   body {
@@ -1014,9 +1014,9 @@ body {
 
 #servico-produtos textarea {
   resize: none; }
-#servico-produtos .tabela, #servico-produtos #tabela-ticket {
+#servico-produtos .tabela {
   width: 100%; }
-  #servico-produtos .tabela td, #servico-produtos #tabela-ticket td {
+  #servico-produtos .tabela td {
     white-space: normal; }
 #servico-produtos .rodape-salvar {
   height: 50px;
@@ -1068,6 +1068,14 @@ body {
     height: 100%;
     font-size: 1.4em; }
 
+#clientes .filtros {
+  margin-bottom: 20px; }
+  #clientes .filtros h4, #clientes .filtros select, #clientes .filtros button {
+    display: inline; }
+  #clientes .filtros select {
+    width: 160px;
+    margin: 0 10px; }
+
 .fc-toolbar {
   font-size: 1.2em; }
   .fc-toolbar .fc-state-active {
@@ -1113,7 +1121,8 @@ body {
   overflow-y: auto; }
 
 #agenda .calendar {
-  margin: 20px; }
+  margin: 20px;
+  min-width: 800px; }
 #agenda button {
   -webkit-transition: none;
   -moz-transition: none;
