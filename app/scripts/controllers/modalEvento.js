@@ -143,7 +143,7 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.getPessoa = function (categoriaId) {
-        modalBuscarPessoa.show(categoriaId, function (result) {
+        modalBuscarPessoa.show(categoriaId).then(function (result) {
           if (result) {
             if (categoriaId == $scope.categoriaPessoa.cliente.id) {
               $scope.evento.setCliente(result);
@@ -177,7 +177,7 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.getProduto = function () {
-        modalBuscarProduto.show(function (result) {
+        modalBuscarProduto.show().then(function (result) {
           if (result) {
             $scope.evento.setProduto(result);
           }

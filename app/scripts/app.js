@@ -29,6 +29,10 @@ angular
     $httpProvider.interceptors.push('SessionInjector');
   }])
   .config(function ($routeProvider) {
+
+    /*
+      .cliente, .funcionario, .fornecedor...
+     */
     function resolveCategorias() {
       return {
         '': ['$rootScope', 'ProviderCategoriaPessoa', 'CategoriaPessoa', function($rootScope, provider, CategoriaPessoa) {
@@ -67,10 +71,11 @@ angular
         controller: 'LogoutCtrl'
       })
       .when('/ticket', {
-       modulo: 'ticket',
-       templateUrl: 'views/ticket.html',
-       controller: 'TicketCtrl',
-       controllerAs: 'ticket'
+        modulo: 'ticket',
+        templateUrl: 'views/ticket.html',
+        controller: 'TicketCtrl',
+        controllerAs: 'ticket',
+        resolve: resolveCategorias()
       })
       .when('/produtos', {
         modulo: 'product',
@@ -104,6 +109,17 @@ angular
       });
   })
   .run(['$rootScope', function($rootScope) {
+    // ver 0.7.3
+    //
+    // - Loading corrigido na agenda
+    // - Scroll no "+ eventos" da agenda
+    // - Paginção melhorada
+    // - Loading da agenda on demand
+    // - Hora corrigida na exibicao quando nao exibia os minutos 00
+    // - Opcoes de intervalos na visualizacao "dia" da agenda
+    // - Corrigido diferença de segundos na hora dos eventos
+    // - Visualizacao "dia" na agenda mostra a hora atual mais abaixo do topo
+    // - Filtro de categoria na tabela de pessoas
     $rootScope.versao = '0.7.3';
   }])
   .run(['$rootScope', '$location', '$cookies', '$uibModalStack', function($rootScope, $location, $cookies, $uibModalStack) {
@@ -151,21 +167,21 @@ angular
       $uibModalStack.dismissAll();
       $rootScope.currentPath = $location.path();
 
-      // // Bloqueia acesso de usuarios nao logados
-      // if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
-      //   if (next.templateUrl !== 'views/login.html') {
-      //     $location.path('/login');
-      //   }
-      //   return;
-      // }
-      //
-      // // Bloqueia acessos pelas permissoes
-      // var user = JSON.parse(window.atob($cookies.get('currentUser')));
-      // if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
-      //   if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
-      //     $location.path('/home');
-      //   }
-      // }
+      // Bloqueia acesso de usuarios nao logados
+      if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
+        if (next.templateUrl !== 'views/login.html') {
+          $location.path('/login');
+        }
+        return;
+      }
+
+      // Bloqueia acessos pelas permissoes
+      var user = JSON.parse(window.atob($cookies.get('currentUser')));
+      if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
+        if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
+          $location.path('/home');
+        }
+      }
     });
 
   }]);

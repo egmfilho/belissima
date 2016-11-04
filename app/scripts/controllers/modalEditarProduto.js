@@ -57,7 +57,7 @@ angular.module('belissimaApp.controllers')
       }
 
       $scope.getFornecedor = function() {
-        modalBuscarPessoa.show($scope.categoriaPessoa.fornecedor, function(result) {
+        modalBuscarPessoa.show($scope.categoriaPessoa.fornecedor).then(function(result) {
           if (result) {
             $scope.produto.setFornecedor(result);
           }

@@ -9,16 +9,12 @@ angular.module('belissimaApp.services')
 
     return {
       show: function(callback) {
-        $uibModal.open({
+        return $uibModal.open({
           animation: true,
           templateUrl: 'partials/modalBuscarProduto.html',
           controller: 'ModalBuscarProdutoCtrl',
           size: 'lg'
-        }).result.then(function(result) {
-            callback(result);
-          }, function() {
-            callback(null);
-          });
+        }).result;
       }
     }
 

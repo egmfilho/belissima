@@ -1,39 +1,5 @@
 #tela-ticket {
-  form {
-    float: right;
-    margin-right: 30px;
-  }
 
-  label {
-    font-size: 1.5em;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  .input-group {
-    width: 160px;
-  }
-
-  input {
-    text-align: center;
-  }
-
-  .glyphicon-refresh {
-    margin-left: 10px;
-    font-size: 1.6em;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .controle {
-    margin-top: 50px;
-    .btn {
-      width: 100%;
-      font-size: 1.2em;
-    }
-  }
 }
 
 #tabela-ticket {

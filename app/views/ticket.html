@@ -1,62 +1,43 @@
 <tela id="tela-ticket" icon="glyphicon-tag" titulo="Ticket" subtitulo="asidjaios iaojdoais doiajdosa" show-footer="true">
 
-  <div style="width: 100%;padding: 20px;">
-    <div class="row">
-      <form name="tickets" class="form-inline calendario">
-        <label for="inicial">Data Inicial</label>
-        <p class="input-group">
-          <input id="inicial" type="text" class="form-control" name="inicial" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" ng-change="trocaMinDataFinal()" on-open-focus="false" ng-model="inicial" is-open="popupInicial.opened" datepicker-options="dateOptionsInicial" ng-required="true" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="abrirInicial()"><i class="glyphicon glyphicon-calendar"></i></button>
-        </span>
-        </p>
-        <label for="final">Data Final</label>
-        <p class="input-group">
-          <input id="final" ng-disabled="tickets.inicial.$error.date || tickets.inicial.$error.required" type="text" class="form-control input-erro" name="final" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" on-open-focus="false" ng-model="final" is-open="popupFinal.opened" datepicker-options="dateOptionsFinal" ng-required="true" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
-          <span class="input-group-btn">
-            <button  ng-disabled="tickets.inicial.$error.date || tickets.inicial.$error.required" type="button" class="btn btn-default" ng-click="abrirFinal()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p>
-        <span class="glyphicon glyphicon-refresh"></span>
-      </form>
-    </div>
+  <div class="conteudo-tela">
+    <ul class="nav nav-tabs" ng-init="opcao = 'novo'">
+      <li role="presentation" ng-class="opcao === 'listar' ? 'active' : ''"><a href="" ng-click="opcao = 'listar'">Tickets</a></li>
+      <li role="presentation" ng-class="opcao === 'novo' ? 'active' : ''"><a href="" ng-click="opcao = 'novo'">Novo</a></li>
+    </ul>
+    <div class="conteudo-nav condensar-rows">
+      <div ng-show="opcao === 'novo'" ng-include="'partials/formNovoTicket.html'"></div>
 
-    <br>
-
-    <!--TABELA-->
-    <div class="container-tabela">
-      <table id="" class="tabela tabela-bordered tabela-esticada">
-        <thead>
-        <tr>
-          <th>Código</th>
-          <th>Cliente</th>
-          <th>Data</th>
-          <th>Valor</th>
-          <th>Serviço</th>
-          <th>Profissional</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="n in getNumber(15) track by $index">
-          <td>00{{n}}</td>
-          <td>Teste teste teste teste teste teste.</td>
-          <td>01/01/2016</td>
-          <td>10,00</td>
-          <td>Teste</td>
-          <td>Ninguém</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="row controle">
-      <div class="col-xs-4 col-sm-4 col-md-8"></div>
-      <div class="col-xs-4 col-sm-4 col-md-2">
-        <button class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Novo</button>
+      <div ng-show="opcao === 'listar'">
+        <div class="container-tabela">
+          <div class="container-tabela">
+            <table id="" class="tabela tabela-bordered tabela-esticada">
+              <thead>
+              <tr>
+                <th>Código</th>
+                <th>Cliente</th>
+                <th>Data</th>
+                <th>Valor</th>
+                <th>Serviço</th>
+                <th>Profissional</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="n in getNumber(15) track by $index">
+                <td>00{{n}}</td>
+                <td>Teste teste teste teste teste teste.</td>
+                <td>01/01/2016</td>
+                <td>10,00</td>
+                <td>Teste</td>
+                <td>Ninguém</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="5" ng-change="pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
       </div>
-      <div class="col-xs-4 col-sm-4 col-md-2">
-        <button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-      </div>
+
     </div>
   </div>
 

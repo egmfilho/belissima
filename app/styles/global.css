@@ -964,28 +964,6 @@ body {
   #menu-home .botao-menu-home > div > h4 {
     font-size: 1.5em; }
 
-#tela-ticket form {
-  float: right;
-  margin-right: 30px; }
-#tela-ticket label {
-  font-size: 1.5em;
-  margin-left: 10px;
-  margin-right: 10px; }
-#tela-ticket .input-group {
-  width: 160px; }
-#tela-ticket input {
-  text-align: center; }
-#tela-ticket .glyphicon-refresh {
-  margin-left: 10px;
-  font-size: 1.6em; }
-  #tela-ticket .glyphicon-refresh:hover {
-    cursor: pointer; }
-#tela-ticket .controle {
-  margin-top: 50px; }
-  #tela-ticket .controle .btn {
-    width: 100%;
-    font-size: 1.2em; }
-
 #tabela-ticket {
   height: 400px;
   min-height: 250px; }

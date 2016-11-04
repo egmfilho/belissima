@@ -2,69 +2,50 @@
  * Created by egmfilho on 21/06/16.
  */
 'use strict';
+
 angular.module('belissimaApp.controllers')
-  .controller('TicketCtrl', ['$scope', '$window', function ($scope, $window) {
+  .controller('TicketCtrl', TicketCtrl);
 
-    $scope.$on('$viewContentLoaded', function() {
-      // compensa o scroll do tbody no thead se o SO nao for um MacOS
-      if (navigator.platform !== 'MacIntel') {
-        angular.element('#tabela-ticket thead tr').css('padding-right', '18px');
-      }
-    });
+TicketCtrl.$inject = ['$rootScope', '$scope', 'ModalBuscarPessoa', 'Pessoa', 'Pedido', 'ModalBuscarProduto'];
 
-    $scope.inicial = new Date();
-    $scope.final = new Date();
+function TicketCtrl($rootScope, $scope, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto) {
 
-    $scope.format = 'dd/MM/yy';
-    $scope.altInputFormats = ['d!/M!/yy'];
+  var self = this;
 
-    $scope.dateOptionsInicial = {
-      dateDisabled: disabled,
-      formatYear: 'yy',
-      maxDate: new Date(), // Hoje
-      //minDate: new Date(2016, 5, 1),
-      startingDay: 0,
-      showWeeks: false
-    };
+  this.novoTicket = new Pedido();
 
-    $scope.dateOptionsFinal = {
-      dateDisabled: disabled,
-      formatYear: 'yy',
-      maxDate: new Date(), // Hoje
-      minDate: $scope.inicial,
-      startingDay: 0,
-      showWeeks: false
-    };
-
-    // Desabilita dias
-    function disabled(data) {
-      var date = data.date,
-        mode = data.mode;
-
-      // Desabilita finais de semana
-      //return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-
-      return false;
+  $scope.$on('$viewContentLoaded', function () {
+    // compensa o scroll do tbody no thead se o SO nao for um MacOS
+    if (navigator.platform !== 'MacIntel') {
+      angular.element('#tabela-ticket thead tr').css('padding-right', '18px');
     }
+  });
 
-    $scope.abrirInicial = function() {
-      $scope.popupInicial.opened = true;
-    };
+  function buscarPessoa(categoriaId) {
+    modalBuscarPessoa.show(categoriaId).then(function (result) {
+      if (result) {
+        console.log(result);
+        if (categoriaId == $rootScope.categoriaPessoa.cliente.id) {
+          self.novoTicket.setCliente(new Pessoa(result));
+        } else if (categoriaId == $rootScope.categoriaPessoa.funcionario.id) {
+          self.novoTicket.setFuncionario(new Pessoa(result));
+        }
+      }
+      console.log(self.novoTicket);
+    });
+  }
 
-    $scope.popupInicial = {
-      opened: false
-    };
+  $scope.buscarCliente = function () {
+    buscarPessoa($rootScope.categoriaPessoa.cliente.id);
+  };
 
-    $scope.abrirFinal = function() {
-      $scope.popupFinal.opened = true;
-    };
+  $scope.buscarFuncionario = function () {
+    buscarPessoa($rootScope.categoriaPessoa.funcionario.id);
+  };
 
-    $scope.popupFinal = {
-      opened: false
-    };
-
-    $scope.trocaMinDataFinal = function() {
-      $scope.dateOptionsFinal.minDate = $scope.inicial;
-    };
-
-}]);
+  $scope.buscarProduto = function () {
+    modalBuscarProduto.show().then(function (result) {
+      console.log(result);
+    });
+  };
+}

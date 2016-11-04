@@ -8,8 +8,8 @@ angular.module('belissimaApp.services')
   .factory('ModalBuscarPessoa', ['$uibModal', function($uibModal) {
 
     return {
-      show: function(categoriaId, callback) {
-        $uibModal.open({
+      show: function(categoriaId) {
+        return $uibModal.open({
           animation: true,
           templateUrl: 'partials/modalBuscarPessoa.html',
           controller: 'ModalBuscarPessoaCtrl',
@@ -19,11 +19,7 @@ angular.module('belissimaApp.services')
               return categoriaId;
             }
           }
-        }).result.then(function(result) {
-            callback(result);
-          }, function() {
-            callback(null);
-          });
+        }).result;
       }
     }
 
