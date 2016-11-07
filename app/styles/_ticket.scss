@@ -1,5 +1,30 @@
 #tela-ticket {
+  ul.dropdown-menu {
+    left: 0 !important;
+    width: 100%;
+  }
 
+  .rodape-salvar {
+    margin-top: 30px;
+  }
+
+  .tabela.tabela-produtos {
+    margin-top: 20px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  #tela-ticket {
+    .tabela.tabela-produtos {
+      tr {
+        th, td {
+          &:nth-child(3) {
+            width: 80px;
+          }
+        }
+      }
+    }
+  }
 }
 
 #tabela-ticket {

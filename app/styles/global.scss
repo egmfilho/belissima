@@ -462,7 +462,7 @@ body {
 
     &:hover {
       background-color: $cor-menu-lateral-borda;
-      cursor: pointer;
+      //cursor: pointer;
     }
   }
 }
@@ -919,6 +919,44 @@ body {
     //color: white;
     background-color: $cor-calendario-borda;
     border-top-color: $cor-menu-lateral-borda !important;
+  }
+}
+
+.editable-td {
+  span {
+    display: block;
+  }
+
+  input {
+    display: none;
+    margin: 0;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    border: 1px solid $cor-menu-lateral;
+    padding: 0 !important;
+    color: #333;
+  }
+
+  &:hover {
+    cursor: pointer;
+    padding: 2px !important;
+    span {
+      border: 1px dashed $cor-menu-lateral;
+      background-color: rgba(255, 255, 255, .5);
+      color: #333;
+    }
+  }
+}
+
+.editable-td.ativo {
+  padding: 2px !important;
+  span {
+    display: none;
+  }
+
+  input {
+    display: inherit;
   }
 }
 

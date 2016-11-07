@@ -7,9 +7,9 @@
 angular.module('belissimaApp.services')
   .factory('Pedido', Pedido);
 
-Pedido.$inject = [ 'Pessoa', 'DataSaida' ];
+Pedido.$inject = [ 'Pessoa', 'ItemPedido', 'DataSaida' ];
 
-function Pedido(Pessoa, DataSaida) {
+function Pedido(Pessoa, ItemPedido, DataSaida) {
 
   function Pedido(p) {
     var self = this;
@@ -28,11 +28,11 @@ function Pedido(Pessoa, DataSaida) {
     this.cliente = p ? p.cliente : new Pessoa();
     this.items = [];
 
-    // if (p) {
-    //   angular.forEach(p.items, function (item, index) {
-    //     self.items.push(new ItemPedido(item));
-    //   });
-    // }
+    if (p) {
+      angular.forEach(p.items, function (item, index) {
+        self.items.push(new ItemPedido(item));
+      });
+    }
 
     // this.descontoPercent = p ? p.descontoPercent : 0;
     // this.descontoDinheiro = p ? p.descontoDinheiro : 0;
@@ -58,6 +58,24 @@ function Pedido(Pessoa, DataSaida) {
     setCliente: function(pessoa) {
       this.clienteId = pessoa.id;
       this.cliente = new Pessoa(pessoa);
+    },
+
+    addItem: function(item) {
+      this.items.push(new ItemPedido(item));
+    },
+
+    removeItem: function(item) {
+      this.items.splice(this.items.indexOf(item), 1);
+    },
+
+    getValorTotal: function() {
+      var total = 0;
+
+      angular.forEach(this.items, function(item, index) {
+        total += parseFloat(item.getTotalSemDesconto());
+      });
+
+      return total;
     }
 
   };
@@ -91,12 +109,12 @@ function Pedido(Pessoa, DataSaida) {
       pedido.cliente = new Pessoa();
     }
 
-    // pedido.items = [];
-    // if (p.ticket_items) {
-    //   angular.forEach(p.ticket_items, function (item, index) {
-    //     pedido.items.push(new ItemPedido(ItemPedido.converterEmEntrada(item)));
-    //   });
-    // }
+    pedido.items = [];
+    if (p.ticket_items) {
+      angular.forEach(p.ticket_items, function (item, index) {
+        pedido.items.push(new ItemPedido(ItemPedido.converterEmEntrada(item)));
+      });
+    }
 
     // pedido.pagamentos = [];
     // if (p.ticket_payments) {
@@ -117,10 +135,10 @@ function Pedido(Pessoa, DataSaida) {
     p.ticket_note = pedido.observacoes;
     p.ticket_status_id = pedido.statusId;
 
-    // p.ticket_items = [];
-    // angular.forEach(pedido.items, function (item, index) {
-    //   p.ticket_items.push(ItemPedido.converterEmSaida(item));
-    // });
+    p.ticket_items = [];
+    angular.forEach(pedido.items, function (item, index) {
+      p.ticket_items.push(ItemPedido.converterEmSaida(item));
+    });
 
     p.ticket_value = pedido.getValorTotalSemDesconto();
     // p.ticket_al_discount = pedido.descontoPercent;

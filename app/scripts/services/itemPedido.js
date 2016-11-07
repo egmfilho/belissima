@@ -25,7 +25,7 @@ function ItemPedido(Produto, Pessoa) {
   ItemPedido.prototype = {
 
     setProduto: function(produto) {
-      this.produto = new Produto(Produto.converterEmEntrada(produto));
+      this.produto = new Produto(produto);
       this.produtoId = produto.id;
       this.precoProduto = produto.preco;
     },
@@ -50,7 +50,7 @@ function ItemPedido(Produto, Pessoa) {
     },
 
     getTotalSemDesconto: function() {
-      return this.quantidade * this.produto.preco;
+      return this.quantidade * this.precoProduto.valor;
     },
 
     getTotalComDesconto: function() {

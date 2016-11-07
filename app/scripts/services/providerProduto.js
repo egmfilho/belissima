@@ -56,11 +56,12 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
-        obterProdutosPorNome: function(nome) {
+        obterProdutosPorNome: function(nome, limite) {
           return provider.query({
             action: 'getList'
           }, {
-            product_name: nome
+            product_name: nome,
+            limit: limite
           }).$promise;
         },
 

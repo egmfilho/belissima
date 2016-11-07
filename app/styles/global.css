@@ -255,8 +255,7 @@ body {
   .tabela tr:nth-child(even) {
     background-color: #777; }
   .tabela tr:hover {
-    background-color: #5a5a5a;
-    cursor: pointer; }
+    background-color: #5a5a5a; }
 
 .tabela-bordered td, .tabela-bordered th {
   border: 1px solid #3f3f41;
@@ -520,6 +519,32 @@ body {
   .panel.panel-default .panel-body {
     background-color: #777;
     border-top-color: #5a5a5a !important; }
+
+.editable-td span {
+  display: block; }
+.editable-td input {
+  display: none;
+  margin: 0;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  border: 1px solid #3f3f41;
+  padding: 0 !important;
+  color: #333; }
+.editable-td:hover {
+  cursor: pointer;
+  padding: 2px !important; }
+  .editable-td:hover span {
+    border: 1px dashed #3f3f41;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #333; }
+
+.editable-td.ativo {
+  padding: 2px !important; }
+  .editable-td.ativo span {
+    display: none; }
+  .editable-td.ativo input {
+    display: inherit; }
 
 @media (max-width: 767px) {
   .container-tabela {
@@ -964,6 +989,17 @@ body {
   #menu-home .botao-menu-home > div > h4 {
     font-size: 1.5em; }
 
+#tela-ticket ul.dropdown-menu {
+  left: 0 !important;
+  width: 100%; }
+#tela-ticket .rodape-salvar {
+  margin-top: 30px; }
+#tela-ticket .tabela.tabela-produtos {
+  margin-top: 20px !important; }
+
+@media (min-width: 768px) {
+  #tela-ticket .tabela.tabela-produtos tr th:nth-child(3), #tela-ticket .tabela.tabela-produtos tr td:nth-child(3) {
+    width: 80px; } }
 #tabela-ticket {
   height: 400px;
   min-height: 250px; }
