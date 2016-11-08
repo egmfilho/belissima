@@ -691,11 +691,17 @@ body {
 }
 
 .popover {
-  z-index: 100;
-}
+  background-color: $cor-botao-menu-home-2;
 
-.popover-inner {
-  color: $cor-texto-escuro;
+  .popover-title {
+    background-color: $cor-menu-lateral-borda;
+    border-bottom-color: $cor-menu-lateral-borda;
+  }
+
+  > .arrow:after {
+    border-left-color: $cor-botao-menu-home-2 !important;
+    //border-right-color: $cor-botao-menu-home-2 !important;
+  }
 }
 
 .tree {

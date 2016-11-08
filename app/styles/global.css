@@ -372,10 +372,12 @@ body {
   padding: 10px; }
 
 .popover {
-  z-index: 100; }
-
-.popover-inner {
-  color: #333333; }
+  background-color: #777; }
+  .popover .popover-title {
+    background-color: #5a5a5a;
+    border-bottom-color: #5a5a5a; }
+  .popover > .arrow:after {
+    border-left-color: #777 !important; }
 
 .tree > ul {
   margin-left: 70px; }

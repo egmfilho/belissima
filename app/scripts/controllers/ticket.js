@@ -106,6 +106,10 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
   };
 
   $scope.addItem = function() {
+    if (!self.novoItem.produtoId) {
+      return;
+    }
+
     if (self.novoItem.quantidade > 0) {
       self.novoTicket.addItem(self.novoItem);
     }
