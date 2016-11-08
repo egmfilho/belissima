@@ -18,17 +18,15 @@
                 <th>Cliente</th>
                 <th>Data</th>
                 <th>Valor</th>
-                <th>Serviço</th>
                 <th>Profissional</th>
               </tr>
               </thead>
               <tbody>
               <tr ng-repeat="n in getNumber(15) track by $index">
-                <td>00{{n}}</td>
+                <td>00{{$index}}</td>
                 <td>Teste teste teste teste teste teste.</td>
                 <td>01/01/2016</td>
                 <td>10,00</td>
-                <td>Teste</td>
                 <td>Ninguém</td>
               </tr>
               </tbody>

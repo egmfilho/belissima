@@ -6,9 +6,9 @@
 angular.module('belissimaApp.controllers')
   .controller('TicketCtrl', TicketCtrl);
 
-TicketCtrl.$inject = ['$rootScope', '$scope', 'ModalBuscarPessoa', 'Pessoa', 'Pedido', 'ModalBuscarProduto', 'ProviderProduto', 'Produto', 'ItemPedido'];
+TicketCtrl.$inject = ['$rootScope', '$scope', 'ProviderPessoa', 'ModalBuscarPessoa', 'Pessoa', 'Pedido', 'ModalBuscarProduto', 'ProviderProduto', 'Produto', 'ItemPedido'];
 
-function TicketCtrl($rootScope, $scope, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido) {
+function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido) {
 
   var self = this;
 
@@ -42,12 +42,19 @@ function TicketCtrl($rootScope, $scope, modalBuscarPessoa, Pessoa, Pedido, modal
     });
   }
 
-  $scope.buscarCliente = function () {
-    buscarPessoa($rootScope.categoriaPessoa.cliente.id);
-  };
-
   $scope.buscarFuncionario = function () {
     buscarPessoa($rootScope.categoriaPessoa.funcionario.id);
+  };
+
+  $scope.buscarFuncionarioPorCodigo = function(codigo) {
+    $rootScope.loading.load();
+    providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.funcionario.id).then(function(success) {
+      $rootScope.loading.unload();
+      self.novoTicket.setFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
   };
 
   $scope.buscarProduto = function () {
@@ -126,9 +133,45 @@ function TicketCtrl($rootScope, $scope, modalBuscarPessoa, Pessoa, Pedido, modal
     jQuery('input[name="qtdProduto"]').focus().select();
   };
 
-  $scope.teste = function() {
-    console.log('teste');
-    console.log(self.tempProduto);
-    self.tempProduto = null;
+  $scope.buscarCliente = function () {
+    buscarPessoa($rootScope.categoriaPessoa.cliente.id);
+  };
+
+  $scope.buscarClientePorCodigo = function(codigo) {
+    $rootScope.loading.load();
+    providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.cliente.id).then(function(success) {
+      $rootScope.loading.unload();
+      self.novoTicket.setCliente(new Pessoa(Pessoa.converterEmEntrada(success.data)));
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  };
+
+  function validar() {
+    if (!self.novoTicket.funcionarioId) {
+      $rootScope.alerta.show('Informe o funcionário!', 'alert-danger');
+      return false;
+    }
+
+    if (!self.novoTicket.items.length) {
+      $rootScope.alerta.show('O ticket não possui produtos ou serviços!', 'alert-danger');
+      return false;
+    }
+
+    if (!self.novoTicket.clienteId) {
+      $rootScope.alerta.show('Informe o cliente!', 'alert-danger');
+      return false;
+    }
+
+    return true;
+  }
+
+  this.salvar = function() {
+    if (!validar()) {
+      return;
+    }
+
+    console.log(self.novoTicket);
   }
 }

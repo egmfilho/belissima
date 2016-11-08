@@ -2,6 +2,7 @@
   <li role="presentation" ng-class="opt === 'funcionario' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'funcionario'">Funcionário</a></li>
   <li role="presentation" ng-class="opt === 'produtos' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'produtos'">Serviços & Produtos</a></li>
   <li role="presentation" ng-class="opt === 'cliente' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'cliente'">Cliente</a></li>
+  <li role="presentation" ng-class="opt === 'pagamento' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'pagamento'">Pagamento</a></li>
 </ul>
 <div class="dropdown visible-xs-inline" ng-init="label='Funcionário'">
   <button class="btn btn-default botao-esticado dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -12,11 +13,12 @@
     <li><a href="" ng-click="opt = 'funcionario'; label = 'Funcionário'"><span class="glyphicon glyphicon-ok" ng-show="opt==='funcionario'"></span>&nbsp; Funcionário</a></li>
     <li><a href="" ng-click="opt = 'produtos'; label = 'Produtos'"><span class="glyphicon glyphicon-ok" ng-show="opt==='produtos'"></span>&nbsp;Serviços & Produtos</a></li>
     <li><a href="" ng-click="opt = 'cliente'; label = 'Cliente'"><span class="glyphicon glyphicon-ok" ng-show="opt==='cliente'"></span>&nbsp; Cliente</a></li>
+    <li><a href="" ng-click="opt = 'pagamento'; label = 'Pagamento'"><span class="glyphicon glyphicon-ok" ng-show="opt==='pagamento'"></span>&nbsp; Pagamento</a></li>
   </ul>
 </div>
 <br>
 
-<!--Funcionário-->
+<!--FUNCIONARIO-->
 <div ng-show="opt === 'funcionario'">
   <div class="row">
     <div class="col-sm-12 col-md-12 cabecalho">
@@ -26,7 +28,7 @@
     <div class="col-sm-3">
       <h4>Código</h4>
       <div class="input-group">
-        <input type="text" class="form-control" ng-model="ticket.novoTicket.funcionario.codigo">
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.funcionario.codigo" keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.novoTicket.funcionario.codigo)">
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="buscarFuncionario()"><i class="glyphicon glyphicon-search"></i></button>
         </span>
@@ -41,7 +43,7 @@
   <br>
   <div class="row">
     <div class="col-sm-3 col-md-3"></div>
-    <div class="col-sm-6 col-md-6 text-center">Etapa 1 de 3</div>
+    <div class="col-sm-6 col-md-6 text-center">Etapa 1 de 4</div>
     <div class="col-sm-3 col-md-3">
       <button class="btn btn-default botao-esticado" ng-click="opt='produtos'">
         Avançar <span class="glyphicon glyphicon-chevron-right"></span>
@@ -132,7 +134,7 @@
         <span class="glyphicon glyphicon-chevron-left"></span> Voltar
       </button>
     </div>
-    <div class="col-sm-6 col-md-6 text-center">Etapa 2 de 3</div>
+    <div class="col-sm-6 col-md-6 text-center">Etapa 2 de 4</div>
     <div class="col-sm-3 col-md-3">
       <button class="btn btn-default botao-esticado" ng-click="opt='cliente'">
         Avançar <span class="glyphicon glyphicon-chevron-right"></span>
@@ -151,7 +153,7 @@
     <div class="col-sm-2">
       <h4>Código</h4>
       <div class="input-group">
-        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.codigo">
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.codigo" keys-shortcuts enter="buscarClientePorCodigo(ticket.novoTicket.cliente.codigo)">
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="buscarCliente()"><i class="glyphicon glyphicon-search"></i></button>
         </span>
@@ -193,13 +195,65 @@
         <span class="glyphicon glyphicon-chevron-left"></span> Voltar
       </button>
     </div>
-    <div class="col-sm-6 col-md-6 text-center">Etapa 3 de 3</div>
+    <div class="col-sm-6 col-md-6 text-center">Etapa 3 de 4</div>
     <div class="col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="salvar()" ng-disabled="!validar(pessoa)">
-        <span class="glyphicon glyphicon-floppy-save"></span> Salvar
+      <button class="btn btn-default botao-esticado" ng-click="opt='pagamento'">
+        Avançar <span class="glyphicon glyphicon-chevron-right"></span>
       </button>
     </div>
   </div>
 </div>
 
+<!--PAGAMENTO-->
+<div ng-show="opt === 'pagamento'">
+  <div class="row">
+    <div class="col-sm-3">
+      <h4>Total</h4>
+      <input type="text" class="form-control" ng-value="ticket.novoTicket.getValorTotal() | currency: 'R$ '" readonly>
+    </div>
+    <div class="col-sm-3">
+      <h4>Tipo</h4>
+      <select class="form-control"></select>
+    </div>
+    <div class="col-sm-3">
+      <h4>Parcelas</h4>
+      <select class="form-control" ng-options="n as n for n in [1, 2, 3, 4, 5]" ng-model="parcelas"></select>
+    </div>
+    <div class="col-sm-3">
+      <h4>&nbsp;</h4>
+      <button class="btn btn-default btn-block"><span class="glyphicon glyphicon-credit-card"></span> Adicionar Pagamento</button>
+    </div>
+
+    <div class="col-xs-12 cabecalho-parcela" ng-repeat="p in (parcelas ? getNumber(parcelas) : 0) track by $index">
+      <h4>Parcela {{$index + 1}}</h4>
+      <div class="row">
+        <div class="col-sm-4">
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-sm-4">
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-sm-4">
+          <input type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-sm-3 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="opt='cliente'">
+        <span class="glyphicon glyphicon-chevron-left"></span> Voltar
+      </button>
+    </div>
+    <div class="col-sm-6 col-md-6 text-center">Etapa 4 de 4</div>
+    <div class="col-sm-3 col-md-3">
+      <button class="btn btn-default botao-esticado" ng-click="ticket.salvar()">
+        <span class="glyphicon glyphicon-floppy-save"></span> Salvar
+      </button>
+    </div>
+  </div>
+</div>
 
