@@ -28,7 +28,7 @@
     <div class="col-sm-3">
       <h4>Código</h4>
       <div class="input-group">
-        <input type="text" class="form-control" ng-model="ticket.novoTicket.funcionario.codigo" keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.novoTicket.funcionario.codigo)">
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.funcionario.codigo" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.novoTicket.funcionario.codigo)">
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="buscarFuncionario()"><i class="glyphicon glyphicon-search"></i></button>
         </span>
@@ -58,7 +58,7 @@
     <div class="col-sm-3">
       <h4>Código</h4>
       <div class="input-group">
-        <input type="text" name="cdProduto" class="form-control" ng-model="ticket.cdProduto" keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)">
+        <input type="text" name="cdProduto" class="form-control" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)">
         <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="buscarProduto()" tabindex="-1">
           <i class="glyphicon glyphicon-search"></i>
@@ -107,12 +107,14 @@
             <td data-label="Preço">{{i.precoProduto.valor | currency: 'R$ '}}</td>
             <td data-label="Total">{{i.getTotalSemDesconto() | currency: 'R$ '}}</td>
             <td class="hidden-xs">
-              <a href="" confirm="'Bla bla bla bla doideira doida'" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="removeItem(i)" ok-args="i" placement="left">
+              <a href="" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="removeItem(i)" placement="left">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
             </td>
             <td class="visible-xs-block">
-              <button class="btn btn-default pull-right" ng-click="removeItem(i)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+              <button class="btn btn-default" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="removeItem(i)" placement="auto">
+                <span class="glyphicon glyphicon-trash"></span> Excluir
+              </button>
             </td>
           </tr>
           <tr class="hidden-xs" ng-repeat="n in getNumber(pagination.max > ticket.novoTicket.items.length ? pagination.max - ticket.novoTicket.items.length : 0) track by $index">
@@ -157,7 +159,7 @@
     <div class="col-sm-2">
       <h4>Código</h4>
       <div class="input-group">
-        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.codigo" keys-shortcuts enter="buscarClientePorCodigo(ticket.novoTicket.cliente.codigo)">
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.codigo" number-only keys-shortcuts enter="buscarClientePorCodigo(ticket.novoTicket.cliente.codigo)">
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="buscarCliente()"><i class="glyphicon glyphicon-search"></i></button>
         </span>

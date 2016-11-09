@@ -12,7 +12,7 @@
       <div class="col-xs-12 col-sm-3">
         <h4>Código</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="codigo" keys-shortcuts enter="getProdutoPorCodigo(codigo)">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="codigo" number-only keys-shortcuts enter="getProdutoPorCodigo(codigo)">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click="getProdutoPorCodigo(codigo)"><span class="glyphicon glyphicon-search"></span></button>
           </span>
@@ -32,7 +32,7 @@
       <div class="col-xs-12 col-sm-3">
         <h4>Código de barras</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="barras" keys-shortcuts enter="getProdutoPorCodigoDeBarras(barras)">
+          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="barras" number-only keys-shortcuts enter="getProdutoPorCodigoDeBarras(barras)">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click="getProdutoPorCodigoDeBarras(barras)"><span class="glyphicon glyphicon-search"></span></button>
           </span>

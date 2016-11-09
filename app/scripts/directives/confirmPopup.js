@@ -9,11 +9,13 @@ angular.module('belissimaApp.directives')
 
   function link(scope, element, attrs) {
     var html =
-      '<div class="clearfix">' +
+      '<div>' +
         scope.message +
         '<br><br>' +
-        '<button class="btn btn-default pull-left" name="ok"><span class="glyphicon glyphicon-ok"></span> Sim</button>' +
-        '<button class="btn btn-default pull-right" name="cancel"><span class="glyphicon glyphicon-remove"></span> Não</button>' +
+        '<div class="clearfix">' +
+          '<button class="btn btn-default pull-left" name="ok" style="margin: 0"><span class="glyphicon glyphicon-ok"></span> ' + (scope.okText || 'Sim') + '</button>' +
+          '<button class="btn btn-default pull-right" name="cancel" style="margin: 0"><span class="glyphicon glyphicon-remove"></span> ' + (scope.cancelText || 'Não') + '</button>' +
+        '</div>' +
       '</div>';
 
     element.popover({
@@ -28,13 +30,15 @@ angular.module('belissimaApp.directives')
       e.stopPropagation();
 
       jQuery('.popover button[name="ok"]').click(function(e) {
-        scope.okFunc();
-        scope.$apply();
+        scope.$apply(function () {
+          scope.$eval(scope.okFunc);
+        });
       });
 
       jQuery('.popover button[name="cancel"]').click(function(e) {
-        scope.cancelFunc();
-        scope.$apply();
+        scope.$apply(function () {
+          scope.$eval(scope.cancelFunc);
+        });
       });
     });
   }
@@ -45,6 +49,8 @@ angular.module('belissimaApp.directives')
       title: '@',
       message: '@',
       placement: '@',
+      okText: '@',
+      cancelText: '@',
       okFunc: '&',
       cancelFunc: '&'
     },

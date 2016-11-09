@@ -192,16 +192,26 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.excluir = function (produto) {
-        modalConfirm.show('Aviso', 'Deseja excluir o produto/serviço?').then(function () {
-          $rootScope.loading.load();
-          providerProduto.excluir(produto.id).then(function(success) {
-            $rootScope.loading.unload();
-            $rootScope.alerta.show('Produto/serviço excluído!', 'alert-success');
-            getProdutos();
-          }, function(error) {
-            console.log(error);
-            $rootScope.loading.unload();
-          });
+        // modalConfirm.show('Aviso', 'Deseja excluir o produto/serviço?').then(function () {
+        //   $rootScope.loading.load();
+        //   providerProduto.excluir(produto.id).then(function(success) {
+        //     $rootScope.loading.unload();
+        //     $rootScope.alerta.show('Produto/serviço excluído!', 'alert-success');
+        //     getProdutos();
+        //   }, function(error) {
+        //     console.log(error);
+        //     $rootScope.loading.unload();
+        //   });
+        // });
+        $rootScope.loading.load();
+        providerProduto.excluir(produto.id).then(function(success) {
+          $rootScope.loading.unload();
+          $rootScope.alerta.show('Produto/serviço excluído!', 'alert-success');
+          getProdutos();
+        }, function(error) {
+          console.log(error);
+          $rootScope.loading.unload();
+          $rootScope.alerta.show(error.data.status.descriptione);
         });
       };
 

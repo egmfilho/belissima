@@ -37,13 +37,15 @@
                 </a>
               </td>
               <td class="hidden-xs">
-                <a href="" ng-click="excluir(p)" class="hidden-xs">
+                <a href="" class="hidden-xs" confirm-popup title="Atenção" message="Deseja excluir o produto/serviço?" ok-func="excluir(p)" placement="left">
                   <span class="glyphicon glyphicon-trash"></span>
                 </a>
               </td>
               <td class="visible-xs-inline-block">
-                <button class="btn pull-right" ng-click="excluir(p)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
-                <button class="btn pull-right" ng-click="editar(p)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+                <button class="btn btn-default" ng-click="editar(p)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+                <button class="btn btn-default" confirm-popup title="Atenção" message="Deseja excluir o produto/serviço?" ok-func="excluir(p)" placement="top">
+                  <span class="glyphicon glyphicon-trash"></span> Excluir
+                </button>
               </td>
             </tr>
             <tr class="hidden-xs" ng-repeat="n in getNumber(pagination.max - produtos.length) track by $index" ng-if="produtos.length < pagination.max">

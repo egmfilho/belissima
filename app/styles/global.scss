@@ -691,16 +691,36 @@ body {
 }
 
 .popover {
+  display: inline-table !important;
   background-color: $cor-botao-menu-home-2;
 
   .popover-title {
     background-color: $cor-menu-lateral-borda;
     border-bottom-color: $cor-menu-lateral-borda;
   }
+}
 
+.popover.left {
   > .arrow:after {
     border-left-color: $cor-botao-menu-home-2 !important;
-    //border-right-color: $cor-botao-menu-home-2 !important;
+  }
+}
+
+.popover.top {
+  > .arrow:after {
+    border-top-color: $cor-botao-menu-home-2 !important;
+  }
+}
+
+.popover.right {
+  > .arrow:after {
+    border-right-color: $cor-botao-menu-home-2 !important;
+  }
+}
+
+.popover.bottom {
+  > .arrow:after {
+    border-bottom-color: $cor-botao-menu-home-2 !important;
   }
 }
 

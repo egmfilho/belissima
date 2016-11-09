@@ -72,7 +72,10 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
     }, function(error) {
       console.log(error);
       $rootScope.loading.unload();
-      focarCodigo();
+      if (error.status == 404) {
+        console.log('Produto não encontrado!');
+        $rootScope.alerta.show('Produto não encontrado!');
+      }
     });
   };
 

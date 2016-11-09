@@ -372,12 +372,23 @@ body {
   padding: 10px; }
 
 .popover {
+  display: inline-table !important;
   background-color: #777; }
   .popover .popover-title {
     background-color: #5a5a5a;
     border-bottom-color: #5a5a5a; }
-  .popover > .arrow:after {
-    border-left-color: #777 !important; }
+
+.popover.left > .arrow:after {
+  border-left-color: #777 !important; }
+
+.popover.top > .arrow:after {
+  border-top-color: #777 !important; }
+
+.popover.right > .arrow:after {
+  border-right-color: #777 !important; }
+
+.popover.bottom > .arrow:after {
+  border-bottom-color: #777 !important; }
 
 .tree > ul {
   margin-left: 70px; }
@@ -1153,5 +1164,8 @@ body {
   color: white; }
   #agenda button:hover {
     background-color: #867512; }
+
+#configuracoes h4 > .glyphicon {
+  vertical-align: bottom; }
 
 /*# sourceMappingURL=global.css.map */
