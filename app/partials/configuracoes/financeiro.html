@@ -81,7 +81,11 @@
           <td data-label="Ativo">{{forma.ativo}}</td>
           <td data-label="Data de cadastro">{{forma.dataCadastro | date:'short'}}</td>
           <td class="hidden-xs"><a href="" ng-click="financeiro.editarForma(forma)"><span class="glyphicon glyphicon-pencil"></span></a></td>
-          <td class="hidden-xs"><a href="" ng-click="financeiro.excluirForma(forma)"><span class="glyphicon glyphicon-trash"></span></a></td>
+          <td class="hidden-xs">
+            <a href="" confirm-popup title="Atenção" message="Deseja excluir a forma de pagamento?" ok-func="financeiro.excluirForma(forma)" placement="left">
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
+          </td>
           <td class="visible-xs-block">
             <button class="btn btn-default pull-right" ng-click="financeiro.editarForma(forma)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
             <button class="btn btn-default pull-right" ng-click="financeiro.excluirForma(forma)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
@@ -162,10 +166,41 @@
               </div>
             </div>
             <div class="col-md-3">
-              <div><h4>Ativo</h4></div>
+              <h4>Ativo</h4>
               <div class="btn-group btn-toggle">
                 <label class="btn btn-primary" ng-model="financeiro.prazo.ativo" uib-btn-radio="true"><span class="glyphicon glyphicon-eye-open"></span> Sim</label>
                 <label class="btn btn-primary" ng-model="financeiro.prazo.ativo" uib-btn-radio="false"><span class="glyphicon glyphicon-eye-close"></span> Não</label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <h4>Formas de pagamento</h4>
+              <div class="container-tabela">
+                <table class="tabela tabela-bordered tabela-esticada">
+                  <thead>
+                    <tr>
+                      <th>
+                        <div class="custom-checkbox inverted">
+                          <input type="checkbox" value="None" id="todos" name="check" ng-model="nada" />
+                          <label for="todos"></label>
+                        </div>
+                      </th>
+                      <th>Código</th>
+                      <th>Descrição</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="n in getNumber(15) track by $index">
+                      <td>
+                        <div class="custom-checkbox inverted">
+                          <input type="checkbox" value="None" id="{{$index}}" name="check" ng-model="p.checked" ng-change="emLote.changeCheck(p)" />
+                          <label for="{{$index}}"></label>
+                        </div>
+                      </td>
+                      <td>00000{{$index}}</td>
+                      <td>oiqwueq oiqwu eu oiqwu eoqiuo</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -203,7 +238,11 @@
           <td data-label="Ativo">{{prazo.ativo}}</td>
           <td data-label="Ativo">{{prazo.ativo}}</td>
           <td data-label="Data de cadastro">{{prazo.dataCadastro | date:'short'}}</td>
-          <td class="hidden-xs"><a href="" ng-click="financeiro.editarPrazo(prazo)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td class="hidden-xs">
+            <a href="" confirm-popup title="Atenção" message="Deseja excluir a forma de pagamento?" ok-func="financeiro.editarPrazo(prazo)" placement="left">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+          </td>
           <td class="hidden-xs"><a href="" ng-click="financeiro.excluirPrazo(prazo)"><span class="glyphicon glyphicon-trash"></span></a></td>
           <td class="visible-xs-block">
             <button class="btn btn-default pull-right" ng-click="financeiro.editarPrazo(prazo)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>

@@ -1,5 +1,26 @@
 #configuracoes {
-  h4 > .glyphicon {
-    vertical-align: bottom;
+
+}
+
+#financeiro {
+  #modalPrazo {
+    h4 > .glyphicon {
+      vertical-align: bottom;
+    }
+
+    .container-tabela {
+      max-height: 210px;
+      overflow-y: auto;
+    }
+
+    .tabela {
+
+      td {
+        &:nth-child(1) {
+          width: 26px;
+        }
+      }
+    }
   }
 }
+
