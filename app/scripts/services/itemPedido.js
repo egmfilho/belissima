@@ -20,6 +20,8 @@ function ItemPedido(Produto, Pessoa) {
     this.descontoDinheiro = itemPedido ? itemPedido.descontoDinheiro : 0;
     this.quantidade = itemPedido ? itemPedido.quantidade : 1;
     this.produto = itemPedido ? new Produto(itemPedido.produto) : new Produto();
+    this.funcionarioId = itemPedido ? itemPedido.funcionarioId : '';
+    this.funcionario = itemPedido ? new Pessoa(itemPedido.funcionario) : new Pessoa();
   }
 
   ItemPedido.prototype = {
@@ -47,6 +49,11 @@ function ItemPedido(Produto, Pessoa) {
     setDescontoDinheiro: function(dinheiro) {
       this.descontoDinheiro = parseFloat(dinheiro);
       this.descontoPercent = (parseFloat(dinheiro) * 100) / this.getTotalSemDesconto();
+    },
+
+    setFuncionario: function(funcionario) {
+      this.funcionario = funcionario.id;
+      this.funcionario = new Pessoa(funcionario);
     },
 
     getTotalSemDesconto: function() {

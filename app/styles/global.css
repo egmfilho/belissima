@@ -154,8 +154,8 @@ body {
   .tela .footer {
     background-color: #3f3f41;
     margin: 0;
-    padding: 30px;
-    height: 160px;
+    padding: 25px;
+    height: 60px;
     color: #999; }
     .tela .footer a {
       text-decoration: none;
@@ -1009,6 +1009,8 @@ body {
   margin-top: 30px; }
 #tela-ticket .tabela.tabela-produtos {
   margin-top: 20px !important; }
+#tela-ticket .cabecalho {
+  border-bottom: 1px solid white; }
 #tela-ticket .cabecalho-parcela {
   margin-top: 30px;
   border-top: 1px solid white; }

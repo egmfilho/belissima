@@ -50,7 +50,7 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
     $rootScope.loading.load();
     providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.funcionario.id).then(function(success) {
       $rootScope.loading.unload();
-      self.novoTicket.setFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
+      self.novoItem.setFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
     }, function(error) {
       console.log(error);
       $rootScope.loading.unload();
@@ -138,6 +138,10 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
 
   this.focarQuantidade = function() {
     jQuery('input[name="qtdProduto"]').focus().select();
+  };
+
+  this.focarFuncionario = function() {
+    jQuery('input[name="cdFuncionario"]').focus().select();
   };
 
   $scope.buscarCliente = function () {
