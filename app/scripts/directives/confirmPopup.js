@@ -21,7 +21,7 @@ angular.module('belissimaApp.directives')
     element.popover({
       html: true,
       content: html,
-      trigger: 'focus',
+      trigger: 'click',
       title: scope.title,
       placement: scope.placement || 'top'
     });

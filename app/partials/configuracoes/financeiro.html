@@ -78,11 +78,11 @@
         <tr ng-repeat="forma in financeiro.formas">
           <td data-label="Código">{{forma.codigo}}</td>
           <td data-label="Descrição">{{forma.descricao}}</td>
-          <td data-label="Ativo">{{forma.ativo}}</td>
+          <td data-label="Ativo">{{forma.ativo ? 'Sim' : 'Não'}}</td>
           <td data-label="Data de cadastro">{{forma.dataCadastro | date:'short'}}</td>
           <td class="hidden-xs"><a href="" ng-click="financeiro.editarForma(forma)"><span class="glyphicon glyphicon-pencil"></span></a></td>
           <td class="hidden-xs">
-            <a href="" confirm-popup title="Atenção" message="Deseja excluir a forma de pagamento?" ok-func="financeiro.excluirForma(forma)" placement="left">
+            <a href="" ng-click="financeiro.excluirForma(forma)">
               <span class="glyphicon glyphicon-trash"></span>
             </a>
           </td>
@@ -116,7 +116,7 @@
       </button>
     </div>
     <div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">
-      <button class="btn btn-default botao-esticado" data-toggle="modal" data-target="#modalPrazo"><span
+      <button class="btn btn-default botao-esticado" ng-click="financeiro.novoPrazo()"><span
         class="glyphicon glyphicon-plus"></span> Novo Prazo
       </button>
     </div>
@@ -180,7 +180,7 @@
                     <tr>
                       <th>
                         <div class="custom-checkbox inverted">
-                          <input type="checkbox" value="None" id="todos" name="check" ng-model="nada" />
+                          <input type="checkbox" value="None" id="todos" name="check" ng-init="checkAll=false" ng-model="checkAll" ng-change="financeiro.checkAllFormas(checkAll)" />
                           <label for="todos"></label>
                         </div>
                       </th>
@@ -189,15 +189,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="n in getNumber(15) track by $index">
+                    <tr ng-repeat="forma in financeiro.prazo.formasArray">
                       <td>
                         <div class="custom-checkbox inverted">
-                          <input type="checkbox" value="None" id="{{$index}}" name="check" ng-model="p.checked" ng-change="emLote.changeCheck(p)" />
-                          <label for="{{$index}}"></label>
+                          <input type="checkbox" value="None" id="forma{{$index}}" name="check" ng-model="forma.checked" ng-change="financeiro.checkForma(forma)" />
+                          <label for="forma{{$index}}"></label>
                         </div>
                       </td>
-                      <td>00000{{$index}}</td>
-                      <td>oiqwueq oiqwu eu oiqwu eoqiuo</td>
+                      <td>{{forma.codigo}}</td>
+                      <td>{{forma.descricao}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -235,15 +235,19 @@
         <tr ng-repeat="prazo in financeiro.prazos">
           <td data-label="Código">{{prazo.codigo}}</td>
           <td data-label="Descrição">{{prazo.descricao}}</td>
-          <td data-label="Ativo">{{prazo.ativo}}</td>
-          <td data-label="Ativo">{{prazo.ativo}}</td>
+          <td data-label="Parcelas">{{prazo.parcelas}}</td>
+          <td data-label="Ativo">{{prazo.ativo ? 'Sim' : 'Não'}}</td>
           <td data-label="Data de cadastro">{{prazo.dataCadastro | date:'short'}}</td>
           <td class="hidden-xs">
-            <a href="" confirm-popup title="Atenção" message="Deseja excluir a forma de pagamento?" ok-func="financeiro.editarPrazo(prazo)" placement="left">
+            <a href="" ng-click="financeiro.editarPrazo(prazo)">
               <span class="glyphicon glyphicon-pencil"></span>
             </a>
           </td>
-          <td class="hidden-xs"><a href="" ng-click="financeiro.excluirPrazo(prazo)"><span class="glyphicon glyphicon-trash"></span></a></td>
+          <td class="hidden-xs">
+            <a href="" ng-click="financeiro.excluirPrazo(prazo)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
+          </td>
           <td class="visible-xs-block">
             <button class="btn btn-default pull-right" ng-click="financeiro.editarPrazo(prazo)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
             <button class="btn btn-default pull-right" ng-click="financeiro.excluirPrazo(prazo)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>

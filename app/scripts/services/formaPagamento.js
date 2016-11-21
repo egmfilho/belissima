@@ -37,7 +37,7 @@ function FormaPagamento() {
     mode.payment_mode_id = forma.id;
     mode.payment_mode_code = forma.codigo;
     mode.payment_mode_description = forma.descricao;
-    mode.payment_mode_active = forma.ativo;
+    mode.payment_mode_active = forma.ativo ? 'Y' : 'N';
 
     return mode;
   };

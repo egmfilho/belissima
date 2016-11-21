@@ -6,9 +6,22 @@
 angular.module('belissimaApp.controllers')
   .controller('TicketCtrl', TicketCtrl);
 
-TicketCtrl.$inject = ['$rootScope', '$scope', 'ProviderPessoa', 'ModalBuscarPessoa', 'Pessoa', 'Pedido', 'ModalBuscarProduto', 'ProviderProduto', 'Produto', 'ItemPedido'];
+TicketCtrl.$inject = [
+  '$rootScope',
+  '$scope',
+  'ProviderPessoa',
+  'ModalBuscarPessoa',
+  'Pessoa',
+  'Pedido',
+  'ModalBuscarProduto',
+  'ProviderProduto',
+  'Produto',
+  'ItemPedido',
+  'ProviderPrazoPagamento',
+  'PrazoPagamento'
+];
 
-function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido) {
+function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPrazo, PrazoPagamento) {
 
   var self = this;
 
@@ -35,10 +48,9 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
         if (categoriaId == $rootScope.categoriaPessoa.cliente.id) {
           self.novoTicket.setCliente(new Pessoa(result));
         } else if (categoriaId == $rootScope.categoriaPessoa.funcionario.id) {
-          self.novoTicket.setFuncionario(new Pessoa(result));
+          $scope.selectFuncionario(result);
         }
       }
-      console.log(self.novoTicket);
     });
   }
 
@@ -49,12 +61,39 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
   $scope.buscarFuncionarioPorCodigo = function(codigo) {
     $rootScope.loading.load();
     providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.funcionario.id).then(function(success) {
+      $scope.selectFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
       $rootScope.loading.unload();
-      self.novoItem.setFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
+      focarCodigoProduto();
     }, function(error) {
       console.log(error);
       $rootScope.loading.unload();
     });
+  };
+
+  $scope.buscarFuncionarioPorNome = function(nome) {
+    $rootScope.loading.load();
+    return providerPessoa.obterPessoasPorNome($rootScope.categoriaPessoa.funcionario.id, nome).then(function(success) {
+      var funcionarios = [];
+      angular.forEach(success.data, function(item, index) {
+        funcionarios.push(new Pessoa(Pessoa.converterEmEntrada(item)));
+      });
+      $rootScope.loading.unload();
+      return funcionarios;
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+      return [];
+    });
+  };
+
+  $scope.selectFuncionario = function(funcionario) {
+    if (funcionario.codigo === -1) {
+      $scope.buscarFuncionario();
+    } else {
+      self.novoItem.setFuncionario(new Pessoa(funcionario));
+      self.cdFuncionario = self.novoItem.funcionario.codigo;
+      self.tempFuncionario = self.novoItem.funcionario;
+    }
   };
 
   $scope.buscarProduto = function () {
@@ -99,11 +138,9 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
     if (produto.codigo === -1) {
       $scope.buscarProduto();
     } else {
-      self.cdProduto = produto.codigo;
-      if (!self.tempProduto) {
-        self.tempProduto = produto;
-      }
       self.novoItem.setProduto(new Produto(produto));
+      self.cdProduto = self.novoItem.produto.codigo;
+      self.tempProduto = self.novoItem.produto;
       self.focarQuantidade();
     }
   };
@@ -121,14 +158,59 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
     self.tempProduto = null;
     self.novoItem = new ItemPedido();
 
-    focarCodigo();
+    focarCodigoFuncionario();
+  };
+
+  $scope.buscarPrazoPorCodigo = function(codigo) {
+    $rootScope.loading.load();
+    providerPrazo.obterPorCodigo(codigo).then(function(success) {
+
+      $rootScope.loading.unload();
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  };
+
+  $scope.buscarPrazosPorDescricao = function(descricao) {
+    $rootScope.loading.load();
+    return providerPrazo.obterPorDescricao(descricao).then(function(success) {
+      var prazos = [];
+      angular.forEach(success.data, function(item, index) {
+        prazos.push(new PrazoPagamento(PrazoPagamento.converterEmEntrada(item)));
+      });
+      $rootScope.loading.unload();
+      return prazos;
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  };
+
+  $scope.selectPrazo = function(prazo) {
+    if (prazo.codigo === -1) {
+      // $scope.buscarProduto();
+    } else {
+      $rootScope.loading.load();
+      providerPrazo.obterPorCodigo(prazo.codigo).then(function(success) {
+        self.novoTicket.prazo = new PrazoPagamento(PrazoPagamento.converterEmEntrada(success.data));
+        $rootScope.loading.unload();
+      }, function(error) {
+        console.log(error);
+        $rootScope.loading.unload();
+      });
+    }
   };
 
   $scope.removeItem = function(item) {
     self.novoTicket.removeItem(item);
   };
 
-  function focarCodigo() {
+  function focarCodigoFuncionario() {
+    jQuery('input[name="cdFuncionario"]').focus().select();
+  }
+
+  function focarCodigoProduto() {
     jQuery('input[name="cdProduto"]').focus().select();
   }
 

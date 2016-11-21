@@ -13,10 +13,11 @@ FinanceiroCtrl.$inject = [
   'ProviderFormaPagamento',
   'FormaPagamento',
   'ProviderPrazoPagamento',
-  'PrazoPagamento'
+  'PrazoPagamento',
+  'ModalConfirm'
 ];
 
-function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, providerPrazo, PrazoPagamento) {
+function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, providerPrazo, PrazoPagamento, modalConfirm) {
 
   var self = this;
 
@@ -90,14 +91,17 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
   };
 
   this.excluirForma = function(forma) {
-    $rootScope.loading.load();
-    providerForma.excluir(FormaPagamento.converterEmSaida(forma)).then(function(success) {
-      $rootScope.loading.unload();
-      $rootScope.alerta.show('Forma de pagamento excluída!', 'alert-success');
-    }, function(error) {
-      console.log(error);
-      $rootScope.loading.unload();
-      $rootScope.alerta.show('Não foi possível excluir!', 'alert-danger');
+    modalConfirm.show('Aviso!', 'Deseja excluir a forma de pagamento?').then(function() {
+      $rootScope.loading.load();
+      providerForma.excluir(FormaPagamento.converterEmSaida(forma)).then(function(success) {
+        getFormas();
+        $rootScope.loading.unload();
+        $rootScope.alerta.show('Forma de pagamento excluída!', 'alert-success');
+      }, function(error) {
+        console.log(error);
+        $rootScope.loading.unload();
+        $rootScope.alerta.show('Não foi possível excluir!', 'alert-danger');
+      });
     });
   };
 
@@ -107,7 +111,7 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
       return;
     }
 
-    console.log(self.forma);
+    console.log(FormaPagamento.converterEmSaida(self.forma));
 
     $rootScope.loading.load();
     if (self.forma.id) {
@@ -135,20 +139,58 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
     }
   };
 
-  this.editarPrazo = function(prazo) {
-    self.prazo = new PrazoPagamento(prazo);
+  this.novoPrazo = function() {
+    self.prazo = new PrazoPagamento();
+    self.prazo.formasArray = [];
+    angular.forEach(self.formas, function(item, index) {
+      var p = new FormaPagamento(item);
+      p.checked = false;
+      self.prazo.formasArray.push(p);
+    });
+    $rootScope.loading.unload();
     jQuery('#modalPrazo').modal('show');
   };
 
-  this.excluirPrazo = function(prazo) {
+  this.editarPrazo = function(prazo) {
+
     $rootScope.loading.load();
-    providerPrazo.excluir(PrazoPagamento.converterEmSaida(prazo)).then(function(success) {
+    providerPrazo.obterPorCodigo(prazo.codigo).then(function(success) {
+      self.prazo = new PrazoPagamento(PrazoPagamento.converterEmEntrada(success.data));
+      self.prazo.formasArray = [];
+      angular.forEach(self.formas, function(item, index) {
+        var p = new FormaPagamento(item);
+        p.checked = self.prazo.formas.find(function(f) {
+            return f.id === item.id;
+          }) != null;
+        self.prazo.formasArray.push(p);
+      });
       $rootScope.loading.unload();
-      $rootScope.alerta.show('Prazo de pagamento excluída!', 'alert-success');
+      jQuery('#modalPrazo').modal('show');
+      console.log(self.prazo);
     }, function(error) {
       console.log(error);
       $rootScope.loading.unload();
-      $rootScope.alerta.show('Não foi possível excluir!', 'alert-danger');
+    });
+  };
+
+  this.checkAllFormas = function(checkAll) {
+    angular.forEach(self.prazo.formasArray, function(item, index) {
+      item.checked = checkAll;
+    });
+  };
+
+  this.excluirPrazo = function(prazo) {
+    modalConfirm.show('Aviso', 'Deseja excluir o prazo de pagamento?').then(function () {
+      $rootScope.loading.load();
+      providerPrazo.excluir(PrazoPagamento.converterEmSaida(prazo)).then(function(success) {
+        getPrazos();
+        $rootScope.loading.unload();
+        $rootScope.alerta.show('Prazo de pagamento excluída!', 'alert-success');
+      }, function(error) {
+        console.log(error);
+        $rootScope.loading.unload();
+        $rootScope.alerta.show('Não foi possível excluir!', 'alert-danger');
+      });
     });
   };
 
@@ -168,7 +210,14 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
       return;
     }
 
-    console.log(self.prazo);
+    self.prazo.formas = [];
+    angular.forEach(self.prazo.formasArray, function(item, index) {
+      if (item.checked) {
+        self.prazo.formas.push(item);
+      }
+    });
+
+    console.log(PrazoPagamento.converterEmSaida(self.prazo));
 
     $rootScope.loading.load();
     if (self.prazo.id) {

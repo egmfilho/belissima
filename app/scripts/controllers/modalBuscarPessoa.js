@@ -69,7 +69,7 @@ angular.module('belissimaApp.controllers')
 
       $scope.getPessoasPorNome = function(nome) {
         $rootScope.loading.load();
-        provider.obterPessoasPorNome(nome, true, true, true, true, true, true, true, categoriaId).then(function(success) {
+        provider.obterPessoasPorNome(categoriaId, nome, true, true, true, true, true, true, true).then(function(success) {
           setResultado(success.data);
           $rootScope.loading.unload();
         }, function(error) {

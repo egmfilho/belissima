@@ -7,9 +7,9 @@
 angular.module('belissimaApp.services')
   .factory('Pedido', Pedido);
 
-Pedido.$inject = [ 'Pessoa', 'ItemPedido', 'DataSaida' ];
+Pedido.$inject = [ 'Pessoa', 'ItemPedido', 'PrazoPagamento', 'DataSaida' ];
 
-function Pedido(Pessoa, ItemPedido, DataSaida) {
+function Pedido(Pessoa, ItemPedido, PrazoPagamento, DataSaida) {
 
   function Pedido(p) {
     var self = this;
@@ -33,6 +33,8 @@ function Pedido(Pessoa, ItemPedido, DataSaida) {
         self.items.push(new ItemPedido(item));
       });
     }
+
+    this.prazo = p ? p.prazo : new PrazoPagamento();
 
     // this.descontoPercent = p ? p.descontoPercent : 0;
     // this.descontoDinheiro = p ? p.descontoDinheiro : 0;

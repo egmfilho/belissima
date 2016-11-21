@@ -41,7 +41,8 @@ function ProviderPrazoPagamento(urls) {
         return provider.get({
           action: 'get'
         }, {
-          payment_term_id: id
+          payment_term_id: id,
+          get_payment_mode: true
         }).$promise;
       },
 
@@ -49,7 +50,17 @@ function ProviderPrazoPagamento(urls) {
         return provider.get({
           action: 'get'
         }, {
-          payment_term_code: codigo
+          payment_term_code: codigo,
+          get_payment_mode: true
+        }).$promise;
+      },
+
+      obterPorDescricao: function(descricao) {
+        return provider.query({
+          action: 'getList'
+        }, {
+          payment_term_description: descricao,
+          payment_term_limit: 10
         }).$promise;
       },
 

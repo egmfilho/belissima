@@ -20,6 +20,26 @@
 <div ng-show="opt === 'produtos'">
   <div class="row">
     <div class="col-sm-2">
+      <h4>Funcionário</h4>
+      <div class="input-group">
+        <input type="text" class="form-control" name="cdFuncionario" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" placeholder="Código">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="buscarFuncionario()">
+              <i class="glyphicon glyphicon-search" tabindex="-1"></i>
+            </button>
+          </span>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <h4>Nome</h4>
+      <input type="text" name="nmFuncionario" class="form-control" placeholder="Nome do funcionário" ng-model="ticket.tempFuncionario"
+             keys-shortcuts enter="addItem()"
+             uib-typeahead="funcionario as funcionario.nome for funcionario in buscarFuncionarioPorNome($viewValue)"
+             typeahead-min-length="3"
+             typeahead-wait-ms="300"
+             typeahead-on-select="selectFuncionario($item)">
+    </div>
+    <div class="col-sm-2">
       <h4>Produto</h4>
       <div class="input-group">
         <input type="text" name="cdProduto" class="form-control" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" placeholder="Código">
@@ -41,20 +61,11 @@
     </div>
     <div class="col-sm-1">
       <h4>Qtd</h4>
-      <input type="text" name="qtdProduto" class="form-control" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="ticket.focarFuncionario()">
+      <input type="text" name="qtdProduto" class="form-control" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()">
     </div>
-    <div class="col-sm-2">
-      <h4>Funcionário</h4>
-      <div class="input-group">
-        <input type="text" class="form-control" name="cdFuncionario" ng-model="ticket.novoItem.funcionario.codigo" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.novoItem.funcionario.codigo)" shift-enter="addItem()" placeholder="Código">
-        <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="buscarFuncionario()"><i class="glyphicon glyphicon-search"></i></button>
-          </span>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <h4>Nome</h4>
-      <input type="text" class="form-control" ng-model="ticket.novoItem.funcionario.nome" readonly placeholder="Nome do funcionário">
+    <div class="col-sm-1">
+      <h4>Preço</h4>
+      <input type="text" class="form-control" readonly ng-value="ticket.novoItem.produto.preco.valor | currency: 'R$'">
     </div>
   </div>
 
@@ -64,8 +75,8 @@
         <table class="tabela tabela-bordered tabela-esticada tabela-produtos">
           <thead>
           <tr>
-            <th>Produto</th>
             <th>Funcionário</th>
+            <th>Produto</th>
             <th>Qtd.</th>
             <th>Preço</th>
             <th>Total</th>
@@ -74,8 +85,8 @@
           </thead>
           <tbody>
           <tr ng-repeat="i in ticket.novoTicket.items">
-            <td data-label="Produto">{{i.produto.codigo}} {{i.produto.nome | truncate : 30}}</td>
-            <td data-label="Funcionário">{{i.funcionario.codigo}} {{i.funcionario.nome | truncate : 30}}</td>
+            <td data-label="Funcionário">({{i.funcionario.codigo}}) {{i.funcionario.nome | truncate : 30}}</td>
+            <td data-label="Produto">({{i.produto.codigo}}) {{i.produto.nome | truncate : 30}}</td>
             <td class="editable-td hidden-xs" editable-td>
               <span>{{i.quantidade | currency : ''}}</span>
               <input currency symbol="''" number-only type="text" ng-model="i.quantidade" ng-blur="i.quantidade <= 0 || !i.quantidade ? i.quantidade = 1 : ''">
@@ -152,9 +163,9 @@
     </div>
     <div class="col-sm-3">
       <h4>Tipo</h4>
-      <select class="form-control" ng-model="ticket.novoTicket.cliente.tipo" readonly>
+      <select class="form-control" ng-model="ticket.novoTicket.cliente.tipo" readonly disabled>
         <option value="F">Físico</option>
-        <option value="F">Jurídico</option>
+        <option value="J">Jurídico</option>
       </select>
     </div>
     <div class="col-sm-3">
@@ -193,37 +204,48 @@
     <div class="col-sm-3">
       <h4>Prazo</h4>
       <div class="input-group">
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" placeholder="Código">
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalPrazo"><i class="glyphicon glyphicon-search"></i></button>
         </span>
       </div>
     </div>
-    <div class="col-sm-3">
-      <h4>Forma</h4>
-      <select class="form-control"></select>
-    </div>
-    <div class="col-sm-3">
-
+    <div class="col-sm-6">
+      <h4>Descrição</h4>
+      <input type="text" class="form-control" placeholder="Descrição do prazo" ng-model="ticket.tempPrazo"
+             keys-shortcuts enter=""
+             uib-typeahead="prazo as prazo.descricao for prazo in buscarPrazosPorDescricao($viewValue)"
+             typeahead-min-length="2"
+             typeahead-wait-ms="300"
+             typeahead-on-select="selectPrazo($item)">
     </div>
     <div class="col-sm-3">
       <h4>&nbsp;</h4>
       <button class="btn btn-default btn-block"><span class="glyphicon glyphicon-credit-card"></span> Adicionar Pagamento</button>
     </div>
 
-    <div class="col-xs-12 cabecalho-parcela" ng-repeat="p in (parcelas ? getNumber(parcelas) : 0) track by $index">
+    <div class="col-xs-12 cabecalho-parcela" ng-repeat="p in getNumber(ticket.novoTicket.prazo.parcelas) track by $index">
       <h4>Parcela {{$index + 1}}</h4>
       <div class="row">
         <div class="col-sm-4">
+          <h4>Forma</h4>
+          <select name="" id="" class="form-control" ng-options="forma as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="forma" ng-disabled="!ticket.novoTicket.prazo.formas.length">
+            <option value="" disabled>Selecione a forma de pagamento</option>
+          </select>
+        </div>
+        <div class="col-sm-4">
+          <h4>Valor</h4>
           <input type="text" class="form-control">
         </div>
         <div class="col-sm-4">
-          <input type="text" class="form-control">
-        </div>
-        <div class="col-sm-4">
+          <h4>Vencimento</h4>
           <input type="text" class="form-control">
         </div>
       </div>
+    </div>
+
+    <div class="col-xs-12">
+      <h1 class="pull-right">Total: {{ticket.novoTicket.getValorTotal() | currency: 'R$ '}}</h1>
     </div>
 
   </div>
@@ -263,7 +285,7 @@
         </div>
         <div class="col-md-9">
           <h4>Descrição</h4>
-          <input type="text" class="form-control" ng-model="">
+          <input type="text" class="form-control" ng-model="a">
         </div>
 
         <div class="col-md-12">
