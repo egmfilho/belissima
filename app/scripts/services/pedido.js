@@ -7,9 +7,9 @@
 angular.module('belissimaApp.services')
   .factory('Pedido', Pedido);
 
-Pedido.$inject = [ 'Pessoa', 'ItemPedido', 'PrazoPagamento', 'DataSaida' ];
+Pedido.$inject = [ 'Pessoa', 'ItemPedido', 'PrazoPagamento', 'Pagamento', 'DataSaida' ];
 
-function Pedido(Pessoa, ItemPedido, PrazoPagamento, DataSaida) {
+function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
 
   function Pedido(p) {
     var self = this;
@@ -34,7 +34,7 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, DataSaida) {
       });
     }
 
-    this.prazo = p ? p.prazo : new PrazoPagamento();
+    this.pagamentos = p ? p.pagamentos : [];
 
     // this.descontoPercent = p ? p.descontoPercent : 0;
     // this.descontoDinheiro = p ? p.descontoDinheiro : 0;
@@ -78,6 +78,19 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, DataSaida) {
       });
 
       return total;
+    },
+
+    getPagamentoTotal: function() {
+      var total = 0;
+      angular.forEach(this.pagamentos, function(item, index) {
+        total += item.valor;
+      });
+
+      return total;
+    },
+
+    getTroco: function() {
+      return this.getPagamentoTotal() - this.getValorTotal();
     }
 
   };
@@ -92,10 +105,7 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, DataSaida) {
     pedido.clienteId = p.ticket_client_id;
     pedido.vendedorId = p.ticket_seller_id;
     pedido.observacoes = p.ticket_note;
-    // pedido.descontoPercent = parseFloat(p.ticket_al_discount);
-    // pedido.descontoDinheiro = parseFloat(p.ticket_vl_discount);
     pedido.valor = parseFloat(p.ticket_value);
-    // pedido.valorComDesconto = parseFloat(p.ticket_value_total);
     pedido.dataAtualizacao = new Date(p.ticket_update);
     pedido.dataPedido = new Date(p.ticket_date);
 
@@ -132,8 +142,8 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, DataSaida) {
     var p = {};
 
     p.ticket_id = pedido.id;
-    p.ticket_client_id = pedido.clienteId.length ? pedido.cliente.id : pedido.clienteId;
-    p.ticket_seller_id = pedido.vendedorId.length ? pedido.vendedor.id : pedido.vendedorId;
+    p.ticket_client_id = pedido.clienteId ? pedido.cliente.id : pedido.clienteId;
+    // p.ticket_seller_id = pedido.vendedorId ? pedido.vendedor.id : pedido.vendedorId;
     p.ticket_note = pedido.observacoes;
     p.ticket_status_id = pedido.statusId;
 
@@ -142,15 +152,12 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, DataSaida) {
       p.ticket_items.push(ItemPedido.converterEmSaida(item));
     });
 
-    p.ticket_value = pedido.getValorTotalSemDesconto();
-    // p.ticket_al_discount = pedido.descontoPercent;
-    // p.ticket_vl_discount = pedido.descontoDinheiro;
-    // p.ticket_value_total = pedido.getValorTotalComDesconto();
+    p.ticket_value = pedido.getValorTotal();
 
-    // p.ticket_payments = [];
-    // angular.forEach(pedido.pagamentos, function (item, index) {
-    //   p.ticket_payments.push(Pagamento.converterEmSaida(item));
-    // });
+    p.ticket_payments = [];
+    angular.forEach(pedido.pagamentos, function (item, index) {
+      p.ticket_payments.push(Pagamento.converterEmSaida(item));
+    });
 
     return p;
   };

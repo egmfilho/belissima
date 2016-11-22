@@ -204,48 +204,47 @@
     <div class="col-sm-3">
       <h4>Prazo</h4>
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Código">
+        <input type="text" class="form-control" placeholder="Código" ng-model="ticket.cdPrazo" keys-shortcuts enter="buscarPrazoPorCodigo(ticket.cdPrazo)">
         <span class="input-group-btn">
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalPrazo"><i class="glyphicon glyphicon-search"></i></button>
+          <button type="button" class="btn btn-default" ng-click="buscarPrazo()">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
         </span>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-9">
       <h4>Descrição</h4>
       <input type="text" class="form-control" placeholder="Descrição do prazo" ng-model="ticket.tempPrazo"
              keys-shortcuts enter=""
              uib-typeahead="prazo as prazo.descricao for prazo in buscarPrazosPorDescricao($viewValue)"
              typeahead-min-length="2"
              typeahead-wait-ms="300"
-             typeahead-on-select="selectPrazo($item)">
-    </div>
-    <div class="col-sm-3">
-      <h4>&nbsp;</h4>
-      <button class="btn btn-default btn-block"><span class="glyphicon glyphicon-credit-card"></span> Adicionar Pagamento</button>
+             typeahead-on-select="prepararPrazo($item)">
     </div>
 
-    <div class="col-xs-12 cabecalho-parcela" ng-repeat="p in getNumber(ticket.novoTicket.prazo.parcelas) track by $index">
+    <div class="col-xs-12 cabecalho-parcela" ng-repeat="pagamento in ticket.novoTicket.pagamentos track by $index">
       <h4>Parcela {{$index + 1}}</h4>
       <div class="row">
         <div class="col-sm-4">
           <h4>Forma</h4>
-          <select name="" id="" class="form-control" ng-options="forma as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="forma" ng-disabled="!ticket.novoTicket.prazo.formas.length">
+          <select class="form-control" ng-options="forma as forma.descricao for forma in ticket.prazo.formas" ng-model="pagamento.forma">
             <option value="" disabled>Selecione a forma de pagamento</option>
           </select>
         </div>
         <div class="col-sm-4">
-          <h4>Valor</h4>
-          <input type="text" class="form-control">
+          <h4>Vencimento</h4>
+          <input type="text" class="form-control text-center" readonly ng-init="pagamento.vencimento=getDataDaParcela(ticket.prazo, $index)" ng-value="pagamento.vencimento | date">
         </div>
         <div class="col-sm-4">
-          <h4>Vencimento</h4>
-          <input type="text" class="form-control">
+          <h4>Valor</h4>
+          <input type="text" class="form-control text-right" ng-init="pagamento.valor=ticket.novoTicket.getValorTotal() / ticket.prazo.parcelas" ng-model="pagamento.valor" currency>
         </div>
       </div>
     </div>
 
-    <div class="col-xs-12">
-      <h1 class="pull-right">Total: {{ticket.novoTicket.getValorTotal() | currency: 'R$ '}}</h1>
+    <div class="col-xs-12 clear-fix cabecalho-parcela">
+      <h1 class="pull-left">Total: {{ticket.novoTicket.getValorTotal() | currency: 'R$ '}}</h1>
+      <h1 class="pull-right">Troco: {{ticket.novoTicket.getTroco() | currency: 'R$ '}}</h1>
     </div>
 
   </div>
@@ -262,56 +261,6 @@
       <button class="btn btn-default botao-esticado" ng-click="ticket.salvar()">
         <span class="glyphicon glyphicon-floppy-save"></span> Salvar
       </button>
-    </div>
-  </div>
-</div>
-
-<div class="modal meu-modal fade" id="modalPrazo" tabindex="-1" role="dialog" aria-labelledby="modalPrazo">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="header">
-        <div class="title"><span class="glyphicon glyphicon-credit-card"></span> Prazo de pagamento<span
-          class="glyphicon glyphicon-remove close" data-dismiss="modal"></span></div>
-      </div>
-      <div class="body">
-        <div class="col-md-3">
-          <h4>Código</h4>
-          <div class="input-group">
-            <input inpe="text" class="form-control" ng-model="financeiro.forma.codigo">
-            <span class="input-group-btn">
-              <button type="button" class="btn btn-default" ng-click="buscarCliente()"><i class="glyphicon glyphicon-search"></i></button>
-            </span>
-          </div>
-        </div>
-        <div class="col-md-9">
-          <h4>Descrição</h4>
-          <input type="text" class="form-control" ng-model="a">
-        </div>
-
-        <div class="col-md-12">
-          <h4>&nbsp;</h4>
-          <table class="tabela tabela-bordered tabela-esticada">
-            <thead>
-              <tr>
-                <th>Código</th>
-                <th>Descrição</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="n in getNumber(10) track by $index">
-                <td>000000</td>
-                <td>iashdoaihfioa laskjsajfl</td>
-              </tr>
-            </tbody>
-          </table>
-          <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="5" ng-change="pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
-        </div>
-      </div>
-      <div class="control">
-        <button type="button" class="btn btn-default" data-dismiss="modal">
-          <span class="glyphicon glyphicon-remove"></span> Fechar
-        </button>
-      </div>
     </div>
   </div>
 </div>

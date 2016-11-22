@@ -1,0 +1,62 @@
+<div class="meu-modal">
+  <div class="header">
+    <div class="title">
+      <span class="glyphicon glyphicon-credit-card"></span> Prazo de pagamento
+      <span class="glyphicon glyphicon-remove close" ng-click="cancel()"></span>
+    </div>
+  </div>
+  <div class="sub-header">
+    <div class="row">
+
+      <div class="col-md-3">
+        <h4>Código</h4>
+        <div class="input-group">
+          <input inpe="text" class="form-control" ng-model="cdPrazo" keys-shortcuts enter="getPrazoPorCodigo(cdPrazo)">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="getPrazoPorCodigo(cdPrazo)" tabindex="-1">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <h4>Descrição</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="descPrazo" keys-shortcuts enter="getPrazoPorDescricao(descPrazo)">
+          <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="getPrazoPorDescricao(descPrazo)" tabindex="-1">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="body">
+
+    <div class="col-md-12">
+      <table class="tabela tabela-bordered tabela-esticada">
+        <thead>
+        <tr>
+          <th>Código</th>
+          <th>Descrição</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="prazo in resultado" ng-click="selecionar(prazo)">
+          <td>{{prazo.codigo}}</td>
+          <td>{{prazo.descricao}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="5" ng-change="pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
+    </div>
+
+  </div>
+  <div class="control">
+    <button class="btn btn-default" ng-click="cancel()">
+      <span class="glyphicon glyphicon-ok"></span> Fechar
+    </button>
+  </div>
+</div>

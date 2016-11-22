@@ -52,7 +52,7 @@ function ItemPedido(Produto, Pessoa) {
     },
 
     setFuncionario: function(funcionario) {
-      this.funcionario = funcionario.id;
+      this.funcionarioId = funcionario.id;
       this.funcionario = new Pessoa(funcionario);
     },
 
@@ -88,12 +88,13 @@ function ItemPedido(Produto, Pessoa) {
   ItemPedido.converterEmSaida = function(item) {
     var i = { };
 
-    i.ticket_item_value = item.precoProduto || item.produto.preco;
+    i.ticket_item_price_id = item.precoProduto.id;
     i.ticket_item_al_discount = item.descontoPercent;
     i.ticket_item_vl_discount = item.descontoDinheiro;
     i.ticket_item_amount = item.quantidade;
     i.ticket_item_value_total = item.getTotalComDesconto();
     i.product_id = item.produtoId || item.produto.id;
+    i.ticket_item_seller_id = item.funcionarioId;
 
     return i;
   };

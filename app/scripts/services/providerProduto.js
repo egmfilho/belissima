@@ -61,7 +61,7 @@ angular.module('belissimaApp.services')
             action: 'getList'
           }, {
             product_name: nome,
-            limit: limite
+            product_limit: limite
           }).$promise;
         },
 
