@@ -186,7 +186,7 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
     self.tempProduto = null;
     self.novoItem = new ItemPedido();
 
-    focarCodigoFuncionario();
+    focarCodigoProduto();
   };
 
   $scope.buscarPrazo = function() {
@@ -239,12 +239,14 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
     if (prazo.codigo === -1) {
       $scope.buscarPrazo();
     } else {
-      self.prazo = new PrazoPagamento(prazo);
-      self.cdPrazo = self.prazo.codigo;
-      self.tempPrazo = new PrazoPagamento(self.prazo);
+      self.novoTicket.setPrazo(prazo);
+      self.cdPrazo = self.novoTicket.prazo.codigo;
+      self.tempPrazo = new PrazoPagamento(self.novoTicket.prazo);
       self.novoTicket.pagamentos = [];
-      for (var i = 0; i < self.prazo.parcelas; i++) {
+      for (var i = 0; i < self.novoTicket.prazo.parcelas; i++) {
         self.novoTicket.pagamentos.push(new Pagamento());
+        self.novoTicket.pagamentos[i].valor = self.novoTicket.getValorTotal() / self.novoTicket.prazo.parcelas;
+        self.novoTicket.pagamentos[i].vencimento = $scope.getDataDaParcela(self.novoTicket.prazo, i);
       }
     }
   };
@@ -280,7 +282,7 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
     }
 
     for (var i = 0; i < self.novoTicket.pagamentos.length; i++) {
-      if (!self.novoTicket.pagamentos[i].forma) {
+      if (!self.novoTicket.pagamentos[i].forma.id) {
         $rootScope.alerta.show('Informe todas as formas de pagamento!', 'alert-danger');
         return false;
       }
@@ -304,6 +306,7 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
       return;
     }
 
+    console.log(self.novoTicket);
     console.log(Pedido.converterEmSaida(self.novoTicket));
 
     $rootScope.loading.load();

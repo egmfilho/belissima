@@ -34,12 +34,14 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
       });
     }
 
+    this.prazoId = p ? p.prazoId : '';
+    this.prazo = p ? p.prazo : new PrazoPagamento();
     this.pagamentos = p ? p.pagamentos : [];
 
-    // this.descontoPercent = p ? p.descontoPercent : 0;
-    // this.descontoDinheiro = p ? p.descontoDinheiro : 0;
-    // this.valor = p ? p.valor : 0;
-    // this.valorComDesconto = p ? p.valorComDesconto : 0;
+    this.descontoPercent = p ? p.descontoPercent : 0;
+    this.descontoDinheiro = p ? p.descontoDinheiro : 0;
+    this.valor = p ? p.valor : 0;
+    this.valorComDesconto = p ? p.valorComDesconto : 0;
 
     // this.pagamentos = [];
 
@@ -51,6 +53,11 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
   }
 
   Pedido.prototype = {
+
+    setPrazo: function(prazo) {
+      this.prazoId = prazo.id;
+      this.prazo = new PrazoPagamento(prazo);
+    },
 
     setFuncionario: function(pessoa) {
       this.funcionarioId = pessoa.id;
@@ -80,6 +87,16 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
       return total;
     },
 
+    getValorTotalComDesconto: function () {
+      var total = 0;
+
+      angular.forEach(this.items, function (item, index) {
+        total += item.getTotalComDesconto();
+      });
+
+      return Math.round((total - this.descontoDinheiro) * 100) / 100;
+    },
+
     getPagamentoTotal: function() {
       var total = 0;
       angular.forEach(this.pagamentos, function(item, index) {
@@ -105,12 +122,15 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     pedido.clienteId = p.ticket_client_id;
     pedido.vendedorId = p.ticket_seller_id;
     pedido.observacoes = p.ticket_note;
+    pedido.descontoPercent = parseFloat(p.ticket_al_discount);
+    pedido.descontoDinheiro = parseFloat(p.ticket_vl_discount);
     pedido.valor = parseFloat(p.ticket_value);
+    pedido.valorComDesconto = parseFloat(p.ticket_value_total);
     pedido.dataAtualizacao = new Date(p.ticket_update);
     pedido.dataPedido = new Date(p.ticket_date);
 
-    if (p.ticket_seller) {
-      pedido.vendedor = new Pessoa(Pessoa.converterEmEntrada(p.ticket_seller));
+    if (p.ticket_employee) {
+      pedido.vendedor = new Pessoa(Pessoa.converterEmEntrada(p.ticket_employee));
     } else {
       pedido.vendedor = new Pessoa();
     }
@@ -128,6 +148,13 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
       });
     }
 
+    pedido.prazoId = p.ticket_payment_term_id;
+    if (p.ticket_payment_term) {
+      pedido.prazo = new PrazoPagamento(PrazoPagamento.converterEmEntrada(p.ticket_payment_term));
+    } else {
+      pedido.prazo = new PrazoPagamento();
+    }
+
     // pedido.pagamentos = [];
     // if (p.ticket_payments) {
     //   angular.forEach(p.ticket_payments, function (item, index) {
@@ -143,7 +170,6 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
 
     p.ticket_id = pedido.id;
     p.ticket_client_id = pedido.clienteId ? pedido.cliente.id : pedido.clienteId;
-    // p.ticket_seller_id = pedido.vendedorId ? pedido.vendedor.id : pedido.vendedorId;
     p.ticket_note = pedido.observacoes;
     p.ticket_status_id = pedido.statusId;
 
@@ -153,7 +179,11 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     });
 
     p.ticket_value = pedido.getValorTotal();
+    p.ticket_al_discount = pedido.descontoPercent;
+    p.ticket_vl_discount = pedido.descontoDinheiro;
+    p.ticket_value_total = pedido.getValorTotalComDesconto();
 
+    p.ticket_payment_term_id = pedido.prazoId;
     p.ticket_payments = [];
     angular.forEach(pedido.pagamentos, function (item, index) {
       p.ticket_payments.push(Pagamento.converterEmSaida(item));

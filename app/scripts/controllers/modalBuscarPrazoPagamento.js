@@ -60,7 +60,15 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.selecionar = function(prazo) {
-        $uibModalInstance.close(prazo);
+        if (!prazo.formas.length) {
+          provider.obterPorCodigo(prazo.codigo).then(function(success) {
+            $uibModalInstance.close(new PrazoPagamento(PrazoPagamento.converterEmEntrada(success.data)));
+          }, function(error) {
+            console.log(error);
+          });
+        } else {
+          $uibModalInstance.close(prazo);
+        }
       };
 
       $scope.cancel = function() {

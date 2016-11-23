@@ -22,7 +22,7 @@
     <div class="col-sm-2">
       <h4>Funcionário</h4>
       <div class="input-group">
-        <input type="text" class="form-control" name="cdFuncionario" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" placeholder="Código">
+        <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" shift-enter="opt = 'cliente'">
         <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="buscarFuncionario()">
               <i class="glyphicon glyphicon-search" tabindex="-1"></i>
@@ -33,7 +33,7 @@
     <div class="col-sm-3">
       <h4>Nome</h4>
       <input type="text" name="nmFuncionario" class="form-control" placeholder="Nome do funcionário" ng-model="ticket.tempFuncionario"
-             keys-shortcuts enter="addItem()"
+             keys-shortcuts enter="addItem()" shift-enter="opt = 'cliente'"
              uib-typeahead="funcionario as funcionario.nome for funcionario in buscarFuncionarioPorNome($viewValue)"
              typeahead-min-length="3"
              typeahead-wait-ms="300"
@@ -42,7 +42,7 @@
     <div class="col-sm-2">
       <h4>Produto</h4>
       <div class="input-group">
-        <input type="text" name="cdProduto" class="form-control" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" placeholder="Código">
+        <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="opt = 'cliente'">
         <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="buscarProduto()" tabindex="-1">
           <i class="glyphicon glyphicon-search"></i>
@@ -53,7 +53,7 @@
     <div class="col-sm-3">
       <h4>Nome</h4>
       <input type="text" name="nmProduto" class="form-control" placeholder="Nome do produto" ng-model="ticket.tempProduto"
-             keys-shortcuts enter="ticket.focarQuantidade()"
+             keys-shortcuts enter="ticket.focarQuantidade()" shift-enter="opt = 'cliente'"
              uib-typeahead="produto as produto.nome for produto in buscarProdutoPorNome($viewValue)"
              typeahead-min-length="3"
              typeahead-wait-ms="300"
@@ -61,11 +61,11 @@
     </div>
     <div class="col-sm-1">
       <h4>Qtd</h4>
-      <input type="text" name="qtdProduto" class="form-control" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()">
+      <input type="text" name="qtdProduto" class="form-control" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="opt = 'cliente'">
     </div>
     <div class="col-sm-1">
       <h4>Preço</h4>
-      <input type="text" class="form-control" readonly ng-value="ticket.novoItem.produto.preco.valor | currency: 'R$'">
+      <input type="text" class="form-control" readonly ng-value="ticket.novoItem.produto.preco.valor | currency: 'R$'" >
     </div>
   </div>
 
@@ -142,12 +142,11 @@
   <div class="row">
     <div class="col-sm-12 col-md-12 cabecalho">
       <h4>Informações</h4>
-      <!--<a href="" class="trash" ng-click="limparInfos()"><span class="glyphicon glyphicon-erase"></span> Limpar</a>-->
     </div>
     <div class="col-sm-2">
       <h4>Código</h4>
       <div class="input-group">
-        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.codigo" number-only keys-shortcuts enter="buscarClientePorCodigo(ticket.novoTicket.cliente.codigo)">
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.codigo" number-only keys-shortcuts enter="buscarClientePorCodigo(ticket.novoTicket.cliente.codigo)" shift-enter="opt = 'pagamento'">
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="buscarCliente()"><i class="glyphicon glyphicon-search"></i></button>
         </span>
@@ -227,17 +226,17 @@
       <div class="row">
         <div class="col-sm-4">
           <h4>Forma</h4>
-          <select class="form-control" ng-options="forma as forma.descricao for forma in ticket.prazo.formas" ng-model="pagamento.forma">
+          <select class="form-control" ng-options="forma as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="pagamento.forma">
             <option value="" disabled>Selecione a forma de pagamento</option>
           </select>
         </div>
         <div class="col-sm-4">
           <h4>Vencimento</h4>
-          <input type="text" class="form-control text-center" readonly ng-init="pagamento.vencimento=getDataDaParcela(ticket.prazo, $index)" ng-value="pagamento.vencimento | date">
+          <input type="text" class="form-control text-center" readonly ng-value="pagamento.vencimento | date">
         </div>
         <div class="col-sm-4">
           <h4>Valor</h4>
-          <input type="text" class="form-control text-right" ng-init="pagamento.valor=ticket.novoTicket.getValorTotal() / ticket.prazo.parcelas" ng-model="pagamento.valor" currency>
+          <input type="text" class="form-control text-right" ng-model="pagamento.valor" currency>
         </div>
       </div>
     </div>

@@ -61,7 +61,7 @@ function ItemPedido(Produto, Pessoa) {
     },
 
     getTotalComDesconto: function() {
-      return (this.quantidade * this.produto.preco) - this.descontoDinheiro;
+      return (this.quantidade * this.produto.preco.valor) - this.descontoDinheiro;
     }
   };
 
@@ -88,13 +88,14 @@ function ItemPedido(Produto, Pessoa) {
   ItemPedido.converterEmSaida = function(item) {
     var i = { };
 
-    i.ticket_item_price_id = item.precoProduto.id;
+    // i.ticket_item_price_id = item.precoProduto.id;
+    i.ticket_item_value = item.precoProduto.valor;
     i.ticket_item_al_discount = item.descontoPercent;
     i.ticket_item_vl_discount = item.descontoDinheiro;
     i.ticket_item_amount = item.quantidade;
     i.ticket_item_value_total = item.getTotalComDesconto();
     i.product_id = item.produtoId || item.produto.id;
-    i.ticket_item_seller_id = item.funcionarioId;
+    i.ticket_item_employee_id = item.funcionarioId;
 
     return i;
   };
