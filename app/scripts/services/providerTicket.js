@@ -29,9 +29,55 @@ angular.module('belissimaApp.services')
 
       return {
 
+        obterPorId: function() {
+          return provider.get({
+            action: 'get'
+          }, {
+
+          }).$promise;
+        },
+
+        obterPorCodigo: function(codigo) {
+          return provider.get({
+            action: 'get'
+          }, {
+            ticket_code: codigo,
+            get_ticket_client: true,
+            get_ticket_items: true,
+            get_ticket_items_product: true,
+            get_ticket_items_employee: true,
+            get_ticket_payment_term: true,
+            get_payment_mode: true,
+            get_ticket_payments: true,
+            get_ticket_payment_mode: true
+          }).$promise;
+        },
+
+        obterTodos: function(getUser, getCliente, getItems, getProdutos, getFuncionarios, getPrazo, getPagamento, getFormasPagamento, limite) {
+          return provider.query({
+            action: 'getList'
+          }, {
+            get_ticket_user: getUser,
+            get_ticket_client: getCliente,
+            get_ticket_items: getItems,
+            get_ticket_items_product: getProdutos,
+            get_ticket_items_employee: getFuncionarios,
+            get_ticket_payment_term: getPrazo,
+            get_ticket_payments: getPagamento,
+            get_ticket_payment_mode: getFormasPagamento,
+            ticket_limit: limite
+          }).$promise;
+        },
+
         salvar: function(pedido) {
           return provider.save({
             action: 'insert'
+          }, pedido).$promise;
+        },
+
+        editar: function(pedido) {
+          return provider.save({
+            action: 'edit'
           }, pedido).$promise;
         }
 

@@ -33,21 +33,24 @@ angular
     /*
       .cliente, .funcionario, .fornecedor...
      */
+    function getCategorias($rootScope, provider, CategoriaPessoa) {
+      $rootScope.loading.load();
+      return provider.obterTodos().then(function(success) {
+        $rootScope.categoriaPessoa = { };
+        angular.forEach(success.data, function(item, index) {
+          var categoria = new CategoriaPessoa(CategoriaPessoa.converterEmEntrada(item));
+          $rootScope.categoriaPessoa[categoria.nomeFormatado] = categoria;
+        });
+        $rootScope.loading.unload();
+      }, function(error) {
+        console.log(error);
+        $rootScope.loading.unload();
+      });
+    }
     function resolveCategorias() {
       return {
         '': ['$rootScope', 'ProviderCategoriaPessoa', 'CategoriaPessoa', function($rootScope, provider, CategoriaPessoa) {
-          return $rootScope.categoriaPessoa || provider.obterTodos().then(function(success) {
-              $rootScope.loading.load();
-              $rootScope.categoriaPessoa = { };
-              angular.forEach(success.data, function(item, index) {
-                var categoria = new CategoriaPessoa(CategoriaPessoa.converterEmEntrada(item));
-                $rootScope.categoriaPessoa[categoria.nomeFormatado] = categoria;
-              });
-              $rootScope.loading.unload();
-            }, function(error) {
-              console.log(error);
-              $rootScope.loading.unload();
-            });
+          return $rootScope.categoriaPessoa || getCategorias($rootScope, provider, CategoriaPessoa);
         }]
       };
     }
@@ -70,7 +73,7 @@ angular
         template: '<h3>Logging out...</h3>',
         controller: 'LogoutCtrl'
       })
-      .when('/ticket', {
+      .when('/ticket/:action', {
         modulo: 'ticket',
         templateUrl: 'views/ticket.html',
         controller: 'TicketCtrl',

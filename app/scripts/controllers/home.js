@@ -9,7 +9,7 @@ angular.module('belissimaApp.controllers')
       {
         nome: 'Ticket',
         icone: 'glyphicon-shopping-cart',
-        url: '/ticket'
+        url: '/ticket/list'
       },
       {
         nome: 'Serviços &<br>Produtos',

@@ -29,7 +29,7 @@ function ItemPedido(Produto, Pessoa) {
     setProduto: function(produto) {
       this.produto = new Produto(produto);
       this.produtoId = produto.id;
-      this.precoProduto = produto.preco;
+      this.precoProduto = produto.preco.valor;
     },
 
     setQuantidade: function(quantidade) {
@@ -57,11 +57,11 @@ function ItemPedido(Produto, Pessoa) {
     },
 
     getTotalSemDesconto: function() {
-      return this.quantidade * this.precoProduto.valor;
+      return this.quantidade * this.precoProduto;
     },
 
     getTotalComDesconto: function() {
-      return (this.quantidade * this.produto.preco.valor) - this.descontoDinheiro;
+      return (this.quantidade * this.precoProduto) - this.descontoDinheiro;
     }
   };
 
@@ -71,6 +71,7 @@ function ItemPedido(Produto, Pessoa) {
     item.id = i.ticket_item_id;
     item.pedidoId = i.ticket_id;
     item.produtoId = i.product_id;
+    item.funcionarioId = i.employee_id;
     item.quantidade = parseFloat(i.ticket_item_amount);
     item.precoProduto = parseFloat(i.ticket_item_value);
     item.descontoPercent = parseFloat(i.ticket_item_al_discount);
@@ -82,14 +83,19 @@ function ItemPedido(Produto, Pessoa) {
       item.produto = new Produto();
     }
 
+    if (i.employee) {
+      item.funcionario = new Pessoa(Pessoa.converterEmEntrada(i.employee));
+    } else {
+      item.funcionario = new Pessoa();
+    }
+
     return item;
   };
 
   ItemPedido.converterEmSaida = function(item) {
     var i = { };
 
-    // i.ticket_item_price_id = item.precoProduto.id;
-    i.ticket_item_value = item.precoProduto.valor;
+    i.ticket_item_value = item.precoProduto;
     i.ticket_item_al_discount = item.descontoPercent;
     i.ticket_item_vl_discount = item.descontoDinheiro;
     i.ticket_item_amount = item.quantidade;

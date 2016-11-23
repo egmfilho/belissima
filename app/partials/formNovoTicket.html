@@ -92,8 +92,8 @@
               <input currency symbol="''" number-only type="text" ng-model="i.quantidade" ng-blur="i.quantidade <= 0 || !i.quantidade ? i.quantidade = 1 : ''">
             </td>
             <td data-label="Quantidade" class="visible-xs-block">{{i.quantidade | currency : ''}}</td>
-            <td data-label="Preço">{{i.precoProduto.valor | currency: 'R$ '}}</td>
-            <td data-label="Total">{{i.getTotalSemDesconto() | currency: 'R$ '}}</td>
+            <td data-label="Preço">{{i.precoProduto | currency: 'R$ '}}</td>
+            <td data-label="Total">{{i.getTotalComDesconto() | currency: 'R$ '}}</td>
             <td class="hidden-xs">
               <a href="" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="removeItem(i)" placement="left">
                 <span class="glyphicon glyphicon-trash"></span>
@@ -226,7 +226,7 @@
       <div class="row">
         <div class="col-sm-4">
           <h4>Forma</h4>
-          <select class="form-control" ng-options="forma as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="pagamento.forma">
+          <select class="form-control" ng-options="forma.id as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="pagamento.formaId">
             <option value="" disabled>Selecione a forma de pagamento</option>
           </select>
         </div>

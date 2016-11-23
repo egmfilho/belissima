@@ -155,12 +155,12 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
       pedido.prazo = new PrazoPagamento();
     }
 
-    // pedido.pagamentos = [];
-    // if (p.ticket_payments) {
-    //   angular.forEach(p.ticket_payments, function (item, index) {
-    //     pedido.pagamentos.push(new Pagamento(Pagamento.converterEmEntrada(item)));
-    //   });
-    // }
+    pedido.pagamentos = [];
+    if (p.ticket_payments) {
+      angular.forEach(p.ticket_payments, function (item, index) {
+        pedido.pagamentos.push(new Pagamento(Pagamento.converterEmEntrada(item)));
+      });
+    }
 
     return pedido;
   };

@@ -9,6 +9,8 @@ angular.module('belissimaApp.controllers')
 TicketCtrl.$inject = [
   '$rootScope',
   '$scope',
+  '$routeParams',
+  '$location',
   'ProviderPessoa',
   'ModalBuscarPessoa',
   'Pessoa',
@@ -24,7 +26,7 @@ TicketCtrl.$inject = [
   'ProviderTicket'
 ];
 
-function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPrazo, PrazoPagamento, modalPrazo, Pagamento, providerTicket) {
+function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPrazo, PrazoPagamento, modalPrazo, Pagamento, providerTicket) {
 
   var self = this;
 
@@ -33,14 +35,65 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
 
   $scope.pagination = {
     current: 1,
-    max: 10,
+    max: 15,
     total: 0
   };
+
+  $scope.opcao = 'listar';
+
+  function getTickets() {
+    $rootScope.loading.load();
+    providerTicket.obterTodos(null, true).then(function(success) {
+      $scope.ticketsArray = [];
+      angular.forEach(success.data, function (item, index) {
+        $scope.ticketsArray.push(new Pedido(Pedido.converterEmEntrada(item)));
+      });
+      $rootScope.loading.unload();
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  }
+
+  function obterTicket(codigo) {
+    $rootScope.loading.load();
+    providerTicket.obterPorCodigo(codigo).then(function(success) {
+      self.novoTicket = new Pedido(Pedido.converterEmEntrada(success.data));
+      self.cdPrazo = self.novoTicket.prazo.codigo;
+      self.tempPrazo = new PrazoPagamento(self.novoTicket.prazo);
+      $rootScope.loading.unload();
+      console.log(self.novoTicket);
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  }
 
   $scope.$on('$viewContentLoaded', function () {
     // compensa o scroll do tbody no thead se o SO nao for um MacOS
     if (navigator.platform !== 'MacIntel') {
       // angular.element('#tabela-ticket thead tr').css('padding-right', '18px');
+    }
+
+    getTickets();
+
+    if ($routeParams.action) {
+      switch ($routeParams.action) {
+        case 'new':
+          $scope.opcao = 'novo';
+          break;
+        case 'edit':
+          if ($routeParams.code) {
+            $scope.opcao = 'novo';
+            obterTicket($routeParams.code);
+          } else {
+
+          }
+          break;
+        case 'list':
+          $scope.opcao = 'listar';
+          break;
+      }
     }
   });
 
@@ -174,7 +227,7 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
   };
 
   $scope.addItem = function () {
-    if (!self.novoItem.produtoId) {
+    if (!self.novoItem.produtoId || !self.novoItem.funcionarioId) {
       return;
     }
 
@@ -184,9 +237,11 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
 
     self.cdProduto = '';
     self.tempProduto = null;
+    self.cdFuncionario = '';
+    self.tempFuncionario = null;
     self.novoItem = new ItemPedido();
 
-    focarCodigoProduto();
+    focarCodigoFuncionario();
   };
 
   $scope.buscarPrazo = function() {
@@ -282,7 +337,7 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
     }
 
     for (var i = 0; i < self.novoTicket.pagamentos.length; i++) {
-      if (!self.novoTicket.pagamentos[i].forma.id) {
+      if (!self.novoTicket.pagamentos[i].formaId) {
         $rootScope.alerta.show('Informe todas as formas de pagamento!', 'alert-danger');
         return false;
       }
@@ -310,12 +365,26 @@ function TicketCtrl($rootScope, $scope, providerPessoa, modalBuscarPessoa, Pesso
     console.log(Pedido.converterEmSaida(self.novoTicket));
 
     $rootScope.loading.load();
-    providerTicket.salvar(Pedido.converterEmSaida(self.novoTicket)).then(function(success) {
-      $rootScope.loading.unload();
-    }, function(error) {
-      console.log(error);
-      $rootScope.loading.unload();
-    });
+    if (self.novoTicket.id) {
+      providerTicket.editar(Pedido.converterEmSaida(self.novoTicket)).then(function(success) {
+        $rootScope.alerta.show('Ticket editado!', 'alert-success');
+        $location.path('ticket/list');
+        $location.search('code', null);
+        $rootScope.loading.unload();
+      }, function(error) {
+        console.log(error);
+        $rootScope.loading.unload();
+      });
+    } else {
+      providerTicket.salvar(Pedido.converterEmSaida(self.novoTicket)).then(function(success) {
+        $rootScope.alerta.show('Ticket salvo!', 'alert-success');
+        $location.path('ticket/list');
+        $rootScope.loading.unload();
+      }, function(error) {
+        console.log(error);
+        $rootScope.loading.unload();
+      });
+    }
   };
 
   $scope.getDataDaParcela = function (prazo, parcela) {

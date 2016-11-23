@@ -308,7 +308,7 @@ body {
       max-width: 100%; }
 .modal .modal-md .body {
   min-height: 250px;
-  max-height: 600px; }
+  max-height: 400px; }
 .modal .modal-sm .header {
   padding-left: 20px;
   padding-top: 2px; }
