@@ -33,12 +33,13 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   this.novoTicket = new Pedido();
   this.novoItem = new ItemPedido();
 
+  $scope.ticketsArray = [];
+
   $scope.pagination = {
     current: 1,
     max: 15,
     total: 0
   };
-
   $scope.opcao = 'listar';
 
   function getTickets() {
@@ -241,6 +242,8 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     self.tempFuncionario = null;
     self.novoItem = new ItemPedido();
 
+    setParcelas();
+
     focarCodigoFuncionario();
   };
 
@@ -297,6 +300,17 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       self.novoTicket.setPrazo(prazo);
       self.cdPrazo = self.novoTicket.prazo.codigo;
       self.tempPrazo = new PrazoPagamento(self.novoTicket.prazo);
+      setParcelas();
+    }
+  };
+
+  function setParcelas() {
+    console.log(self.novoTicket.pagamentos.length);
+    if (self.novoTicket.pagamentos.length == self.novoTicket.prazo.parcelas) {
+      for (var i = 0; i < self.novoTicket.prazo.parcelas; i++) {
+        self.novoTicket.pagamentos[i].valor = self.novoTicket.getValorTotal() / self.novoTicket.prazo.parcelas;
+      }
+    } else {
       self.novoTicket.pagamentos = [];
       for (var i = 0; i < self.novoTicket.prazo.parcelas; i++) {
         self.novoTicket.pagamentos.push(new Pagamento());
@@ -304,10 +318,11 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
         self.novoTicket.pagamentos[i].vencimento = $scope.getDataDaParcela(self.novoTicket.prazo, i);
       }
     }
-  };
+  }
 
   $scope.removeItem = function (item) {
     self.novoTicket.removeItem(item);
+    setParcelas();
   };
 
   $scope.buscarCliente = function () {

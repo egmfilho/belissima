@@ -151,17 +151,17 @@ angular.module('belissimaApp.controllers')
         //  return false;
         //}
 
-        if (pessoa.tipo === 'F') {
-          if (!pessoa.cpf) {
-            $rootScope.alerta.show('Insira o CPF!', 'alert-danger');
-            return false;
-          }
-        } else {
-          if (!pessoa.cnpj) {
-            $rootScope.alerta.show('Insira o CNPJ!', 'alert-danger');
-            return false;
-          }
-        }
+        // if (pessoa.tipo === 'F') {
+        //   if (!pessoa.cpf) {
+        //     $rootScope.alerta.show('Insira o CPF!', 'alert-danger');
+        //     return false;
+        //   }
+        // } else {
+        //   if (!pessoa.cnpj) {
+        //     $rootScope.alerta.show('Insira o CNPJ!', 'alert-danger');
+        //     return false;
+        //   }
+        // }
 
         for (i = 0; i < pessoa.enderecos.length; i++) {
           if (!pessoa.enderecos[i].cep.codigo || !pessoa.enderecos[i].cep.uf || !pessoa.enderecos[i].cep.cidade.nome || !pessoa.enderecos[i].cep.bairro.nome) {

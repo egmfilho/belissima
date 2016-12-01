@@ -23,7 +23,8 @@ angular.module('belissimaApp.controllers')
     'Evento',
     'Produto',
     'evento',
-    function ($rootScope, $scope, $timeout, $uibModalInstance, modalBuscarPessoa, modalBuscarProduto, modalConfirm, modalAlert, providerEvento, providerTipo, providerPessoa, providerProduto, TipoEvento, Pessoa, Evento, Produto, evento) {
+    'data',
+    function ($rootScope, $scope, $timeout, $uibModalInstance, modalBuscarPessoa, modalBuscarProduto, modalConfirm, modalAlert, providerEvento, providerTipo, providerPessoa, providerProduto, TipoEvento, Pessoa, Evento, Produto, evento, data) {
 
       $uibModalInstance.opened.then(function () {
 
@@ -32,8 +33,13 @@ angular.module('belissimaApp.controllers')
         } else {
           $scope.evento = new Evento();
           $scope.evento.start = new Date();
+          if (data) {
+            $scope.evento.start.setYear(data.getFullYear());
+            $scope.evento.start.setMonth(data.getMonth());
+            $scope.evento.start.setDate(data.getDate());
+          }
           $scope.evento.end = new Date($scope.evento.start.getTime() + 30 * 60000);
-          $scope.evento.start.setSeconds(0);
+          $scope.evento.start.setSeconds(1);
           $scope.evento.end.setSeconds(0);
         }
 

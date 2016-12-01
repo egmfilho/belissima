@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('belissimaApp.directives')
-  .directive('tela', ['$rootScope', '$window', function($rootScope, $window) {
+  .directive('tela', ['$rootScope', '$timeout', '$window', function($rootScope, $timeout, $window) {
 
     function link(scope, element, attrs) {
       var headerHeight = $window.innerWidth >= 768 ? parseInt(element.find('.header').css('height')) : parseInt(element.find('.header-xs').css('height')),
@@ -15,7 +15,18 @@ angular.module('belissimaApp.directives')
         body.css('min-height', ($window.innerHeight - headerHeight - footerHeight) + 'px');
       }
 
+      scope.currentPath = $rootScope.currentPath;
       scope.versao = $rootScope.versao;
+
+      // relogio
+      function atualizaHora() {
+        scope.relogio = new Date();
+
+        $timeout(function() {
+          atualizaHora();
+        }, 1000);
+      }
+      atualizaHora();
     }
 
     return {

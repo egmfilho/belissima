@@ -52,7 +52,8 @@ angular.module('belissimaApp.services')
           }, {
             product_code: codigo,
             get_product_group: getGrupo,
-            get_product_provider: getFornecedor
+            get_product_provider: getFornecedor,
+            get_product_unit: true
           }).$promise;
         },
 

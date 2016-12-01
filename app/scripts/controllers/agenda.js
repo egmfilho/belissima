@@ -24,6 +24,9 @@ angular.module('belissimaApp.controllers')
 
       var self = this;
 
+      this.currentView = 'month';
+      this.currentDate = new Date();
+
       this.eventos = {
         array: [ ],
         inicio: null,
@@ -84,6 +87,7 @@ angular.module('belissimaApp.controllers')
           eventDrop: alertOnResizeOrDrop,
           eventResize: alertOnResizeOrDrop,
           viewRender: alertOnChangeView,
+          dayRender: dayRender,
           eventRender: eventRender,
           scrollTime: getNow(),
           nowIndicator: true
@@ -172,7 +176,8 @@ angular.module('belissimaApp.controllers')
           controller: 'ModalEventoCtrl',
           size: 'lg',
           resolve: {
-            evento: function() { return null; }
+            evento: function() { return null; },
+            data: function() { return self.currentView === 'agendaDay' ? self.currentDate : null; }
           }
         }).result.then(function(result) {
             if (result) {
@@ -180,9 +185,11 @@ angular.module('belissimaApp.controllers')
               uiCalendarConfig.calendars.meuCalendario.fullCalendar('renderEvent', self.eventos.array[self.eventos.array.length - 1], true);
             }
         });
-      }
+      };
 
       function dayClick(date, jsEvent, view) {
+        self.currentDate = new Date(date.format('YYYY/MM/DD'));
+
         //jsEvent.preventDefault();
 
         //$(this).css('background-color', 'red');
@@ -267,6 +274,7 @@ angular.module('belissimaApp.controllers')
       }
 
       function alertOnChangeView(view, element) {
+        self.currentView = view.name;
         // console.log("View Changed: ", view.start._d, view.end._d);
         $rootScope.loading.load();
         getEventos(view.start._d, view.end._d);
@@ -287,6 +295,13 @@ angular.module('belissimaApp.controllers')
           element.attr({'tooltip': event.description,
             'tooltip-append-to-body': true});
           $compile(element)($scope);
+        }
+      }
+
+      function dayRender(date, cell) {
+        return;
+        if (parseInt(date.toDate().getDate()) % 2 == 0) {
+          jQuery(cell).css('vertical-align', 'middle').append('<span class="glyphicon glyphicon-lock cadeado"></span>');
         }
       }
 

@@ -1,0 +1,189 @@
+#tela-pdv {
+
+  .padding-cards {
+    padding: 10px;
+  }
+
+  .card {
+    background-color: $cor-menu-lateral;
+    border: 1px solid $cor-menu-lateral-borda;
+    padding: 20px;
+  }
+
+  .banner {
+    .card {
+      height: 230px;
+
+      .logo {
+        padding: 0 0 20px 0;
+
+        div {
+          width: 100%;
+          margin: auto;
+          height: 120px;
+          background-image: url('../images/logotipo.png');
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+      }
+    }
+  }
+
+  .controle {
+    .card {
+      height: 420px;
+
+      input {
+        &:focus {
+          outline: none;
+          box-shadow: none;
+          border-color: #ccc;
+          border-right: none;
+        }
+
+        box-shadow: none;
+      }
+
+      .input-group-lg {
+        .form-control {
+          height: 50px;
+          font-size: 32px;
+        }
+
+        .btn {
+          height: 50px;
+          font-size: 32px;
+          padding: 5px;
+          width: 50px;
+          background-color: white;
+          border: 1px solid #ccc;
+          border-left: none;
+
+          &[disabled] {
+            background-color: #eee;
+            opacity: 1;
+          }
+
+          &:active {
+            box-shadow: none;
+
+            .glyphicon {
+              color: $cor-menu-highlight-escuro;
+            }
+          }
+
+          .glyphicon {
+            width: auto;
+            color: $cor-menu-highlight;
+          }
+        }
+      }
+
+      .input-lg {
+        height: 50px;
+        font-size: 32px;
+      }
+
+      .nome-produto {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #777;
+      }
+
+      .descricao-produto {
+        h1 {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+
+  .lista-de-produtos {
+    .card {
+      height: 400px;
+      overflow: hidden;
+
+      .nota {
+        overflow-y: auto;
+        height: 100%;
+
+        @include scrolling-shadows(white, 0.4, #000, 50px, 5px);
+
+        border: 1px solid #aaa;
+
+        pre {
+          min-height: 100%;
+          font-family: monospace;
+          margin-bottom: 0;
+          background-color: transparent;
+          border: none;
+
+          h3 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            margin-bottom: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 200;
+            color: #666;
+            border-bottom: 1px solid #666;
+          }
+
+          table {
+            width: 100%;
+
+            td {
+              padding: 1px;
+              //border: 1px solid red;
+            }
+
+            tr {
+              &:hover {
+                background-color: #0000cc;
+                color: white;
+
+                a {
+                  color: white;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .display {
+    .card {
+      height: 250px;
+
+      .titulo {
+        margin-top: 0;
+      }
+
+      input {
+        width: 100%;
+        font-size: 2.6em;
+        font-weight: bold;
+
+        // http://www.cssmatic.com/gradient-generator#'\-moz\-linear\-gradient\%28top\%2C\%20rgba\%28209\%2C209\%2C209\%2C1\%29\%200\%25\%2C\%20rgba\%28176\%2C176\%2C176\%2C1\%29\%2050\%25\%2C\%20rgba\%28130\%2C130\%2C130\%2C1\%29\%2051\%25\%2C\%20rgba\%28209\%2C209\%2C209\%2C1\%29\%20100\%25\%29\%3B'
+        background: rgba(56,56,56,1);
+        background: -moz-linear-gradient(top, rgba(56,56,56,1) 0%, rgba(71,71,71,0.5) 68%, rgba(74,74,74,0.26) 100%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(56,56,56,1)), color-stop(68%, rgba(71,71,71,0.5)), color-stop(100%, rgba(74,74,74,0.26)));
+        background: -webkit-linear-gradient(top, rgba(56,56,56,1) 0%, rgba(71,71,71,0.5) 68%, rgba(74,74,74,0.26) 100%);
+        background: -o-linear-gradient(top, rgba(56,56,56,1) 0%, rgba(71,71,71,0.5) 68%, rgba(74,74,74,0.26) 100%);
+        background: -ms-linear-gradient(top, rgba(56,56,56,1) 0%, rgba(71,71,71,0.5) 68%, rgba(74,74,74,0.26) 100%);
+        background: linear-gradient(to bottom, rgba(56,56,56,1) 0%, rgba(71,71,71,0.5) 68%, rgba(74,74,74,0.26) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#383838', endColorstr='#4a4a4a', GradientType=0 );
+
+        border: 1px solid #666;
+        padding: 5px 15px;
+        color: rgba(255, 255, 255, .9);
+        text-shadow: 0 0 4px rgba(0,0,0,0.8);;
+
+        -webkit-box-shadow: inset 0px 0px 6px 0px rgba(0,0,0,0.3);
+        -moz-box-shadow: inset 0px 0px 6px 0px rgba(0,0,0,0.3);
+        box-shadow: inset 0px 0px 6px 0px rgba(0,0,0,0.3);
+      }
+    }
+  }
+}

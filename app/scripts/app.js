@@ -73,6 +73,12 @@ angular
         template: '<h3>Logging out...</h3>',
         controller: 'LogoutCtrl'
       })
+      .when('/pdv', {
+        modulo: 'pdv',
+        templateUrl: 'views/pdv.html',
+        controller: 'PDVCtrl',
+        controllerAs: 'pdv',
+      })
       .when('/ticket/:action', {
         modulo: 'ticket',
         templateUrl: 'views/ticket.html',
@@ -123,9 +129,19 @@ angular
     // - Corrigido diferença de segundos na hora dos eventos
     // - Visualizacao "dia" na agenda mostra a hora atual mais abaixo do topo
     // - Filtro de categoria na tabela de pessoas
-    $rootScope.versao = '0.7.3';
+    //
+    // ver 0.7.4
+    //
+    // - Modal editar pessoa nao pede mais CPF obrigatorio
+    // - Modal novo evento abre na data do calendario
+    // - Eventos nao conflitam quando um termina na hora que o outro começa
+    // - Preparado para bloqueio de datas na agenda
+    // - Paginacao modal buscar pessoa
+    // - Paginacao modal buscar endereco
+    // - Paginacao modal buscar produto/servico
+    $rootScope.versao = '0.7.4';
   }])
-  .run(['$rootScope', '$location', '$cookies', '$uibModalStack', function($rootScope, $location, $cookies, $uibModalStack) {
+  .run(['$rootScope', '$location', '$cookies', '$timeout', '$uibModalStack', function($rootScope, $location, $cookies, $timeout, $uibModalStack) {
 
     // para ser usado no ng-repeat
     $rootScope.getNumber = function(num) {
@@ -170,21 +186,21 @@ angular
       $uibModalStack.dismissAll();
       $rootScope.currentPath = $location.path();
 
-      // // Bloqueia acesso de usuarios nao logados
-      // if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
-      //   if (next.templateUrl !== 'views/login.html') {
-      //     $location.path('/login');
-      //   }
-      //   return;
-      // }
-      //
-      // // Bloqueia acessos pelas permissoes
-      // var user = JSON.parse(window.atob($cookies.get('currentUser')));
-      // if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
-      //   if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
-      //     $location.path('/home');
-      //   }
-      // }
+      // Bloqueia acesso de usuarios nao logados
+      if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
+        if (next.templateUrl !== 'views/login.html') {
+          $location.path('/login');
+        }
+        return;
+      }
+
+      // Bloqueia acessos pelas permissoes
+      var user = JSON.parse(window.atob($cookies.get('currentUser')));
+      if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
+        if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
+          $location.path('/home');
+        }
+      }
     });
 
   }]);

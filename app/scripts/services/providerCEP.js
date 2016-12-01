@@ -57,13 +57,14 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
-        obterPorLogradouro: function (logradouro, bairro, cidade) {
+        obterPorLogradouro: function (logradouro, bairro, cidade, limite) {
           return provider.get({
             action: 'getList'
           }, {
             'cep_public_place': logradouro,
             get_district: bairro,
-            get_city: cidade
+            get_city: cidade,
+            cep_limit: limite
           }).$promise;
         },
 

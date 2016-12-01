@@ -1,0 +1,243 @@
+<tela id="tela-pdv" icon="glyphicon-shopping-cart" titulo="PDV" subtitulo="asidjaios iaojdoais doiajdosa" show-footer="true">
+  <div class="conteudo-tela">
+
+    <!--<div class="container">-->
+      <div class="row">
+        <div class="col-md-7">
+          <div class="row">
+            <div class="col-md-12 padding-cards banner">
+              <div class="card text-center">
+                <div class="logo">
+                  <div></div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-5 col-sm-push-1">
+                    <button class="btn btn-default btn-block btn-lg" ng-click="pdv.abrirTicket()">
+                      <span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Abrir Ticket
+                    </button>
+                  </div>
+                  <div class="col-sm-5 col-sm-push-1">
+                    <button class="btn btn-default btn-block btn-lg" ng-click="pdv.novo()">
+                      <span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Cancelar Venda
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 padding-cards controle">
+              <div class="card">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4 class="">
+                      Código do produto
+                      <span class="glyphicon glyphicon-question-sign pull-right" uib-popover="Use F1 para abrir a localização de produtos e ESC para cancelar a inserção." popover-trigger="'mouseenter'" popover-placement="left"></span>
+                    </h4>
+                    <div class="input-group input-group-lg">
+                      <input type="text" name="cdProduto" class="form-control" ng-model="pdv.cdProduto" keys-shortcuts enter="pdv.buscarProdutoPorCodigo(pdv.cdProduto)" f1="pdv.buscarProduto()" escape="pdv.cancelarEdicao()" ng-disabled="pdv.ticket.codigo">
+                      <span class="input-group-btn">
+                        <button class="btn" name="btnProduto" ng-click="pdv.buscarProduto()" ng-disabled="pdv.ticket.codigo">
+                          <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <h4>Quantidade</h4>
+                    <input type="text" name="quantidade" class="form-control input-lg" ng-model="pdv.tempItem.quantidade" keys-shortcuts enter="focarDescontoPercent()" escape="pdv.cancelarEdicao()" number-only ng-disabled="pdv.ticket.codigo">
+                  </div>
+                  <div class="col-md-4">
+                    <h4>Desconto %</h4>
+                    <input type="text" name="descontoPercent" class="form-control input-lg" ng-model="pdv.tempItem.descontoPercent" keys-shortcuts enter="focarDescontoDinheiro()" escape="pdv.cancelarEdicao()" number-only currency symbol="''" ng-disabled="pdv.ticket.codigo">
+                  </div>
+                  <div class="col-md-4">
+                    <h4>Desconto R$</h4>
+                    <input type="text" name="descontoDinheiro" class="form-control input-lg" ng-model="pdv.tempItem.descontoDinheiro" keys-shortcuts enter="pdv.addItem()" escape="pdv.cancelarEdicao()" number-only currency symbol="''" ng-disabled="pdv.ticket.codigo">
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-12 nome-produto">
+                    <h3>{{pdv.tempItem.produto.codigo}} {{pdv.tempItem.produto.nome || 'Nenhum produto selecionado'}}</h3>
+                    <p>{{pdv.tempItem.produto.descricao || 'Sem descrição'}}</p>
+                  </div>
+                  <div class="col-md-12 descricao-produto">
+                    <p>Valor do produto</p>
+                    <h1>{{pdv.tempItem.precoProduto | currency: 'R$ '}}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="row">
+            <div class="col-md-12 padding-cards lista-de-produtos">
+              <div class="card">
+                <div class="nota">
+                  <pre>
+                    <h3>Lista de Produtos - F6 para editar</h3>
+                    <table>
+                      <tbody ng-repeat="item in pdv.ticket.items">
+                        <tr ng-click="pdv.selectItem(item)">
+                          <td class="text-left">{{item.produto.codigo}}</td>
+                          <td></td>
+                          <td></td>
+                          <td class="text-left" colspan="2">{{item.produto.nome | truncate: 25 | uppercase}}</td>
+                          <td class="text-right"
+                              confirm-popup title="Atenção" message="Deseja remover o produto?" ok-func="removerItem(item)" placement="left"
+                              ng-show="pdv.edicao"><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
+                        </tr>
+                        <tr ng-click="pdv.selectItem(item)">
+                          <td></td>
+                          <td class="text-left">{{item.quantidade}}</td>
+                          <td class="text-center">{{item.produto.unidade.valor}} x</td>
+                          <td class="text-center">{{item.precoProduto | currency: ''}}</td>
+                          <td class="text-right" colspan="2">{{item.precoProduto * item.quantidade | currency: ''}}</td>
+                        </tr>
+                      </tbody>
+                      <tbody>
+                        <tr>
+                          <td colspan="4"></td>
+                          <td class="text-right" colspan="2">-------------</td>
+                        </tr>
+                        <tr>
+                          <td class="text-left" colspan="2">TOTAL R$</td>
+                          <td colspan="2"></td>
+                          <td class="text-right" colspan="2">{{(pdv.ticket.getValorTotalComDesconto() || 0) | currency: 'R$ '}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </pre>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 padding-cards display">
+              <div class="card">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3 class="titulo">Valor total</h3>
+                    <input type="text" ng-value="(pdv.ticket.getValorTotalComDesconto() || 0) | currency: 'R$ '" class="text-right" readonly>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <button class="btn btn-default btn-block">
+                      <!--<span class="glyphicon glyphicon-trash"></span>-->
+                      F6 - Cancelar item
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button class="btn btn-default btn-block" ng-click="pdv.abrirModalCliente()">
+                      <!--<span class="glyphicon glyphicon-user"></span>-->
+                      F8 - Cliente / CPF
+                    </button>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <button class="btn btn-default btn-block">
+                      <!--<span class="glyphicon glyphicon-credit-card"></span>-->
+                      F9 - Pagamento
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button class="btn btn-default btn-block">
+                      <!--<span class="glyphicon glyphicon-ok"></span>-->
+                      F10 - Fechar Venda
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!--</div>-->
+
+  </div>
+</tela>
+
+<!--MODAL CLIENTE-->
+<div class="modal meu-modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="modalCliente">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="header">
+        <div class="title">
+          <span class="glyphicon glyphicon-user"></span>
+          Cliente
+          <span class="glyphicon glyphicon-remove close" data-dismiss="modal"></span>
+        </div>
+      </div>
+      <div class="body condensar-rows">
+        <div class="col-md-3">
+          <h4>Código</h4>
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="financeiro.forma.codigo" readonly="true">
+            <span class="input-group-btn">
+              <button class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <h4>Nome</h4>
+          <input type="text" class="form-control" ng-model="financeiro.forma.descricao">
+        </div>
+      </div>
+      <div class="control">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          <span class="glyphicon glyphicon-remove"></span> Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" ng-click="">
+          <span class="glyphicon glyphicon-floppy-save"></span> Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FIM MODAL-->
+
+<!--MODAL PAGAMENTO-->
+<div class="modal meu-modal fade" id="modalPagamento" tabindex="-1" role="dialog" aria-labelledby="modalPagamento">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="header">
+        <div class="title">
+          <span class="glyphicon glyphicon-credit-card"></span>
+          Pagamento
+          <span class="glyphicon glyphicon-remove close" data-dismiss="modal"></span>
+        </div>
+      </div>
+      <div class="body condensar-rows">
+        <div class="col-md-3">
+          <h4>Código</h4>
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="financeiro.forma.codigo" readonly="true">
+            <span class="input-group-btn">
+              <button class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <h4>Descrição</h4>
+          <input type="text" class="form-control" ng-model="financeiro.forma.descricao">
+        </div>
+      </div>
+      <div class="control">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          <span class="glyphicon glyphicon-remove"></span> Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" ng-click="">
+          <span class="glyphicon glyphicon-floppy-save"></span> Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FIM MODAL-->
+

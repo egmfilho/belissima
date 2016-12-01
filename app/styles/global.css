@@ -136,6 +136,13 @@ body {
     padding: 30px;
     height: 200px;
     position: relative; }
+    .tela .header .pdv-infos {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      text-align: right; }
+      .tela .header .pdv-infos p, .tela .header .pdv-infos h4 {
+        margin: 2px 0; }
     .tela .header h1 {
       font-size: 3em; }
     .tela .header h4 {
@@ -310,8 +317,7 @@ body {
   min-height: 250px;
   max-height: 400px; }
 .modal .modal-sm .header {
-  padding-left: 20px;
-  padding-top: 2px; }
+  padding-left: 20px; }
 .modal .modal-sm .body {
   height: 70px; }
   .modal .modal-sm .body .glyphicon {
@@ -1002,6 +1008,122 @@ body {
   #menu-home .botao-menu-home > div > h4 {
     font-size: 1.5em; }
 
+#tela-pdv .padding-cards {
+  padding: 10px; }
+#tela-pdv .card {
+  background-color: #3f3f41;
+  border: 1px solid #5a5a5a;
+  padding: 20px; }
+#tela-pdv .banner .card {
+  height: 230px; }
+  #tela-pdv .banner .card .logo {
+    padding: 0 0 20px 0; }
+    #tela-pdv .banner .card .logo div {
+      width: 100%;
+      margin: auto;
+      height: 120px;
+      background-image: url("../images/logotipo.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain; }
+#tela-pdv .controle .card {
+  height: 420px; }
+  #tela-pdv .controle .card input {
+    box-shadow: none; }
+    #tela-pdv .controle .card input:focus {
+      outline: none;
+      box-shadow: none;
+      border-color: #ccc;
+      border-right: none; }
+  #tela-pdv .controle .card .input-group-lg .form-control {
+    height: 50px;
+    font-size: 32px; }
+  #tela-pdv .controle .card .input-group-lg .btn {
+    height: 50px;
+    font-size: 32px;
+    padding: 5px;
+    width: 50px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-left: none; }
+    #tela-pdv .controle .card .input-group-lg .btn[disabled] {
+      background-color: #eee;
+      opacity: 1; }
+    #tela-pdv .controle .card .input-group-lg .btn:active {
+      box-shadow: none; }
+      #tela-pdv .controle .card .input-group-lg .btn:active .glyphicon {
+        color: #867512; }
+    #tela-pdv .controle .card .input-group-lg .btn .glyphicon {
+      width: auto;
+      color: #baa526; }
+  #tela-pdv .controle .card .input-lg {
+    height: 50px;
+    font-size: 32px; }
+  #tela-pdv .controle .card .nome-produto {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #777; }
+  #tela-pdv .controle .card .descricao-produto h1 {
+    margin-top: 5px; }
+#tela-pdv .lista-de-produtos .card {
+  height: 400px;
+  overflow: hidden; }
+  #tela-pdv .lista-de-produtos .card .nota {
+    overflow-y: auto;
+    height: 100%;
+    background: linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, radial-gradient(50% 0, farthest-side, rgba(0, 0, 0, 0.4), transparent), radial-gradient(50% 100%, farthest-side, rgba(0, 0, 0, 0.4), transparent) 0 100%;
+    background: linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, 0.4), transparent), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.4), transparent) 0 100%;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: 100% 50px, 100% 50px, 100% 5px, 100% 5px;
+    background-attachment: local, local, scroll, scroll;
+    border: 1px solid #aaa; }
+    #tela-pdv .lista-de-produtos .card .nota pre {
+      min-height: 100%;
+      font-family: monospace;
+      margin-bottom: 0;
+      background-color: transparent;
+      border: none; }
+      #tela-pdv .lista-de-produtos .card .nota pre h3 {
+        margin-top: 0;
+        padding-bottom: 10px;
+        margin-bottom: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 200;
+        color: #666;
+        border-bottom: 1px solid #666; }
+      #tela-pdv .lista-de-produtos .card .nota pre table {
+        width: 100%; }
+        #tela-pdv .lista-de-produtos .card .nota pre table td {
+          padding: 1px; }
+        #tela-pdv .lista-de-produtos .card .nota pre table tr:hover {
+          background-color: #0000cc;
+          color: white; }
+          #tela-pdv .lista-de-produtos .card .nota pre table tr:hover a {
+            color: white; }
+#tela-pdv .display .card {
+  height: 250px; }
+  #tela-pdv .display .card .titulo {
+    margin-top: 0; }
+  #tela-pdv .display .card input {
+    width: 100%;
+    font-size: 2.6em;
+    font-weight: bold;
+    background: #383838;
+    background: -moz-linear-gradient(top, #383838 0%, rgba(71, 71, 71, 0.5) 68%, rgba(74, 74, 74, 0.26) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, #383838), color-stop(68%, rgba(71, 71, 71, 0.5)), color-stop(100%, rgba(74, 74, 74, 0.26)));
+    background: -webkit-linear-gradient(top, #383838 0%, rgba(71, 71, 71, 0.5) 68%, rgba(74, 74, 74, 0.26) 100%);
+    background: -o-linear-gradient(top, #383838 0%, rgba(71, 71, 71, 0.5) 68%, rgba(74, 74, 74, 0.26) 100%);
+    background: -ms-linear-gradient(top, #383838 0%, rgba(71, 71, 71, 0.5) 68%, rgba(74, 74, 74, 0.26) 100%);
+    background: linear-gradient(to bottom, #383838 0%, rgba(71, 71, 71, 0.5) 68%, rgba(74, 74, 74, 0.26) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#383838', endColorstr='#4a4a4a', GradientType=0 );
+    border: 1px solid #666;
+    padding: 5px 15px;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.3); }
+
 #tela-ticket ul.dropdown-menu {
   left: 0 !important;
   width: 100%; }
@@ -1166,6 +1288,12 @@ body {
   color: white; }
   #agenda button:hover {
     background-color: #867512; }
+
+.cadeado {
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+  opacity: .5; }
 
 #financeiro #modalPrazo h4 > .glyphicon {
   vertical-align: bottom; }

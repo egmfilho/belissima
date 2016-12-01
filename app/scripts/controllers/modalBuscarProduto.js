@@ -12,6 +12,15 @@ angular.module('belissimaApp.controllers')
     'Produto',
     function($scope, $uibModalInstance, provider, Produto) {
 
+      $scope.pagination = {
+        current: 1,
+        max: 15,
+        total: 0,
+        pageChanged: function(nome) {
+          $scope.getProdutosPorNome(nome);
+        }
+      };
+
       $scope.resultado = [ ];
 
       function setResultado(resultado) {
@@ -36,7 +45,9 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.getProdutosPorNome = function(nome) {
-        provider.obterProdutosPorNome(nome).then(function(success) {
+        var limit = ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max;
+        provider.obterProdutosPorNome(nome, limit).then(function(success) {
+          $scope.pagination.total = success.info.product_quantity;
           setResultado(success.data);
         }, function(error) {
           console.log(error);

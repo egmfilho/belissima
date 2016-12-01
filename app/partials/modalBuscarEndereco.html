@@ -4,32 +4,34 @@
     <div class="title"><span class="glyphicon glyphicon-envelope"></span> Buscar Endereço <span class="glyphicon glyphicon-remove close" ng-click="cancel()"></span></div>
   </div>
 
+  <div class="sub-header">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-3">
+        <div><h4>CEP</h4></div>
+        <div class="input-group">
+          <input type="text" class="form-control" name="cdEndereco" aria-describedby="basic-addon2" ng-model="cdEndereco" keys-shortcuts enter="buscarPorCEP(cdEndereco)" ui-mask="99999-999" model-view-value="true">
+          <span class="input-group-btn">
+              <button class="btn btn-default" tabindex="-1" ng-click="buscarPorCEP(cdEndereco)"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-8 col-md-9">
+        <div><h4>Logradouro</h4></div>
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="logradouro" keys-shortcuts enter="buscarPorLogradouro(logradouro)" placeholder="">
+          <!--<span class="input-group-addon">em</span>-->
+          <!--<input type="text" name="cidade" class="form-control" ng-model="cidade" press-enter="buscarPorLogradouro(logradouro, cidade)" placeholder="Ex. Rio de Janeiro">-->
+          <span class="input-group-btn">
+              <button class="btn btn-default" ng-click="buscarPorLogradouro(logradouro)" tabindex="-1"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="body">
 
     <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-4 col-md-3">
-          <div><h4>CEP</h4></div>
-          <div class="input-group">
-            <input type="text" class="form-control" name="cdEndereco" aria-describedby="basic-addon2" ng-model="cdEndereco" keys-shortcuts enter="buscarPorCEP(cdEndereco)" ui-mask="99999-999" model-view-value="true">
-            <span class="input-group-btn">
-              <button class="btn btn-default" tabindex="-1" ng-click="buscarPorCEP(cdEndereco)"><span class="glyphicon glyphicon-search"></span></button>
-            </span>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-8 col-md-9">
-          <div><h4>Logradouro</h4></div>
-          <div class="input-group">
-            <input type="text" class="form-control" ng-model="logradouro" keys-shortcuts enter="buscarPorLogradouro(logradouro)" placeholder="">
-            <!--<span class="input-group-addon">em</span>-->
-            <!--<input type="text" name="cidade" class="form-control" ng-model="cidade" press-enter="buscarPorLogradouro(logradouro, cidade)" placeholder="Ex. Rio de Janeiro">-->
-            <span class="input-group-btn">
-              <button class="btn btn-default" ng-click="buscarPorLogradouro(logradouro)" tabindex="-1"><span class="glyphicon glyphicon-search"></span></button>
-            </span>
-          </div>
-        </div>
-      </div>
-      <br>
       <div class="row">
         <div class="col-md-12">
           <table class="tabela tabela-bordered tabela-selecionavel">
@@ -43,22 +45,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="vazio in tabela_vazia" ng-if="!ceps.length">
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-            <tr ng-repeat="c in ceps" ng-click="selecionarCEP(c)" ng-if="ceps.length">
-              <td>{{c.codigo}}</td>
-              <td>{{c.uf}}</td>
-              <td>{{c.cidade.nome}}</td>
-              <td>{{c.bairro.nome}}</td>
-              <td>{{c.logradouro}}</td>
-            </tr>
+              <tr ng-repeat="c in ceps" ng-click="selecionarCEP(c)" ng-if="ceps.length">
+                <td>{{c.codigo}}</td>
+                <td>{{c.uf}}</td>
+                <td>{{c.cidade.nome}}</td>
+                <td>{{c.bairro.nome}}</td>
+                <td>{{c.logradouro}}</td>
+              </tr>
+              <tr ng-repeat="n in getNumber(pagination.max - ceps.length) track by $index">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
             </tbody>
           </table>
+          <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="5" ng-change="pagination.pageChanged(logradouro)" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
         </div>
       </div>
     </div>

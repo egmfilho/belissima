@@ -14,6 +14,15 @@ angular.module('belissimaApp.controllers')
     'categoriaId',
     function($rootScope, $scope, $uibModalInstance, provider, Pessoa, categoriaId) {
 
+      $scope.pagination = {
+        current: 1,
+        max: 15,
+        total: 0,
+        pageChanged: function(nome) {
+          $scope.getPessoasPorNome(nome);
+        }
+      };
+
       $uibModalInstance.opened.then(function() {
         $rootScope.loading.unload();
         $scope.resultado = [ ];
@@ -69,7 +78,9 @@ angular.module('belissimaApp.controllers')
 
       $scope.getPessoasPorNome = function(nome) {
         $rootScope.loading.load();
-        provider.obterPessoasPorNome(categoriaId, nome, true, true, true, true, true, true, true).then(function(success) {
+        var limit = ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max;
+        provider.obterPessoasPorNome(categoriaId, nome, true, true, true, true, true, true, true, null, limit).then(function(success) {
+          $scope.pagination.total = success.info.person_quantity;
           setResultado(success.data);
           $rootScope.loading.unload();
         }, function(error) {

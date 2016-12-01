@@ -14,9 +14,18 @@ angular.module('belissimaApp.controllers')
     'enderecos',
     function($rootScope, $scope, $uibModalInstance, provider, CEP, enderecos) {
 
+      $scope.pagination = {
+        current: 1,
+        max: 15,
+        total: 0,
+        pageChanged: function(logradouro) {
+          $scope.buscarPorLogradouro(logradouro);
+        }
+      };
+
       $uibModalInstance.opened.then(function() {
         $scope.ceps = enderecos || [ ];
-        $scope.tabela_vazia = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
+
         $rootScope.loading.unload();
         setTimeout(function() {
           jQuery('input[name="cdCEP"]').focus();
@@ -53,7 +62,9 @@ angular.module('belissimaApp.controllers')
         }
 
         $rootScope.loading.load();
-        provider.obterPorLogradouro(logradouro, true, true).then(function(success) {
+        var limit = ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max;
+        provider.obterPorLogradouro(logradouro, true, true, limit).then(function(success) {
+          $scope.pagination.total = success.info.quantity;
           $scope.ceps = [ ];
           angular.forEach(success.data, function(item, index) {
             $scope.ceps.push(new CEP(CEP.converterEmEntrada(item)));

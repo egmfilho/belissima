@@ -7,8 +7,13 @@ angular.module('belissimaApp.controllers')
 
     $scope.botoes = [
       {
-        nome: 'Ticket',
+        nome: 'PDV',
         icone: 'glyphicon-shopping-cart',
+        url: '/pdv'
+      },
+      {
+        nome: 'Ticket',
+        icone: 'glyphicon-edit',
         url: '/ticket/list'
       },
       {
@@ -31,12 +36,12 @@ angular.module('belissimaApp.controllers')
         nome: 'Agenda',
         icone: 'glyphicon-calendar',
         url: '/agenda'
-      },
-      {
-        nome: 'Configurações',
-        icone: 'glyphicon-cog',
-        url: '/configuracoes'
-      },
+      // },
+      // {
+      //   nome: 'Configurações',
+      //   icone: 'glyphicon-cog',
+      //   url: '/configuracoes'
+      }
     ];
 
     $scope.teste = function() {

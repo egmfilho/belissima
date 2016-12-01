@@ -10,7 +10,8 @@ angular.module('belissimaApp.services')
     'PrecoProduto',
     'CustoProduto',
     'GrupoProduto',
-    function(data, Pessoa, PrecoProduto, CustoProduto, GrupoProduto) {
+    'Unidade',
+    function(data, Pessoa, PrecoProduto, CustoProduto, GrupoProduto, Unidade) {
 
       function Produto(produto) {
         this.id = produto ? produto.id : '';
@@ -18,6 +19,7 @@ angular.module('belissimaApp.services')
         this.fornecedorId = produto ? produto.fornecedorId : '';
         this.fornecedor = produto ? produto.fornecedor : '';
         this.unidadeId = produto ? produto.unidadeId : '';
+        this.unidade = produto ? produto.unidade : new Unidade();
         this.grupoId = produto ? produto.grupoId : '';
         this.grupo = produto ? produto.grupo : '';
         this.ativo = produto ? produto.ativo : true;
@@ -38,6 +40,11 @@ angular.module('belissimaApp.services')
 
         setCusto: function(custoProduto) {
           this.custo = custoProduto;
+        },
+
+        setUnidade: function (unidade) {
+          this.unidadeId = unidade.id;
+          this.unidade = new Unidade(unidade);
         },
 
         setFornecedor: function(fornecedor) {
@@ -71,6 +78,12 @@ angular.module('belissimaApp.services')
         }
 
         produto.unidadeId = product.product_unit_id;
+        if (product.product_unit) {
+          produto.unidade = new Unidade(Unidade.converterEmEntrada(product.product_unit));
+        } else {
+          produto.unidade = new Unidade();
+        }
+
         produto.grupoId = product.product_group_id;
 
         if (product.product_group) {
