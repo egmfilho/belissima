@@ -26,6 +26,8 @@ angular.module('belissimaApp.controllers')
     'data',
     function ($rootScope, $scope, $timeout, $uibModalInstance, modalBuscarPessoa, modalBuscarProduto, modalConfirm, modalAlert, providerEvento, providerTipo, providerPessoa, providerProduto, TipoEvento, Pessoa, Evento, Produto, evento, data) {
 
+      var results = [];
+
       $uibModalInstance.opened.then(function () {
 
         if (evento) {
@@ -238,16 +240,38 @@ angular.module('belissimaApp.controllers')
           $rootScope.loading.load();
           if ($scope.evento.id) {
             providerEvento.atualizarEvento(Evento.converterEmSaida($scope.evento)).then(function (success) {
+              results.push(new Evento($scope.evento));
               $rootScope.loading.unload();
-              $uibModalInstance.close(Evento.converterEmEntrada(success.data));
+              modalConfirm.show('Aviso', 'Continuar agendando para este cliente?', 'Sim', 'Não').then(function() {
+                var temp = new Evento($scope.evento);
+                $scope.evento = new Evento();
+                $scope.evento.setCliente(temp.cliente);
+                $scope.evento.start = new Date(temp.end);
+                $scope.evento.end = new Date($scope.evento.start.getTime() + 30 * 60000);
+                $scope.evento.start.setSeconds(1);
+                $scope.evento.end.setSeconds(0);
+              }, function() {
+                $uibModalInstance.close(results);
+              });
             }, function (error) {
               console.log(error);
               $rootScope.loading.unload();
             });
           } else {
             providerEvento.salvarEvento(Evento.converterEmSaida($scope.evento)).then(function (success) {
+              results.push(new Evento($scope.evento));
               $rootScope.loading.unload();
-              $uibModalInstance.close(Evento.converterEmEntrada(success.data));
+              modalConfirm.show('Aviso', 'Continuar agendando para este cliente?', 'Sim', 'Não').then(function() {
+                var temp = new Evento($scope.evento);
+                $scope.evento = new Evento();
+                $scope.evento.setCliente(temp.cliente);
+                $scope.evento.start = new Date(temp.end);
+                $scope.evento.end = new Date($scope.evento.start.getTime() + 30 * 60000);
+                $scope.evento.start.setSeconds(1);
+                $scope.evento.end.setSeconds(0);
+              }, function() {
+                $uibModalInstance.close(results);
+              });
             }, function (error) {
               console.log(error);
               $rootScope.loading.unload();
@@ -263,7 +287,7 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.close = function () {
-        $uibModalInstance.dismiss();
+        $uibModalInstance.close(results);
       };
 
     }]);

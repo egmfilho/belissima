@@ -12,6 +12,9 @@
       <li role="presentation" ng-class="opcao === 'enderecos' ? 'active' : ''">
         <a href="" ng-click="opcao = 'enderecos'">Endereços</a>
       </li>
+      <li role="presentation" ng-class="opcao === 'calendario' ? 'active' : ''">
+        <a href="" ng-click="opcao = 'calendario'">Calendario</a>
+      </li>
       <li role="presentation" ng-class="opcao === 'financeiro' ? 'active' : ''">
         <a href="" ng-click="opcao = 'financeiro'">Financeiro</a>
       </li>
@@ -23,6 +26,8 @@
       <div class="col-md-12" ng-if="opcao === 'perfis'" ng-include="'partials/configuracoes/perfis.html'"></div>
 
       <div class="col-md-12" ng-if="opcao === 'enderecos'" ng-include="'partials/configuracoes/enderecos.html'"></div>
+
+      <div class="col-md-12" ng-if="opcao === 'calendario'" ng-include="'partials/configuracoes/calendario.html'"></div>
 
       <div class="col-md-12" ng-if="opcao === 'financeiro'" ng-include="'partials/configuracoes/financeiro.html'"></div>
 

@@ -75,7 +75,7 @@
               <div class="card">
                 <div class="nota">
                   <pre>
-                    <h3>Lista de Produtos - F6 para editar</h3>
+                    <h3>Lista de Produtos</h3>
                     <table>
                       <tbody ng-repeat="item in pdv.ticket.items">
                         <tr ng-click="pdv.selectItem(item)">
@@ -122,7 +122,7 @@
                 <br>
                 <div class="row">
                   <div class="col-md-6">
-                    <button class="btn btn-default btn-block">
+                    <button class="btn btn-default btn-block" ng-disabled="pdv.ticket.codigo">
                       <!--<span class="glyphicon glyphicon-trash"></span>-->
                       F6 - Cancelar item
                     </button>
@@ -174,9 +174,9 @@
         <div class="col-md-3">
           <h4>Código</h4>
           <div class="input-group">
-            <input type="text" class="form-control" ng-model="financeiro.forma.codigo" readonly="true">
+            <input type="text" class="form-control" ng-model="pdv.ticket.cliente.codigo" ng-disabled="pdv.ticket.codigo">
             <span class="input-group-btn">
-              <button class="btn btn-default">
+              <button class="btn btn-default" ng-disabled="pdv.ticket.codigo">
                 <span class="glyphicon glyphicon-search"></span>
               </button>
             </span>
@@ -184,7 +184,15 @@
         </div>
         <div class="col-md-9">
           <h4>Nome</h4>
-          <input type="text" class="form-control" ng-model="financeiro.forma.descricao">
+          <input type="text" class="form-control" ng-value="pdv.ticket.cliente.nome" readonly>
+        </div>
+        <div class="col-md-6">
+          <h4>Apelido</h4>
+          <input type="text" class="form-control" ng-value="pdv.ticket.cliente.apelido" readonly>
+        </div>
+        <div class="col-md-6">
+          <h4>CPF</h4>
+          <input type="text" class="form-control" pdv-value="pdv.ticket.cliente.cpf" readonly>
         </div>
       </div>
       <div class="control">

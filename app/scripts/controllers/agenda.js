@@ -11,6 +11,7 @@ angular.module('belissimaApp.controllers')
     '$timeout',
     '$document',
     '$compile',
+    '$filter',
     'uiCalendarConfig',
     '$uibModal',
     'ProviderEvento',
@@ -20,9 +21,18 @@ angular.module('belissimaApp.controllers')
     'ModalConfirm',
     'ModalAlert',
     'DataSaida',
-    function($rootScope, $scope, $timeout, $document, $compile, uiCalendarConfig, $uibModal, providerEvento, providerPessoa, Evento, Pessoa, modalConfirm, modalAlert, DataSaida) {
+    function($rootScope, $scope, $timeout, $document, $compile, $filter, uiCalendarConfig, $uibModal, providerEvento, providerPessoa, Evento, Pessoa, modalConfirm, modalAlert, DataSaida) {
 
       var self = this;
+
+      this.dias = [
+        new Date('2016/11/28'),
+        new Date('2016/12/5'),
+        new Date('2016/12/12'),
+        new Date('2016/12/19'),
+        new Date('2016/12/26'),
+        new Date('2017/01/02')
+      ];
 
       this.currentView = 'month';
       this.currentDate = new Date();
@@ -41,6 +51,7 @@ angular.module('belissimaApp.controllers')
         { value: 2, as: '15 minutos' },
         { value: 3, as: '30 minutos' }
       ];
+      $scope.option = this.intervalos[2].value;
 
       $scope.$on('$viewContentLoaded', function() {
         // jQuery($document).on('click', 'button.fc-button', function() {
@@ -68,7 +79,7 @@ angular.module('belissimaApp.controllers')
           header: {
             left: '',// 'addEvent today',
             center: 'prev title next',
-            right: ''// 'agendaDay,basicWeek,month,'
+            right: ''// 'timelineDay,basicWeek,month,'
           },
           // buttonText: {
           //   today: 'Ver hoje'
@@ -81,6 +92,9 @@ angular.module('belissimaApp.controllers')
           slotLabelFormat: 'HH:mm',
           timeFormat: 'HH:mm',
           slotEventOverlap: false,
+          resourceAreaWidth: '20%',
+          resourceLabelText: 'Funcionários',
+          slotWidth: 40,
           eventAfterAllRender: afterRender,
           dayClick: dayClick,
           eventClick: eventClick,
@@ -145,11 +159,10 @@ angular.module('belissimaApp.controllers')
             self.eventos.array.push({events: []});
             angular.forEach(success.data, function (item, index) {
               var evento = new Evento(Evento.converterEmEntrada(item));
-              evento.start.setSeconds(0);
+              evento.start.setSeconds(1);
               evento.end.setSeconds(0);
               self.eventos.array[self.eventos.array.length - 1].events.push(evento);
             });
-            // console.log(self.eventos);
             if (inicio < self.eventos.inicio) {
               self.eventos.inicio = inicio;
             }
@@ -170,6 +183,11 @@ angular.module('belissimaApp.controllers')
       }
 
       this.novoEvento = function() {
+        if (self.currentView === 'timelineDay' && !validarDiaParaAgendamento(self.currentDate)) {
+          modalAlert.show('Aviso!', 'Dia indisponível para agendamentos!');
+          return;
+        }
+
         $uibModal.open({
           animation: true,
           templateUrl: 'partials/modalEvento.html',
@@ -177,34 +195,46 @@ angular.module('belissimaApp.controllers')
           size: 'lg',
           resolve: {
             evento: function() { return null; },
-            data: function() { return self.currentView === 'agendaDay' ? self.currentDate : null; }
+            data: function() { return self.currentView === 'timelineDay' ? new Date(self.currentDate.format('YYYY/MM/DD')) : null; }
           }
         }).result.then(function(result) {
-            if (result) {
-              self.eventos.array.push(new Evento(result));
-              uiCalendarConfig.calendars.meuCalendario.fullCalendar('renderEvent', self.eventos.array[self.eventos.array.length - 1], true);
+          console.log(result);
+          if (result.length) {
+            if (result.length) {
+              angular.forEach(result, function(item, index) {
+                self.eventos.array.push(new Evento(item));
+                uiCalendarConfig.calendars.meuCalendario.fullCalendar('renderEvent', self.eventos.array[self.eventos.array.length - 1], true);
+              });
+              uiCalendarConfig.calendars.meuCalendario.fullCalendar('renderEvents');
             }
+          }
         });
       };
 
       function dayClick(date, jsEvent, view) {
-        self.currentDate = new Date(date.format('YYYY/MM/DD'));
+        if (!validarDiaParaAgendamento(date)) {
+          modalAlert.show('Aviso!', 'Dia indisponível para agendamentos!');
+          return;
+        }
 
         //jsEvent.preventDefault();
 
         //$(this).css('background-color', 'red');
 
         if (view.name === 'month' || view.name === 'basicWeek') {
-          uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', 'agendaDay');
+          uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', 'timelineDay');
           uiCalendarConfig.calendars.meuCalendario.fullCalendar('gotoDate', date);
         }
       }
 
       function getEventoCompleto(id) {
+        $rootScope.loading.load();
         return providerEvento.obterEventoPorId(id, true, true, true, true, true, true, true).then(function(success) {
+          $rootScope.loading.unload();
           return new Evento(Evento.converterEmEntrada(success.data));
         }, function(error) {
           console.log(error);
+          $rootScope.loading.unload();
           return null;
         });
       }
@@ -229,23 +259,28 @@ angular.module('belissimaApp.controllers')
             controller: 'ModalEventoCtrl',
             size: 'lg',
             resolve: {
-              evento: function() { return fullevent; }
+              evento: function() { return fullevent; },
+              data: function() { return null; }
             }
           }).result.then(function(result) {
             if (!angular.equals(fullevent, result)) {
               if (result === 'excluir') {
                 apagarEvento(event);
               } else {
-                $rootScope.loading.load();
-                atualizarEvento(result).then(function(success) {
-                  angular.extend(event, result);
-                  uiCalendarConfig.calendars.meuCalendario.fullCalendar('updateEvent', event);
-                  $rootScope.loading.unload();
-                }, function(error) {
-                  console.log(error);
-                  $rootScope.loading.unload();
-                  alert('nao atualizado');
-                });
+                if (result.length) {
+                  if (result.length) {
+                    angular.forEach(result, function(item, index) {
+                      if (index == 0) {
+                        angular.extend(event, item);
+                        uiCalendarConfig.calendars.meuCalendario.fullCalendar('updateEvent', event);
+                      } else {
+                        self.eventos.array.push(new Evento(item));
+                        uiCalendarConfig.calendars.meuCalendario.fullCalendar('renderEvent', self.eventos.array[self.eventos.array.length - 1], true);
+                      }
+                    });
+                    uiCalendarConfig.calendars.meuCalendario.fullCalendar('renderEvents');
+                  }
+                }
               }
             }
           });
@@ -274,6 +309,11 @@ angular.module('belissimaApp.controllers')
       }
 
       function alertOnChangeView(view, element) {
+        // pega a data exibida na tela na visualizacao de dia
+        if (view.name === 'timelineDay') {
+          self.currentDate = uiCalendarConfig.calendars.meuCalendario.fullCalendar('getDate');
+        }
+
         self.currentView = view.name;
         // console.log("View Changed: ", view.start._d, view.end._d);
         $rootScope.loading.load();
@@ -286,11 +326,10 @@ angular.module('belissimaApp.controllers')
 
       function eventRender(event, element, view) {
 
-        if (view.name === 'agendaDay') {
-          element.css('max-width', '250px');
+        if (view.name === 'timelineDay') {
+          // element.css('max-width', '250px');
 
-          //element.find('.fc-title').prepend("<span class='glyphicon glyphicon-tag'>&nbsp;</span>");
-          element.find('.fc-title').append("<div><span style='font-size: 0.87em'>" + event.description + "</span></div>");
+          element.find('.fc-title').append("<br><div><span style='font-size: 0.87em'>" + event.description + "</span></div>");
         } else {
           element.attr({'tooltip': event.description,
             'tooltip-append-to-body': true});
@@ -299,8 +338,7 @@ angular.module('belissimaApp.controllers')
       }
 
       function dayRender(date, cell) {
-        return;
-        if (parseInt(date.toDate().getDate()) % 2 == 0) {
+        if (!validarDiaParaAgendamento(date)) {
           jQuery(cell).css('vertical-align', 'middle').append('<span class="glyphicon glyphicon-lock cadeado"></span>');
         }
       }
@@ -327,7 +365,7 @@ angular.module('belissimaApp.controllers')
       };
 
       this.dia = function() {
-        uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', 'agendaDay');
+        uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', 'timelineDay');
       };
 
       this.semana = function() {
@@ -337,5 +375,15 @@ angular.module('belissimaApp.controllers')
       this.mes = function() {
         uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', 'month');
       };
+
+      function compararMomentDate(moment, date) {
+        return moment.format('YYYY-MM-DD') === $filter('date')(date, 'yyyy-MM-dd');
+      }
+
+      function validarDiaParaAgendamento(date) {
+        return self.dias.find(function (dia, index) {
+            return compararMomentDate(date, dia);
+          }) == null;
+      }
 
   }]);

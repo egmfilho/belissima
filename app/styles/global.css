@@ -1293,8 +1293,12 @@ body {
   width: 100%;
   text-align: center;
   font-size: 2em;
-  opacity: .5; }
+  opacity: .5;
+  text-shadow: 0 0 9px rgba(0, 0, 0, 0.8); }
 
+@media (min-width: 768px) {
+  .popover-doido {
+    margin-left: -64px; } }
 #financeiro #modalPrazo h4 > .glyphicon {
   vertical-align: bottom; }
 #financeiro #modalPrazo .container-tabela {

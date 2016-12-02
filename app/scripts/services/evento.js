@@ -28,7 +28,7 @@ angular.module('belissimaApp.services')
         this.cliente = evento ? evento.cliente : '';
         this.funcionario = evento ? evento.funcionario : '';
         this.produto = evento ? evento.produto : '';
-        this.resourceId = evento ? evento.resourceId : '';
+        this.resourceId = evento ? evento.resourceId : -1;
       }
 
       Evento.prototype = {
@@ -52,11 +52,13 @@ angular.module('belissimaApp.services')
         setFuncionario: function(pessoa) {
           this.funcionario = new Pessoa(pessoa);
           this.funcionarioId = this.funcionario.id;
+          this.resourceId = this.funcionario.id;
         },
 
         removeFuncionario: function() {
           this.funcionario = new Pessoa();
           this.funcionarioId = null;
+          this.resourceId = -1;
         },
 
         setProduto: function(produto) {
