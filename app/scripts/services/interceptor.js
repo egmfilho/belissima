@@ -11,13 +11,16 @@ angular.module('belissimaApp.services')
     '$cookies',
     '$httpParamSerializerJQLike',
     'HTTP_STATUS',
-    function($q, $location, $cookies, $httpParamSerializerJQLike, http_status) {
+    'URLS',
+    function($q, $location, $cookies, $httpParamSerializerJQLike, http_status, urls) {
 
       return {
 
         'request': function(req) {
 
-          req.headers['x-session-token'] = 'lucilei';
+          // if (req.url.indexOf(urls.root) != -1) {
+          //   req.headers['x-session-token'] = 'lucilei';
+          // }
 
           req.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 

@@ -11,10 +11,11 @@ CalendarioCtrl.$inject = [
   '$rootScope',
   '$scope',
   '$filter',
+  '$http',
   'uiCalendarConfig'
 ];
 
-function CalendarioCtrl($rootScope, $scope, $filter, uiCalendarConfig) {
+function CalendarioCtrl($rootScope, $scope, $filter, $http, uiCalendarConfig) {
 
   var self = this;
 
@@ -45,6 +46,31 @@ function CalendarioCtrl($rootScope, $scope, $filter, uiCalendarConfig) {
     }
   };
 
+  function obterFeriadosNacionais() {
+    $rootScope.loading.load();
+    $http.get('http://dadosbr.github.io/feriados/nacionais.json').then(function(success) {
+      console.log(success.data);
+      $rootScope.loading.unload();
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  }
+
+  obterFeriadosNacionais();
+  obterFeriadosEstaduais();
+
+  function obterFeriadosEstaduais() {
+    $rootScope.loading.load();
+    $http.get('http://dadosbr.github.io/feriados/estaduais/RJ.json').then(function(success) {
+      console.log(success.data);
+      $rootScope.loading.unload();
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  }
+
   function compararMomentDate(moment, date) {
     return moment.format('YYYY-MM-DD') === $filter('date')(date, 'yyyy-MM-dd');
   }
@@ -70,7 +96,7 @@ function CalendarioCtrl($rootScope, $scope, $filter, uiCalendarConfig) {
       self.diasBloqueados.push(new Date(date.format('YYYY/MM/DD')));
     }
 
-    // da refresh na view
+    // para dar refresh na view
     uiCalendarConfig.calendars.calendarioFeriados.fullCalendar('prev');
     uiCalendarConfig.calendars.calendarioFeriados.fullCalendar('next');
 
