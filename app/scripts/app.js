@@ -78,6 +78,7 @@ angular
         templateUrl: 'views/pdv.html',
         controller: 'PDVCtrl',
         controllerAs: 'pdv',
+        resolve: resolveCategorias()
       })
       .when('/ticket/:action', {
         modulo: 'ticket',

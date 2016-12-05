@@ -22,6 +22,10 @@ function ItemPedido(Produto, Pessoa) {
     this.produto = itemPedido ? new Produto(itemPedido.produto) : new Produto();
     this.funcionarioId = itemPedido ? itemPedido.funcionarioId : '';
     this.funcionario = itemPedido ? new Pessoa(itemPedido.funcionario) : new Pessoa();
+
+    // auxiliares para exibição na tela de pdv.
+    this.index = itemPedido ? itemPedido.index : null;
+    this.removido = itemPedido ? itemPedido.removido : null;
   }
 
   ItemPedido.prototype = {
@@ -57,10 +61,22 @@ function ItemPedido(Produto, Pessoa) {
     },
 
     getTotalSemDesconto: function() {
+      if (this.hasOwnProperty('removido')) {
+        if (this.removido) {
+          return 0;
+        }
+      }
+
       return this.quantidade * this.precoProduto;
     },
 
     getTotalComDesconto: function() {
+      if (this.hasOwnProperty('removido')) {
+        if (this.removido) {
+          return 0;
+        }
+      }
+
       return (this.quantidade * this.precoProduto) - this.descontoDinheiro;
     }
   };
@@ -96,8 +112,8 @@ function ItemPedido(Produto, Pessoa) {
     var i = { };
 
     i.ticket_item_value = item.precoProduto;
-    i.ticket_item_al_discount = item.descontoPercent;
-    i.ticket_item_vl_discount = item.descontoDinheiro;
+    // i.ticket_item_al_discount = item.descontoPercent;
+    // i.ticket_item_vl_discount = item.descontoDinheiro;
     i.ticket_item_amount = item.quantidade;
     i.ticket_item_value_total = item.getTotalComDesconto();
     i.product_id = item.produtoId || item.produto.id;

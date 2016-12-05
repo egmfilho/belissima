@@ -4,6 +4,35 @@
     padding: 10px;
   }
 
+  #modalPagamento {
+    ul.dropdown-menu {
+      left: 0 !important;
+      width: 100%;
+    }
+  }
+
+  #modalCancelarItem {
+    .item-a-cancelar {
+      background-color: white;
+      padding: 20px;
+      color: #333;
+      margin-top: 10px;
+
+      h2 {
+        font-size: 1.2em;
+      }
+
+      h3 {
+        font-size: 1.2em;
+      }
+
+      h2, h3 {
+        margin: 0;
+        font-family: "Courier New", Courier, monospace;
+      }
+    }
+  }
+
   .card {
     background-color: $cor-menu-lateral;
     border: 1px solid $cor-menu-lateral-borda;
@@ -130,6 +159,10 @@
 
           table {
             width: 100%;
+
+            .removido {
+              color: red !important;
+            }
 
             td {
               padding: 1px;

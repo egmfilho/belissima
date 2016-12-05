@@ -17,12 +17,19 @@ PDVCtrl.$inject = [
   'ProviderProduto',
   'Produto',
   'ItemPedido',
-  'ModalConfirm'
+  'ProviderPessoa',
+  'Pessoa',
+  'ProviderPrazoPagamento',
+  'PrazoPagamento',
+  'ModalBuscarPrazoPagamento',
+  'ModalConfirm',
+  'ProviderPDV'
 ];
 
-function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, modalBuscarProduto, providerProduto, Produto, ItemPedido, modalConfirm) {
+function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPessoa, Pessoa, providerPrazo, PrazoPagamento, modalBuscarPrazo, modalConfirm, providerPDV) {
 
-  var self = this;
+  var self = this,
+      itemIndex = 0;
 
   this.ticket = new Ticket();
   this.tempItem = new ItemPedido();
@@ -34,6 +41,10 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     jQuery('body').bind('keyup', function (event) {
       // TECLA F6
       if (event.keyCode === 117) {
+        if (self.ticket.codigo) {
+          $rootScope.alerta.show('Não é possível editar um Ticket na tela de PDV!');
+          return;
+        }
         self.edicao = !self.edicao;
         $scope.$apply();
         event.preventDefault();
@@ -45,6 +56,10 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
       // TECLA F9
       if (event.keyCode === 120) {
         self.abrirModalPagamento();
+      }
+      // TECLA F9
+      if (event.keyCode === 121) {
+        self.fecharVenda();
       }
     });
 
@@ -62,30 +77,39 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     jQuery('input[name="quantidade"]').focus().select();
   }
 
-  $scope.focarDescontoPercent = function() {
+  $scope.focarDescontoPercent = function () {
     jQuery('input[name="descontoPercent"]').focus().select();
   };
 
-  $scope.focarDescontoDinheiro = function() {
+  $scope.focarDescontoDinheiro = function () {
     jQuery('input[name="descontoDinheiro"]').focus().select();
   };
 
   this.novo = function () {
-    modalConfirm.show('Aviso', 'Todas as informações serão perdidas, deseja proseguir?').then(function(result) {
+    modalConfirm.show('Aviso', 'Todas as informações serão perdidas, deseja proseguir?').then(function (result) {
       self.cancelarEdicao();
+      self.cdCliente = '';
+      self.cdPrazo = '';
+      self.tempPrazo = new PrazoPagamento();
+      itemIndex = 0;
       self.ticket = new Ticket();
     });
   };
 
-  this.abrirTicket = function() {
-    modalBuscarTicket.show().then(function(result) {
+  this.abrirTicket = function () {
+    modalBuscarTicket.show().then(function (result) {
       if (result) {
         $rootScope.loading.load();
-        providerTicket.obterPorCodigo(result.codigo).then(function(success) {
+        self.cancelarEdicao();
+        itemIndex = 0;
+        providerTicket.obterPorCodigo(result.codigo).then(function (success) {
           self.ticket = new Ticket(Ticket.converterEmEntrada(success.data));
+          self.cdCliente = self.ticket.cliente.codigo;
+          self.cdPrazo = self.ticket.prazo.codigo;
+          self.tempPrazo = new PrazoPagamento(self.ticket.prazo);
           $rootScope.loading.unload();
           console.log(self.ticket);
-        }, function(error) {
+        }, function (error) {
           console.log(error);
           $rootScope.loading.unload();
         });
@@ -93,8 +117,8 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     });
   };
 
-  this.buscarProduto = function() {
-    modalBuscarProduto.show().then(function(result) {
+  this.buscarProduto = function () {
+    modalBuscarProduto.show().then(function (result) {
       if (result) {
         self.tempItem.setProduto(new Produto(result));
         self.cdProduto = self.tempItem.codigo;
@@ -102,14 +126,14 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     });
   };
 
-  this.buscarProdutoPorCodigo = function(codigo) {
+  this.buscarProdutoPorCodigo = function (codigo) {
     $rootScope.loading.load();
-    providerProduto.obterProdutoPorCodigo(codigo).then(function(success) {
+    providerProduto.obterProdutoPorCodigo(codigo).then(function (success) {
       self.tempItem.setProduto(new Produto(Produto.converterEmEntrada(success.data)));
       self.cdProduto = self.tempItem.produto.codigo;
       $rootScope.loading.unload();
       focarQuantidade();
-    }, function(error) {
+    }, function (error) {
       console.log(error);
       $rootScope.loading.unload();
       if (error.status == 404) {
@@ -118,7 +142,11 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     });
   };
 
-  this.selectItem = function(item) {
+  this.selectItem = function (item) {
+    if (item.removido) {
+      return;
+    }
+
     this.tempItem = new ItemPedido(item);
     this.tempItem.edicao = this.ticket.items.indexOf(item);
     this.cdProduto = self.tempItem.produto.codigo;
@@ -127,7 +155,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     focarQuantidade();
   };
 
-  this.cancelarEdicao = function() {
+  this.cancelarEdicao = function () {
     jQuery('input[name="cdProduto"]').attr('disabled', false);
     jQuery('button[name="btnProduto"]').prop('disabled', false);
     jQuery('input[name="quantidade"]').attr('disabled', false);
@@ -138,7 +166,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     focarCodigo();
   };
 
-  this.addItem = function() {
+  this.addItem = function () {
     if (!this.tempItem.produto.id || this.tempItem.quantidade <= 0) {
       this.cancelarEdicao();
       return;
@@ -149,8 +177,10 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
       jQuery('input[name="cdProduto"]').attr('disabled', false);
       jQuery('button[name="btnProduto"]').prop('disabled', false);
     } else {
+      this.tempItem.index = itemIndex;
       this.ticket.addItem(this.tempItem);
-      jQuery(".nota").animate({ scrollTop: $('.nota').prop("scrollHeight")}, 1000);
+      itemIndex++;
+      jQuery(".nota").animate({scrollTop: $('.nota').prop("scrollHeight")}, 1000);
     }
 
     this.tempItem = new ItemPedido();
@@ -158,15 +188,138 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     focarCodigo();
   };
 
-  this.removerItem = function() {
-
+  this.abrirModalCancelarItem = function() {
+    jQuery('#modalCancelarItem').modal('show');
   };
 
-  this.abrirModalCliente = function() {
+  this.removerItem = function (index) {
+    // METODO ANTIGO ONDE INSERIA QUANTIDADE NEGATIVA
+    // var item = new ItemPedido(this.ticket.items[index]);
+    // item.quantidade *= -1;
+    // console.log(item);
+    // this.ticket.addItem(new ItemPedido(item));
+
+    this.ticket.items[index].removido = true;
+  };
+
+  this.abrirModalCliente = function () {
     jQuery('#modalCliente').modal('show');
   };
 
-  this.abrirModalPagamento = function() {
+  this.buscarClientePorCodigo = function (codigo) {
+    $rootScope.loading.load();
+    providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.cliente.id).then(function (success) {
+      self.ticket.setCliente(new Pessoa(Pessoa.converterEmEntrada(success.data)));
+      $rootScope.loading.unload();
+    }, function (error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  };
+
+  this.blurCliente = function () {
+    if (this.ticket.cliente.id) {
+      $scope.cdCliente = this.ticket.cliente.codigo;
+    } else {
+      $scope.cdCliente = '';
+    }
+  };
+
+  this.abrirModalPagamento = function () {
     jQuery('#modalPagamento').modal('show');
   };
+
+  this.buscarPrazosPorDescricao = function (descricao) {
+    $rootScope.loading.load();
+    return providerPrazo.obterPorDescricao(descricao).then(function (success) {
+      var prazos = [];
+      angular.forEach(success.data, function (item, index) {
+        prazos.push(new PrazoPagamento(PrazoPagamento.converterEmEntrada(item)));
+      });
+      $rootScope.loading.unload();
+      return prazos;
+    }, function (error) {
+      if (error.status == 404) {
+        $rootScope.alerta.show('Não encontrado!');
+      }
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  };
+
+  this.buscarPrazoPorCodigo = function (codigo) {
+    $rootScope.loading.load();
+    providerPrazo.obterPorCodigo(codigo).then(function (success) {
+      self.selectPrazo(new PrazoPagamento(PrazoPagamento.converterEmEntrada(success.data)));
+      $rootScope.loading.unload();
+    }, function (error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  };
+
+  this.prepararPrazo = function(prazo) {
+    $rootScope.loading.load();
+    providerPrazo.obterPorCodigo(prazo.codigo).then(function (success) {
+      self.selectPrazo(new PrazoPagamento(PrazoPagamento.converterEmEntrada(success.data)));
+      $rootScope.loading.unload();
+    }, function (error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  };
+
+  this.selectPrazo = function (prazo) {
+    if (prazo.codigo === -1) {
+      $scope.buscarPrazo();
+    } else {
+      self.ticket.setPrazo(prazo);
+      self.cdPrazo = self.ticket.prazo.codigo;
+      self.tempPrazo = new PrazoPagamento(self.ticket.prazo);
+      setParcelas();
+    }
+  };
+
+  function setParcelas() {
+    if (self.ticket.pagamentos.length == self.ticket.prazo.parcelas) {
+      for (var i = 0; i < self.ticket.prazo.parcelas; i++) {
+        self.ticket.pagamentos[i].valor = self.ticket.getValorTotal() / self.ticket.prazo.parcelas;
+      }
+    } else {
+      self.ticket.pagamentos = [];
+      for (var i = 0; i < self.ticket.prazo.parcelas; i++) {
+        self.ticket.pagamentos.push(new Pagamento());
+        self.ticket.pagamentos[i].valor = self.ticket.getValorTotal() / self.ticket.prazo.parcelas;
+        self.ticket.pagamentos[i].vencimento = getDataDaParcela(self.ticket.prazo, i);
+      }
+    }
+  }
+
+  function getDataDaParcela(prazo, parcela) {
+    var hoje = new Date();
+
+    if (parcela < 0) {
+      return;
+    }
+
+    if (parcela == 0) {
+      hoje.setDate(hoje.getDate() + prazo.iniciaEm);
+    } else {
+      hoje.setDate(hoje.getDate() + prazo.iniciaEm + (prazo.intervalo * parcela));
+    }
+
+    return hoje;
+  }
+
+  this.fecharVenda = function() {
+    console.log(Ticket.converterEmSaida(this.ticket));
+
+    $rootScope.loading.load();
+    providerPDV.salvar(Ticket.converterEmSaida(this.ticket)).then(function(success) {
+      $rootScope.loading.unload();
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  }
 }

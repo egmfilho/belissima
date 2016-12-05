@@ -1010,6 +1010,21 @@ body {
 
 #tela-pdv .padding-cards {
   padding: 10px; }
+#tela-pdv #modalPagamento ul.dropdown-menu {
+  left: 0 !important;
+  width: 100%; }
+#tela-pdv #modalCancelarItem .item-a-cancelar {
+  background-color: white;
+  padding: 20px;
+  color: #333;
+  margin-top: 10px; }
+  #tela-pdv #modalCancelarItem .item-a-cancelar h2 {
+    font-size: 1.2em; }
+  #tela-pdv #modalCancelarItem .item-a-cancelar h3 {
+    font-size: 1.2em; }
+  #tela-pdv #modalCancelarItem .item-a-cancelar h2, #tela-pdv #modalCancelarItem .item-a-cancelar h3 {
+    margin: 0;
+    font-family: "Courier New", Courier, monospace; }
 #tela-pdv .card {
   background-color: #3f3f41;
   border: 1px solid #5a5a5a;
@@ -1093,6 +1108,8 @@ body {
         border-bottom: 1px solid #666; }
       #tela-pdv .lista-de-produtos .card .nota pre table {
         width: 100%; }
+        #tela-pdv .lista-de-produtos .card .nota pre table .removido {
+          color: red !important; }
         #tela-pdv .lista-de-produtos .card .nota pre table td {
           padding: 1px; }
         #tela-pdv .lista-de-produtos .card .nota pre table tr:hover {

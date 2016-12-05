@@ -170,8 +170,8 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
 
     p.ticket_id = pedido.id;
     p.ticket_client_id = pedido.clienteId ? pedido.cliente.id : pedido.clienteId;
-    p.ticket_note = pedido.observacoes;
-    p.ticket_status_id = pedido.statusId;
+    // p.ticket_note = pedido.observacoes;
+    // p.ticket_status_id = pedido.statusId;
 
     p.ticket_items = [];
     angular.forEach(pedido.items, function (item, index) {
@@ -179,8 +179,8 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     });
 
     p.ticket_value = pedido.getValorTotal();
-    p.ticket_al_discount = pedido.descontoPercent;
-    p.ticket_vl_discount = pedido.descontoDinheiro;
+    // p.ticket_al_discount = pedido.descontoPercent;
+    // p.ticket_vl_discount = pedido.descontoDinheiro;
     p.ticket_value_total = pedido.getValorTotalComDesconto();
 
     p.ticket_payment_term_id = pedido.prazoId;
