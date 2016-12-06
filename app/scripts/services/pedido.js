@@ -108,6 +108,18 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
 
     getTroco: function() {
       return this.getPagamentoTotal() - this.getValorTotal();
+    },
+
+    trueLength: function() {
+      var length = 0;
+
+      angular.forEach(this.items, function(item, index) {
+        if (!item.removido) {
+          length++;
+        }
+      });
+
+      return length;
     }
 
   };

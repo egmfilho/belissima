@@ -39,15 +39,19 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
   $scope.$on('$viewContentLoaded', function () {
 
     jQuery('body').bind('keyup', function (event) {
+      if (event.keyCode === 112) {
+        jQuery('#modalTroco').modal('show');
+      }
       // TECLA F6
       if (event.keyCode === 117) {
         if (self.ticket.codigo) {
           $rootScope.alerta.show('Não é possível editar um Ticket na tela de PDV!');
           return;
         }
-        self.edicao = !self.edicao;
-        $scope.$apply();
-        event.preventDefault();
+        // self.edicao = !self.edicao;
+        // $scope.$apply();
+        // event.preventDefault();
+        self.abrirModalCancelarItem();
       }
       // TECLA F8
       if (event.keyCode === 119) {
@@ -63,6 +67,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
       }
     });
 
+    setTimeout(focarCodigo, 200);
   });
 
   $scope.$on("$destroy", function () {
@@ -189,7 +194,9 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
   };
 
   this.abrirModalCancelarItem = function() {
-    jQuery('#modalCancelarItem').modal('show');
+    jQuery('#modalCancelarItem').on('shown.bs.modal', function(e) {
+      jQuery('input[name="numItem"]').focus().select();
+    }).modal('show');
   };
 
   this.removerItem = function (index) {
@@ -199,14 +206,27 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     // console.log(item);
     // this.ticket.addItem(new ItemPedido(item));
 
+    if (this.ticket.items[index].removido) {
+      return;
+    }
+
     this.ticket.items[index].removido = true;
+    jQuery('#modalCancelarItem').modal('hide');
+    focarCodigo();
   };
 
   this.abrirModalCliente = function () {
-    jQuery('#modalCliente').modal('show');
+    jQuery('#modalCliente').on('shown.bs.modal', function(e) {
+      jQuery('input[name="cdCliente"]').focus().select();
+    }).modal('show');
   };
 
   this.buscarClientePorCodigo = function (codigo) {
+    if (parseInt(codigo) == parseInt(this.ticket.cliente.codigo)) {
+      jQuery('#modalCliente').modal('hide');
+      return;
+    }
+
     $rootScope.loading.load();
     providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.cliente.id).then(function (success) {
       self.ticket.setCliente(new Pessoa(Pessoa.converterEmEntrada(success.data)));
@@ -217,16 +237,10 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     });
   };
 
-  this.blurCliente = function () {
-    if (this.ticket.cliente.id) {
-      $scope.cdCliente = this.ticket.cliente.codigo;
-    } else {
-      $scope.cdCliente = '';
-    }
-  };
-
   this.abrirModalPagamento = function () {
-    jQuery('#modalPagamento').modal('show');
+    jQuery('#modalPagamento').on('shown.bs.modal', function(e) {
+      jQuery('input[name="cdPrazo"]').focus().select();
+    }).modal('show');
   };
 
   this.buscarPrazosPorDescricao = function (descricao) {
@@ -295,6 +309,28 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     }
   }
 
+  this.abrirModalFuncionario = function () {
+    jQuery('#modalFuncionario').on('shown.bs.modal', function(e) {
+      jQuery('input[name="cdFuncionario"]').focus().select();
+    }).modal('show');
+  };
+
+  this.buscarFuncionarioPorCodigo = function (codigo) {
+    if (parseInt(codigo) == parseInt(this.ticket.funcionario.codigo)) {
+      jQuery('#modalFuncionario').modal('hide');
+      return;
+    }
+
+    $rootScope.loading.load();
+    providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.funcionario.id).then(function (success) {
+      self.ticket.setFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
+      $rootScope.loading.unload();
+    }, function (error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  };
+
   function getDataDaParcela(prazo, parcela) {
     var hoje = new Date();
 
@@ -312,6 +348,27 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
   }
 
   this.fecharVenda = function() {
+    if (this.ticket.trueLength() == 0) {
+      $rootScope.alerta.show('A lista de produtos está vazia!');
+      return;
+    }
+
+    if (!this.ticket.clienteId) {
+      this.abrirModalCliente();
+      return;
+    }
+
+    if (!this.ticket.prazoId) {
+      this.abrirModalPagamento();
+      return;
+
+    }
+
+    if (!this.ticket.codigo && !this.ticket.funcionarioId) {
+      this.abrirModalFuncionario();
+      return;
+    }
+
     console.log(Ticket.converterEmSaida(this.ticket));
 
     $rootScope.loading.load();
