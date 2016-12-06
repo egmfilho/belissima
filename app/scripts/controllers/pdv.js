@@ -39,7 +39,8 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
   $scope.$on('$viewContentLoaded', function () {
 
     jQuery('body').bind('keyup', function (event) {
-      if (event.keyCode === 112) {
+      // TECLA F2
+      if (event.keyCode === 113) {
         jQuery('#modalTroco').modal('show');
       }
       // TECLA F6
