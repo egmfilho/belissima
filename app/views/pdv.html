@@ -144,7 +144,7 @@
                     </button>
                   </div>
                   <div class="col-md-6">
-                    <button class="btn btn-default btn-block" ng-click="pdv.fecharVenda()">
+                    <button class="btn btn-default btn-block" ng-click="pdv.prepararFechamento()">
                       <!--<span class="glyphicon glyphicon-ok"></span>-->
                       F10 - Fechar Venda
                     </button>
@@ -244,7 +244,7 @@
             <div class="input-group">
               <input type="text" class="form-control" name="cdCliente" ng-model="pdv.cdCliente" ng-disabled="pdv.ticket.codigo" blur-to="pdv.ticket.cliente.codigo" keys-shortcuts enter="pdv.buscarClientePorCodigo(pdv.cdCliente)">
               <span class="input-group-btn">
-                <button class="btn btn-default" ng-disabled="pdv.ticket.codigo">
+                <button class="btn btn-default" ng-disabled="pdv.ticket.codigo" ng-click="pdv.buscarCliente()">
                   <span class="glyphicon glyphicon-search"></span>
                 </button>
               </span>
@@ -264,7 +264,7 @@
           </div>
         </div>
         <div class="control">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
+          <button type="button" name="positive" class="btn btn-default" data-dismiss="modal">
             <span class="glyphicon glyphicon-ok"></span> Ok
           </button>
         </div>
@@ -339,7 +339,7 @@
 
         </div>
         <div class="control">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
+          <button type="button" name="positive" class="btn btn-default" data-dismiss="modal">
             <span class="glyphicon glyphicon-ok"></span> Ok
           </button>
         </div>
@@ -365,7 +365,7 @@
             <div class="input-group">
               <input type="text" class="form-control" name="cdFuncionario" ng-model="pdv.cdFuncionario" blur-to="pdv.ticket.funcionario.codigo" keys-shortcuts enter="pdv.buscarFuncionarioPorCodigo(pdv.cdFuncionario)">
               <span class="input-group-btn">
-                <button class="btn btn-default">
+                <button class="btn btn-default" ng-click="pdv.buscarFuncionario()">
                   <span class="glyphicon glyphicon-search"></span>
                 </button>
               </span>
@@ -407,18 +407,18 @@
         </div>
         <div class="body condensar-rows">
 
-          <div class="col-md-6 mostrador">
+          <div class="col-md-6 mostrador" ng-init="dinheiro=0">
             <h3 class="titulo">Pagamento</h3>
-            <input type="text" ng-model="dinheiro" value="R$ 0,00" class="text-right" currency symbol="'R$ '">
+            <input type="text" ng-model="dinheiro" class="text-right" currency symbol="'R$ '">
           </div>
           <div class="col-md-6 mostrador">
             <h3 class="titulo">Troco</h3>
-            <input type="text" ng-value="(pdv.ticket.getValorTotalComDesconto() || 0) | currency: 'R$ '" class="text-right" readonly>
+            <input type="text" ng-value="(dinheiro - pdv.ticket.getValorTotalComDesconto() || 0) | currency: 'R$ '" class="text-right" readonly>
           </div>
 
         </div>
         <div class="control">
-          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="pdv.fecharVenda()">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
             <span class="glyphicon glyphicon-ok"></span> Fechar
           </button>
         </div>

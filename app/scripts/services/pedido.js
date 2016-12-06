@@ -197,6 +197,7 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
 
     p.ticket_payment_term_id = pedido.prazoId;
     p.ticket_payments = [];
+
     angular.forEach(pedido.pagamentos, function (item, index) {
       p.ticket_payments.push(Pagamento.converterEmSaida(item));
     });

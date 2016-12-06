@@ -18,15 +18,17 @@ PDVCtrl.$inject = [
   'Produto',
   'ItemPedido',
   'ProviderPessoa',
+  'ModalBuscarPessoa',
   'Pessoa',
   'ProviderPrazoPagamento',
   'PrazoPagamento',
   'ModalBuscarPrazoPagamento',
+  'Pagamento',
   'ModalConfirm',
   'ProviderPDV'
 ];
 
-function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPessoa, Pessoa, providerPrazo, PrazoPagamento, modalBuscarPrazo, modalConfirm, providerPDV) {
+function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPessoa, modalBuscarPessoa, Pessoa, providerPrazo, PrazoPagamento, modalBuscarPrazo, Pagamento, modalConfirm, providerPDV) {
 
   var self = this,
       itemIndex = 0;
@@ -42,6 +44,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
       // TECLA F2
       if (event.keyCode === 113) {
         jQuery('#modalTroco').modal('show');
+        event.preventDefault();
       }
       // TECLA F6
       if (event.keyCode === 117) {
@@ -53,18 +56,23 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
         // $scope.$apply();
         // event.preventDefault();
         self.abrirModalCancelarItem();
+
+        event.preventDefault();
       }
       // TECLA F8
       if (event.keyCode === 119) {
         self.abrirModalCliente();
+        event.preventDefault();
       }
       // TECLA F9
       if (event.keyCode === 120) {
         self.abrirModalPagamento();
+        event.preventDefault();
       }
       // TECLA F9
       if (event.keyCode === 121) {
         self.fecharVenda();
+        event.preventDefault();
       }
     });
 
@@ -216,10 +224,20 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     focarCodigo();
   };
 
-  this.abrirModalCliente = function () {
+  this.abrirModalCliente = function (callback_positive, callback_negative) {
     jQuery('#modalCliente').on('shown.bs.modal', function(e) {
       jQuery('input[name="cdCliente"]').focus().select();
-    }).modal('show');
+    }).modal('show').on('hidden.bs.modal', function(e) {
+      if (callback_negative) callback_negative();
+    }).find('.control button[name="positive"]').click(function() {
+      if (callback_positive) callback_positive();
+    });
+  };
+
+  this.buscarCliente = function() {
+    modalBuscarPessoa.show($rootScope.categoriaPessoa.cliente.id).then(function(result) {
+      self.ticket.setCliente(new Pessoa(result));
+    });
   };
 
   this.buscarClientePorCodigo = function (codigo) {
@@ -238,10 +256,14 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     });
   };
 
-  this.abrirModalPagamento = function () {
+  this.abrirModalPagamento = function (callback_positive, callback_negative) {
     jQuery('#modalPagamento').on('shown.bs.modal', function(e) {
       jQuery('input[name="cdPrazo"]').focus().select();
-    }).modal('show');
+    }).modal('show').on('hidden.bs.modal', function(e) {
+      if (callback_negative) callback_negative();
+    }).find('.control button[name="positive"]').click(function() {
+      if (callback_positive) callback_positive();
+    });
   };
 
   this.buscarPrazosPorDescricao = function (descricao) {
@@ -303,6 +325,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     } else {
       self.ticket.pagamentos = [];
       for (var i = 0; i < self.ticket.prazo.parcelas; i++) {
+        console.log(new Pagamento());
         self.ticket.pagamentos.push(new Pagamento());
         self.ticket.pagamentos[i].valor = self.ticket.getValorTotal() / self.ticket.prazo.parcelas;
         self.ticket.pagamentos[i].vencimento = getDataDaParcela(self.ticket.prazo, i);
@@ -310,10 +333,26 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     }
   }
 
-  this.abrirModalFuncionario = function () {
+  this.prepararFechamento = function () {
+    if (this.ticket.trueLength() == 0) {
+      $rootScope.alerta.show('A lista de produtos está vazia!');
+      return;
+    }
+
+    if (this.ticket.codigo) {
+      this.fecharVenda();
+      return;
+    }
+
     jQuery('#modalFuncionario').on('shown.bs.modal', function(e) {
       jQuery('input[name="cdFuncionario"]').focus().select();
     }).modal('show');
+  };
+
+  this.buscarFuncionario = function() {
+    modalBuscarPessoa.show($rootScope.categoriaPessoa.funcionario.id).then(function(result) {
+      self.ticket.setFuncionario(new Pessoa(result));
+    });
   };
 
   this.buscarFuncionarioPorCodigo = function (codigo) {
@@ -348,36 +387,37 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     return hoje;
   }
 
+  function validarFormas() {
+    for (var i = 0; i < self.ticket.pagamentos.length; i++) {
+      if (!self.ticket.pagamentos[i].formaId)
+        return false;
+    }
+
+    return true;
+  }
+
   this.fecharVenda = function() {
-    if (this.ticket.trueLength() == 0) {
-      $rootScope.alerta.show('A lista de produtos está vazia!');
+    if (!self.ticket.clienteId) {
+      self.abrirModalCliente(self.fecharVenda);
       return;
     }
 
-    if (!this.ticket.clienteId) {
-      this.abrirModalCliente();
+    if (!self.ticket.prazoId || !validarFormas()) {
+      self.abrirModalPagamento(self.fecharVenda);
       return;
     }
 
-    if (!this.ticket.prazoId) {
-      this.abrirModalPagamento();
-      return;
-
-    }
-
-    if (!this.ticket.codigo && !this.ticket.funcionarioId) {
-      this.abrirModalFuncionario();
-      return;
-    }
-
-    console.log(Ticket.converterEmSaida(this.ticket));
+    console.log(Ticket.converterEmSaida(self.ticket));
 
     $rootScope.loading.load();
-    providerPDV.salvar(Ticket.converterEmSaida(this.ticket)).then(function(success) {
+    providerPDV.salvar(Ticket.converterEmSaida(self.ticket)).then(function(success) {
+      if (self.ticket.pagamentos.length == 1) {
+        jQuery('#modalTroco').modal('show');
+      }
       $rootScope.loading.unload();
     }, function(error) {
       console.log(error);
       $rootScope.loading.unload();
     });
-  }
+  };
 }
