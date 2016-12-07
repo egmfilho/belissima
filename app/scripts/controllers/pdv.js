@@ -31,7 +31,7 @@ PDVCtrl.$inject = [
 function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPessoa, modalBuscarPessoa, Pessoa, providerPrazo, PrazoPagamento, modalBuscarPrazo, Pagamento, modalConfirm, providerPDV) {
 
   var self = this,
-      itemIndex = 0;
+    itemIndex = 0;
 
   this.ticket = new Ticket();
   this.tempItem = new ItemPedido();
@@ -43,7 +43,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     jQuery('body').bind('keyup', function (event) {
       // TECLA F2
       if (event.keyCode === 113) {
-        jQuery('#modalTroco').modal('show');
+        console.log(self.ticket);
         event.preventDefault();
       }
       // TECLA F6
@@ -69,9 +69,9 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
         self.abrirModalPagamento();
         event.preventDefault();
       }
-      // TECLA F9
+      // TECLA F10
       if (event.keyCode === 121) {
-        self.fecharVenda();
+        self.prepararFechamento();
         event.preventDefault();
       }
     });
@@ -99,7 +99,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     jQuery('input[name="descontoDinheiro"]').focus().select();
   };
 
-  this.novo = function () {
+  this.novo = function (callback) {
     modalConfirm.show('Aviso', 'Todas as informações serão perdidas, deseja proseguir?').then(function (result) {
       self.cancelarEdicao();
       self.cdCliente = '';
@@ -107,10 +107,12 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
       self.tempPrazo = new PrazoPagamento();
       itemIndex = 0;
       self.ticket = new Ticket();
+
+      if (callback) callback();
     });
   };
 
-  this.abrirTicket = function () {
+  function buscarTicket() {
     modalBuscarTicket.show().then(function (result) {
       if (result) {
         $rootScope.loading.load();
@@ -129,6 +131,10 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
         });
       }
     });
+  }
+
+  this.abrirTicket = function () {
+    this.novo(buscarTicket);
   };
 
   this.buscarProduto = function () {
@@ -202,8 +208,8 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     focarCodigo();
   };
 
-  this.abrirModalCancelarItem = function() {
-    jQuery('#modalCancelarItem').on('shown.bs.modal', function(e) {
+  this.abrirModalCancelarItem = function () {
+    jQuery('#modalCancelarItem').on('shown.bs.modal', function (e) {
       jQuery('input[name="numItem"]').focus().select();
     }).modal('show');
   };
@@ -225,24 +231,24 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
   };
 
   this.abrirModalCliente = function (callback_positive, callback_negative) {
-    jQuery('#modalCliente').on('shown.bs.modal', function(e) {
+    jQuery('#modalCliente').on('shown.bs.modal', function (e) {
       jQuery('input[name="cdCliente"]').focus().select();
-    }).modal('show').on('hidden.bs.modal', function(e) {
+    }).modal('show').on('hidden.bs.modal', function (e) {
       if (callback_negative) callback_negative();
-    }).find('.control button[name="positive"]').click(function() {
+    }).find('.control button[name="positive"]').click(function () {
       if (callback_positive) callback_positive();
     });
   };
 
-  this.buscarCliente = function() {
-    modalBuscarPessoa.show($rootScope.categoriaPessoa.cliente.id).then(function(result) {
+  this.buscarCliente = function () {
+    modalBuscarPessoa.show($rootScope.categoriaPessoa.cliente.id).then(function (result) {
       self.ticket.setCliente(new Pessoa(result));
     });
   };
 
   this.buscarClientePorCodigo = function (codigo) {
     if (parseInt(codigo) == parseInt(this.ticket.cliente.codigo)) {
-      jQuery('#modalCliente').modal('hide');
+      jQuery('#modalCliente').find('button[name="positive"]').trigger('click');
       return;
     }
 
@@ -257,11 +263,11 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
   };
 
   this.abrirModalPagamento = function (callback_positive, callback_negative) {
-    jQuery('#modalPagamento').on('shown.bs.modal', function(e) {
+    jQuery('#modalPagamento').on('shown.bs.modal', function (e) {
       jQuery('input[name="cdPrazo"]').focus().select();
-    }).modal('show').on('hidden.bs.modal', function(e) {
+    }).modal('show').on('hidden.bs.modal', function (e) {
       if (callback_negative) callback_negative();
-    }).find('.control button[name="positive"]').click(function() {
+    }).find('.control button[name="positive"]').click(function () {
       if (callback_positive) callback_positive();
     });
   };
@@ -285,6 +291,11 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
   };
 
   this.buscarPrazoPorCodigo = function (codigo) {
+    if (parseInt(codigo) == parseInt(this.ticket.prazo.codigo) && validarFormas()) {
+      jQuery('#modalPagamento').find('button[name="positive"]').trigger('click');
+      return;
+    }
+
     $rootScope.loading.load();
     providerPrazo.obterPorCodigo(codigo).then(function (success) {
       self.selectPrazo(new PrazoPagamento(PrazoPagamento.converterEmEntrada(success.data)));
@@ -295,7 +306,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     });
   };
 
-  this.prepararPrazo = function(prazo) {
+  this.prepararPrazo = function (prazo) {
     $rootScope.loading.load();
     providerPrazo.obterPorCodigo(prazo.codigo).then(function (success) {
       self.selectPrazo(new PrazoPagamento(PrazoPagamento.converterEmEntrada(success.data)));
@@ -325,39 +336,33 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     } else {
       self.ticket.pagamentos = [];
       for (var i = 0; i < self.ticket.prazo.parcelas; i++) {
-        console.log(new Pagamento());
         self.ticket.pagamentos.push(new Pagamento());
         self.ticket.pagamentos[i].valor = self.ticket.getValorTotal() / self.ticket.prazo.parcelas;
         self.ticket.pagamentos[i].vencimento = getDataDaParcela(self.ticket.prazo, i);
+        self.ticket.pagamentos[i].formaId = self.ticket.prazo.formas[0].id;
       }
     }
   }
 
-  this.prepararFechamento = function () {
-    if (this.ticket.trueLength() == 0) {
-      $rootScope.alerta.show('A lista de produtos está vazia!');
-      return;
-    }
-
-    if (this.ticket.codigo) {
-      this.fecharVenda();
-      return;
-    }
-
-    jQuery('#modalFuncionario').on('shown.bs.modal', function(e) {
+  this.abrirModalFuncionario = function(callback_positive, callback_negative) {
+    jQuery('#modalFuncionario').on('shown.bs.modal', function (e) {
       jQuery('input[name="cdFuncionario"]').focus().select();
-    }).modal('show');
+    }).modal('show').on('hidden.bs.modal', function (e) {
+      if (callback_negative) callback_negative();
+    }).find('.control button[name="positive"]').click(function () {
+      if (callback_positive) callback_positive();
+    });
   };
 
-  this.buscarFuncionario = function() {
-    modalBuscarPessoa.show($rootScope.categoriaPessoa.funcionario.id).then(function(result) {
+  this.buscarFuncionario = function () {
+    modalBuscarPessoa.show($rootScope.categoriaPessoa.funcionario.id).then(function (result) {
       self.ticket.setFuncionario(new Pessoa(result));
     });
   };
 
   this.buscarFuncionarioPorCodigo = function (codigo) {
     if (parseInt(codigo) == parseInt(this.ticket.funcionario.codigo)) {
-      jQuery('#modalFuncionario').modal('hide');
+      jQuery('#modalFuncionario').find('button[name="positive"]').trigger('click');
       return;
     }
 
@@ -396,7 +401,21 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     return true;
   }
 
-  this.fecharVenda = function() {
+  this.prepararFechamento = function () {
+    if (this.ticket.trueLength() == 0) {
+      $rootScope.alerta.show('A lista de produtos está vazia!');
+      return;
+    }
+
+    if (this.ticket.codigo) {
+      this.fecharVenda();
+      return;
+    }
+
+    this.abrirModalFuncionario(self.fecharVenda);
+  };
+
+  this.fecharVenda = function () {
     if (!self.ticket.clienteId) {
       self.abrirModalCliente(self.fecharVenda);
       return;
@@ -407,15 +426,16 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
       return;
     }
 
-    console.log(Ticket.converterEmSaida(self.ticket));
+    console.log('Saída', Ticket.converterEmSaida(self.ticket));
 
     $rootScope.loading.load();
-    providerPDV.salvar(Ticket.converterEmSaida(self.ticket)).then(function(success) {
-      if (self.ticket.pagamentos.length == 1) {
+    providerPDV.salvar(Ticket.converterEmSaida(self.ticket)).then(function (success) {
+      console.log('submetido');
+      // if (self.ticket.pagamentos.length == 1) {
         jQuery('#modalTroco').modal('show');
-      }
+      // }
       $rootScope.loading.unload();
-    }, function(error) {
+    }, function (error) {
       console.log(error);
       $rootScope.loading.unload();
     });

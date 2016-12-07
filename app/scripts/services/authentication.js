@@ -21,6 +21,11 @@ angular.module('belissimaApp.services')
 
       function Login(username, password, callback) {
 
+        // var fake = JSON.parse('{"status":{"code":200,"message":"Ok."},"data":{"user_id":"1003","user_profile_id":"1001","user_session_id":null,"user_active":"Y","user_user":"eduardo","user_name":"Eduardo Miranda","user_mail":"eduardo@futuraagencia.com.br","user_login":"2016-11-30 18:49:48","user_update":null,"user_date":"2016-09-22 12:09:34","user_current_session_id":"52thiljfk58mn4qjdhu31r47b7","user_profile":{"user_profile_id":"1001","user_profile_name":"Administrador","user_profile_update":null,"user_profile_date":"2016-06-20 11:46:20"}},"info":null}');
+        // SetCredentials(new Usuario(Usuario.converterEmEntrada(fake.data)));
+        // callback(fake);
+        // return;
+
         $http({
           method: 'POST',
           url: URLS.root + 'login.php',
