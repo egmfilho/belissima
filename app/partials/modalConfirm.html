@@ -1,4 +1,4 @@
-<div>
+<div id="modalConfirm">
   <div class="header">
     <div class="title">
       {{title || 'Aviso'}}
@@ -10,7 +10,7 @@
     <p style="display: inline-block;">{{message}}</p>
   </div>
   <div class="control">
-    <button class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span> {{negative || 'Não'}}</button>
-    <button class="btn btn-default" ng-click="ok()"><span class="glyphicon glyphicon-ok"></span> {{positive || 'Sim'}}</button>
+    <button class="btn btn-default" name="negative" ng-click="cancel()" tabindex="-1"><span class="glyphicon glyphicon-remove"></span> {{negative || 'Não'}}</button>
+    <button class="btn btn-default" name="positive" ng-click="ok()"><span class="glyphicon glyphicon-ok"></span> {{positive || 'Sim'}}</button>
   </div>
 </div>

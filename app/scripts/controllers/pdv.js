@@ -113,7 +113,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
   };
 
   function buscarTicket() {
-    modalBuscarTicket.show().then(function (result) {
+    modalBuscarTicket.show('1001').then(function (result) {
       if (result) {
         $rootScope.loading.load();
         self.cancelarEdicao();
@@ -141,7 +141,8 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     modalBuscarProduto.show().then(function (result) {
       if (result) {
         self.tempItem.setProduto(new Produto(result));
-        self.cdProduto = self.tempItem.codigo;
+        self.cdProduto = self.tempItem.produto.codigo;
+        focarQuantidade();
       }
     });
   };
@@ -243,6 +244,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
   this.buscarCliente = function () {
     modalBuscarPessoa.show($rootScope.categoriaPessoa.cliente.id).then(function (result) {
       self.ticket.setCliente(new Pessoa(result));
+      self.cdCliente = self.ticket.cliente.codigo;
     });
   };
 
@@ -269,6 +271,12 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
       if (callback_negative) callback_negative();
     }).find('.control button[name="positive"]').click(function () {
       if (callback_positive) callback_positive();
+    });
+  };
+
+  this.buscarPrazo = function() {
+    modalBuscarPrazo.show().then(function(result) {
+      self.selectPrazo(new PrazoPagamento(result));
     });
   };
 
@@ -344,7 +352,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     }
   }
 
-  this.abrirModalFuncionario = function(callback_positive, callback_negative) {
+  this.abrirModalFuncionario = function (callback_positive, callback_negative) {
     jQuery('#modalFuncionario').on('shown.bs.modal', function (e) {
       jQuery('input[name="cdFuncionario"]').focus().select();
     }).modal('show').on('hidden.bs.modal', function (e) {
@@ -357,6 +365,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
   this.buscarFuncionario = function () {
     modalBuscarPessoa.show($rootScope.categoriaPessoa.funcionario.id).then(function (result) {
       self.ticket.setFuncionario(new Pessoa(result));
+      self.cdFuncionario = self.ticket.funcionario.codigo;
     });
   };
 
@@ -407,37 +416,46 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
       return;
     }
 
-    if (this.ticket.codigo) {
-      this.fecharVenda();
-      return;
-    }
-
-    this.abrirModalFuncionario(self.fecharVenda);
+    modalConfirm.show('Aviso', 'Fechar a venda?').then(function() {
+      self.validarModais();
+    });
   };
 
-  this.fecharVenda = function () {
+  this.validarModais = function() {
     if (!self.ticket.clienteId) {
-      self.abrirModalCliente(self.fecharVenda);
+      self.abrirModalCliente(self.validarModais);
       return;
     }
 
     if (!self.ticket.prazoId || !validarFormas()) {
-      self.abrirModalPagamento(self.fecharVenda);
+      self.abrirModalPagamento(self.validarModais);
       return;
     }
 
+    if (!self.ticket.codigo) {
+      self.abrirModalFuncionario(self.fecharVenda);
+    } else {
+      self.fecharVenda();
+    }
+  };
+
+  this.fecharVenda = function () {
     console.log('Saída', Ticket.converterEmSaida(self.ticket));
 
-    $rootScope.loading.load();
-    providerPDV.salvar(Ticket.converterEmSaida(self.ticket)).then(function (success) {
-      console.log('submetido');
-      // if (self.ticket.pagamentos.length == 1) {
-        jQuery('#modalTroco').modal('show');
-      // }
-      $rootScope.loading.unload();
-    }, function (error) {
-      console.log(error);
-      $rootScope.loading.unload();
+    jQuery('#modalTroco').modal('show')
+      .on('shown.bs.modal', function(e) {
+        jQuery(this).find('input[name="dinheiro"]').focus().select();
+      })
+      .on('hidden.bs.modal', function (e) {
+      $rootScope.loading.load();
+      providerPDV.salvar(Ticket.converterEmSaida(self.ticket)).then(function (success) {
+        console.log('submetido');
+        $rootScope.loading.unload();
+      }, function (error) {
+        console.log(error);
+        $rootScope.loading.unload();
+        $rootScope.alerta.show('Não foi possível fechar a venda!', 'alert-danger');
+      });
     });
   };
 }

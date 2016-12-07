@@ -1,3 +1,41 @@
 <span ng-controller="CalendarioCtrl as calendario" id="agenda">
   <div class="calendar hidden-xs" ui-calendar="uiConfig.calendar" ng-model="dummy" calendar="calendarioFeriados"></div>
 </span>
+
+<!--MODAL FERIADO-->
+<div class="modal meu-modal fade" id="modalFeriado" role="dialog" aria-labelledby="modalFeriado">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="header">
+        <div class="title">
+          <span class="glyphicon glyphicon-calendar"></span>
+          Bloqueio de data
+          <span class="glyphicon glyphicon-remove close" data-dismiss="modal"></span>
+        </div>
+      </div>
+      <div class="body condensar-rows">
+        <div class="col-md-3">
+          <h4>Data</h4>
+          <input type="text" class="form-control" ng-model="temp.data">
+        </div>
+        <div class="col-md-9">
+          <h4>Título</h4>
+          <input type="text" class="form-control" ng-model="temp.titulo">
+        </div>
+        <div class="col-md-12">
+          <h4>Descrição</h4>
+          <textarea name="" id="" cols="30" rows="4" class="form-control" ng-model="temp.descricao"></textarea>
+        </div>
+      </div>
+      <div class="control">
+        <button type="button" name="positive" class="btn btn-default" data-dismiss="modal">
+          <span class="glyphicon glyphicon-ok"></span> Salvar
+        </button>
+        <button type="button" name="negative" class="btn btn-default" data-dismiss="modal">
+          <span class="glyphicon glyphicon-ok"></span> Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FIM MODAL-->

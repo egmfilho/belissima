@@ -11,7 +11,8 @@ angular.module('belissimaApp.controllers')
     '$uibModalInstance',
     'ProviderTicket',
     'Pedido',
-    function($rootScope, $scope, $uibModalInstance, provider, Ticket) {
+    'statusId',
+    function($rootScope, $scope, $uibModalInstance, provider, Ticket, statusId) {
 
       $scope.pagination = {
         current: 1,
@@ -46,17 +47,23 @@ angular.module('belissimaApp.controllers')
         }, function(error) {
           console.log(error);
           $rootScope.loading.unload();
+          if (error.status == 404) {
+            $rootScope.alerta.show('Nenhum ticket encontrado!');
+          }
         });
       };
 
       $scope.getTickets = function() {
         $rootScope.loading.load();
-        provider.obterTodos(true, true, true, true).then(function(success) {
+        provider.obterTodos(true, true, true, true, null, null, null, null, statusId).then(function(success) {
           setResultado(success.data);
           $rootScope.loading.unload();
         }, function(error) {
           console.log(error);
           $rootScope.loading.unload();
+          if (error.status == 404) {
+            $rootScope.alerta.show('Nenhum ticket encontrado!');
+          }
         });
       };
 

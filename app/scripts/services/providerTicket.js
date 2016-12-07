@@ -54,7 +54,7 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
-        obterTodos: function(getUser, getCliente, getItems, getProdutos, getFuncionarios, getPrazo, getPagamento, getFormasPagamento, limite) {
+        obterTodos: function(getUser, getCliente, getItems, getProdutos, getFuncionarios, getPrazo, getPagamento, getFormasPagamento, statusId, limite) {
           return provider.query({
             action: 'getList'
           }, {
@@ -66,6 +66,7 @@ angular.module('belissimaApp.services')
             get_ticket_payment_term: getPrazo,
             get_ticket_payments: getPagamento,
             get_ticket_payment_mode: getFormasPagamento,
+            ticket_status_id: statusId,
             ticket_limit: limite
           }).$promise;
         },

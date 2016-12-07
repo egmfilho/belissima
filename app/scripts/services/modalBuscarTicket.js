@@ -8,12 +8,17 @@ angular.module('belissimaApp.services')
   .factory('ModalBuscarTicket', ['$uibModal', function($uibModal) {
 
     return {
-      show: function() {
+      show: function(statusId) {
         return $uibModal.open({
           animation: true,
           templateUrl: 'partials/modalBuscarTicket.html',
           controller: 'ModalBuscarTicketCtrl',
-          size: 'md'
+          size: 'md',
+          resolve: {
+            statusId: function() {
+              return statusId;
+            }
+          }
         }).result;
       }
     }

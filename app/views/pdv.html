@@ -33,7 +33,7 @@
                       <span class="glyphicon glyphicon-question-sign pull-right" uib-popover="Use F1 para abrir a localização de produtos e ESC para cancelar a inserção." popover-trigger="'mouseenter'" popover-placement="left"></span>
                     </h4>
                     <div class="input-group input-group-lg">
-                      <input type="text" name="cdProduto" class="form-control" ng-model="pdv.cdProduto" keys-shortcuts enter="pdv.buscarProdutoPorCodigo(pdv.cdProduto)" f1="pdv.buscarProduto()" escape="pdv.cancelarEdicao()" ng-disabled="pdv.ticket.codigo">
+                      <input type="text" name="cdProduto" class="form-control" ng-model="pdv.cdProduto" keys-shortcuts enter="pdv.buscarProdutoPorCodigo(pdv.cdProduto)" shift-enter="pdv.addItem()" f1="pdv.buscarProduto()" escape="pdv.cancelarEdicao()" ng-disabled="pdv.ticket.codigo">
                       <span class="input-group-btn">
                         <button class="btn" name="btnProduto" ng-click="pdv.buscarProduto()" ng-disabled="pdv.ticket.codigo">
                           <span class="glyphicon glyphicon-search"></span>
@@ -43,11 +43,11 @@
                   </div>
                   <div class="col-md-4">
                     <h4>Quantidade</h4>
-                    <input type="text" name="quantidade" class="form-control input-lg" ng-model="pdv.tempItem.quantidade" keys-shortcuts enter="focarDescontoPercent()" escape="pdv.cancelarEdicao()" number-only ng-disabled="pdv.ticket.codigo">
+                    <input type="text" name="quantidade" class="form-control input-lg" ng-model="pdv.tempItem.quantidade" keys-shortcuts enter="focarDescontoPercent()" shift-enter="pdv.addItem()" escape="pdv.cancelarEdicao()" number-only ng-disabled="pdv.ticket.codigo">
                   </div>
                   <div class="col-md-4">
                     <h4>Desconto %</h4>
-                    <input type="text" name="descontoPercent" class="form-control input-lg" ng-model="pdv.tempItem.descontoPercent" keys-shortcuts enter="focarDescontoDinheiro()" escape="pdv.cancelarEdicao()" number-only currency symbol="''" ng-disabled="pdv.ticket.codigo">
+                    <input type="text" name="descontoPercent" class="form-control input-lg" ng-model="pdv.tempItem.descontoPercent" keys-shortcuts enter="focarDescontoDinheiro()" shift-enter="pdv.addItem()" escape="pdv.cancelarEdicao()" number-only currency symbol="''" ng-disabled="pdv.ticket.codigo">
                   </div>
                   <div class="col-md-4">
                     <h4>Desconto R$</h4>
@@ -201,7 +201,7 @@
               </div>
               <div class="col-md-5">
                 <div class="input-group">
-                  <input type="text" class="form-control" name="numItem" ng-model="numItem" number-only keys-shortcuts enter="pdv.removerItem(numItem - 1)" keys-shortcuts enter="pdv.removeItem(numItem)">
+                  <input type="number" min="1" class="form-control" name="numItem" ng-model="numItem" keys-shortcuts enter="pdv.removerItem(numItem - 1)">
                   <span class="input-group-btn">
                     <button class="btn btn-default" ng-click="pdv.removerItem(numItem - 1)">
                       <span class="glyphicon glyphicon-trash"></span>
@@ -290,7 +290,7 @@
             <div class="input-group">
               <input type="text" class="form-control" name="cdPrazo" ng-model="pdv.cdPrazo" keys-shortcuts enter="pdv.buscarPrazoPorCodigo(pdv.cdPrazo)" blur-to="pdv.ticket.prazo.codigo">
               <span class="input-group-btn">
-                <button class="btn btn-default">
+                <button class="btn btn-default" ng-click="pdv.buscarPrazo()">
                   <span class="glyphicon glyphicon-search"></span>
                 </button>
               </span>
@@ -409,7 +409,7 @@
 
           <div class="col-md-6 mostrador" ng-init="dinheiro=0">
             <h3 class="titulo">Pagamento</h3>
-            <input type="text" ng-model="dinheiro" class="text-right" currency symbol="'R$ '">
+            <input type="text" name="dinheiro" ng-model="dinheiro" class="text-right" currency symbol="'R$ '">
           </div>
           <div class="col-md-6 mostrador">
             <h3 class="titulo">Troco</h3>
@@ -419,7 +419,7 @@
         </div>
         <div class="control">
           <button type="button" class="btn btn-default" data-dismiss="modal">
-            <span class="glyphicon glyphicon-ok"></span> Fechar
+            <span class="glyphicon glyphicon-ok"></span> OK
           </button>
         </div>
       </div>

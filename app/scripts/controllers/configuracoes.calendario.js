@@ -12,24 +12,24 @@ CalendarioCtrl.$inject = [
   '$scope',
   '$filter',
   '$http',
+  'Feriado',
   'uiCalendarConfig'
 ];
 
-function CalendarioCtrl($rootScope, $scope, $filter, $http, uiCalendarConfig) {
+function CalendarioCtrl($rootScope, $scope, $filter, $http, Feriado, uiCalendarConfig) {
 
   var self = this,
       hoje = new Date();
 
-  this.diasBloqueados = [
-    { data: new Date('1901/12/24'), variavel: null }
+  this.feriados = [
+    { data: new Date('1901/12/24'), variavel: null, titulo: 'Véspera de Natal' }
   ];
+
+  this.diasBloqueados = [ ];
 
   $scope.dummy = [];
 
-  $scope.feriados = {
-    estaduais: [ ], // dadosbr.github.io/feriados/estaduais/RJ.json
-    nacionais: [ ]  // dadosbr.github.io/feriados/nacionais.json
-  };
+  $scope.temp = new Feriado();
 
   $scope.uiConfig = {
     calendar: {
@@ -58,7 +58,9 @@ function CalendarioCtrl($rootScope, $scope, $filter, $http, uiCalendarConfig) {
 
     return {
       data: feriado.date ? new Date('1901/' + feriado.date.split('/')[1] + '/' + feriado.date.split('/')[0]) : null,
-      variavel: variavel
+      variavel: variavel,
+      titulo: feriado.title,
+      descricao: feriado.description
     };
   }
 
@@ -66,12 +68,12 @@ function CalendarioCtrl($rootScope, $scope, $filter, $http, uiCalendarConfig) {
     $rootScope.loading.load();
     $http.get('http://dadosbr.github.io/feriados/nacionais.json').then(function(success) {
       console.log('Nacionais', success.data);
-
+      var nacionais = [];
       angular.forEach(success.data, function(item, index) {
-        $scope.feriados.nacionais.push(formatFeriado(item));
+        nacionais.push(new Feriado(Feriado.converterEmEntrada(item)));
       });
-      self.diasBloqueados = self.diasBloqueados.concat($scope.feriados.nacionais);
-      console.log(self.diasBloqueados);
+      self.feriados = self.feriados.concat(nacionais);
+      console.log(self.feriados);
       refreshCalendar();
       $rootScope.loading.unload();
     }, function(error) {
@@ -87,11 +89,11 @@ function CalendarioCtrl($rootScope, $scope, $filter, $http, uiCalendarConfig) {
     $rootScope.loading.load();
     $http.get('http://dadosbr.github.io/feriados/estaduais/RJ.json').then(function(success) {
       console.log('Estaduais', success.data);
-
+      var estaduais = [];
       angular.forEach(success.data, function(item, index) {
-        $scope.feriados.estaduais.push(formatFeriado(item));
+        estaduais.push(new Feriado(Feriado.converterEmEntrada(item)));
       });
-      self.diasBloqueados = self.diasBloqueados.concat($scope.feriados.estaduais);
+      self.feriados = self.feriados.concat(estaduais);
       refreshCalendar();
       $rootScope.loading.unload();
     }, function(error) {
@@ -104,8 +106,8 @@ function CalendarioCtrl($rootScope, $scope, $filter, $http, uiCalendarConfig) {
     return moment.format('YYYY/MM/DD') === $filter('date')(date, 'yyyy/MM/dd');
   }
 
-  function isBloqueado(date) {
-    return self.diasBloqueados.find(function(dia, index) {
+  function isFeriado(date) {
+    return self.feriados.find(function(dia, index) {
       var d = dia.data ? new Date(dia.data) : (dia.variavel[hoje.getFullYear()] ? new Date(dia.variavel[hoje.getFullYear()]) : null);
 
       if (d == null) return null;
@@ -115,22 +117,28 @@ function CalendarioCtrl($rootScope, $scope, $filter, $http, uiCalendarConfig) {
       }
 
       return compararMomentDate(date, d);
-    }) != null;
+    });
   }
 
   function dayRender(date, cell) {
-    if (isBloqueado(date)) {
-      jQuery(cell).css('vertical-align', 'middle').append('<span class="glyphicon glyphicon-lock cadeado"></span>');
+    var feriado = isFeriado(date);
+
+    if (feriado) {
+      jQuery(cell).css('vertical-align', 'middle').append('<span class="glyphicon glyphicon-calendar cadeado"></span><br><h6 class="text-center">' + feriado.titulo + '</h6>');
     }
   }
 
   function dayClick(date, jsEvent, view) {
+    $scope.temp.data = new Date(date.format('YYYY/MM/DD'));
+    jQuery('#modalFeriado').modal('show');
+    return;
+
     if (isBloqueado(date)) {
-      self.diasBloqueados = self.diasBloqueados.filter(function(element) {
+      self.feriados = self.feriados.filter(function(element) {
         return !compararMomentDate(date, element.data);
       });
     } else {
-      self.diasBloqueados.push({ data: new Date(date.format('YYYY/MM/DD')) });
+      self.feriados.push({ data: new Date(date.format('YYYY/MM/DD')) });
     }
 
     refreshCalendar();
