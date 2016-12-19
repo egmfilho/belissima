@@ -16,39 +16,47 @@
       </div>
       <div class="controle">
 
-        <div class="btn btn-default hidden-xs ng-class:{'ativo': currentPath === '/'}" redireciona="/">
+        <div class="btn btn-default hidden-xs ng-class:{'ativo': currentPath === '/'}" redireciona="/" title="Home">
           Home <span class="glyphicon glyphicon-home"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/pdv'}" redireciona="/pdv">
+        <div class="btn btn-default ng-class:{'ativo': currentPath === '/pdv'}" redireciona="/pdv" title="PDV">
           PDV <span class="glyphicon glyphicon-shopping-cart"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/ticket'}" redireciona="/ticket/list">
+        <div class="btn btn-default ng-class:{'ativo': currentPath === '/ticket'}" redireciona="/ticket/list" title="Ticket">
           Ticket <span class="glyphicon glyphicon-edit"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/produtos'}" redireciona="/produtos">
+        <div class="btn btn-default ng-class:{'ativo': currentPath === '/produtos'}" redireciona="/produtos" title="Serviços & Produtos">
           Serviços & Produtos <span class="glyphicon glyphicon-tags"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/clientes'}" redireciona="/pessoas">
+        <div class="btn btn-default ng-class:{'ativo': currentPath === '/movimentacao'}" redireciona="/movimentacao" title="Movimentação">
+          Movimentação <span class="glyphicon glyphicon-tasks"></span>
+        </div>
+
+        <div class="btn btn-default ng-class:{'ativo': currentPath === '/clientes'}" redireciona="/pessoas" title="Pessoas">
           Pessoas <span class="glyphicon glyphicon-user"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/relatorios'}" redireciona="/relatorios">
-          Relatórios <span class="glyphicon glyphicon-print"></span>
+        <div class="btn btn-default ng-class:{'ativo': currentPath === '/crm'}" redireciona="/crm" title="CRM">
+          CRM <span class="glyphicon glyphicon-thumbs-up"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/agenda'}" redireciona="/agenda">
+        <!--<div class="btn btn-default ng-class:{'ativo': currentPath === '/relatorios'}" redireciona="/relatorios" title="Relatórios">-->
+          <!--Relatórios <span class="glyphicon glyphicon-print"></span>-->
+        <!--</div>-->
+
+        <div class="btn btn-default ng-class:{'ativo': currentPath === '/agenda'}" redireciona="/agenda" title="Agenda">
           Agenda <span class="glyphicon glyphicon-calendar"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/configuracoes'}" redireciona="/configuracoes">
+        <div class="btn btn-default ng-class:{'ativo': currentPath === '/configuracoes'}" redireciona="/configuracoes" title="Configurações">
           Configurações <span class="glyphicon glyphicon-cog"></span>
         </div>
 
-        <div class="btn btn-default" ng-click="menuLateral.logout()">
+        <div class="btn btn-default" ng-click="menuLateral.logout()" title="Efetuar Logout">
           Logout <span class="glyphicon glyphicon-log-out"></span>
         </div>
 

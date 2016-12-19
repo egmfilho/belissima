@@ -205,6 +205,35 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     return p;
   };
 
+  Pedido.converterEmSaidaPDV = function (pedido) {
+    var p = {};
+
+    p.document_id = pedido.id;
+    p.document_client_id = pedido.clienteId ? pedido.cliente.id : pedido.clienteId;
+    p.document_employee_id = pedido.funcionarioId;
+    // p.document_note = pedido.observacoes;
+    // p.document_status_id = pedido.statusId;
+
+    p.document_items = [];
+    angular.forEach(pedido.items, function (item, index) {
+      p.document_items.push(ItemPedido.converterEmSaida(item));
+    });
+
+    p.document_value = pedido.getValorTotal();
+    // p.document_al_discount = pedido.descontoPercent;
+    // p.document_vl_discount = pedido.descontoDinheiro;
+    p.document_value_total = pedido.getValorTotalComDesconto();
+
+    p.document_payment_term_id = pedido.prazoId;
+    p.document_payments = [];
+
+    angular.forEach(pedido.pagamentos, function (item, index) {
+      p.document_payments.push(Pagamento.converterEmSaida(item));
+    });
+
+    return p;
+  };
+
   return Pedido;
 
 }

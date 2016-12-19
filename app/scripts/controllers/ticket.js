@@ -42,6 +42,14 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   };
   $scope.opcao = 'listar';
 
+  $scope.$on('$locationChangeStart', function( event ) {
+    if (self.novoTicket.items.length || self.novoTicket.cliente.id || self.novoTicket.pagamentos.length) {
+      if (!confirm('Deseja sair?')) {
+        event.preventDefault();
+      }
+    }
+  });
+
   function getTickets() {
     $rootScope.loading.load();
     providerTicket.obterTodos(null, true).then(function(success) {

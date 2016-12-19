@@ -28,10 +28,15 @@ angular.module('belissimaApp.controllers')
         url: '/pessoas'
       },
       {
-        nome: 'Relatórios',
-        icone: 'glyphicon-print',
-        url: '/relatorios'
+        nome: 'CRM',
+        icone: 'glyphicon-thumbs-up',
+        url: '/crm'
       },
+      // {
+      //   nome: 'Relatórios',
+      //   icone: 'glyphicon-print',
+      //   url: '/relatorios'
+      // },
       {
         nome: 'Agenda',
         icone: 'glyphicon-calendar',

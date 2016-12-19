@@ -32,15 +32,29 @@
               class="glyphicon glyphicon-remove close" data-dismiss="modal"></span></div>
           </div>
           <div class="body">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <h4>Código</h4>
               <input type="text" class="form-control" ng-model="financeiro.forma.codigo" readonly="true">
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8">
               <h4>Descrição</h4>
               <input type="text" class="form-control" ng-model="financeiro.forma.descricao">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
+              <div><h4>Exibir Troco</h4></div>
+              <div class="btn-group btn-toggle">
+                <label class="btn btn-primary" ng-model="financeiro.forma.troco" uib-btn-radio="true"><span class="glyphicon glyphicon-eye-open"></span> Sim</label>
+                <label class="btn btn-primary" ng-model="financeiro.forma.troco" uib-btn-radio="false"><span class="glyphicon glyphicon-eye-close"></span> Não</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div><h4>Baixa na inclusão</h4></div>
+              <div class="btn-group btn-toggle">
+                <label class="btn btn-primary" ng-model="financeiro.forma.baixaNaInclusao" uib-btn-radio="true"><span class="glyphicon glyphicon-eye-open"></span> Sim</label>
+                <label class="btn btn-primary" ng-model="financeiro.forma.baixaNaInclusao" uib-btn-radio="false"><span class="glyphicon glyphicon-eye-close"></span> Não</label>
+              </div>
+            </div>
+            <div class="col-md-4">
               <div><h4>Ativo</h4></div>
               <div class="btn-group btn-toggle">
                 <label class="btn btn-primary" ng-model="financeiro.forma.ativo" uib-btn-radio="true"><span class="glyphicon glyphicon-eye-open"></span> Sim</label>
@@ -180,7 +194,7 @@
                     <tr>
                       <th>
                         <div class="custom-checkbox inverted">
-                          <input type="checkbox" value="None" id="todos" name="check" ng-init="checkAll=false" ng-model="checkAll" ng-change="financeiro.checkAllFormas(checkAll)" />
+                          <input type="checkbox" value="None" id="todos" name="check" ng-model="financeiro.checkAll" ng-change="financeiro.checkAllFormas(financeiro.checkAll)" />
                           <label for="todos"></label>
                         </div>
                       </th>

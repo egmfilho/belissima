@@ -118,6 +118,7 @@ function ItemPedido(Produto, Pessoa) {
     i.ticket_item_value_total = item.getTotalComDesconto();
     i.product_id = item.produtoId || item.produto.id;
     i.ticket_item_employee_id = item.funcionarioId;
+    i.ticket_item_removed = item.removido ? 'Y' : 'N';
 
     return i;
   };

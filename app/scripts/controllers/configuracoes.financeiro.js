@@ -82,6 +82,7 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
     $scope.$apply();
   }).on('hidden.bs.modal', '#modalPrazo', function(e) {
     self.prazo = new PrazoPagamento();
+    self.checkAll = false;
     $scope.$apply();
   });
 
@@ -152,7 +153,6 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
   };
 
   this.editarPrazo = function(prazo) {
-
     $rootScope.loading.load();
     providerPrazo.obterPorCodigo(prazo.codigo).then(function(success) {
       self.prazo = new PrazoPagamento(PrazoPagamento.converterEmEntrada(success.data));

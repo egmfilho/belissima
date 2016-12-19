@@ -18,6 +18,9 @@
       <li role="presentation" ng-class="opcao === 'financeiro' ? 'active' : ''">
         <a href="" ng-click="opcao = 'financeiro'">Financeiro</a>
       </li>
+      <li role="presentation" ng-class="opcao === 'comandas' ? 'active' : ''">
+        <a href="" ng-click="opcao = 'comandas'">Comandas</a>
+      </li>
     </ul>
     <div class="conteudo-nav condensar-rows">
 
@@ -31,7 +34,10 @@
 
       <div class="col-md-12" ng-if="opcao === 'financeiro'" ng-include="'partials/configuracoes/financeiro.html'"></div>
 
+      <div class="col-md-12" ng-if="opcao === 'comandas'" ng-include="'partials/configuracoes/comandas.html'"></div>
+
     </div>
+  </div>
 
 </tela>
 

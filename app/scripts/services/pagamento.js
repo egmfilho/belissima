@@ -13,7 +13,7 @@ function Pagamento(FormaPagamento, DataSaida) {
 
   function Pagamento(pagamento) {
     this.formaId = pagamento ? pagamento.formaId : '';
-    // this.forma = pagamento ? pagamento.forma : new FormaPagamento();
+    this.forma = pagamento ? pagamento.forma : new FormaPagamento();
     this.vencimento = pagamento ? pagamento.vencimento : new Date();
     this.valor = pagamento ? pagamento.valor : 0;
 
@@ -22,6 +22,13 @@ function Pagamento(FormaPagamento, DataSaida) {
   }
 
   Pagamento.prototype = {
+    setForma: function(forma) {
+      if (forma) {
+        this.forma = new FormaPagamento(forma);
+      }
+      this.formaId = this.forma.id;
+    },
+
     getValorTotalComDesconto: function() {
       return this.valor;
     }
@@ -31,7 +38,7 @@ function Pagamento(FormaPagamento, DataSaida) {
     var pagamento = { };
 
     pagamento.formaId = payment.payment_mode_id;
-    // pagamento.forma = new FormaPagamento(FormaPagamento.converterEmEntrada(payment.payment_mode));
+    pagamento.forma = new FormaPagamento(FormaPagamento.converterEmEntrada(payment.payment_mode));
     pagamento.vencimento = new Date(payment.ticket_payment_deadline);
     pagamento.valor = parseFloat(payment.ticket_payment_value);
 

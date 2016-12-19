@@ -321,7 +321,7 @@
                 <tr ng-repeat="pagamento in pdv.ticket.pagamentos track by $index">
                   <td>{{$index + 1}}</td>
                   <td>
-                    <select class="form-control" ng-options="forma.id as forma.descricao for forma in pdv.ticket.prazo.formas" ng-model="pagamento.formaId">
+                    <select class="form-control" ng-options="forma as forma.descricao for forma in pdv.ticket.prazo.formas" ng-model="pagamento.forma" ng-change="pagamento.setForma()">
                       <option value="" disabled>Selecione a forma</option>
                     </select>
                   </td>
@@ -401,7 +401,7 @@
         <div class="header">
           <div class="title">
             <span class="glyphicon glyphicon-download-alt"></span>
-            Total: {{(pdv.ticket.getValorTotalComDesconto() || 0) | currency: 'R$ '}}
+            Total: {{total_troco | currency: 'R$ '}}
             <span class="glyphicon glyphicon-remove close" data-dismiss="modal"></span>
           </div>
         </div>
@@ -413,7 +413,7 @@
           </div>
           <div class="col-md-6 mostrador">
             <h3 class="titulo">Troco</h3>
-            <input type="text" ng-value="(dinheiro - pdv.ticket.getValorTotalComDesconto() || 0) | currency: 'R$ '" class="text-right" readonly>
+            <input type="text" ng-value="(dinheiro - total_troco) | currency: 'R$ '" class="text-right" readonly>
           </div>
 
         </div>

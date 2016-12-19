@@ -10,6 +10,7 @@ angular.module('belissimaApp.controllers')
 PDVCtrl.$inject = [
   '$rootScope',
   '$scope',
+  '$location',
   'ModalBuscarTicket',
   'ProviderTicket',
   'Pedido',
@@ -28,7 +29,7 @@ PDVCtrl.$inject = [
   'ProviderPDV'
 ];
 
-function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPessoa, modalBuscarPessoa, Pessoa, providerPrazo, PrazoPagamento, modalBuscarPrazo, Pagamento, modalConfirm, providerPDV) {
+function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicket, Ticket, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPessoa, modalBuscarPessoa, Pessoa, providerPrazo, PrazoPagamento, modalBuscarPrazo, Pagamento, modalConfirm, providerPDV) {
 
   var self = this,
     itemIndex = 0;
@@ -77,6 +78,14 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
     });
 
     setTimeout(focarCodigo, 200);
+  });
+
+  $scope.$on('$locationChangeStart', function( event ) {
+    if (self.ticket.items.length) {
+      if (!confirm('Deseja sair?')) {
+        event.preventDefault();
+      }
+    }
   });
 
   $scope.$on("$destroy", function () {
@@ -289,7 +298,7 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
       });
       $rootScope.loading.unload();
       return prazos;
-    }, function (error) {
+    }, function (error)  {
       if (error.status == 404) {
         $rootScope.alerta.show('Não encontrado!');
       }
@@ -347,7 +356,8 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
         self.ticket.pagamentos.push(new Pagamento());
         self.ticket.pagamentos[i].valor = self.ticket.getValorTotal() / self.ticket.prazo.parcelas;
         self.ticket.pagamentos[i].vencimento = getDataDaParcela(self.ticket.prazo, i);
-        self.ticket.pagamentos[i].formaId = self.ticket.prazo.formas[0].id;
+        self.ticket.pagamentos[i].forma = self.ticket.prazo.formas[0];
+        self.ticket.pagamentos[i].setForma();
       }
     }
   }
@@ -440,22 +450,38 @@ function PDVCtrl($rootScope, $scope, modalBuscarTicket, providerTicket, Ticket, 
   };
 
   this.fecharVenda = function () {
-    console.log('Saída', Ticket.converterEmSaida(self.ticket));
+    console.log('Saída', self.ticket);
+    console.log('Saída', Ticket.converterEmSaidaPDV(self.ticket));
 
-    jQuery('#modalTroco').modal('show')
-      .on('shown.bs.modal', function(e) {
-        jQuery(this).find('input[name="dinheiro"]').focus().select();
-      })
-      .on('hidden.bs.modal', function (e) {
-      $rootScope.loading.load();
-      providerPDV.salvar(Ticket.converterEmSaida(self.ticket)).then(function (success) {
-        console.log('submetido');
-        $rootScope.loading.unload();
-      }, function (error) {
-        console.log(error);
-        $rootScope.loading.unload();
-        $rootScope.alerta.show('Não foi possível fechar a venda!', 'alert-danger');
-      });
+    $scope.total_troco = 0;
+    angular.forEach(self.ticket.pagamentos, function(pagamento) {
+      if (pagamento.forma.troco) {
+        $scope.total_troco += pagamento.valor;
+      }
     });
+
+    if ($scope.total_troco > 0) {
+      jQuery('#modalTroco').modal('show')
+        .on('shown.bs.modal', function(e) {
+          jQuery(this).find('input[name="dinheiro"]').focus().select();
+        })
+        .on('hidden.bs.modal', function (e) {
+          post();
+        });
+    } else {
+      post();
+    }
   };
+
+  function post() {
+    $rootScope.loading.load();
+    providerPDV.salvar(Ticket.converterEmSaidaPDV(self.ticket)).then(function (success) {
+      console.log('submetido');
+      $rootScope.loading.unload();
+    }, function (error) {
+      console.log(error);
+      $rootScope.loading.unload();
+      $rootScope.alerta.show('Não foi possível fechar a venda!', 'alert-danger');
+    });
+  }
 }

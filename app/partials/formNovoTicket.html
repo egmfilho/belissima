@@ -226,7 +226,7 @@
       <div class="row">
         <div class="col-sm-4">
           <h4>Forma</h4>
-          <select class="form-control" ng-options="forma.id as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="pagamento.formaId">
+          <select class="form-control" ng-options="forma as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="pagamento.forma" ng-change="pagamento.setForma()">
             <option value="" disabled>Selecione a forma de pagamento</option>
           </select>
         </div>

@@ -52,6 +52,15 @@ angular.module('belissimaApp.controllers')
         getTiposContato();
       });
 
+      this.isFuncionario = function () {
+        for (var i = 0; i < $scope.pessoa.categorias.length; i++) {
+          if ($scope.pessoa.categorias[i].id == $rootScope.categoriaPessoa.funcionario.id) {
+            return true;
+          }
+        }
+        return false;
+      };
+
       $scope.getClientes = function () {
         $rootScope.loading.load();
         provider.obterPessoasPorCategoria($scope.filtro.categoria, true, true, true, true, true, true, true, true, ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function (success) {

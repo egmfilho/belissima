@@ -94,12 +94,24 @@ angular
         controllerAs: 'servicoProdutos',
         resolve: resolveCategorias()
       })
+      .when('/movimentacao', {
+        modulo: 'product',
+        templateUrl: 'views/movimentacao.html',
+        controller: 'MovimentacaoCtrl',
+        controllerAs: 'movimentacao'
+      })
       .when('/pessoas', {
         modulo: 'person',
         templateUrl: 'views/clientes.html',
         controller: 'ClientesCtrl',
         controllerAs: 'clientes',
         resolve: resolveCategorias()
+      })
+      .when('/crm', {
+        modulo: 'person',
+        templateUrl: 'views/crm.html',
+        controller: 'CRMCtrl',
+        controllerAs: 'crm'
       })
       .when('/agenda', {
         modulo: 'agenda',
@@ -143,13 +155,19 @@ angular
     // - Visualizacao de linha do tempo na agenda
     // - Dicas adicionadas nos botoes da agenda
     // - Dialogo de confirmacao de encerramento de agendamento para continuar agendando para o mesmo cliente
+    //
+    // ver 0.7.5
+    //
+    // - Adicionada opcao de apresentar janela de troco por forma de pagamento
+    // - Corrigido bug onde o "checkAll" continuava marcado mesmo depois de fechar e abrir outro modal de prazo
+    // - Post do PDV alterado de "ticket" pra "document"
     $rootScope.versao = '0.7.4';
   }])
   .run(['$rootScope', '$location', '$cookies', '$timeout', '$uibModalStack', function($rootScope, $location, $cookies, $timeout, $uibModalStack) {
 
     // para ser usado no ng-repeat
     $rootScope.getNumber = function(num) {
-      return new Array(num <= 0 ? 0 : num);
+      return new Array(Math.max(0, num));
     };
 
     $rootScope.loading = {
@@ -190,26 +208,26 @@ angular
       $uibModalStack.dismissAll();
       $rootScope.currentPath = $location.path();
 
-      // // Bloqueia acesso de usuarios nao logados
-      // if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
-      //   if (next && next.templateUrl) {
-      //     if (next.templateUrl !== 'views/login.html' && next.templateUrl.indexOf('impressaoOrcamento.html') < 0) {
-      //       $location.path('/login');
-      //     }
-      //     return;
-      //   }
-      // }
-      //
-      // // Bloqueia acessos pelas permissoes
-      // if ($cookies.get('currentUser')) {
-      //   var user = JSON.parse(window.atob($cookies.get('currentUser')));
-      //   if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
-      //     if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
-      //       $rootScope.alerta.show('Acesso não autorizado!', 'alert-danger');
-      //       $location.path('/home');
-      //     }
-      //   }
-      // }
+      // Bloqueia acesso de usuarios nao logados
+      if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
+        if (next && next.templateUrl) {
+          if (next.templateUrl !== 'views/login.html' && next.templateUrl.indexOf('impressaoOrcamento.html') < 0) {
+            $location.path('/login');
+          }
+          return;
+        }
+      }
+
+      // Bloqueia acessos pelas permissoes
+      if ($cookies.get('currentUser')) {
+        var user = JSON.parse(window.atob($cookies.get('currentUser')));
+        if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
+          if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
+            $rootScope.alerta.show('Acesso não autorizado!', 'alert-danger');
+            $location.path('/home');
+          }
+        }
+      }
 
     });
 
