@@ -93,3 +93,39 @@
     }
   }
 }
+
+#modalTicket {
+  .body {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .container-tabela {
+    overflow-y: auto;
+    max-height: 240px;
+  }
+
+  .tabela-cliente {
+    tr {
+      td {
+        padding: 5px;
+
+        &:nth-child(1) {
+          width: 30%;
+        }
+      }
+
+      &:nth-child(odd) {
+        background-color: rgba(0,0,0,.1);
+      }
+    }
+  }
+
+  .tabela-pagamentos {
+    tr {
+      &:nth-child(even) {
+        background-color: rgba(0,0,0,.1);
+      }
+    }
+  }
+}

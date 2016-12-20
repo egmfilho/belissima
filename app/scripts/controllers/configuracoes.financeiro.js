@@ -185,7 +185,7 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
       providerPrazo.excluir(PrazoPagamento.converterEmSaida(prazo)).then(function(success) {
         getPrazos();
         $rootScope.loading.unload();
-        $rootScope.alerta.show('Prazo de pagamento excluída!', 'alert-success');
+        $rootScope.alerta.show('Prazo de pagamento excluído!', 'alert-success');
       }, function(error) {
         console.log(error);
         $rootScope.loading.unload();

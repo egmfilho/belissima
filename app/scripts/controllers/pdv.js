@@ -13,7 +13,7 @@ PDVCtrl.$inject = [
   '$location',
   'ModalBuscarTicket',
   'ProviderTicket',
-  'Pedido',
+  'Documento',
   'ModalBuscarProduto',
   'ProviderProduto',
   'Produto',
@@ -29,12 +29,12 @@ PDVCtrl.$inject = [
   'ProviderPDV'
 ];
 
-function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicket, Ticket, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPessoa, modalBuscarPessoa, Pessoa, providerPrazo, PrazoPagamento, modalBuscarPrazo, Pagamento, modalConfirm, providerPDV) {
+function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicket, Documento, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPessoa, modalBuscarPessoa, Pessoa, providerPrazo, PrazoPagamento, modalBuscarPrazo, Pagamento, modalConfirm, providerPDV) {
 
   var self = this,
     itemIndex = 0;
 
-  this.ticket = new Ticket();
+  this.documento = new Documento();
   this.tempItem = new ItemPedido();
 
   this.edicao = false;
@@ -44,12 +44,12 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
     jQuery('body').bind('keyup', function (event) {
       // TECLA F2
       if (event.keyCode === 113) {
-        console.log(self.ticket);
+        console.log(self.documento);
         event.preventDefault();
       }
       // TECLA F6
       if (event.keyCode === 117) {
-        if (self.ticket.codigo) {
+        if (self.documento.codigo) {
           $rootScope.alerta.show('Não é possível editar um Ticket na tela de PDV!');
           return;
         }
@@ -81,7 +81,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   });
 
   $scope.$on('$locationChangeStart', function( event ) {
-    if (self.ticket.items.length) {
+    if (self.documento.items.length) {
       if (!confirm('Deseja sair?')) {
         event.preventDefault();
       }
@@ -115,7 +115,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
       self.cdPrazo = '';
       self.tempPrazo = new PrazoPagamento();
       itemIndex = 0;
-      self.ticket = new Ticket();
+      self.documento = new Documento();
 
       if (callback) callback();
     });
@@ -128,12 +128,12 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
         self.cancelarEdicao();
         itemIndex = 0;
         providerTicket.obterPorCodigo(result.codigo).then(function (success) {
-          self.ticket = new Ticket(Ticket.converterEmEntrada(success.data));
-          self.cdCliente = self.ticket.cliente.codigo;
-          self.cdPrazo = self.ticket.prazo.codigo;
-          self.tempPrazo = new PrazoPagamento(self.ticket.prazo);
+          self.documento = new Documento(Documento.importarTicket(success.data));
+          self.cdCliente = self.documento.cliente.codigo;
+          self.cdPrazo = self.documento.prazo.codigo;
+          self.tempPrazo = new PrazoPagamento(self.documento.prazo);
           $rootScope.loading.unload();
-          console.log(self.ticket);
+          console.log(self.documento);
         }, function (error) {
           console.log(error);
           $rootScope.loading.unload();
@@ -178,7 +178,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
     }
 
     this.tempItem = new ItemPedido(item);
-    this.tempItem.edicao = this.ticket.items.indexOf(item);
+    this.tempItem.edicao = this.documento.items.indexOf(item);
     this.cdProduto = self.tempItem.produto.codigo;
     jQuery('input[name="cdProduto"]').attr('disabled', true);
     jQuery('button[name="btnProduto"]').prop('disabled', true);
@@ -203,12 +203,12 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
     }
 
     if (this.tempItem.hasOwnProperty('edicao')) {
-      this.ticket.items[this.tempItem.edicao] = new ItemPedido(this.tempItem);
+      this.documento.items[this.tempItem.edicao] = new ItemPedido(this.tempItem);
       jQuery('input[name="cdProduto"]').attr('disabled', false);
       jQuery('button[name="btnProduto"]').prop('disabled', false);
     } else {
       this.tempItem.index = itemIndex;
-      this.ticket.addItem(this.tempItem);
+      this.documento.addItem(this.tempItem);
       itemIndex++;
       jQuery(".nota").animate({scrollTop: $('.nota').prop("scrollHeight")}, 1000);
     }
@@ -226,16 +226,16 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
 
   this.removerItem = function (index) {
     // METODO ANTIGO ONDE INSERIA QUANTIDADE NEGATIVA
-    // var item = new ItemPedido(this.ticket.items[index]);
+    // var item = new ItemPedido(this.documento.items[index]);
     // item.quantidade *= -1;
     // console.log(item);
-    // this.ticket.addItem(new ItemPedido(item));
+    // this.documento.addItem(new ItemPedido(item));
 
-    if (this.ticket.items[index].removido) {
+    if (this.documento.items[index].removido) {
       return;
     }
 
-    this.ticket.items[index].removido = true;
+    this.documento.items[index].removido = true;
     jQuery('#modalCancelarItem').modal('hide');
     focarCodigo();
   };
@@ -252,20 +252,20 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
 
   this.buscarCliente = function () {
     modalBuscarPessoa.show($rootScope.categoriaPessoa.cliente.id).then(function (result) {
-      self.ticket.setCliente(new Pessoa(result));
-      self.cdCliente = self.ticket.cliente.codigo;
+      self.documento.setCliente(new Pessoa(result));
+      self.cdCliente = self.documento.cliente.codigo;
     });
   };
 
   this.buscarClientePorCodigo = function (codigo) {
-    if (parseInt(codigo) == parseInt(this.ticket.cliente.codigo)) {
+    if (parseInt(codigo) == parseInt(this.documento.cliente.codigo)) {
       jQuery('#modalCliente').find('button[name="positive"]').trigger('click');
       return;
     }
 
     $rootScope.loading.load();
     providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.cliente.id).then(function (success) {
-      self.ticket.setCliente(new Pessoa(Pessoa.converterEmEntrada(success.data)));
+      self.documento.setCliente(new Pessoa(Pessoa.converterEmEntrada(success.data)));
       $rootScope.loading.unload();
     }, function (error) {
       console.log(error);
@@ -308,7 +308,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   };
 
   this.buscarPrazoPorCodigo = function (codigo) {
-    if (parseInt(codigo) == parseInt(this.ticket.prazo.codigo) && validarFormas()) {
+    if (parseInt(codigo) == parseInt(this.documento.prazo.codigo) && validarFormas()) {
       jQuery('#modalPagamento').find('button[name="positive"]').trigger('click');
       return;
     }
@@ -338,26 +338,26 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
     if (prazo.codigo === -1) {
       $scope.buscarPrazo();
     } else {
-      self.ticket.setPrazo(prazo);
-      self.cdPrazo = self.ticket.prazo.codigo;
-      self.tempPrazo = new PrazoPagamento(self.ticket.prazo);
+      self.documento.setPrazo(prazo);
+      self.cdPrazo = self.documento.prazo.codigo;
+      self.tempPrazo = new PrazoPagamento(self.documento.prazo);
       setParcelas();
     }
   };
 
   function setParcelas() {
-    if (self.ticket.pagamentos.length == self.ticket.prazo.parcelas) {
-      for (var i = 0; i < self.ticket.prazo.parcelas; i++) {
-        self.ticket.pagamentos[i].valor = self.ticket.getValorTotal() / self.ticket.prazo.parcelas;
+    if (self.documento.pagamentos.length == self.documento.prazo.parcelas) {
+      for (var i = 0; i < self.documento.prazo.parcelas; i++) {
+        self.documento.pagamentos[i].valor = self.documento.getValorTotal() / self.documento.prazo.parcelas;
       }
     } else {
-      self.ticket.pagamentos = [];
-      for (var i = 0; i < self.ticket.prazo.parcelas; i++) {
-        self.ticket.pagamentos.push(new Pagamento());
-        self.ticket.pagamentos[i].valor = self.ticket.getValorTotal() / self.ticket.prazo.parcelas;
-        self.ticket.pagamentos[i].vencimento = getDataDaParcela(self.ticket.prazo, i);
-        self.ticket.pagamentos[i].forma = self.ticket.prazo.formas[0];
-        self.ticket.pagamentos[i].setForma();
+      self.documento.pagamentos = [];
+      for (var i = 0; i < self.documento.prazo.parcelas; i++) {
+        self.documento.pagamentos.push(new Pagamento());
+        self.documento.pagamentos[i].valor = self.documento.getValorTotal() / self.documento.prazo.parcelas;
+        self.documento.pagamentos[i].vencimento = getDataDaParcela(self.documento.prazo, i);
+        self.documento.pagamentos[i].forma = self.documento.prazo.formas[0];
+        self.documento.pagamentos[i].setForma();
       }
     }
   }
@@ -374,20 +374,20 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
 
   this.buscarFuncionario = function () {
     modalBuscarPessoa.show($rootScope.categoriaPessoa.funcionario.id).then(function (result) {
-      self.ticket.setFuncionario(new Pessoa(result));
-      self.cdFuncionario = self.ticket.funcionario.codigo;
+      self.documento.setFuncionario(new Pessoa(result));
+      self.cdFuncionario = self.documento.funcionario.codigo;
     });
   };
 
   this.buscarFuncionarioPorCodigo = function (codigo) {
-    if (parseInt(codigo) == parseInt(this.ticket.funcionario.codigo)) {
+    if (parseInt(codigo) == parseInt(this.documento.funcionario.codigo)) {
       jQuery('#modalFuncionario').find('button[name="positive"]').trigger('click');
       return;
     }
 
     $rootScope.loading.load();
     providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.funcionario.id).then(function (success) {
-      self.ticket.setFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
+      self.documento.setFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
       $rootScope.loading.unload();
     }, function (error) {
       console.log(error);
@@ -412,8 +412,8 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   }
 
   function validarFormas() {
-    for (var i = 0; i < self.ticket.pagamentos.length; i++) {
-      if (!self.ticket.pagamentos[i].formaId)
+    for (var i = 0; i < self.documento.pagamentos.length; i++) {
+      if (!self.documento.pagamentos[i].formaId)
         return false;
     }
 
@@ -421,7 +421,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   }
 
   this.prepararFechamento = function () {
-    if (this.ticket.trueLength() == 0) {
+    if (this.documento.trueLength() == 0) {
       $rootScope.alerta.show('A lista de produtos está vazia!');
       return;
     }
@@ -432,17 +432,17 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   };
 
   this.validarModais = function() {
-    if (!self.ticket.clienteId) {
+    if (!self.documento.clienteId) {
       self.abrirModalCliente(self.validarModais);
       return;
     }
 
-    if (!self.ticket.prazoId || !validarFormas()) {
+    if (!self.documento.prazoId || !validarFormas()) {
       self.abrirModalPagamento(self.validarModais);
       return;
     }
 
-    if (!self.ticket.codigo) {
+    if (!self.documento.codigo) {
       self.abrirModalFuncionario(self.fecharVenda);
     } else {
       self.fecharVenda();
@@ -450,11 +450,11 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   };
 
   this.fecharVenda = function () {
-    console.log('Saída', self.ticket);
-    console.log('Saída', Ticket.converterEmSaidaPDV(self.ticket));
+    console.log('Saída', self.documento);
+    console.log('Saída', Documento.converterEmSaida(self.documento));
 
     $scope.total_troco = 0;
-    angular.forEach(self.ticket.pagamentos, function(pagamento) {
+    angular.forEach(self.documento.pagamentos, function(pagamento) {
       if (pagamento.forma.troco) {
         $scope.total_troco += pagamento.valor;
       }
@@ -475,7 +475,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
 
   function post() {
     $rootScope.loading.load();
-    providerPDV.salvar(Ticket.converterEmSaidaPDV(self.ticket)).then(function (success) {
+    providerPDV.salvar(Documento.converterEmSaida(self.documento)).then(function (success) {
       console.log('submetido');
       $rootScope.loading.unload();
     }, function (error) {

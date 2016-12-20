@@ -381,59 +381,63 @@ body {
   }
 }
 
-.calendario {
-  .dropdown-menu {
+.uib-datepicker-popup {
+  color: white;
+  background-color: $cor-menu-highlight !important;
+  padding: 2px;
+  border-color: $cor-menu-highlight-medio;
+  z-index: 1051;
+
+  .text-info {
     color: white;
-    background-color: $cor-menu-highlight !important;
-    padding: 2px;
-    border-color: $cor-menu-highlight-medio;
+  }
 
-    .text-info {
-      color: white;
-    }
+  small {
+    @extend .sombra-texto;
+    font-weight: 200;
+  }
 
-    small {
-      @extend .sombra-texto;
-      font-weight: 200;
-    }
-
-    thead {
-      button {
-        width: 100%;
-      }
-    }
-
+  thead {
     button {
-      background-color: rgba($cor-menu-highlight-escuro, .7) !important;
-      border-radius: 0;
-      border-color: rgba($cor-menu-highlight, 1) !important;
-      font-weight: 200;
-
-      span.text-muted {
-        color: rgba(#bbb, .7);
-        text-shadow: none;
+      width: 100%;
+      color: white;
+      strong  {
+        font-weight: 400 !important;
       }
     }
+  }
 
-    .btn[disabled] {
-      opacity: .5 !important;
-    }
+  button {
+    background-color: rgba($cor-menu-highlight-escuro, .7) !important;
+    border-radius: 0;
+    border-color: rgba($cor-menu-highlight, 1) !important;
+    font-weight: 200;
+    color: rgba(#fff, .9);
 
-    .btn-info:active, .btn-info.active {
-      background-color: rgba($cor-menu-highlight-claro, .8) !important;
-      border-color: $cor-menu-highlight !important;
+    span.text-muted {
+      color: rgba(#bbb, .7);
+      text-shadow: none;
     }
+  }
 
-    .uib-datepicker-current {
-      margin-right: 10px;
-    }
+  .btn[disabled] {
+    opacity: .5 !important;
+  }
 
-    .uib-datepicker-current, .uib-clear, .uib-close {
-      border-color: $cor-menu-highlight-escuro !important;
-      border-radius: 2px !important;
-      font-weight: 400 !important;
-      margin-bottom: 8px;
-    }
+  .btn-info:active, .btn-info.active {
+    background-color: rgba($cor-menu-highlight-claro, .8) !important;
+    border-color: $cor-menu-highlight !important;
+  }
+
+  .uib-datepicker-current {
+    margin-right: 10px;
+  }
+
+  .uib-datepicker-current, .uib-clear, .uib-close {
+    border-color: $cor-menu-highlight-escuro !important;
+    border-radius: 2px !important;
+    font-weight: 400 !important;
+    margin-bottom: 8px;
   }
 }
 

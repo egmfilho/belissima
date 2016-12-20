@@ -28,7 +28,7 @@ TicketCtrl.$inject = [
 
 function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPrazo, PrazoPagamento, modalPrazo, Pagamento, providerTicket) {
 
-  var self = this;
+  var self = this, escape_confirm = false;
 
   this.novoTicket = new Pedido();
   this.novoItem = new ItemPedido();
@@ -43,6 +43,8 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   $scope.opcao = 'listar';
 
   $scope.$on('$locationChangeStart', function( event ) {
+    if (escape_confirm) return;
+
     if (self.novoTicket.items.length || self.novoTicket.cliente.id || self.novoTicket.pagamentos.length) {
       if (!confirm('Deseja sair?')) {
         event.preventDefault();
@@ -71,6 +73,12 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       self.cdPrazo = self.novoTicket.prazo.codigo;
       self.tempPrazo = new PrazoPagamento(self.novoTicket.prazo);
       $rootScope.loading.unload();
+      if ($routeParams.action == 'edit' && self.novoTicket.statusId == 1001) {
+        escape_confirm = true;
+        $location.search('action', null);
+        $location.search('code', null);
+        $location.path('/ticket/list');
+      }
       console.log(self.novoTicket);
     }, function(error) {
       console.log(error);
@@ -424,5 +432,18 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     }
 
     return hoje;
+  };
+
+  $scope.abrirResumo = function(ticket) {
+    $rootScope.loading.load();
+    providerTicket.obterPorCodigo(ticket.codigo, true, true, true, true, true, true, true, true).then(function(success) {
+      $scope.ticketDoModal = new Pedido(Pedido.converterEmEntrada(success.data));
+      $rootScope.loading.unload();
+      jQuery('#modalTicket').modal('show');
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+
   };
 }
