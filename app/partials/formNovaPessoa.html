@@ -2,7 +2,6 @@
   <li role="presentation" ng-class="opt === 'pessoa' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'pessoa'">Pessoa</a></li>
   <li role="presentation" ng-class="opt === 'endereco' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'endereco'">Endereço</a></li>
   <li role="presentation" ng-class="opt === 'contato' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'contato'">Contato</a></li>
-  <li role="presentation" ng-class="opt === 'financeiro' ? 'active' : ''" ng-show="clientes.isFuncionario()"><a href="" class="sombra-texto" ng-click="opt = 'financeiro'">Financeiro</a></li>
 </ul>
 <div class="dropdown visible-xs-inline" ng-init="label='Pessoa'">
   <button class="btn btn-default botao-esticado dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -13,7 +12,6 @@
     <li><a href="" ng-click="opt = 'pessoa'; label = 'Pessoa'"><span class="glyphicon glyphicon-ok" ng-show="opt==='pessoa'"></span>&nbsp; Pessoa</a></li>
     <li><a href="" ng-click="opt = 'endereco'; label = 'Endere&ccedil;o'"><span class="glyphicon glyphicon-ok" ng-show="opt==='endereco'"></span>&nbsp; Endereço</a></li>
     <li><a href="" ng-click="opt = 'contato'; label = 'Contato'"><span class="glyphicon glyphicon-ok" ng-show="opt==='contato'"></span>&nbsp; Contato</a></li>
-    <li ng-show="clientes.isFuncionario()"><a href="" ng-click="opt = 'financeiro'; label = 'Financeiro'"><span class="glyphicon glyphicon-ok" ng-show="opt==='financeiro'"></span>&nbsp; Financeiro</a></li>
   </ul>
 </div>
 <br>
@@ -178,10 +176,6 @@
       <!--<button class="btn btn-default botao-esticado" ng-click="salvar()" ng-disabled="!validar(pessoa)"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>-->
     <!--</div>-->
   <!--</div>-->
-</div>
-
-<div ng-show="opt === 'financeiro'">
-  <h1>Financeiro</h1>
 </div>
 
 <br>

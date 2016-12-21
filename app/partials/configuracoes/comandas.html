@@ -29,8 +29,10 @@
   </div>
   <div class="col-md-5">
     <div class="comanda">
-      <input type="text" class="form-control codigo" placeholder="Código da nova comanda" ng-model="comandas.novaComanda.codigo">
-      <button class="btn btn-default btn-block" ng-click="comandas.addComanda()"><span class="glyphicon glyphicon-plus"></span> Adicionar</button>
+      <div>
+        <input type="text" class="form-control codigo" placeholder="Código da comanda" ng-model="comandas.novaComanda.codigoDeBarras" keys-shortcuts enter="comandas.addComanda()">
+        <button class="btn btn-default btn-block" ng-click="comandas.addComanda()"><span class="glyphicon glyphicon-plus"></span> Adicionar</button>
+      </div>
     </div>
   </div>
 </span>

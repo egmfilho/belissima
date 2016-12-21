@@ -44,6 +44,8 @@ function MovimentacaoCtrl($rootScope, $scope, $filter, provider, Movimentacao, m
     obterMovimentacoes();
   });
 
+  $scope.atualizar = obterMovimentacoes;
+
   function obterMovimentacoes() {
     $rootScope.loading.load();
     provider.obterTodos(($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function(success) {

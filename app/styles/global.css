@@ -31,7 +31,7 @@ body {
 .fechado {
   margin-left: 0; }
 
-.centerY, .tela .header .content, #menu-home {
+.centerY, .tela .header .content, #menu-home, #tela-ticket .comanda > div, #comandas .comanda > div {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -1160,6 +1160,31 @@ body {
 #tela-ticket .cabecalho-parcela {
   margin-top: 30px;
   border-top: 1px solid white; }
+#tela-ticket .comanda {
+  width: 100%;
+  height: 600px;
+  background-image: url("../images/comanda.png");
+  background-position-x: center;
+  background-position-y: 0;
+  background-repeat: no-repeat;
+  background-size: 300px;
+  position: relative; }
+  #tela-ticket .comanda > div {
+    margin-top: 45px;
+    position: absolute;
+    max-width: 230px;
+    width: 230px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0; }
+    #tela-ticket .comanda > div .codigo {
+      width: 100%;
+      margin-bottom: 10px;
+      text-align: center; }
+    #tela-ticket .comanda > div button {
+      width: 100%; }
 
 @media (min-width: 768px) {
   #tela-ticket .tabela.tabela-produtos tr th:nth-child(3), #tela-ticket .tabela.tabela-produtos tr td:nth-child(3) {
@@ -1357,11 +1382,23 @@ body {
   background-position-y: 0;
   background-repeat: no-repeat;
   background-size: 300px;
-  padding: 90px; }
-  #comandas .comanda .codigo {
-    margin-top: 220px;
-    margin-bottom: 10px;
-    text-align: center; }
+  position: relative; }
+  #comandas .comanda > div {
+    margin-top: 45px;
+    position: absolute;
+    max-width: 230px;
+    width: 230px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0; }
+    #comandas .comanda > div .codigo {
+      width: 100%;
+      margin-bottom: 10px;
+      text-align: center; }
+    #comandas .comanda > div button {
+      width: 100%; }
 
 /* .squaredTwo from https://codepen.io/bbodine1/pen/novBm */
 .squaredTwo {

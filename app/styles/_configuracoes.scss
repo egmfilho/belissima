@@ -33,12 +33,30 @@
     background-position-y: 0;
     background-repeat: no-repeat;
     background-size: 300px;
-    padding: 90px;
+    //padding: 17%;
+    position: relative;
 
-    .codigo {
-      margin-top: 220px;
-      margin-bottom: 10px;
-      text-align: center;
+    > div {
+      margin-top: 45px;
+      position: absolute;
+      max-width: 230px;
+      width: 230px;
+      @extend .centerY;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+
+      .codigo {
+        width: 100%;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      button {
+        width: 100%;
+      }
     }
   }
 }

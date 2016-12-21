@@ -111,7 +111,8 @@ angular
         modulo: 'person',
         templateUrl: 'views/crm.html',
         controller: 'CRMCtrl',
-        controllerAs: 'crm'
+        controllerAs: 'crm',
+        resolve: resolveCategorias()
       })
       .when('/agenda', {
         modulo: 'agenda',

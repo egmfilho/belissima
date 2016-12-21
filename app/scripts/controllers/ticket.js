@@ -45,12 +45,14 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
 
   $scope.$on('$locationChangeStart', function( event ) {
     if (escape_confirm) return;
+    console.log($location);
 
     if (self.novoTicket.items.length || self.novoTicket.cliente.id || self.novoTicket.pagamentos.length) {
       if (!confirm('Deseja sair?')) {
         event.preventDefault();
       }
     }
+
   });
 
   function getTickets() {
@@ -458,6 +460,6 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       $rootScope.loading.unload();
       $rootScope.alerta.show('Ticket excluido', 'alert-success');
       getTickets();
-    })
+    });
   };
 }

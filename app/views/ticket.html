@@ -11,6 +11,17 @@
       <div ng-show="opcao === 'novo'" ng-include="'partials/formNovoTicket.html'"></div>
 
       <div ng-show="opcao === 'listar'">
+        <div class="col-xs-12">
+          <div class="comanda">
+            <div>
+              <input type="text" class="form-control codigo" placeholder="Código da comanda" ng-model="cdComanda">
+              <button class="btn btn-default btn-block" ng-click="comandas.addComanda()"><span class="glyphicon glyphicon-piggy-bank"></span> Coisar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="opcao === 'sancho'">
         <div class="container-tabela">
           <div class="container-tabela">
             <table id="" class="tabela tabela-bordered tabela-esticada">
