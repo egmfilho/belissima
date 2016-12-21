@@ -81,6 +81,14 @@ angular.module('belissimaApp.services')
           return provider.save({
             action: 'edit'
           }, pedido).$promise;
+        },
+
+        excluir: function(id) {
+          return provider.save({
+            action: 'del'
+          }, {
+            ticket_id: id
+          }).$promise;
         }
 
       }

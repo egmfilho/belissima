@@ -477,11 +477,24 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
     $rootScope.loading.load();
     providerPDV.salvar(Documento.converterEmSaida(self.documento)).then(function (success) {
       console.log('submetido');
+      self.documento = new Documento(Documento.converterEmEntrada(success.data));
       $rootScope.loading.unload();
+      abrirModalConfirmacao();
     }, function (error) {
       console.log(error);
       $rootScope.loading.unload();
       $rootScope.alerta.show('Não foi possível fechar a venda!', 'alert-danger');
     });
+  }
+
+  function abrirModalConfirmacao() {
+    jQuery('#modalConfirmacao')
+      .modal('show')
+      .on('hide.bs.modal', function(e) {
+        self.documento = new Documento();
+      })
+      .on('hidden.bs.modal', function(e) {
+        focarCodigo();
+      });
   }
 }

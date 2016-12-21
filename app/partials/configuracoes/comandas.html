@@ -1,17 +1,4 @@
 <span ng-controller="ComandasCtrl as comandas" id="comandas">
-  <!--<div class="col-xs-6 col-sm-3 col-md-3">-->
-    <!--<button class="btn btn-default botao-esticado" ng-click=""><span-->
-      <!--class="glyphicon glyphicon-refresh"></span> Atualizar-->
-    <!--</button>-->
-  <!--</div>-->
-  <!--<div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">-->
-    <!--<button class="btn btn-default botao-esticado" ng-click="comandas.abrirModal()"><span-->
-      <!--class="glyphicon glyphicon-plus"></span> Cadastrar Comanda-->
-    <!--</button>-->
-  <!--</div>-->
-
-  <div class="col-md-12"><h5>&nbsp;</h5></div>
-
   <div class="col-md-7">
     <table class="tabela tabela-esticada tabela-bordered">
       <thead>
@@ -22,52 +9,28 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="n in getNumber(20) track by $index">
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
+        <tr ng-repeat="comanda in comandas.arrayComandas">
+          <td>{{comanda.codigoDeBarras}}</td>
+          <td>{{comanda.dataCadastro | date: 'short'}}</td>
           <td>
-            <a href=""><span class="glyphicon glyphicon-trash"></span></a>
+            <a href="" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="comandas.removerComanda(comanda.id)" placement="left">
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
           </td>
+        </tr>
+        <tr ng-repeat="n in getNumber(pagination.max - comandas.arrayComandas.length) track by $index">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
       </tbody>
     </table>
-    <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="5" ng-change="pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
+    <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="5" ng-change="pagination.pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
   </div>
   <div class="col-md-5">
     <div class="comanda">
-      <input type="text" class="form-control codigo" placeholder="Código da nova comanda">
-      <button class="btn btn-default btn-block"><span class="glyphicon glyphicon-plus"></span> Adicionar</button>
+      <input type="text" class="form-control codigo" placeholder="Código da nova comanda" ng-model="comandas.novaComanda.codigo">
+      <button class="btn btn-default btn-block" ng-click="comandas.addComanda()"><span class="glyphicon glyphicon-plus"></span> Adicionar</button>
     </div>
   </div>
-
-  <!--MODAL COMANDA-->
-  <div class="modal meu-modal fade" id="modalComanda" tabindex="-1" role="dialog" aria-labelledby="modalComanda">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="header">
-          <div class="title"><span class="glyphicon glyphicon-pencil"></span> Nova Comanda <span
-            class="glyphicon glyphicon-remove close" data-dismiss="modal"></span></div>
-        </div>
-        <div class="body">
-          <div class="col-md-4">
-            <h4>Código</h4>
-            <input type="text" class="form-control" ng-model="financeiro.forma.codigo">
-          </div>
-          <div class="col-md-8">
-            <h4>Descrição</h4>
-            <input type="text" class="form-control" ng-model="financeiro.forma.descricao">
-          </div>
-        </div>
-        <div class="control">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-            <span class="glyphicon glyphicon-remove"></span> Cancelar
-          </button>
-          <button type="button" class="btn btn-primary" ng-click="financeiro.salvarForma()">
-            <span class="glyphicon glyphicon-floppy-save"></span> Salvar
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--FIM MODAL-->
 </span>

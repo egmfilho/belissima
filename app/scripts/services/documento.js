@@ -26,7 +26,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     this.funcionarioId = p ? p.funcionarioId : '';
     this.observacoes = p ? p.observacoes : '';
     this.dataAtualizacao = p ? p.dataAtualizacao : new Date();
-    this.dataPedido = p ? p.dataPedido : new Date();
+    this.dataDocumento = p ? p.dataDocumento : new Date();
 
     this.funcionario = p ? p.funcionario : new Pessoa();
     this.cliente = p ? p.cliente : new Pessoa();
@@ -143,7 +143,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     documento.valor = parseFloat(p.document_value);
     documento.valorComDesconto = parseFloat(p.document_value_total);
     documento.dataAtualizacao = new Date(p.document_update);
-    documento.dataPedido = new Date(p.document_date);
+    documento.dataDocumento = new Date(p.document_date);
 
     if (p.document_employee) {
       documento.vendedor = new Pessoa(Pessoa.converterEmEntrada(p.document_employee));
@@ -196,7 +196,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     pedido.valor = parseFloat(p.ticket_value);
     pedido.valorComDesconto = parseFloat(p.ticket_value_total);
     pedido.dataAtualizacao = new Date(p.ticket_update);
-    pedido.dataPedido = new Date(p.ticket_date);
+    pedido.dataDocumento = new Date(p.ticket_date);
 
     if (p.ticket_employee) {
       pedido.vendedor = new Pessoa(Pessoa.converterEmEntrada(p.ticket_employee));

@@ -48,7 +48,8 @@ angular.module('belissimaApp.services')
           return provider.query({
             action: 'getList'
           }, {
-            ticket_limit: limite
+            get_product: true,
+            product_movement_limit: limite
           }).$promise;
         },
 

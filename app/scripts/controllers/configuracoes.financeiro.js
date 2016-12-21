@@ -47,7 +47,8 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
   function getFormas() {
     $rootScope.loading.load();
     self.formas = [ ];
-    providerForma.obterTodos().then(function(success) {
+    providerForma.obterTodos((self.paginationFormas.current - 1) * self.paginationFormas.max + ',' + self.paginationFormas.max).then(function(success) {
+      self.paginationFormas.total = success.info.quantity;
       angular.forEach(success.data, function(item, index) {
         self.formas.push(new FormaPagamento(FormaPagamento.converterEmEntrada(item)));
       });
@@ -61,7 +62,8 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
   function getPrazos() {
     $rootScope.loading.load();
     self.prazos = [ ];
-    providerPrazo.obterTodos().then(function(success) {
+    providerPrazo.obterTodos((self.paginationPrazos.current - 1) * self.paginationPrazos.max + ',' + self.paginationPrazos.max).then(function(success) {
+      self.paginationPrazos.total = success.info.quantity;
       angular.forEach(success.data, function(item, index) {
         self.prazos.push(new PrazoPagamento(PrazoPagamento.converterEmEntrada(item)));
       });

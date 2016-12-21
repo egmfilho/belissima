@@ -31,10 +31,12 @@ function ProviderPrazoPagamento(urls) {
 
     return {
 
-      obterTodos: function() {
+      obterTodos: function(limite) {
         return provider.query({
           action: 'getList'
-        }, { }).$promise;
+        }, {
+          payment_term_limt: limite
+        }).$promise;
       },
 
       obterPorId: function(id) {

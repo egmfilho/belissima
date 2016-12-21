@@ -38,7 +38,8 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   $scope.pagination = {
     current: 1,
     max: 15,
-    total: 0
+    total: 0,
+    pageChanged: getTickets
   };
   $scope.opcao = 'listar';
 
@@ -54,7 +55,8 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
 
   function getTickets() {
     $rootScope.loading.load();
-    providerTicket.obterTodos(null, true).then(function(success) {
+    providerTicket.obterTodos(null, true, null, null, null, null, null, null, null, ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function(success) {
+      $scope.pagination.total = success.info.ticket_quantity;
       $scope.ticketsArray = [];
       angular.forEach(success.data, function (item, index) {
         $scope.ticketsArray.push(new Pedido(Pedido.converterEmEntrada(item)));
@@ -73,7 +75,8 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       self.cdPrazo = self.novoTicket.prazo.codigo;
       self.tempPrazo = new PrazoPagamento(self.novoTicket.prazo);
       $rootScope.loading.unload();
-      if ($routeParams.action == 'edit' && self.novoTicket.statusId == 1001) {
+      if ($routeParams.action == 'edit' && self.novoTicket.statusId != 1001) {
+        $rootScope.alerta.show('Ticket indisponível para edição!', 'alert-danger');
         escape_confirm = true;
         $location.search('action', null);
         $location.search('code', null);
@@ -399,6 +402,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     if (self.novoTicket.id) {
       providerTicket.editar(Pedido.converterEmSaida(self.novoTicket)).then(function(success) {
         $rootScope.alerta.show('Ticket editado!', 'alert-success');
+        escape_confirm = true;
         $location.path('ticket/list');
         $location.search('code', null);
         $rootScope.loading.unload();
@@ -409,6 +413,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     } else {
       providerTicket.salvar(Pedido.converterEmSaida(self.novoTicket)).then(function(success) {
         $rootScope.alerta.show('Ticket salvo!', 'alert-success');
+        escape_confirm = true;
         $location.path('ticket/list');
         $rootScope.loading.unload();
       }, function(error) {
@@ -445,5 +450,14 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       $rootScope.loading.unload();
     });
 
+  };
+
+  $scope.excluirTicket = function(id) {
+    $rootScope.loading.load();
+    providerTicket.excluir(id).then(function(success) {
+      $rootScope.loading.unload();
+      $rootScope.alerta.show('Ticket excluido', 'alert-success');
+      getTickets();
+    })
   };
 }

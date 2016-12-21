@@ -1338,6 +1338,9 @@ body {
 @media (min-width: 768px) {
   .popover-doido {
     margin-left: -64px; } }
+#modalInserir {
+  z-index: 1041; }
+
 #financeiro #modalPrazo h4 > .glyphicon {
   vertical-align: bottom; }
 #financeiro #modalPrazo .container-tabela {

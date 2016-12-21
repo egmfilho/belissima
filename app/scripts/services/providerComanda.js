@@ -7,7 +7,7 @@
 angular.module('belissimaApp.services')
   .provider('ProviderComanda', ['URLS', function(urls) {
 
-    var url = urls.root + 'ticket.php?action=:action',
+    var url = urls.root + 'card.php?action=:action',
       provider = null;
 
     this.$get = ['$resource', function($resource) {
@@ -62,6 +62,14 @@ angular.module('belissimaApp.services')
           return provider.save({
             action: 'edit'
           }, comanda).$promise;
+        },
+
+        excluir: function (id) {
+          return provider.save({
+            action: 'del'
+          }, {
+            card_id: id
+          }).$promise;
         }
 
       }

@@ -30,22 +30,22 @@
                   <td>{{ticket.cliente.nome}}</td>
                   <td>01/01/2016</td>
                   <td>{{ticket.valor | currency: 'R$ '}}</td>
-                  <td ng-if="ticket.statusId != 1001">
+                  <td ng-if="ticket.statusId == 1001">
                     <a ng-href="#/ticket/edit?code={{ticket.codigo}}">
                       <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                   </td>
-                  <td ng-if="ticket.statusId == 1001">
+                  <td ng-if="ticket.statusId != 1001">
                     <a href="" ng-click="abrirResumo(ticket)">
                       <span class="glyphicon glyphicon-search"></span>
                     </a>
                   </td>
-                  <td ng-if="ticket.statusId != 1001">
-                    <a href="">
+                  <td ng-if="ticket.statusId == 1001">
+                    <a href="" confirm-popup title="Atenção" message="Deseja excluir o Ticket?" ok-func="excluirTicket(ticket.id)" placement="left">
                       <span class="glyphicon glyphicon-trash"></span>
                     </a>
                   </td>
-                  <td ng-if="ticket.statusId == 1001">
+                  <td ng-if="ticket.statusId != 1001">
                     <span class="glyphicon glyphicon-lock"></span>
                   </td>
                 </tr>
@@ -61,7 +61,7 @@
             </table>
           </div>
         </div>
-        <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="5" ng-change="pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
+        <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="5" ng-change="pagination.pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
       </div>
 
     </div>
@@ -84,7 +84,7 @@
 
         <div class="col-md-12" style="padding: 0">
           <uib-accordion close-others="false">
-            <div uib-accordion-group class="panel-default" is-open="status.produtos">
+            <div uib-accordion-group class="panel-default" ng-init="status.produtos=true" is-open="status.produtos">
               <uib-accordion-heading>
                 Produtos & Serviços
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-menu-up': status.produtos, 'glyphicon-menu-down': !status.produtos}"></i>
@@ -110,9 +110,10 @@
                     </tr>
                   </tbody>
                 </table>
+                <h4 class="text-right">Total: {{ticketDoModal.getValorTotalComDesconto() | currency: "R$ "}}</h4>
               </div>
             </div>
-            <div uib-accordion-group class="panel-default" ng-init="status.cliente=true" is-open="status.cliente">
+            <div uib-accordion-group class="panel-default" is-open="status.cliente">
               <uib-accordion-heading>
                 Cliente
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-menu-up': status.cliente, 'glyphicon-menu-down': !status.cliente}"></i>
