@@ -108,7 +108,7 @@ function MovimentacaoCtrl($rootScope, $scope, $filter, provider, Movimentacao, m
 
   this.inserirMovimentacao = function() {
     if (validarMovimentacao()) {
-      $rootScope.salvar(Movimentacao.converterEmSaida(this.novaMovimentacao)).then(function(success) {
+      provider.salvar(Movimentacao.converterEmSaida(this.novaMovimentacao)).then(function(success) {
         $rootScope.loading.unload();
         $rootScope.alerta.show('Movimentação inserida!', 'alert-success');
         self.novaMovimentacao = new Movimentacao();
