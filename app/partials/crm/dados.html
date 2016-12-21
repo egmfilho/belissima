@@ -1,1 +1,38 @@
-<h1>Dados Cadastrais</h1>
+<div class="col-sm-6">
+  <table class="tabela-esticada tabela-dados">
+    <tr>
+      <td>Código:</td>
+      <td>{{crm.pessoa.codigo}}</td>
+    </tr>
+    <tr>
+      <td>Nome:</td>
+      <td>{{crm.pessoa.nome}}</td>
+    </tr>
+    <tr>
+      <td>Apelido:</td>
+      <td>{{crm.pessoa.apelido || 'Não disponível'}}</td>
+    </tr>
+    <tr>
+      <td>Categorias:</td>
+      <td>
+        <span ng-repeat="categoria in crm.pessoa.categorias track by $index">{{categoria.nome}}</span><span ng-if="$index < crm.pessoa.categorias.length"> - </span>
+      </td>
+    </tr>
+    <tr>
+      <td>Tipo:</td>
+      <td>{{crm.pessoa.tipo == 'F' ? 'Física' : 'Jurídica'}}</td>
+    </tr>
+    <tr>
+      <td>CPF:</td>
+      <td>{{crm.pessoa.cpf || 'Não disponível'}}</td>
+    </tr>
+    <tr>
+      <td>RG:</td>
+      <td>{{crm.pessoa.rg || 'Não disponível'}}</td>
+    </tr>
+    <tr>
+      <td>CNPJ:</td>
+      <td>{{crm.pessoa.cnpj || 'Não disponível'}}</td>
+    </tr>
+  </table>
+</div>
