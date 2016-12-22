@@ -1,27 +1,54 @@
 #crm {
-  .tabela-dados {
-    tr {
-      td {
-        padding: 3px;
 
-        &:first-child {
-          text-align: left;
-          padding-left: 5px;
-        }
+  .avatar {
+    width: 100%;
+    height: 200px;
+    margin-top: 40px;
 
-        &:last-child {
-          text-align: right;
-          padding-right: 5px;
-        }
+    > div {
+      @extend .centerX;
+      background-color: rgba(255,255,255,.8);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 160px;
+      height: 200px;
+
+      &.male {
+        background-image: url('../images/avatar-m.png');
       }
 
-      &:nth-child(odd) {
-        background-color: rgba(255,255,255,.05);
+      &.female {
+        background-image: url('../images/avatar-f.png');
       }
+    }
+  }
 
-      &:nth-child(even) {
-        //background-color: rgba(255,255,255,.1);
+  .info {
+    //text-align: center;
+    margin: 30px;
+  }
+
+  .enderecos, .contatos {
+    margin-bottom: 25px;
+
+    > div {
+      padding-left: 30px;
+      font-size: 1.1em;
+      b {
+        font-weight: 400;
       }
+      span {
+        font-weight: 300;
+      }
+    }
+  }
+
+  .documento {
+    margin-bottom: 10px;
+
+    .panel.panel-default .panel-heading {
+      background-color: $cor-menu-lateral-borda;
     }
   }
 }

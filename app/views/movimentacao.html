@@ -8,9 +8,14 @@
       <!--</li>-->
     </ul>
     <div class="conteudo-nav condensar-rows">
+      <!--<div class="col-xs-6 col-sm-3 col-md-3">-->
+        <!--<button class="btn btn-default botao-esticado" ng-click="atualizar()">-->
+          <!--<span class="glyphicon glyphicon-refresh"></span> Atualizar-->
+        <!--</button>-->
+      <!--</div>-->
       <div class="col-xs-6 col-sm-3 col-md-3">
-        <button class="btn btn-default botao-esticado" ng-click="atualizar()">
-          <span class="glyphicon glyphicon-refresh"></span> Atualizar
+        <button class="btn btn-default botao-esticado" ng-init="collapse_filtro=true" ng-click="collapse_filtro = !collapse_filtro">
+          <span class="glyphicon glyphicon-filter"></span> Fitros
         </button>
       </div>
       <div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">
@@ -18,7 +23,69 @@
           class="glyphicon glyphicon-plus"></span> Inserir Movimentação
         </button>
       </div>
+
       <div class="col-md-12"><h5>&nbsp;</h5></div>
+
+      <div class="col-md-12" uib-collapse="collapse_filtro">
+        <div class="well well-sm">
+          <div class="row">
+            <div class="col-md-3">
+              <h4>Produto</h4>
+              <div class="input-group">
+                <input type="text" class="form-control" ng-model="filtros.cdProduto" blur-to="filtros.produto.codigo" keys-shortcuts enter="filtros.buscarProdutoPorCodigo(filtros.cdProduto)">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" ng-click="filtros.buscarProduto()"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h4>Nome do Produto</h4>
+              <input type="text" class="form-control" readonly ng-value="filtros.produto.nome">
+            </div>
+            <div class="col-md-3">
+              <h4>Tipo</h4>
+              <select class="form-control" ng-model="filtros.tipo">
+                <option value="">Todos</option>
+                <option value="E">Entrada</option>
+                <option value="S">Saída</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <h4>Tipo da Data</h4>
+              <select class="form-control" ng-model="filtros.tipoData">
+                <option value="0">Data do cadastro</option>
+                <option value="1">Data de referência</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <h4>Data inicial</h4>
+              <div class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" datepicker-append-to-body="true" on-open-focus="false" on-open-efocus="false" is-open="dataInicialFiltroIsOpen" ng-model="filtros.dataInicial" datepicker-options="dateOptions" show-button-bar="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
+                <div class="input-group-btn">
+                  <button class="btn btn-default" ng-click="dataInicialFiltroIsOpen=true"><span class="glyphicon glyphicon-calendar"></span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <h4>Data final</h4>
+              <div class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" datepicker-append-to-body="true" on-open-focus="false" on-open-efocus="false" is-open="dataFinalFiltroIsOpen" ng-model="filtros.dataFinal" datepicker-options="dateOptions" show-button-bar="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
+                <div class="input-group-btn">
+                  <button class="btn btn-default" ng-click="dataFinalFiltroIsOpen=true"><span class="glyphicon glyphicon-calendar"></span></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <h4>&nbsp;</h4>
+              <button class="btn btn-default btn-block" ng-click="filtros.limparTudo()"><span class="glyphicon glyphicon-remove"></span> Limpar</button>
+            </div>
+            <div class="col-md-2">
+              <h4>&nbsp;</h4>
+              <button class="btn btn-default btn-block"><span class="glyphicon glyphicon-refresh"></span> Atualizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="col-md-12 container-tabela">
         <table class="tabela tabela-esticada tabela-bordered">
           <thead>
@@ -91,7 +158,7 @@
         <div class="col-md-4">
           <h4>Data</h4>
           <div class="input-group">
-            <input id="inicial" type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" datepicker-append-to-body="true" on-open-focus="false" on-open-efocus="false" is-open="inicialIsOpen" ng-model="movimentacao.novaMovimentacao.dataReferencia" datepicker-options="dateOptions"  ng-required="true" show-button-bar="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
+            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" datepicker-append-to-body="true" on-open-focus="false" on-open-efocus="false" is-open="inicialIsOpen" ng-model="movimentacao.novaMovimentacao.dataReferencia" datepicker-options="dateOptions"  ng-required="true" show-button-bar="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="inicialIsOpen=true"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>

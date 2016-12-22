@@ -11,14 +11,15 @@
 angular.module('belissimaApp.services')
   .factory('Documento', Documento);
 
-Documento.$inject = [ 'Pessoa', 'ItemPedido', 'PrazoPagamento', 'Pagamento', 'DataSaida' ];
+Documento.$inject = [ 'Pessoa', 'ItemDocumento', 'PrazoPagamento', 'Pagamento', 'DataSaida' ];
 
-function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
+function Documento(Pessoa, ItemDocumento, PrazoPagamento, Pagamento, DataSaida) {
 
   function Documento(p) {
     var self = this;
 
     this.id = p ? p.id : '';
+    this.ticketId = p ? p.ticketId : '';
     this.codigo = p ? p.codigo : '';
     this.usuarioId = p ? p.usuarioId : '';
     this.statusId = p ? p.statusId : '';
@@ -34,7 +35,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
 
     if (p) {
       angular.forEach(p.items, function (item, index) {
-        self.items.push(new ItemPedido(item));
+        self.items.push(new ItemDocumento(item));
       });
     }
 
@@ -54,6 +55,8 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     //     self.pagamentos.push(new Pagamento(item));
     //   });
     // }
+
+    this.excluido = p ? p.excluido : false;
   }
 
   Documento.prototype = {
@@ -74,7 +77,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     },
 
     addItem: function(item) {
-      this.items.push(new ItemPedido(item));
+      this.items.push(new ItemDocumento(item));
     },
 
     removeItem: function(item) {
@@ -132,6 +135,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     var documento = {};
 
     documento.id = p.document_id;
+    documento.ticketId = p.document_ticket_id;
     documento.codigo = p.document_code;
     documento.usuarioId = p.document_user_id;
     documento.statusId = p.document_status_id;
@@ -144,6 +148,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     documento.valorComDesconto = parseFloat(p.document_value_total);
     documento.dataAtualizacao = new Date(p.document_update);
     documento.dataDocumento = new Date(p.document_date);
+    documento.excluido = p.document_trash === 'Y';
 
     if (p.document_employee) {
       documento.vendedor = new Pessoa(Pessoa.converterEmEntrada(p.document_employee));
@@ -160,7 +165,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     documento.items = [];
     if (p.document_items) {
       angular.forEach(p.document_items, function (item, index) {
-        documento.items.push(new ItemPedido(ItemPedido.converterEmEntrada(item)));
+        documento.items.push(new ItemDocumento(ItemDocumento.converterEmEntrada(item)));
       });
     }
 
@@ -184,7 +189,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
   Documento.importarTicket = function (p) {
     var pedido = {};
 
-    pedido.id = p.ticket_id;
+    pedido.ticketId = p.ticket_id;
     pedido.codigo = p.ticket_code;
     pedido.usuarioId = p.ticket_user_id;
     pedido.statusId = p.ticket_status_id;
@@ -213,7 +218,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     pedido.items = [];
     if (p.ticket_items) {
       angular.forEach(p.ticket_items, function (item, index) {
-        pedido.items.push(new ItemPedido(ItemPedido.converterEmEntrada(item)));
+        pedido.items.push(new ItemDocumento(ItemDocumento.converterEmEntrada(item)));
       });
     }
 
@@ -238,6 +243,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     var p = {};
 
     p.document_id = documento.id;
+    p.document_ticket_id = documento.ticketId;
     p.document_client_id = documento.clienteId ? documento.cliente.id : documento.clienteId;
     p.document_employee_id = documento.funcionarioId;
     // p.document_note = documento.observacoes;
@@ -245,7 +251,7 @@ function Documento(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
 
     p.document_items = [];
     angular.forEach(documento.items, function (item, index) {
-      p.document_items.push(ItemPedido.converterEmSaida(item));
+      p.document_items.push(ItemDocumento.converterEmSaida(item));
     });
 
     p.document_value = documento.getValorTotal();

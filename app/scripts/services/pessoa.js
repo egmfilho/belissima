@@ -20,6 +20,8 @@ angular.module('belissimaApp.services')
       this.contatos = pessoa ? pessoa.contatos : [ ];
       this.enderecos = pessoa ? pessoa.enderecos : [ ];
       this.categorias = pessoa ? pessoa.categorias : [ ];
+      this.sexo = pessoa ? pessoa.sexo : '';
+      this.nascimento = pessoa ? pessoa.nascimento : '';
     }
 
     Pessoa.prototype = {
@@ -88,6 +90,8 @@ angular.module('belissimaApp.services')
       pessoa.cpf = person.person_cpf;
       pessoa.nome = person.person_name;
       pessoa.apelido = person.person_nickname;
+      pessoa.sexo = person.person_gender;
+      pessoa.nascimento = person.person_birth_date;
 
       pessoa.contatos = [ ];
       if (person.person_contact) {
@@ -126,6 +130,8 @@ angular.module('belissimaApp.services')
       person.person_cpf = pessoa.cpf ? pessoa.cpf : null;
       person.person_name = pessoa.nome;
       person.person_nickname = pessoa.apelido ? pessoa.apelido : null;
+      person.person_gender = pessoa.sexo;
+      person.person_birth_date = pessoa.nascimento;
 
       person.person_address = [ ];
       angular.forEach(pessoa.enderecos, function(endereco, index) {

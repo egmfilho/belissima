@@ -39,11 +39,11 @@ function Pagamento(FormaPagamento, DataSaida) {
 
     pagamento.formaId = payment.payment_mode_id;
     pagamento.forma = new FormaPagamento(FormaPagamento.converterEmEntrada(payment.payment_mode));
-    pagamento.vencimento = new Date(payment.ticket_payment_deadline);
-    pagamento.valor = parseFloat(payment.ticket_payment_value);
+    pagamento.vencimento = new Date(payment.ticket_payment_deadline || payment.document_payment_deadline);
+    pagamento.valor = parseFloat(payment.ticket_payment_value || payment.document_payment_value);
 
-    pagamento.descontoPercent = parseFloat(payment.ticket_payment_al_discount);
-    pagamento.descontoDinheiro = parseFloat(payment.ticket_payment_vl_discount);
+    pagamento.descontoPercent = parseFloat(payment.ticket_payment_al_discount || payment.document_payment_al_discount);
+    pagamento.descontoDinheiro = parseFloat(payment.ticket_payment_vl_discount || payment.document_payment_vl_discount);
 
     return pagamento;
   };

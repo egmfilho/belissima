@@ -97,12 +97,14 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       // angular.element('#tabela-ticket thead tr').css('padding-right', '18px');
     }
 
-    getTickets();
-
     if ($routeParams.action) {
       switch ($routeParams.action) {
+        case 'open':
+          $scope.opcao = 'abrir';
+          break;
         case 'new':
           $scope.opcao = 'novo';
+          self.novoTicket.codigoDeBarras = $routeParams.card;
           break;
         case 'edit':
           if ($routeParams.code) {
@@ -114,6 +116,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
           break;
         case 'list':
           $scope.opcao = 'listar';
+          getTickets();
           break;
       }
     }
@@ -151,6 +154,25 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       }
     });
   }
+
+  $scope.abrirComanda = function(codigoDeBarras) {
+    $rootScope.loading.load();
+    providerTicket.abrirComanda(codigoDeBarras).then(function(success, status) {
+      console.log(status);
+      if (success.status.code == 200) {
+        $location.search('code', success.data.ticket_code);
+        $location.path('/ticket/edit');
+      } else if (success.status.code == 206) {
+        $location.search('card', codigoDeBarras);
+        $location.path('/ticket/new');
+      }
+      $rootScope.loading.unload();
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+      $rootScope.alerta.show('Comanda não cadastrada!', 'alert-danger');
+    });
+  };
 
   $scope.buscarFuncionario = function () {
     buscarPessoa($rootScope.categoriaPessoa.funcionario.id);

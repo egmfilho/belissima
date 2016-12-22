@@ -71,6 +71,14 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
+        abrirComanda: function(codigoDeBarras) {
+          return provider.get({
+            action: 'get'
+          }, {
+            card_code_bar: codigoDeBarras
+          }).$promise;
+        },
+
         salvar: function(pedido) {
           return provider.save({
             action: 'insert'

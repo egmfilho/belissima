@@ -13,7 +13,7 @@ angular.module('belissimaApp.controllers')
       },
       {
         nome: 'Ticket',
-        icone: 'glyphicon-edit',
+        icone: 'glyphicon-barcode',
         url: '/ticket/list'
       },
       {

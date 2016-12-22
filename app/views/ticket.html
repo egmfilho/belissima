@@ -2,26 +2,25 @@
 
   <div class="conteudo-tela">
     <ul class="nav nav-tabs">
-      <!--<li role="presentation" ng-class="opcao === 'listar' ? 'active' : ''"><a href="" ng-click="opcao = 'listar'">Tickets</a></li>-->
-      <li role="presentation" ng-class="opcao === 'listar' ? 'active' : ''"><a href="#/ticket/list" >Tickets</a></li>
-      <!--<li role="presentation" ng-class="opcao === 'novo' ? 'active' : ''"><a href="" ng-click="opcao = 'novo'">Novo</a></li>-->
-      <li role="presentation" ng-class="opcao === 'novo' ? 'active' : ''"><a href="#/ticket/new">{{ticket.novoTicket.id ? 'Editar' : 'Novo'}}</a></li>
+      <li role="presentation" ng-class="opcao === 'abrir' ? 'active' : ''"><a href="#/ticket/open" >Abrir</a></li>
+      <li role="presentation" ng-class="opcao === 'listar' ? 'active' : ''"><a href="#/ticket/list" >Ver todos</a></li>
+      <!--<li role="presentation" ng-class="opcao === 'novo' ? 'active' : ''"><a href="#/ticket/new">{{ticket.novoTicket.id ? 'Editar' : 'Novo'}}</a></li>-->
     </ul>
     <div class="conteudo-nav condensar-rows">
       <div ng-show="opcao === 'novo'" ng-include="'partials/formNovoTicket.html'"></div>
 
-      <div ng-show="opcao === 'listar'">
+      <div ng-show="opcao === 'abrir'">
         <div class="col-xs-12">
           <div class="comanda">
             <div>
               <input type="text" class="form-control codigo" placeholder="Código da comanda" ng-model="cdComanda">
-              <button class="btn btn-default btn-block" ng-click="comandas.addComanda()"><span class="glyphicon glyphicon-piggy-bank"></span> Coisar</button>
+              <button class="btn btn-default btn-block" ng-click="abrirComanda(cdComanda)"><span class="glyphicon glyphicon-open"></span> Abrir Comanda</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div ng-show="opcao === 'sancho'">
+      <div ng-show="opcao === 'listar'">
         <div class="container-tabela">
           <div class="container-tabela">
             <table id="" class="tabela tabela-bordered tabela-esticada">

@@ -50,6 +50,8 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     //     self.pagamentos.push(new Pagamento(item));
     //   });
     // }
+
+    this.codigoDeBarras = p ? p.codigoDeBarras : '';
   }
 
   Pedido.prototype = {
@@ -140,6 +142,7 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     pedido.valorComDesconto = parseFloat(p.ticket_value_total);
     pedido.dataAtualizacao = new Date(p.ticket_update);
     pedido.dataPedido = new Date(p.ticket_date);
+    pedido.codigoDeBarras = p.card_code_bar || '';
 
     if (p.ticket_employee) {
       pedido.vendedor = new Pessoa(Pessoa.converterEmEntrada(p.ticket_employee));
@@ -230,6 +233,8 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     angular.forEach(pedido.pagamentos, function (item, index) {
       p.document_payments.push(Pagamento.converterEmSaida(item));
     });
+
+    p.card_code_bar = pedido.codigoDeBarras || '';
 
     return p;
   };

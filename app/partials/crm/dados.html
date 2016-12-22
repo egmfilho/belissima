@@ -1,38 +1,79 @@
-<div class="col-sm-6">
-  <table class="tabela-esticada tabela-dados">
-    <tr>
-      <td>Código:</td>
-      <td>{{crm.pessoa.codigo}}</td>
-    </tr>
-    <tr>
-      <td>Nome:</td>
-      <td>{{crm.pessoa.nome}}</td>
-    </tr>
-    <tr>
-      <td>Apelido:</td>
-      <td>{{crm.pessoa.apelido || 'Não disponível'}}</td>
-    </tr>
-    <tr>
-      <td>Categorias:</td>
-      <td>
-        <span ng-repeat="categoria in crm.pessoa.categorias track by $index">{{categoria.nome}}</span><span ng-if="$index < crm.pessoa.categorias.length"> - </span>
-      </td>
-    </tr>
-    <tr>
-      <td>Tipo:</td>
-      <td>{{crm.pessoa.tipo == 'F' ? 'Física' : 'Jurídica'}}</td>
-    </tr>
-    <tr>
-      <td>CPF:</td>
-      <td>{{crm.pessoa.cpf || 'Não disponível'}}</td>
-    </tr>
-    <tr>
-      <td>RG:</td>
-      <td>{{crm.pessoa.rg || 'Não disponível'}}</td>
-    </tr>
-    <tr>
-      <td>CNPJ:</td>
-      <td>{{crm.pessoa.cnpj || 'Não disponível'}}</td>
-    </tr>
-  </table>
+<div class="col-sm-3">
+  <div class="avatar">
+    <div ng-class="{'male': crm.pessoa.sexo == 'M', 'female': crm.pessoa.sexo == 'F'}"></div>
+  </div>
+  <div class="col-sm-6 col-sm-offset-3 info">
+    <h5>Categorias:</h5>
+    <ul>
+      <li ng-repeat="categoria in crm.pessoa.categorias">
+        {{categoria.nome}}
+      </li>
+    </ul>
+    <h5>Nascimento:</h5>
+    <ul>
+      <li>{{crm.pessoa.nascimento ? (crm.pessoa.nascimento | date: 'dd/MM/yyyy') : 'Indisponível'}}</li>
+    </ul>
+  </div>
+</div>
+
+<div class="col-sm-9">
+  <h2><span class="glyphicon glyphicon-user"></span> {{crm.pessoa.nome}}</h2>
+
+  <div class="row">
+    <div class="col-md-2">
+      <h4>Código</h4>
+      <input type="text" class="form-control" readonly ng-value="crm.pessoa.codigo">
+    </div>
+    <div class="col-md-6">
+      <h4>Nome</h4>
+      <input type="text" class="form-control" readonly ng-value="crm.pessoa.nome">
+    </div>
+    <div class="col-md-4">
+      <h4>Apelido</h4>
+      <input type="text" class="form-control" readonly ng-value="crm.pessoa.apelido">
+    </div>
+    <div class="col-md-3">
+      <h4>Tipo</h4>
+      <select name="" id="" class="form-control" ng-value="crm.pessoa.tipo" disabled>
+        <option value="F">Físico</option>
+        <option value="J">Jurídico</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <h4>CPF</h4>
+      <input type="text" class="form-control" ng-value="crm.pessoa.cpf" readonly>
+    </div>
+    <div class="col-md-3">
+      <h4>RG</h4>
+      <input type="text" class="form-control" ng-value="crm.pessoa.rg" readonly>
+    </div>
+    <div class="col-md-3">
+      <h4>CNPJ</h4>
+      <input type="text" class="form-control" ng-value="crm.pessoa.cnpj" readonly>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h3><span class="glyphicon glyphicon-map-marker"></span> Endereços</h3>
+      <div class="enderecos" ng-repeat="endereco in crm.pessoa.enderecos track by $index">
+        <div ng-if="endereco.principal"><span class="glyphicon glyphicon-star"></span> <b>Endereço Principal</b></div>
+        <div><b>CEP:</b> <span>{{endereco.cep.codigo}}</span></div>
+        <div><b>Logradouro:</b> <span>{{endereco.getEnderecoCompleto()}}</span></div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <h3><span class="glyphicon glyphicon-phone-alt"></span> Contatos</h3>
+      <div class="contatos" ng-repeat="contato in crm.pessoa.contatos track by $index">
+        <div ng-if="contato.principal"><span class="glyphicon glyphicon-star"></span> <b>Contato Principal</b></div>
+        <div><b>Tipo:</b> <span>{{contato.tipoContato.nome}}</span></div>
+        <div><b>Contato:</b> <span>{{contato.contato}}</span></div>
+        <div><b>Referência:</b> <span>{{contato.referencia || 'Indisponível'}}</span></div>
+      </div>
+    </div>
+  </div>
+
 </div>

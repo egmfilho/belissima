@@ -37,6 +37,40 @@ function MovimentacaoCtrl($rootScope, $scope, $filter, provider, Movimentacao, m
     pageChanged: obterMovimentacoes
   };
 
+  $scope.filtros = {
+    cdProduto: '',
+    produto: new Produto(),
+    tipo: '',
+    tipoData: '0',
+    dataInicial: null,
+    dataFinal: null,
+    buscarProduto: function() {
+      modalBuscarProduto.show().then(function(result) {
+        $scope.filtros.produto = new Produto(result);
+        $scope.filtros.cdProduto = $scope.filtros.produto.codigo;
+      });
+    },
+    buscarProdutoPorCodigo: function(codigo) {
+      $rootScope.loading.load();
+      providerProduto.obterProdutoPorCodigo(codigo).then(function(success) {
+        $scope.filtros.produto = new Produto(Produto.converterEmEntrada(success.data));
+        $scope.filtros.cdProduto = $scope.filtros.produto.codigo;
+        $rootScope.loading.unload();
+      }, function(error) {
+        console.log(error);
+        $rootScope.loading.unload();
+      });
+    },
+    limparTudo: function() {
+      $scope.filtros.cdProduto = '';
+      $scope.filtros.produto = new Produto();
+      $scope.filtros.tipo = '';
+      $scope.filtros.tipoData = '0';
+      $scope.filtros.dataInicial = null;
+      $scope.filtros.dataFinal = null;
+    }
+  };
+
   this.novaMovimentacao = new Movimentacao();
   this.movimentacoes = [ ];
 
