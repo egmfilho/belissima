@@ -26,12 +26,12 @@ angular.module('belissimaApp.controllers')
       var self = this;
 
       this.dias = [
-        new Date('2016/11/28'),
-        new Date('2016/12/5'),
-        new Date('2016/12/12'),
-        new Date('2016/12/19'),
-        new Date('2016/12/26'),
-        new Date('2017/01/02')
+        // new Date('2016/11/28'),
+        // new Date('2016/12/5'),
+        // new Date('2016/12/12'),
+        // new Date('2016/12/19'),
+        // new Date('2016/12/26'),
+        // new Date('2017/01/02')
       ];
 
       this.currentView = 'month';
