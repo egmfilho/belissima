@@ -39,7 +39,8 @@ angular.module('belissimaApp.services')
             user_id: id,
             get_user_profile: getPerfil,
             get_user_profile_access: getAcessos,
-            get_user_session: getSessao
+            get_user_session: getSessao,
+            get_user_person: true
           }).$promise;
         },
 

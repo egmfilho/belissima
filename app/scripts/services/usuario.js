@@ -5,11 +5,13 @@
 'use strict';
 
 angular.module('belissimaApp.services')
-  .factory('Usuario', ['PerfilUsuario', function (PerfilUsuario) {
+  .factory('Usuario', ['PerfilUsuario', 'Pessoa', function (PerfilUsuario, Pessoa) {
 
     function Usuario(usuario) {
       this.id = usuario ? usuario.id : '';
       this.perfilId = usuario ? usuario.perfilId : '';
+      this.pessoaId = usuario ? usuario.pessoaId : '';
+      this.pessoa = usuario ? usuario.pessoa : new Pessoa();
       this.sessao = usuario ? usuario.sessao : '';
       this.ativo = usuario ? usuario.ativo : true;
       this.nome = usuario ? usuario.nome : '';
@@ -22,6 +24,10 @@ angular.module('belissimaApp.services')
     }
 
     Usuario.prototype = {
+      setPessoa: function(pessoa) {
+        this.pessoa = new Pessoa(pessoa);
+        this.pessoaId = this.pessoa.id;
+      },
       setPerfil: function(perfil) {
         this.perfil = new PerfilUsuario(perfil);
         this.perfilId = perfil.id;
@@ -33,6 +39,8 @@ angular.module('belissimaApp.services')
 
       usuario.id = user.user_id;
       usuario.perfilId = user.user_profile_id;
+      usuario.pessoaId = user.person_id;
+      usuario.pessoa = user.user_person ? new Pessoa(Pessoa.converterEmEntrada(user.user_person)) : new Pessoa();
       usuario.sessao = user.user_current_session_id;
       usuario.ativo = user.user_active == 'Y';
       usuario.nome = user.user_name;
@@ -54,6 +62,7 @@ angular.module('belissimaApp.services')
 
       user.user_id = usuario.id;
       user.user_profile_id = usuario.perfilId;
+      user.person_id = usuario.pessoaId;
       user.user_active = usuario.ativo;
       user.user_user = usuario.usuario;
       user.user_pass = usuario.senha;

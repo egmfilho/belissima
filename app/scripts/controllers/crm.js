@@ -5,29 +5,80 @@
 angular.module('belissimaApp.controllers')
   .controller('CRMCtrl', CRMCtrl);
 
-CRMCtrl.$inject = [ '$rootScope', '$scope', 'ModalBuscarPessoa', 'ProviderPessoa', 'Pessoa', 'ProviderDocumento', 'Documento'];
+CRMCtrl.$inject = [
+  '$rootScope',
+  '$scope',
+  '$cookies',
+  'ModalBuscarPessoa',
+  'ProviderPessoa',
+  'Pessoa',
+  'ProviderDocumento',
+  'Documento',
+  'ProviderComissao',
+  'Comissao',
+  'ProviderProduto',
+  'ModalBuscarProduto',
+  'Produto'
+];
 
-function CRMCtrl($rootScope, $scope, modalBuscarPessoa, providerPessoa, Pessoa, providerDocumento, Documento) {
+function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa, Pessoa, providerDocumento, Documento, providerComissao, Comissao, providerProduto, modalBuscarProduto, Produto) {
 
-  var self = this;
+  var self = this, usuario = JSON.parse(window.atob($cookies.get('currentUser')));
 
   this.pessoa = new Pessoa();
   this.historico = [];
+  this.comissoes = [];
+
+  $scope.format = 'dd/MM/yyyy';
+  $scope.altInputFormats = ['d!/M!/yy'];
+  $scope.dateOptions = {
+    formatYear: 'yyyy',
+    startingDay: 0,
+    showWeeks: false
+  };
+
+  $scope.pagination = {
+    current: 1,
+    max: 15,
+    total: 0,
+    pageChanged: function() {
+      obterComissoes(self.pessoa.id);
+    }
+  };
+
+  $scope.filtros = {
+    status: '',
+    dataInicial: null,
+    dataFinal: null,
+    limparTudo: function() {
+      $scope.filtros.status = '';
+      $scope.filtros.dataInicial = null;
+      $scope.filtros.dataFinal = null;
+    }
+  };
+
+  $scope.liberarFinanceiro = function() {
+    return (usuario.pessoaId == self.pessoa.id && self.isFuncionario());
+  };
 
   this.buscarPessoa = function() {
     modalBuscarPessoa.show().then(function(result) {
-      self.pessoa = new Pessoa(result);
-      $scope.cdPessoa = self.pessoa.codigo;
+      self.buscarPessoaPorCodigo(result.codigo);
     });
   };
 
   this.buscarPessoaPorCodigo = function(codigo) {
     $rootScope.loading.load();
-    providerPessoa.obterPessoaPorCodigo(codigo, null, true, true, true, true, true, true, null, true).then(function(success) {
+    providerPessoa.obterPessoaPorCodigo(codigo, null, true, null, true, true, true, true, null, true).then(function(success) {
       self.pessoa = new Pessoa(Pessoa.converterEmEntrada(success.data));
       $scope.cdPessoa = self.pessoa.codigo;
       $rootScope.loading.unload();
+      self.historico = [ ];
+      self.comissoes = [ ];
       obterHistorico(self.pessoa.id);
+      if ($scope.liberarFinanceiro()) {
+        obterComissoes(self.pessoa.id);
+      }
       console.log(self.pessoa);
     }, function (error) {
       console.log(error);
@@ -59,4 +110,39 @@ function CRMCtrl($rootScope, $scope, modalBuscarPessoa, providerPessoa, Pessoa, 
     });
   }
 
+  function obterComissoes(pessoaId) {
+    if (!self.isFuncionario()) return;
+
+    $rootScope.loading.load();
+    providerComissao.obterPorFuncionario(pessoaId, ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max, $scope.filtros).then(function(success) {
+      $scope.pagination.total = success.info.comission_quantity;
+      self.comissoes = [ ];
+      angular.forEach(success.data, function(item, index) {
+        self.comissoes.push(new Comissao(Comissao.converterEmEntrada(item)));
+      });
+      console.log(self.comissoes);
+      $rootScope.loading.unload();
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  }
 }
+
+// "comission_user_id"           => @$_POST["comission_user_id"]          ? $_POST["comission_user_id"]          : NULL,
+// "comission_employee_id"       => @$_POST["comission_employee_id"]      ? $_POST["comission_employee_id"]      : NULL,
+// "comission_receivable_id"     => @$_POST["comission_receivable_id"]    ? $_POST["comission_receivable_id"]    : NULL,
+// "comission_document_item_id"  => @$_POST["comission_document_item_id"] ? $_POST["comission_document_item_id"] : NULL,
+// "comission_note"              => @$_POST["comission_note"]             ? $_POST["comission_note"]             : NULL,
+// "comission_status"            => @$_POST["comission_status"]           ? $_POST["comission_status"]           : NULL,
+// "comission_deadline_start"    => @$_POST["comission_deadline_start"]   ? $_POST["comission_deadline_start"]   : NULL,
+// "comission_deadline_end"      => @$_POST["comission_deadline_end"]     ? $_POST["comission_deadline_end"]     : NULL,
+// "comission_date_start"        => @$_POST["comission_date_start"]       ? $_POST["comission_date_start"]       : NULL,
+// "comission_date_end"          => @$_POST["comission_date_end"]         ? $_POST["comission_date_end"]         : NULL,
+// "comission_order"             => @$_POST["comission_order"]            ? $_POST["comission_order"]            : NULL,
+// "comission_limit"             => @$_POST["comission_limit"]            ? $_POST["comission_limit"]            : NULL,
+// "get_comission_user"          => @$_POST["get_comission_user"]         ? 1                                    : NULL,
+// "get_comission_employee"      => @$_POST["get_comission_client"]       ? 1                                    : NULL,
+// "get_comission_receivable"    => @$_POST["get_comission_payment_term"] ? 1                                    : NULL,
+// "get_comission_document_item" => @$_POST["get_comission_items"]        ? 1                                    : NULL
+

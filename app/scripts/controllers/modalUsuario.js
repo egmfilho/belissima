@@ -14,7 +14,8 @@ angular.module('belissimaApp.controllers')
     'usuario',
     'perfis',
     'permissoes',
-    function ($rootScope, $scope, $uibModalInstance, provider, Usuario, usuario, perfis, permissoes) {
+    'ModalBuscarPessoa',
+    function ($rootScope, $scope, $uibModalInstance, provider, Usuario, usuario, perfis, permissoes, modalBuscarPessoa) {
 
       var self = this;
 
@@ -31,6 +32,11 @@ angular.module('belissimaApp.controllers')
           $rootScope.alerta.show('Preencha o nome do usuário!');
           return false;
         }
+
+        // if (!self.usuario.person_id) {
+        //   $rootScope.alerta.show('Informe a pessoa!');
+        //   return false;
+        // }
 
         if (!self.usuario.usuario) {
           $rootScope.alerta.show('Preencha o nome de usuário!');
@@ -113,5 +119,13 @@ angular.module('belissimaApp.controllers')
       $scope.cancel = function () {
         $uibModalInstance.dismiss();
       };
+
+      $scope.buscarPessoa = function() {
+        modalBuscarPessoa.show().then(function(result) {
+          if (result) {
+            self.usuario.setPessoa(result);
+          }
+        });
+      }
     }
   ]);

@@ -81,8 +81,17 @@ function MovimentacaoCtrl($rootScope, $scope, $filter, provider, Movimentacao, m
   $scope.atualizar = obterMovimentacoes;
 
   function obterMovimentacoes() {
+    var filtros = {
+      produtoId: $scope.filtros.produto.id,
+      tipo: $scope.filtros.tipo,
+      dataInicial: $scope.filtros.tipoData == 0 ? $scope.filtros.dataInicial : null,
+      dataFinal: $scope.filtros.tipoData == 0 ? $scope.filtros.dataFinal : null,
+      dataReferenciaInicial: $scope.filtros.tipoData == 1 ? $scope.filtros.dataInicial : null,
+      dataReferenciaFinal: $scope.filtros.tipoData == 1 ? $scope.filtros.dataFinal : null
+    };
+
     $rootScope.loading.load();
-    provider.obterTodos(($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function(success) {
+    provider.obterTodos(($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max, filtros).then(function(success) {
       $scope.pagination.total = success.info.product_movement_quantity;
       self.movimentacoes = [];
       angular.forEach(success.data, function(item, index) {
@@ -158,3 +167,15 @@ function MovimentacaoCtrl($rootScope, $scope, $filter, provider, Movimentacao, m
   };
 
 }
+
+// "user_id" => ( @$_POST["user_id"] ? $_POST["user_id"] : NULL ),
+// "product_id" => ( @$_POST["product_id"] ? $_POST["product_id"] : NULL ),
+// "document_id" => ( @$_POST["document_id"] ? $_POST["document_id"] : NULL ),
+// "product_movement_date_reference_start" => @$_POST["product_movement_date_reference_start"] ? $_POST["product_movement_date_reference_start"] : NULL,
+// "product_movement_date_reference_end" => @$_POST["product_movement_date_reference_end"] ? $_POST["product_movement_date_reference_end"] : NULL,
+// "product_movement_date_start" => @$_POST["product_movement_date_start"] ? $_POST["product_movement_date_start"] : NULL,
+// "product_movement_date_end" => @$_POST["product_movement_date_end"] ? $_POST["product_movement_date_end"] : NULL,
+// "product_movement_order" => ( @$_POST["product_movement_order"] ? $_POST["product_movement_order"] : NULL ),
+// "product_movement_limit" => ( @$_POST["product_movement_limit"] ? $_POST["product_movement_limit"] : NULL ),
+// "get_user" => @$_POST["get_user"] ? 1 : NULL,
+// "get_product" => @$_POST["get_product"] ? 1 : NULL

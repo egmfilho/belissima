@@ -31,7 +31,7 @@ body {
 .fechado {
   margin-left: 0; }
 
-.centerY, .tela .header .content, #menu-home, #tela-ticket .comanda > div, #comandas .comanda > div {
+.centerY, .tela .header .content, #menu-home, #tela-ticket .comanda > div, #crm .historico-vazio .text-center, #comandas .comanda > div {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -276,6 +276,9 @@ body {
 
 .tabela-esticada {
   width: 100%; }
+
+.tabela-hover-hand tr:hover {
+  cursor: pointer; }
 
 .modal-backdrop.in {
   opacity: .6; }
@@ -1320,10 +1323,26 @@ body {
       font-weight: 400; }
     #crm .enderecos > div span, #crm .contatos > div span {
       font-weight: 300; }
+#crm .historico-vazio {
+  height: 400px; }
+  #crm .historico-vazio .text-center {
+    width: 100%; }
+#crm .container-historico {
+  max-height: 800px;
+  overflow-y: auto; }
 #crm .documento {
   margin-bottom: 10px; }
   #crm .documento .panel.panel-default .panel-heading {
     background-color: #5a5a5a; }
+#crm .well {
+  border-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.2); }
+#crm .tabela-comissao tr.aberto {
+  background-color: #3987c0 !important; }
+#crm .tabela-comissao tr.fechado {
+  background-color: #14a73a !important; }
+#crm .tabela-comissao tr.cancelado {
+  background-color: #a35f13 !important; }
 
 .fc-toolbar {
   font-size: 1.2em; }

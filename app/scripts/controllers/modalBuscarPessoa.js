@@ -56,7 +56,7 @@ angular.module('belissimaApp.controllers')
 
       $scope.getPessoaPorCodigo = function(codigo) {
         $rootScope.loading.load();
-        provider.obterPessoaPorCodigo(codigo, true, true, true, true, true, true, true, categoriaId).then(function(success) {
+        provider.obterPessoaPorCodigo(codigo, categoriaId, true, true, true, true, true, true, true).then(function(success) {
           setResultado(success.data);
           $rootScope.loading.unload();
         }, function(error) {
@@ -67,7 +67,7 @@ angular.module('belissimaApp.controllers')
 
       $scope.getPessoaPorDocumento = function(documento) {
         $rootScope.loading.load();
-        provider.obterPessoasPorDocumento(documento, true, true, true, true, true, true, true, categoriaId).then(function(success) {
+        provider.obterPessoasPorDocumento(documento, categoriaId, true, true, true, true, true, true, true, true).then(function(success) {
           setResultado(success.data);
           $rootScope.loading.unload();
         }, function(error) {

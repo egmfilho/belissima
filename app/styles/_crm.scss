@@ -44,11 +44,49 @@
     }
   }
 
+  .historico-vazio {
+    height: 400px;
+    .text-center {
+      @extend .centerY;
+      width: 100%;
+    }
+  }
+
+  .container-historico {
+    max-height: 800px;
+    overflow-y: auto;
+  }
+
   .documento {
     margin-bottom: 10px;
 
     .panel.panel-default .panel-heading {
       background-color: $cor-menu-lateral-borda;
+    }
+  }
+
+  .well {
+    border-color: rgba(0,0,0,.25);
+    background-color: rgba(0,0,0,.2);
+  }
+
+  .tabela-comissao {
+    tr {
+      &.aberto {
+        background-color: #3987c0 !important;
+      }
+
+      &.liberado {
+        //background-color: #14a73a !important;
+      }
+
+      &.fechado {
+        background-color: #14a73a !important;
+      }
+
+      &.cancelado {
+        background-color: #a35f13 !important;
+      }
     }
   }
 }

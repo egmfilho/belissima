@@ -3,6 +3,12 @@
     <div ng-class="{'male': crm.pessoa.sexo == 'M', 'female': crm.pessoa.sexo == 'F'}"></div>
   </div>
   <div class="col-sm-6 col-sm-offset-3 info">
+    <h5>Sexo:</h5>
+    <ul>
+      <li>
+        {{crm.pessoa.sexo == 'M' ? 'Masculino' : 'Feminino'}}
+      </li>
+    </ul>
     <h5>Categorias:</h5>
     <ul>
       <li ng-repeat="categoria in crm.pessoa.categorias">
@@ -64,6 +70,9 @@
         <div><b>CEP:</b> <span>{{endereco.cep.codigo}}</span></div>
         <div><b>Logradouro:</b> <span>{{endereco.getEnderecoCompleto()}}</span></div>
       </div>
+      <div class="enderecos" ng-if="!crm.pessoa.enderecos.length">
+        <div><b>Nenhum endereço cadastrado.</b></div>
+      </div>
     </div>
     <div class="col-sm-6">
       <h3><span class="glyphicon glyphicon-phone-alt"></span> Contatos</h3>
@@ -72,6 +81,9 @@
         <div><b>Tipo:</b> <span>{{contato.tipoContato.nome}}</span></div>
         <div><b>Contato:</b> <span>{{contato.contato}}</span></div>
         <div><b>Referência:</b> <span>{{contato.referencia || 'Indisponível'}}</span></div>
+      </div>
+      <div class="contatos" ng-if="!crm.pessoa.contatos.length">
+        <div><b>Nenhum contato cadastrado.</b></div>
       </div>
     </div>
   </div>

@@ -44,12 +44,18 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
-        obterTodos: function(limite) {
+        obterTodos: function(limite, filtros) {
           return provider.query({
             action: 'getList'
           }, {
             get_product: true,
-            product_movement_limit: limite
+            product_movement_limit: limite,
+            product_id: filtros ? filtros.produtoId : null,
+            product_movement_date_reference_start: filtros ? filtros.dataReferenciaInicial : null,
+            product_movement_date_reference_end: filtros ? filtros.dataReferenciaFinal : null,
+            product_movement_date_start: filtros ? filtros.dataInicial : null,
+            product_movement_date_end: filtros ? filtros.dataFinal : null,
+            product_movement_type: filtros ? filtros.tipo : null
           }).$promise;
         },
 

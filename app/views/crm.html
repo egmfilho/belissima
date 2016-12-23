@@ -15,26 +15,24 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-7">
+      <div class="col-xs-9">
         <h3>Nome</h3>
         <input type="text" class="form-control" ng-value="crm.pessoa.nome" readonly>
       </div>
-      <div class="col-xs-2">
-        <h3>&nbsp;</h3>
-        <button class="btn btn-default btn-block">Coisar</button>
-      </div>
     </div>
     <br>
-    <ul class="nav nav-tabs" ng-init="opcao='dados'">
-      <li role="presentation" ng-class="opcao === 'dados' ? 'active' : ''"><a href="" ng-click="opcao='dados'">Dados Cadastrais</a></li>
-      <li role="presentation" ng-class="opcao === 'historico' ? 'active' : ''"><a href="" ng-click="opcao='historico'">Histórico de Compra</a></li>
-      <li role="presentation" ng-class="opcao === 'conta' ? 'active' : ''" ng-show="crm.isFuncionario()"><a href="" ng-click="opcao='conta'">Conta Corrente</a></li>
-    </ul>
-    <div class="conteudo-nav condensar-rows">
-      <div ng-show="opcao === 'dados'" ng-include="'partials/crm/dados.html'"></div>
-      <div ng-show="opcao === 'historico'" ng-include="'partials/crm/historico.html'"></div>
-      <div ng-show="opcao === 'conta'" ng-include="'partials/crm/conta.html'"></div>
-    </div>
+    <span ng-show="crm.pessoa.id">
+      <ul class="nav nav-tabs" ng-init="opcao='dados'">
+        <li role="presentation" ng-class="opcao === 'dados' ? 'active' : ''"><a href="" ng-click="opcao='dados'">Dados Cadastrais</a></li>
+        <li role="presentation" ng-class="opcao === 'historico' ? 'active' : ''"><a href="" ng-click="opcao='historico'">Histórico de Compra</a></li>
+        <li role="presentation" ng-class="opcao === 'financeiro' ? 'active' : ''" ng-show="crm.isFuncionario() && liberarFinanceiro()"><a href="" ng-click="opcao='financeiro'">Financeiro</a></li>
+      </ul>
+      <div class="conteudo-nav condensar-rows">
+        <div ng-show="opcao === 'dados'" ng-include="'partials/crm/dados.html'"></div>
+        <div ng-show="opcao === 'historico'" ng-include="'partials/crm/historico.html'"></div>
+        <div ng-show="opcao === 'financeiro'" ng-include="'partials/crm/financeiro.html'"></div>
+      </div>
+    </span>
   </div>
 
 </tela>

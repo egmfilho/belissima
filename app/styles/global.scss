@@ -522,6 +522,12 @@ body {
   width: 100%;
 }
 
+.tabela-hover-hand {
+  tr:hover {
+    cursor: pointer;
+  }
+}
+
 .modal-backdrop.in {
   opacity: .6;
 }

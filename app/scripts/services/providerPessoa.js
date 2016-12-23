@@ -79,7 +79,7 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
-        obterPessoasPorDocumento: function(documento, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoriaId) {
+        obterPessoasPorDocumento: function(documento, categoriaId, contato, contatoPrincipal, endereco, cep, bairro, cidade, enderecoPrincipal, categoria) {
           return provider.get({
             action: 'getList'
           }, {
