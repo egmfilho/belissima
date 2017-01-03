@@ -11,9 +11,13 @@ angular.module('belissimaApp.directives')
           body = element.find('.body'),
           footerHeight = parseInt(scope.showFooter ? element.find('.footer').css('height') : '0');
 
-      if (parseInt(body.css('height')) + headerHeight + footerHeight < $window.innerHeight) {
-        body.css('min-height', ($window.innerHeight - headerHeight - footerHeight) + 'px');
-      }
+      scope.$watch(function() {
+        return parseInt(body.css('height'));
+      }, function() {
+        if (parseInt(body.css('height')) + headerHeight + footerHeight < $window.innerHeight) {
+          body.css('min-height', ($window.innerHeight - headerHeight - footerHeight) + 'px');
+        }
+      });
 
       scope.currentPath = $rootScope.currentPath;
       scope.versao = $rootScope.versao;

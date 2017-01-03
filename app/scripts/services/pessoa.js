@@ -91,7 +91,7 @@ angular.module('belissimaApp.services')
       pessoa.nome = person.person_name;
       pessoa.apelido = person.person_nickname;
       pessoa.sexo = person.person_gender;
-      pessoa.nascimento = person.person_birth_date;
+      pessoa.nascimento = new Date(person.person_birth_date);
 
       pessoa.contatos = [ ];
       if (person.person_contact) {

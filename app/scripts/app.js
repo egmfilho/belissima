@@ -162,7 +162,15 @@ angular
     // - Adicionada opcao de apresentar janela de troco por forma de pagamento
     // - Corrigido bug onde o "checkAll" continuava marcado mesmo depois de fechar e abrir outro modal de prazo
     // - Post do PDV alterado de "ticket" pra "document"
-    $rootScope.versao = '0.7.4';
+    //
+    // ver 0.8
+    //
+    // - Adicionado tela de CRM
+    // - Adicionado tela de Movimentação de estoque
+    // - Tela de Ticket controlada através da comanda
+    // - Novo ícone para tela de Ticket
+    // - Gerenciamento de comandas na tela de configurações do sistema
+    $rootScope.versao = '0.8';
   }])
   .run(['$rootScope', '$location', '$cookies', '$timeout', '$uibModalStack', function($rootScope, $location, $cookies, $timeout, $uibModalStack) {
 

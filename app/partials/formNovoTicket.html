@@ -1,7 +1,7 @@
-<ul class="hidden-xs nav nav-pills nav-justified nav-pills-claro" ng-init="opt = 'produtos'">
-  <li role="presentation" ng-class="opt === 'produtos' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'produtos'">Serviços & Produtos</a></li>
-  <li role="presentation" ng-class="opt === 'cliente' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'cliente'">Cliente</a></li>
-  <li role="presentation" ng-class="opt === 'pagamento' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="opt = 'pagamento'">Pagamento</a></li>
+<ul class="hidden-xs nav nav-pills nav-justified nav-pills-claro" ng-init="ticket.opt = 'produtos'">
+  <li role="presentation" ng-class="ticket.opt === 'produtos' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="ticket.opt = 'produtos'">Serviços & Produtos</a></li>
+  <li role="presentation" ng-class="ticket.opt === 'cliente' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="ticket.opt = 'cliente'">Cliente</a></li>
+  <li role="presentation" ng-class="ticket.opt === 'pagamento' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="ticket.opt = 'pagamento'">Pagamento</a></li>
 </ul>
 <div class="dropdown visible-xs-inline" ng-init="label='Funcionário'">
   <button class="btn btn-default botao-esticado dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -9,20 +9,20 @@
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="" ng-click="opt = 'produtos'; label = 'Produtos'"><span class="glyphicon glyphicon-ok" ng-show="opt==='produtos'"></span>&nbsp;Serviços & Produtos</a></li>
-    <li><a href="" ng-click="opt = 'cliente'; label = 'Cliente'"><span class="glyphicon glyphicon-ok" ng-show="opt==='cliente'"></span>&nbsp; Cliente</a></li>
-    <li><a href="" ng-click="opt = 'pagamento'; label = 'Pagamento'"><span class="glyphicon glyphicon-ok" ng-show="opt==='pagamento'"></span>&nbsp; Pagamento</a></li>
+    <li><a href="" ng-click="ticket.opt = 'produtos'; label = 'Produtos'"><span class="glyphicon glyphicon-ok" ng-show="ticket.opt==='produtos'"></span>&nbsp;Serviços & Produtos</a></li>
+    <li><a href="" ng-click="ticket.opt = 'cliente'; label = 'Cliente'"><span class="glyphicon glyphicon-ok" ng-show="ticket.opt==='cliente'"></span>&nbsp; Cliente</a></li>
+    <li><a href="" ng-click="ticket.opt = 'pagamento'; label = 'Pagamento'"><span class="glyphicon glyphicon-ok" ng-show="ticket.opt==='pagamento'"></span>&nbsp; Pagamento</a></li>
   </ul>
 </div>
 <br>
 
 <!--PRODUTO-->
-<div ng-show="opt === 'produtos'">
+<div class="servico-produtos" ng-show="ticket.opt === 'produtos'">
   <div class="row">
     <div class="col-sm-2">
       <h4>Funcionário</h4>
       <div class="input-group">
-        <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" shift-enter="opt = 'cliente'">
+        <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" shift-enter="ticket.avancarParaCliente()">
         <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="buscarFuncionario()">
               <i class="glyphicon glyphicon-search" tabindex="-1"></i>
@@ -33,7 +33,7 @@
     <div class="col-sm-3">
       <h4>Nome</h4>
       <input type="text" name="nmFuncionario" class="form-control" placeholder="Nome do funcionário" ng-model="ticket.tempFuncionario"
-             keys-shortcuts enter="addItem()" shift-enter="opt = 'cliente'"
+             keys-shortcuts enter="addItem()" shift-enter="ticket.opt = 'cliente'"
              uib-typeahead="funcionario as funcionario.nome for funcionario in buscarFuncionarioPorNome($viewValue)"
              typeahead-min-length="3"
              typeahead-wait-ms="300"
@@ -42,7 +42,7 @@
     <div class="col-sm-2">
       <h4>Produto</h4>
       <div class="input-group">
-        <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="opt = 'cliente'">
+        <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.avancarParaCliente()">
         <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="buscarProduto()" tabindex="-1">
           <i class="glyphicon glyphicon-search"></i>
@@ -53,7 +53,7 @@
     <div class="col-sm-3">
       <h4>Nome</h4>
       <input type="text" name="nmProduto" class="form-control" placeholder="Nome do produto" ng-model="ticket.tempProduto"
-             keys-shortcuts enter="ticket.focarQuantidade()" shift-enter="opt = 'cliente'"
+             keys-shortcuts enter="ticket.focarQuantidade()" shift-enter="ticket.opt = 'cliente'"
              uib-typeahead="produto as produto.nome for produto in buscarProdutoPorNome($viewValue)"
              typeahead-min-length="3"
              typeahead-wait-ms="300"
@@ -61,7 +61,7 @@
     </div>
     <div class="col-sm-1">
       <h4>Qtd</h4>
-      <input type="text" name="qtdProduto" class="form-control" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="opt = 'cliente'">
+      <input type="text" name="qtdProduto" class="form-control" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="ticket.avancarParaCliente()">
     </div>
     <div class="col-sm-1">
       <h4>Preço</h4>
@@ -124,13 +124,13 @@
 
   <div class="row rodape-salvar">
     <div class="col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="opt='funcionario'">
+      <button class="btn btn-default botao-esticado" ng-click="ticket.opt='funcionario'">
         <span class="glyphicon glyphicon-chevron-left"></span> Voltar
       </button>
     </div>
     <div class="col-sm-6 col-md-6 text-center">Etapa 1 de 3</div>
     <div class="col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="opt='cliente'">
+      <button class="btn btn-default botao-esticado" ng-click="ticket.opt='cliente'">
         Avançar <span class="glyphicon glyphicon-chevron-right"></span>
       </button>
     </div>
@@ -138,7 +138,7 @@
 </div>
 
 <!--CLIENTE-->
-<div ng-show="opt === 'cliente'">
+<div ng-show="ticket.opt === 'cliente'">
   <div class="row">
     <div class="col-sm-12 col-md-12 cabecalho">
       <h4>Informações</h4>
@@ -146,7 +146,7 @@
     <div class="col-sm-2">
       <h4>Código</h4>
       <div class="input-group">
-        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.codigo" number-only keys-shortcuts enter="buscarClientePorCodigo(ticket.novoTicket.cliente.codigo)" shift-enter="opt = 'pagamento'">
+        <input type="text" class="form-control" name="cdCliente" ng-model="ticket.novoTicket.cliente.codigo" number-only keys-shortcuts enter="buscarClientePorCodigo(ticket.novoTicket.cliente.codigo)" shift-enter="ticket.avancarParaPagamento()">
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="buscarCliente()"><i class="glyphicon glyphicon-search"></i></button>
         </span>
@@ -184,13 +184,13 @@
   <br>
   <div class="row">
     <div class="col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="opt='produtos'">
+      <button class="btn btn-default botao-esticado" ng-click="ticket.opt='produtos'">
         <span class="glyphicon glyphicon-chevron-left"></span> Voltar
       </button>
     </div>
     <div class="col-sm-6 col-md-6 text-center">Etapa 2 de 3</div>
     <div class="col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="opt='pagamento'">
+      <button class="btn btn-default botao-esticado" ng-click="ticket.opt='pagamento'">
         Avançar <span class="glyphicon glyphicon-chevron-right"></span>
       </button>
     </div>
@@ -198,12 +198,12 @@
 </div>
 
 <!--PAGAMENTO-->
-<div ng-show="opt === 'pagamento'">
+<div ng-show="ticket.opt === 'pagamento'">
   <div class="row">
     <div class="col-sm-3">
       <h4>Prazo</h4>
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Código" ng-model="ticket.cdPrazo" keys-shortcuts enter="buscarPrazoPorCodigo(ticket.cdPrazo)">
+        <input type="text" class="form-control" name="cdPagamento" placeholder="Código" ng-model="ticket.cdPrazo" keys-shortcuts enter="buscarPrazoPorCodigo(ticket.cdPrazo)">
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="buscarPrazo()">
             <i class="glyphicon glyphicon-search"></i>
@@ -226,17 +226,22 @@
       <div class="row">
         <div class="col-sm-4">
           <h4>Forma</h4>
-          <select class="form-control" ng-options="forma as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="pagamento.forma" ng-change="pagamento.setForma()">
+          <select class="form-control" ng-options="forma.id as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="pagamento.formaId" ng-change="pagamento.setForma(forma)">
             <option value="" disabled>Selecione a forma de pagamento</option>
           </select>
         </div>
         <div class="col-sm-4">
           <h4>Vencimento</h4>
-          <input type="text" class="form-control text-center" readonly ng-value="pagamento.vencimento | date">
+          <div class="input-group">
+            <input type="text" class="form-control text-center" name="data-vencimento" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" on-open-focus="false" is-open="pagamento.popupCalendario" ng-model="pagamento.vencimento" datepicker-options="dateOptions" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar"/>
+            <div class="input-group-btn">
+              <button class="btn btn-default" ng-click="pagamento.popupCalendario = !pagamento.popupCalendario"><span class="glyphicon glyphicon-calendar"></span></button>
+            </div>
+          </div>
         </div>
         <div class="col-sm-4">
           <h4>Valor</h4>
-          <input type="text" class="form-control text-right" ng-model="pagamento.valor" currency>
+          <input type="text" class="form-control text-right" ng-model="pagamento.valor" currency readonly>
         </div>
       </div>
     </div>
@@ -251,7 +256,7 @@
   <br>
   <div class="row">
     <div class="col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="opt='cliente'">
+      <button class="btn btn-default botao-esticado" ng-click="ticket.opt='cliente'">
         <span class="glyphicon glyphicon-chevron-left"></span> Voltar
       </button>
     </div>

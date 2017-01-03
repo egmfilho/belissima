@@ -185,6 +185,7 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
 
     p.ticket_id = pedido.id;
     p.ticket_client_id = pedido.clienteId ? pedido.cliente.id : pedido.clienteId;
+    p.ticket_code_bar = pedido.codigoDeBarras ? pedido.codigoDeBarras : null;
     // p.ticket_note = pedido.observacoes;
     // p.ticket_status_id = pedido.statusId;
 

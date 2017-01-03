@@ -39,7 +39,7 @@ function Pagamento(FormaPagamento, DataSaida) {
 
     pagamento.formaId = payment.payment_mode_id;
     pagamento.forma = new FormaPagamento(FormaPagamento.converterEmEntrada(payment.payment_mode));
-    pagamento.vencimento = new Date(payment.ticket_payment_deadline || payment.document_payment_deadline);
+    pagamento.vencimento = new Date((payment.ticket_payment_deadline || payment.document_payment_deadline) + 'T12:00:00');
     pagamento.valor = parseFloat(payment.ticket_payment_value || payment.document_payment_value);
 
     pagamento.descontoPercent = parseFloat(payment.ticket_payment_al_discount || payment.document_payment_al_discount);

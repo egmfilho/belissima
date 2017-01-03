@@ -49,11 +49,11 @@ angular.module('belissimaApp.controllers')
 
         $scope.data = new Date($scope.evento.start);
 
-        $scope.format = 'dd/MM/yy';
-        $scope.altInputFormats = ['d!/M!/yy'];
+        $scope.format = 'dd/MM/yyyy';
+        $scope.altInputFormats = ['d!/M!/yyyy'];
 
         $scope.dateOptions = {
-          formatYear: 'yy',
+          formatYear: 'yyyy',
           minDate: new Date(),
           startingDay: 0,
           showWeeks: false

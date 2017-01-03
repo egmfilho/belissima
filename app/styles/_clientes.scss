@@ -1,5 +1,12 @@
 .form-clientes {
 
+  div.calendar {
+    ul.dropdown-menu {
+      left: 0 !important;
+      right: auto !important;
+    }
+  }
+
   #tabela-clientes {
     width: 100%;
   }
@@ -62,6 +69,13 @@
 }
 
 #clientes {
+  div.calendar {
+    ul.dropdown-menu {
+      left: 0 !important;
+      right: auto !important;
+    }
+  }
+
   .filtros {
     margin-bottom: 20px;
 

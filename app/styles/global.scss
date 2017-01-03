@@ -387,6 +387,8 @@ body {
   padding: 2px;
   border-color: $cor-menu-highlight-medio;
   z-index: 1051;
+  right: 0 !important;
+  left: auto !important;
 
   .text-info {
     color: white;

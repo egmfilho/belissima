@@ -346,11 +346,11 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   };
 
   function setParcelas() {
-    if (self.documento.pagamentos.length == self.documento.prazo.parcelas) {
-      for (var i = 0; i < self.documento.prazo.parcelas; i++) {
-        self.documento.pagamentos[i].valor = self.documento.getValorTotal() / self.documento.prazo.parcelas;
-      }
-    } else {
+    // if (self.documento.pagamentos.length == self.documento.prazo.parcelas) {
+    //   for (var i = 0; i < self.documento.prazo.parcelas; i++) {
+    //     self.documento.pagamentos[i].valor = self.documento.getValorTotal() / self.documento.prazo.parcelas;
+    //   }
+    // } else {
       self.documento.pagamentos = [];
       for (var i = 0; i < self.documento.prazo.parcelas; i++) {
         self.documento.pagamentos.push(new Pagamento());
@@ -359,7 +359,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
         self.documento.pagamentos[i].forma = self.documento.prazo.formas[0];
         self.documento.pagamentos[i].setForma();
       }
-    }
+    // }
   }
 
   this.abrirModalFuncionario = function (callback_positive, callback_negative) {

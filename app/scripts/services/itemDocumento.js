@@ -88,10 +88,10 @@ function ItemDocumento(Produto, Pessoa) {
     item.pedidoId = i.document_id;
     item.produtoId = i.product_id;
     item.funcionarioId = i.employee_id;
-    item.quantidade = parseFloat(i.document_item_amount);
-    item.precoProduto = parseFloat(i.document_item_value);
-    item.descontoPercent = parseFloat(i.document_item_al_discount);
-    item.descontoDinheiro = parseFloat(i.document_item_vl_discount);
+    item.quantidade = parseFloat(i.document_item_amount ? i.document_item_amount : i.ticket_item_amount);
+    item.precoProduto = parseFloat(i.document_item_value ? i.document_item_value : i.ticket_item_value);
+    item.descontoPercent = parseFloat(i.document_item_al_discount ? i.document_item_al_discount : i.ticket_item_al_discount);
+    item.descontoDinheiro = parseFloat(i.document_item_vl_discount ? i.document_item_vl_discount : i.ticket_item_vl_discount);
 
     if (i.product) {
       item.produto = new Produto(Produto.converterEmEntrada(i.product));

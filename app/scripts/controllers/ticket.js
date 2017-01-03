@@ -23,10 +23,12 @@ TicketCtrl.$inject = [
   'PrazoPagamento',
   'ModalBuscarPrazoPagamento',
   'Pagamento',
-  'ProviderTicket'
+  'ProviderTicket',
+  'ProviderComanda',
+  'Comanda'
 ];
 
-function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPrazo, PrazoPagamento, modalPrazo, Pagamento, providerTicket) {
+function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPrazo, PrazoPagamento, modalPrazo, Pagamento, providerTicket, providerComanda, Comanda) {
 
   var self = this, escape_confirm = false;
 
@@ -42,6 +44,15 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     pageChanged: getTickets
   };
   $scope.opcao = 'listar';
+
+  $scope.format = 'dd/MM/yyyy';
+
+  $scope.dateOptions = {
+    formatYear: 'yyyy',
+    minDate: new Date(),
+    startingDay: 0,
+    showWeeks: false
+  };
 
   $scope.$on('$locationChangeStart', function( event ) {
     if (escape_confirm) return;
@@ -84,7 +95,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
         $location.search('code', null);
         $location.path('/ticket/list');
       }
-      console.log(self.novoTicket);
+      console.log('novo ticket', self.novoTicket);
     }, function(error) {
       console.log(error);
       $rootScope.loading.unload();
@@ -140,6 +151,20 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
 
   this.focarFuncionario = function () {
     jQuery('input[name="cdFuncionario"]').focus().select();
+  };
+
+  this.avancarParaCliente = function() {
+    this.opt = 'cliente';
+    setTimeout(function() {
+      jQuery('input[name="cdCliente"]').focus().select();
+    }, 200);
+  };
+
+  this.avancarParaPagamento = function() {
+    this.opt = 'pagamento';
+    setTimeout(function() {
+      jQuery('input[name="cdPagamento"]').focus().select();
+    }, 200);
   };
 
   function buscarPessoa(categoriaId) {
@@ -349,18 +374,20 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
 
   function setParcelas() {
     console.log(self.novoTicket.pagamentos.length);
-    if (self.novoTicket.pagamentos.length == self.novoTicket.prazo.parcelas) {
-      for (var i = 0; i < self.novoTicket.prazo.parcelas; i++) {
-        self.novoTicket.pagamentos[i].valor = self.novoTicket.getValorTotal() / self.novoTicket.prazo.parcelas;
-      }
-    } else {
+    // if (self.novoTicket.pagamentos.length == self.novoTicket.prazo.parcelas) {
+    //   for (var i = 0; i < self.novoTicket.prazo.parcelas; i++) {
+    //     self.novoTicket.pagamentos[i].valor = self.novoTicket.getValorTotal() / self.novoTicket.prazo.parcelas;
+    //   }
+    // } else {
       self.novoTicket.pagamentos = [];
       for (var i = 0; i < self.novoTicket.prazo.parcelas; i++) {
         self.novoTicket.pagamentos.push(new Pagamento());
+        self.novoTicket.pagamentos[i].formaId = self.novoTicket.prazo.formas[0].id;
+        self.novoTicket.pagamentos[i].forma = self.novoTicket.prazo.formas[0];
         self.novoTicket.pagamentos[i].valor = self.novoTicket.getValorTotal() / self.novoTicket.prazo.parcelas;
         self.novoTicket.pagamentos[i].vencimento = $scope.getDataDaParcela(self.novoTicket.prazo, i);
       }
-    }
+    // }
   }
 
   $scope.removeItem = function (item) {
@@ -406,7 +433,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       }
     }
 
-    if (self.novoTicket.getTroco() != 0) {
+    if (Math.abs(self.novoTicket.getTroco()) >= 0.01) {
       $rootScope.alerta.show('Informe corretamente os valores!', 'alert-danger');
       return false;
     }
@@ -419,8 +446,8 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       return;
     }
 
-    console.log(self.novoTicket);
-    console.log(Pedido.converterEmSaida(self.novoTicket));
+    // console.log(self.novoTicket);
+    // console.log(Pedido.converterEmSaida(self.novoTicket));
 
     $rootScope.loading.load();
     if (self.novoTicket.id) {

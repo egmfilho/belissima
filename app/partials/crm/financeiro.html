@@ -55,6 +55,7 @@
     <table class="tabela tabela-bordered tabela-esticada tabela-comissao">
       <thead>
       <tr>
+        <th></th>
         <th>Título</th>
         <th>Produto</th>
         <th>Vl. Base</th>
@@ -65,7 +66,9 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="comissao in crm.comissoes" ng-class="{'aberto': comissao.status=='A', 'liberado': comissao.status=='L', 'fechado': comissao.status=='F', 'cancelado': comissao.status=='C'}">
+      <tr ng-repeat="comissao in crm.comissoes">
+        <td uib-tooltip="{{comissao.getStatus()}}" tooltip-append-to-body="true" tooltip-class="crm-tooltip" tooltip-placement="right" tooltip-trigger="'mouseenter'"
+          ng-class="{'aberto': comissao.status=='A', 'liberado': comissao.status=='L', 'fechado': comissao.status=='F', 'cancelado': comissao.status=='C'}"></td>
         <td>{{comissao.recebivel.codigo}}</td>
         <td>{{comissao.item.produto.nome}}</td>
         <td>{{comissao.valorBase | currency: 'R$ '}}</td>

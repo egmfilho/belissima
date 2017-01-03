@@ -25,6 +25,15 @@ angular.module('belissimaApp.controllers')
     'pessoa',
     function ($rootScope, $scope, $uibModalInstance, provider, providerCategoriaPessoa, providerTipoContato, providerCEP, CEP, TipoContato, Pessoa, CategoriaPessoa, Endereco, Contato, ModalBuscarEndereco, modalConfirm, TiposLogradouros, pessoa) {
 
+      $scope.format = 'dd/MM/yyyy';
+
+      $scope.dateOptions = {
+        formatYear: 'yyyy',
+        datepickerMode: 'year',
+        startingDay: 0,
+        showWeeks: false
+      };
+
       $uibModalInstance.opened.then(function () {
         $scope.pessoa = new Pessoa(pessoa);
         $scope.tipos_logradouros = TiposLogradouros;

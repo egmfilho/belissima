@@ -123,26 +123,9 @@ function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa
       console.log(self.comissoes);
       $rootScope.loading.unload();
     }, function(error) {
+      self.comissoes = [ ];
       console.log(error);
       $rootScope.loading.unload();
     });
   }
 }
-
-// "comission_user_id"           => @$_POST["comission_user_id"]          ? $_POST["comission_user_id"]          : NULL,
-// "comission_employee_id"       => @$_POST["comission_employee_id"]      ? $_POST["comission_employee_id"]      : NULL,
-// "comission_receivable_id"     => @$_POST["comission_receivable_id"]    ? $_POST["comission_receivable_id"]    : NULL,
-// "comission_document_item_id"  => @$_POST["comission_document_item_id"] ? $_POST["comission_document_item_id"] : NULL,
-// "comission_note"              => @$_POST["comission_note"]             ? $_POST["comission_note"]             : NULL,
-// "comission_status"            => @$_POST["comission_status"]           ? $_POST["comission_status"]           : NULL,
-// "comission_deadline_start"    => @$_POST["comission_deadline_start"]   ? $_POST["comission_deadline_start"]   : NULL,
-// "comission_deadline_end"      => @$_POST["comission_deadline_end"]     ? $_POST["comission_deadline_end"]     : NULL,
-// "comission_date_start"        => @$_POST["comission_date_start"]       ? $_POST["comission_date_start"]       : NULL,
-// "comission_date_end"          => @$_POST["comission_date_end"]         ? $_POST["comission_date_end"]         : NULL,
-// "comission_order"             => @$_POST["comission_order"]            ? $_POST["comission_order"]            : NULL,
-// "comission_limit"             => @$_POST["comission_limit"]            ? $_POST["comission_limit"]            : NULL,
-// "get_comission_user"          => @$_POST["get_comission_user"]         ? 1                                    : NULL,
-// "get_comission_employee"      => @$_POST["get_comission_client"]       ? 1                                    : NULL,
-// "get_comission_receivable"    => @$_POST["get_comission_payment_term"] ? 1                                    : NULL,
-// "get_comission_document_item" => @$_POST["get_comission_items"]        ? 1                                    : NULL
-

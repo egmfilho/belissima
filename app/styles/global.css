@@ -203,7 +203,9 @@ body {
   background-color: #baa526 !important;
   padding: 2px;
   border-color: #9e8a15;
-  z-index: 1051; }
+  z-index: 1051;
+  right: 0 !important;
+  left: auto !important; }
   .uib-datepicker-popup .text-info {
     color: white; }
   .uib-datepicker-popup small {
@@ -1151,7 +1153,7 @@ body {
 #tela-pdv .display .card {
   height: 250px; }
 
-#tela-ticket ul.dropdown-menu {
+#tela-ticket div.comanda ul.dropdown-menu, #tela-ticket div.dropdown ul.dropdown-menu, #tela-ticket div.servico-produtos ul.dropdown-menu {
   left: 0 !important;
   width: 100%; }
 #tela-ticket .rodape-salvar {
@@ -1253,6 +1255,9 @@ body {
 .input-group-btn span {
   width: 16px; }
 
+.form-clientes div.calendar ul.dropdown-menu {
+  left: 0 !important;
+  right: auto !important; }
 .form-clientes #tabela-clientes {
   width: 100%; }
 .form-clientes .cabecalho {
@@ -1289,6 +1294,9 @@ body {
     height: 100%;
     font-size: 1.4em; }
 
+#clientes div.calendar ul.dropdown-menu {
+  left: 0 !important;
+  right: auto !important; }
 #clientes .filtros {
   margin-bottom: 20px; }
   #clientes .filtros h4, #clientes .filtros select, #clientes .filtros button {
@@ -1337,12 +1345,19 @@ body {
 #crm .well {
   border-color: rgba(0, 0, 0, 0.25);
   background-color: rgba(0, 0, 0, 0.2); }
-#crm .tabela-comissao tr.aberto {
-  background-color: #3987c0 !important; }
-#crm .tabela-comissao tr.fechado {
-  background-color: #14a73a !important; }
-#crm .tabela-comissao tr.cancelado {
-  background-color: #a35f13 !important; }
+#crm .tabela-comissao tr td:first-child {
+  width: 30px; }
+  #crm .tabela-comissao tr td:first-child.fechado {
+    background-color: #3987c0 !important; }
+  #crm .tabela-comissao tr td:first-child.aberto {
+    background-color: #a77800 !important; }
+  #crm .tabela-comissao tr td:first-child.liberado {
+    background-color: #14a73a !important; }
+  #crm .tabela-comissao tr td:first-child.cancelado {
+    background-color: #a32f1e !important; }
+
+.crm-tooltip {
+  left: 75px !important; }
 
 .fc-toolbar {
   font-size: 1.2em; }

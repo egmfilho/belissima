@@ -41,16 +41,25 @@
         <option value="F">Feminino</option>
       </select>
     </div>
-    <div class="col-sm-12 col-md-12">
-      <h4>Categorias</h4>
-      <multiple-autocomplete  ng-model="pessoa.categorias" object-property="nome" suggestions-arr="categorias_pessoa"></multiple-autocomplete>
-    </div>
     <div class="col-xs-6 col-sm-3 col-md-3">
       <h4>Tipo</h4>
       <select name="tipo-pessoa" class="form-control" ng-model="pessoa.tipo">
         <option value="F">Física</option>
         <option value="J">Jurídica</option>
       </select>
+    </div>
+    <div class="col-sm-12 col-md-9">
+      <h4>Categorias</h4>
+      <multiple-autocomplete ng-model="pessoa.categorias" object-property="nome" suggestions-arr="categorias_pessoa"></multiple-autocomplete>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-3">
+      <h4>Nascimento</h4>
+      <div class="input-group calendar">
+        <input type="text" class="form-control text-center" name="data-nascimento" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" on-open-focus="false" is-open="popupCalendario" ng-model="pessoa.nascimento" datepicker-options="dateOptions" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar"/>
+        <div class="input-group-btn">
+          <button class="btn btn-default" ng-click="popupCalendario = !popupCalendario"><span class="glyphicon glyphicon-calendar"></span></button>
+        </div>
+      </div>
     </div>
     <div class="col-xs-6 col-sm-3 col-md-3">
       <h4>CPF</h4>

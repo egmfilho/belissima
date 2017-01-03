@@ -44,6 +44,14 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
+        obterPorCodigoDeBarras: function(codigo) {
+          return provider.get({
+            action: 'getList'
+          }, {
+            ticket_code: codigo
+          }).$promise;
+        },
+
         obterTodos: function(limite) {
           return provider.query({
             action: 'getList'

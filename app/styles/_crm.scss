@@ -71,22 +71,29 @@
   }
 
   .tabela-comissao {
-    tr {
-      &.aberto {
+    $opacidade: 1.0;
+    tr td:first-child {
+      width: 30px;
+
+      &.fechado {
         background-color: #3987c0 !important;
       }
 
-      &.liberado {
-        //background-color: #14a73a !important;
+      &.aberto {
+        background-color: #a77800 !important;
       }
 
-      &.fechado {
+      &.liberado {
         background-color: #14a73a !important;
       }
 
       &.cancelado {
-        background-color: #a35f13 !important;
+        background-color: #a32f1e !important;
       }
     }
   }
+}
+
+.crm-tooltip {
+  left: 75px !important;
 }

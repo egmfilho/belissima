@@ -27,6 +27,15 @@ angular.module('belissimaApp.controllers')
 
       var self = this;
 
+      $scope.format = 'dd/MM/yyyy';
+
+      $scope.dateOptions = {
+        formatYear: 'yyyy',
+        datepickerMode: 'year',
+        startingDay: 0,
+        showWeeks: false
+      };
+
       $scope.$on('$viewContentLoaded', function () {
         $scope.pessoa = new Pessoa();
         //$scope.pessoa.enderecos = [ new Endereco() ];
