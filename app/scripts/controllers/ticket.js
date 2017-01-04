@@ -35,6 +35,12 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   this.novoTicket = new Pedido();
   this.novoItem = new ItemPedido();
 
+  this.collapse =  {
+    produtos: false,
+    cliente: false,
+    pagamento: false
+  };
+
   $scope.ticketsArray = [];
 
   $scope.pagination = {
@@ -62,6 +68,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       if (!confirm('Deseja sair?')) {
         event.preventDefault();
       }
+      cleanURL();
     }
 
   });
@@ -90,16 +97,30 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       $rootScope.loading.unload();
       if ($routeParams.action == 'edit' && self.novoTicket.statusId != 1001) {
         $rootScope.alerta.show('Ticket indisponível para edição!', 'alert-danger');
-        escape_confirm = true;
-        $location.search('action', null);
-        $location.search('code', null);
-        $location.path('/ticket/list');
+        redirect();
       }
       console.log('novo ticket', self.novoTicket);
     }, function(error) {
       console.log(error);
       $rootScope.loading.unload();
+      redirect();
     });
+  }
+
+  function validarComanda(codigo) {
+    providerComanda.validar(codigo).then(null, function(error) {
+      redirect();
+    });
+  }
+
+  function cleanURL() {
+    $location.search('action', null);
+    $location.search('code', null);
+  }
+
+  function redirect() {
+    escape_confirm = true;
+    $location.path('/ticket/list');
   }
 
   $scope.$on('$viewContentLoaded', function () {
@@ -114,13 +135,16 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
           $scope.opcao = 'abrir';
           break;
         case 'new':
+          validarComanda($routeParams.card);
           $scope.opcao = 'novo';
-          self.novoTicket.codigoDeBarras = $routeParams.card;
+          self.novoTicket.comanda.codigoDeBarras = $routeParams.card;
+          focarCodigoFuncionario();
           break;
         case 'edit':
           if ($routeParams.code) {
             $scope.opcao = 'novo';
             obterTicket($routeParams.code);
+            focarCodigoFuncionario();
           } else {
 
           }
@@ -130,6 +154,9 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
           getTickets();
           break;
       }
+
+      self.collapse.cliente = true;
+      self.collapse.pagamento = true;
     }
   });
 
@@ -154,17 +181,30 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   };
 
   this.avancarParaCliente = function() {
-    this.opt = 'cliente';
+    this.collapse.cliente = false;
+    $scope.scrollTo(null, jQuery('ul[name="cliente"]'));
+
     setTimeout(function() {
       jQuery('input[name="cdCliente"]').focus().select();
     }, 200);
   };
 
   this.avancarParaPagamento = function() {
-    this.opt = 'pagamento';
+    this.collapse.pagamento = false;
+    $scope.scrollTo(null, jQuery('ul[name="pagamento"]'));
+
     setTimeout(function() {
       jQuery('input[name="cdPagamento"]').focus().select();
     }, 200);
+  };
+
+  $scope.scrollTo = function($event, elem) {
+    var container = jQuery('body'),
+        scrollTo  = $event ? jQuery('#' + $event.currentTarget.id) : elem;
+
+    container.animate({
+      scrollTop: scrollTo.offset().top - 20
+    });
   };
 
   function buscarPessoa(categoriaId) {

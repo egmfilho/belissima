@@ -1158,15 +1158,21 @@ body {
 #tela-ticket div.comanda ul.dropdown-menu, #tela-ticket div.dropdown ul.dropdown-menu, #tela-ticket div.servico-produtos ul.dropdown-menu {
   left: 0 !important;
   width: 100%; }
+#tela-ticket .nav-tabs li {
+  min-width: 200px; }
+  #tela-ticket .nav-tabs li .glyphicon {
+    float: right; }
 #tela-ticket .conteudo-nav a.resumo {
   text-decoration: none;
   color: white; }
   #tela-ticket .conteudo-nav a.resumo:hover {
     color: #ccc; }
+#tela-ticket .container-tabela.gnomo {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 20px !important; }
 #tela-ticket .rodape-salvar {
   margin-top: 30px; }
-#tela-ticket .tabela.tabela-produtos {
-  margin-top: 20px !important; }
 #tela-ticket .cabecalho {
   border-bottom: 1px solid white; }
 #tela-ticket .cabecalho-parcela {

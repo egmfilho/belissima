@@ -3,19 +3,14 @@
 <!--PRODUTO-->
 <ul class="nav nav-tabs">
   <li role="presentation" class="active">
-    <a href="" ng-click="collapse.produtos = !collapse.produtos">
+    <a href="" ng-click="ticket.collapse.produtos = !ticket.collapse.produtos">
       Serviços & Produtos
-      <span class="glyphicon" ng-class="{'glyphicon-menu-down': collapse.produtos, 'glyphicon-menu-up': !collapse.produtos}"></span>
+      <span class="glyphicon" ng-class="{'glyphicon-menu-down': ticket.collapse.produtos, 'glyphicon-menu-up': !ticket.collapse.produtos}"></span>
     </a>
   </li>
 </ul>
 <div class="conteudo-nav condensar-rows">
-  <div ng-show="collapse.produtos">
-    <a href="" class="resumo" ng-click="collapse.produtos = !collapse.produtos">
-      <h3 class="text-center">Total: <span class="lucilei">{{ticket.novoTicket.items.length}} {{ticket.novoTicket.items.length == 1 ? 'item' : 'itens'}}</span></h3>
-    </a>
-  </div>
-  <div class="servico-produtos" uib-collapse="collapse.produtos">
+  <div class="servico-produtos" uib-collapse="ticket.collapse.produtos">
     <div class="row">
       <div class="col-sm-2">
         <h4>Funcionário</h4>
@@ -42,10 +37,10 @@
         <div class="input-group">
           <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.avancarParaCliente()">
           <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="buscarProduto()" tabindex="-1">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-      </span>
+            <button type="button" class="btn btn-default" ng-click="buscarProduto()" tabindex="-1">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </span>
         </div>
       </div>
       <div class="col-sm-3">
@@ -69,7 +64,7 @@
 
     <div class="row">
       <div class="col-sm-12">
-        <div class="container-tabela">
+        <div class="container-tabela gnomo">
           <table class="tabela tabela-bordered tabela-esticada tabela-produtos">
             <thead>
             <tr>
@@ -103,7 +98,7 @@
                 </button>
               </td>
             </tr>
-            <tr class="hidden-xs" ng-repeat="n in getNumber(pagination.max > ticket.novoTicket.items.length ? pagination.max - ticket.novoTicket.items.length : 0) track by $index">
+            <tr class="hidden-xs" ng-repeat="n in getNumber(10 - ticket.novoTicket.items.length) track by $index">
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
@@ -120,25 +115,25 @@
       </div>
     </div>
   </div>
+  <div ng-show="ticket.collapse.produtos">
+    <a href="" class="resumo" ng-click="ticket.collapse.produtos = !ticket.collapse.produtos">
+      <h3 class="text-center">Total: <span class="lucilei">{{ticket.novoTicket.items.length}} {{ticket.novoTicket.items.length == 1 ? 'item' : 'itens'}}</span></h3>
+    </a>
+  </div>
 </div>
 
 <!--CLIENTE-->
 <br>
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" name="cliente">
   <li role="presentation" class="active">
-    <a href="" ng-click="collapse.cliente = !collapse.cliente">
+    <a href="" ng-click="ticket.collapse.cliente = !ticket.collapse.cliente">
       Cliente
-      <span class="glyphicon" ng-class="{'glyphicon-menu-down': collapse.cliente, 'glyphicon-menu-up': !collapse.cliente}"></span>
+      <span class="glyphicon" ng-class="{'glyphicon-menu-down': ticket.collapse.cliente, 'glyphicon-menu-up': !ticket.collapse.cliente}"></span>
     </a>
   </li>
 </ul>
 <div class="conteudo-nav condensar-rows">
-  <div ng-show="collapse.cliente">
-    <a href="" class="resumo" ng-click="collapse.cliente = !collapse.cliente">
-      <h3 class="text-center">Cliente: <span class="lucilei">({{ticket.novoTicket.cliente.codigo}}) {{ticket.novoTicket.cliente.nome}}</span></h3>
-    </a>
-  </div>
-  <div uib-collapse="collapse.cliente">
+  <div uib-collapse="ticket.collapse.cliente">
     <div class="row">
       <div class="col-sm-12 col-md-12 cabecalho">
         <h4>Informações</h4>
@@ -181,25 +176,26 @@
       </div>
     </div>
   </div>
+  <div ng-show="ticket.collapse.cliente">
+    <a href="" class="resumo" ng-click="ticket.collapse.cliente = !ticket.collapse.cliente">
+      <h3 class="text-center" ng-show="ticket.novoTicket.cliente.id">Cliente: <span class="lucilei">({{ticket.novoTicket.cliente.codigo}}) {{ticket.novoTicket.cliente.nome}}</span></h3>
+      <h3 class="text-center" ng-hide="ticket.novoTicket.cliente.id">Nenhum cliente informado.</h3>
+    </a>
+  </div>
 </div>
 
 <!--PAGAMENTO-->
 <br>
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" name="pagamento">
   <li role="presentation" class="active">
-    <a href="" class="resumo" ng-click="collapse.pagamento = !collapse.pagamento">
+    <a href="" class="resumo" ng-click="ticket.collapse.pagamento = !ticket.collapse.pagamento">
       Pagamento
-      <span class="glyphicon" ng-class="{'glyphicon-menu-down': collapse.pagamento, 'glyphicon-menu-up': !collapse.pagamento}"></span>
+      <span class="glyphicon" ng-class="{'glyphicon-menu-down': ticket.collapse.pagamento, 'glyphicon-menu-up': !ticket.collapse.pagamento}"></span>
     </a>
   </li>
 </ul>
 <div class="conteudo-nav condensar-rows">
-  <div ng-show="collapse.pagamento">
-    <a href="" class="resumo" ng-click="collapse.pagamento = !collapse.pagamento">
-      <h3 class="text-center">Prazo selecionado: <span class="lucilei">{{ticket.novoTicket.prazo.descricao}}</span></h3>
-    </a>
-  </div>
-  <div uib-collapse="collapse.pagamento">
+  <div uib-collapse="ticket.collapse.pagamento">
     <div class="row">
       <div class="col-sm-3">
         <h4>Prazo</h4>
@@ -252,6 +248,12 @@
         <h1 class="pull-right">Troco: {{ticket.novoTicket.getTroco() | currency: 'R$ '}}</h1>
       </div>
     </div>
+  </div>
+  <div ng-show="ticket.collapse.pagamento">
+    <a href="" class="resumo" ng-click="ticket.collapse.pagamento = !ticket.collapse.pagamento">
+      <h3 class="text-center" ng-show="ticket.novoTicket.prazoId">Prazo selecionado: <span class="lucilei">{{ticket.novoTicket.prazo.descricao}}</span></h3>
+      <h3 class="text-center" ng-hide="ticket.novoTicket.prazoId">Nenhuma forma de pagamento informada.</h3>
+    </a>
   </div>
 </div>
 

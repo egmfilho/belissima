@@ -40,15 +40,23 @@ angular.module('belissimaApp.services')
           return provider.get({
             action: 'get'
           }, {
-            ticket_code: codigo
+            card_code: codigo
           }).$promise;
         },
 
         obterPorCodigoDeBarras: function(codigo) {
           return provider.get({
-            action: 'getList'
+            action: 'get'
           }, {
-            ticket_code: codigo
+            card_code_bar: codigo
+          }).$promise;
+        },
+
+        validar: function(codigoDeBarras) {
+          return provider.get({
+            action: 'verify_card'
+          }, {
+            card_code_bar: codigoDeBarras
           }).$promise;
         },
 
@@ -56,7 +64,7 @@ angular.module('belissimaApp.services')
           return provider.query({
             action: 'getList'
           }, {
-            ticket_limit: limite
+            card_limit: limite
           }).$promise;
         },
 
