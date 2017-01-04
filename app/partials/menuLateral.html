@@ -24,7 +24,7 @@
           PDV <span class="glyphicon glyphicon-shopping-cart"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/ticket'}" redireciona="/ticket/open" title="Ticket">
+        <div class="btn btn-default ng-class:{'ativo': currentPath.indexOf('/ticket') >= 0}" redireciona="/ticket/open" title="Ticket">
           Ticket <span class="glyphicon glyphicon-barcode"></span>
         </div>
 
@@ -36,7 +36,7 @@
           Movimentação <span class="glyphicon glyphicon-tasks"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/clientes'}" redireciona="/pessoas" title="Pessoas">
+        <div class="btn btn-default ng-class:{'ativo': currentPath === '/pessoas'}" redireciona="/pessoas" title="Pessoas">
           Pessoas <span class="glyphicon glyphicon-user"></span>
         </div>
 
