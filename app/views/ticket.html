@@ -2,12 +2,18 @@
 
   <div class="conteudo-tela">
     <ul class="nav nav-tabs">
-      <li role="presentation" ng-class="opcao === 'abrir' ? 'active' : ''"><a href="#/ticket/open" >Abrir</a></li>
-      <li role="presentation" ng-class="opcao === 'listar' ? 'active' : ''"><a href="#/ticket/list" >Ver todos</a></li>
-      <!--<li role="presentation" ng-class="opcao === 'novo' ? 'active' : ''"><a href="#/ticket/new">{{ticket.novoTicket.id ? 'Editar' : 'Novo'}}</a></li>-->
+      <li role="presentation" ng-class="opcao === 'abrir' ? 'active' : ''" ng-hide="opcao === 'novo'"><a href="#/ticket/open" >Abrir</a></li>
+      <li role="presentation" ng-class="opcao === 'listar' ? 'active' : ''" ng-hide="opcao === 'novo'"><a href="#/ticket/list" >Ver todos</a></li>
+      <!--<li role="presentation" ng-class="opcao === 'novo' ? 'active' : ''" ng-show="opcao === 'novo'"><a href="#/ticket/new">{{ticket.novoTicket.id ? 'Editar' : 'Novo'}}</a></li>-->
     </ul>
     <div class="conteudo-nav condensar-rows">
-      <div ng-show="opcao === 'novo'" ng-include="'partials/formNovoTicket.html'"></div>
+      <div ng-show="opcao === 'novo'">
+        <h3 class="text-center" ng-if="!ticket.novoTicket.id">Novo Ticket</h3>
+        <div class="text-center" ng-if="ticket.novoTicket.id">
+          <h3><span class="glyphicon glyphicon-tag"></span> Ticket aberto em: <span class="lucilei">{{ticket.novoTicket.dataPedido | date: 'short'}}</span></h3>
+          <h3><span class="glyphicon glyphicon-barcode"></span> Código da comanda: <span class="lucilei">{{ticket.novoTicket.comanda.codigoDeBarras}}</span></h3>
+        </div>
+      </div>
 
       <div ng-show="opcao === 'abrir'">
         <div class="col-xs-12">
@@ -75,6 +81,8 @@
       </div>
 
     </div>
+
+    <div ng-show="opcao === 'novo'" ng-include="'partials/formNovoTicket.html'"></div>
   </div>
 
 </tela>

@@ -7,9 +7,9 @@
 angular.module('belissimaApp.services')
   .factory('Pedido', Pedido);
 
-Pedido.$inject = [ 'Pessoa', 'ItemPedido', 'PrazoPagamento', 'Pagamento', 'DataSaida' ];
+Pedido.$inject = [ 'Pessoa', 'ItemPedido', 'PrazoPagamento', 'Pagamento', 'Comanda', 'DataSaida' ];
 
-function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
+function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, Comanda, DataSaida) {
 
   function Pedido(p) {
     var self = this;
@@ -51,7 +51,8 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     //   });
     // }
 
-    this.codigoDeBarras = p ? p.codigoDeBarras : '';
+    this.comandaId = p ? p.comandaId : '';
+    this.comanda = p ? p.comanda : new Comanda();
   }
 
   Pedido.prototype = {
@@ -142,7 +143,13 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
     pedido.valorComDesconto = parseFloat(p.ticket_value_total);
     pedido.dataAtualizacao = new Date(p.ticket_update);
     pedido.dataPedido = new Date(p.ticket_date);
-    pedido.codigoDeBarras = p.card_code_bar || '';
+    pedido.comandaId = p.ticket_card_id;
+
+    if (p.ticket_card) {
+      pedido.comanda = new Comanda(Comanda.converterEmEntrada(p.ticket_card));
+    } else {
+      pedido.comanda = new Comanda();
+    }
 
     if (p.ticket_employee) {
       pedido.vendedor = new Pessoa(Pessoa.converterEmEntrada(p.ticket_employee));
@@ -235,7 +242,7 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, DataSaida) {
       p.document_payments.push(Pagamento.converterEmSaida(item));
     });
 
-    p.card_code_bar = pedido.codigoDeBarras || '';
+    p.ticket_card_id = pedido.comandaId;
 
     return p;
   };

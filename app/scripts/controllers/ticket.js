@@ -373,7 +373,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   };
 
   function setParcelas() {
-    console.log(self.novoTicket.pagamentos.length);
+    // console.log(self.novoTicket.pagamentos.length);
     // if (self.novoTicket.pagamentos.length == self.novoTicket.prazo.parcelas) {
     //   for (var i = 0; i < self.novoTicket.prazo.parcelas; i++) {
     //     self.novoTicket.pagamentos[i].valor = self.novoTicket.getValorTotal() / self.novoTicket.prazo.parcelas;

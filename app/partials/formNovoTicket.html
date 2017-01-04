@@ -1,266 +1,270 @@
-<ul class="hidden-xs nav nav-pills nav-justified nav-pills-claro" ng-init="ticket.opt = 'produtos'">
-  <li role="presentation" ng-class="ticket.opt === 'produtos' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="ticket.opt = 'produtos'">Serviços & Produtos</a></li>
-  <li role="presentation" ng-class="ticket.opt === 'cliente' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="ticket.opt = 'cliente'">Cliente</a></li>
-  <li role="presentation" ng-class="ticket.opt === 'pagamento' ? 'active' : ''"><a href="" class="sombra-texto" ng-click="ticket.opt = 'pagamento'">Pagamento</a></li>
-</ul>
-<div class="dropdown visible-xs-inline" ng-init="label='Funcionário'">
-  <button class="btn btn-default botao-esticado dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    {{label}}
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="" ng-click="ticket.opt = 'produtos'; label = 'Produtos'"><span class="glyphicon glyphicon-ok" ng-show="ticket.opt==='produtos'"></span>&nbsp;Serviços & Produtos</a></li>
-    <li><a href="" ng-click="ticket.opt = 'cliente'; label = 'Cliente'"><span class="glyphicon glyphicon-ok" ng-show="ticket.opt==='cliente'"></span>&nbsp; Cliente</a></li>
-    <li><a href="" ng-click="ticket.opt = 'pagamento'; label = 'Pagamento'"><span class="glyphicon glyphicon-ok" ng-show="ticket.opt==='pagamento'"></span>&nbsp; Pagamento</a></li>
-  </ul>
-</div>
 <br>
 
 <!--PRODUTO-->
-<div class="servico-produtos" ng-show="ticket.opt === 'produtos'">
-  <div class="row">
-    <div class="col-sm-2">
-      <h4>Funcionário</h4>
-      <div class="input-group">
-        <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" shift-enter="ticket.avancarParaCliente()">
-        <span class="input-group-btn">
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active">
+    <a href="" ng-click="collapse.produtos = !collapse.produtos">
+      Serviços & Produtos
+      <span class="glyphicon" ng-class="{'glyphicon-menu-down': collapse.produtos, 'glyphicon-menu-up': !collapse.produtos}"></span>
+    </a>
+  </li>
+</ul>
+<div class="conteudo-nav condensar-rows">
+  <div ng-show="collapse.produtos">
+    <a href="" class="resumo" ng-click="collapse.produtos = !collapse.produtos">
+      <h3 class="text-center">Total: <span class="lucilei">{{ticket.novoTicket.items.length}} {{ticket.novoTicket.items.length == 1 ? 'item' : 'itens'}}</span></h3>
+    </a>
+  </div>
+  <div class="servico-produtos" uib-collapse="collapse.produtos">
+    <div class="row">
+      <div class="col-sm-2">
+        <h4>Funcionário</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" shift-enter="ticket.avancarParaCliente()">
+          <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="buscarFuncionario()">
               <i class="glyphicon glyphicon-search" tabindex="-1"></i>
             </button>
           </span>
+        </div>
       </div>
-    </div>
-    <div class="col-sm-3">
-      <h4>Nome</h4>
-      <input type="text" name="nmFuncionario" class="form-control" placeholder="Nome do funcionário" ng-model="ticket.tempFuncionario"
-             keys-shortcuts enter="addItem()" shift-enter="ticket.opt = 'cliente'"
-             uib-typeahead="funcionario as funcionario.nome for funcionario in buscarFuncionarioPorNome($viewValue)"
-             typeahead-min-length="3"
-             typeahead-wait-ms="300"
-             typeahead-on-select="selectFuncionario($item)">
-    </div>
-    <div class="col-sm-2">
-      <h4>Produto</h4>
-      <div class="input-group">
-        <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.avancarParaCliente()">
-        <span class="input-group-btn">
+      <div class="col-sm-3">
+        <h4>Nome</h4>
+        <input type="text" name="nmFuncionario" class="form-control" placeholder="Nome do funcionário" ng-model="ticket.tempFuncionario"
+               keys-shortcuts enter="addItem()" shift-enter="ticket.opt = 'cliente'"
+               uib-typeahead="funcionario as funcionario.nome for funcionario in buscarFuncionarioPorNome($viewValue)"
+               typeahead-min-length="3"
+               typeahead-wait-ms="300"
+               typeahead-on-select="selectFuncionario($item)">
+      </div>
+      <div class="col-sm-2">
+        <h4>Produto</h4>
+        <div class="input-group">
+          <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.avancarParaCliente()">
+          <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="buscarProduto()" tabindex="-1">
           <i class="glyphicon glyphicon-search"></i>
         </button>
       </span>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <h4>Nome</h4>
+        <input type="text" name="nmProduto" class="form-control" placeholder="Nome do produto" ng-model="ticket.tempProduto"
+               keys-shortcuts enter="ticket.focarQuantidade()" shift-enter="ticket.opt = 'cliente'"
+               uib-typeahead="produto as produto.nome for produto in buscarProdutoPorNome($viewValue)"
+               typeahead-min-length="3"
+               typeahead-wait-ms="300"
+               typeahead-on-select="selectProduto($item)">
+      </div>
+      <div class="col-sm-1">
+        <h4>Qtd</h4>
+        <input type="text" name="qtdProduto" class="form-control" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="ticket.avancarParaCliente()">
+      </div>
+      <div class="col-sm-1">
+        <h4>Preço</h4>
+        <input type="text" class="form-control" readonly ng-value="ticket.novoItem.produto.preco.valor | currency: 'R$'" >
       </div>
     </div>
-    <div class="col-sm-3">
-      <h4>Nome</h4>
-      <input type="text" name="nmProduto" class="form-control" placeholder="Nome do produto" ng-model="ticket.tempProduto"
-             keys-shortcuts enter="ticket.focarQuantidade()" shift-enter="ticket.opt = 'cliente'"
-             uib-typeahead="produto as produto.nome for produto in buscarProdutoPorNome($viewValue)"
-             typeahead-min-length="3"
-             typeahead-wait-ms="300"
-             typeahead-on-select="selectProduto($item)">
-    </div>
-    <div class="col-sm-1">
-      <h4>Qtd</h4>
-      <input type="text" name="qtdProduto" class="form-control" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="ticket.avancarParaCliente()">
-    </div>
-    <div class="col-sm-1">
-      <h4>Preço</h4>
-      <input type="text" class="form-control" readonly ng-value="ticket.novoItem.produto.preco.valor | currency: 'R$'" >
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="container-tabela">
-        <table class="tabela tabela-bordered tabela-esticada tabela-produtos">
-          <thead>
-          <tr>
-            <th>Funcionário</th>
-            <th>Produto</th>
-            <th>Qtd.</th>
-            <th>Preço</th>
-            <th>Total</th>
-            <th>&nbsp;</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="i in ticket.novoTicket.items">
-            <td data-label="Funcionário">({{i.funcionario.codigo}}) {{i.funcionario.nome | truncate : 30}}</td>
-            <td data-label="Produto">({{i.produto.codigo}}) {{i.produto.nome | truncate : 30}}</td>
-            <td class="editable-td hidden-xs" editable-td>
-              <span>{{i.quantidade | currency : ''}}</span>
-              <input currency symbol="''" number-only type="text" ng-model="i.quantidade" ng-blur="i.quantidade <= 0 || !i.quantidade ? i.quantidade = 1 : ''">
-            </td>
-            <td data-label="Quantidade" class="visible-xs-block">{{i.quantidade | currency : ''}}</td>
-            <td data-label="Preço">{{i.precoProduto | currency: 'R$ '}}</td>
-            <td data-label="Total">{{i.getTotalComDesconto() | currency: 'R$ '}}</td>
-            <td class="hidden-xs">
-              <a href="" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="removeItem(i)" placement="left">
-                <span class="glyphicon glyphicon-trash"></span>
-              </a>
-            </td>
-            <td class="visible-xs-block">
-              <button class="btn btn-default" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="removeItem(i)" placement="auto">
-                <span class="glyphicon glyphicon-trash"></span> Excluir
-              </button>
-            </td>
-          </tr>
-          <tr class="hidden-xs" ng-repeat="n in getNumber(pagination.max > ticket.novoTicket.items.length ? pagination.max - ticket.novoTicket.items.length : 0) track by $index">
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-          </tr>
-          </tbody>
-        </table>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="container-tabela">
+          <table class="tabela tabela-bordered tabela-esticada tabela-produtos">
+            <thead>
+            <tr>
+              <th>Funcionário</th>
+              <th>Produto</th>
+              <th>Qtd.</th>
+              <th>Preço</th>
+              <th>Total</th>
+              <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="i in ticket.novoTicket.items">
+              <td data-label="Funcionário">({{i.funcionario.codigo}}) {{i.funcionario.nome | truncate : 30}}</td>
+              <td data-label="Produto">({{i.produto.codigo}}) {{i.produto.nome | truncate : 30}}</td>
+              <td class="editable-td hidden-xs" editable-td>
+                <span>{{i.quantidade | currency : ''}}</span>
+                <input currency symbol="''" number-only type="text" ng-model="i.quantidade" ng-blur="i.quantidade <= 0 || !i.quantidade ? i.quantidade = 1 : ''">
+              </td>
+              <td data-label="Quantidade" class="visible-xs-block">{{i.quantidade | currency : ''}}</td>
+              <td data-label="Preço">{{i.precoProduto | currency: 'R$ '}}</td>
+              <td data-label="Total">{{i.getTotalComDesconto() | currency: 'R$ '}}</td>
+              <td class="hidden-xs">
+                <a href="" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="removeItem(i)" placement="left">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>
+              </td>
+              <td class="visible-xs-block">
+                <button class="btn btn-default" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="removeItem(i)" placement="auto">
+                  <span class="glyphicon glyphicon-trash"></span> Excluir
+                </button>
+              </td>
+            </tr>
+            <tr class="hidden-xs" ng-repeat="n in getNumber(pagination.max > ticket.novoTicket.items.length ? pagination.max - ticket.novoTicket.items.length : 0) track by $index">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-    <div class="col-xs-12">
-      <h1 class="pull-right">Total: {{ticket.novoTicket.getValorTotal() | currency: 'R$ '}}</h1>
-    </div>
-  </div>
-
-  <div class="row rodape-salvar">
-    <div class="col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="ticket.opt='funcionario'">
-        <span class="glyphicon glyphicon-chevron-left"></span> Voltar
-      </button>
-    </div>
-    <div class="col-sm-6 col-md-6 text-center">Etapa 1 de 3</div>
-    <div class="col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="ticket.opt='cliente'">
-        Avançar <span class="glyphicon glyphicon-chevron-right"></span>
-      </button>
+      <div class="col-xs-12">
+        <h1 class="pull-right">Total: {{ticket.novoTicket.getValorTotal() | currency: 'R$ '}}</h1>
+      </div>
     </div>
   </div>
 </div>
 
 <!--CLIENTE-->
-<div ng-show="ticket.opt === 'cliente'">
-  <div class="row">
-    <div class="col-sm-12 col-md-12 cabecalho">
-      <h4>Informações</h4>
-    </div>
-    <div class="col-sm-2">
-      <h4>Código</h4>
-      <div class="input-group">
-        <input type="text" class="form-control" name="cdCliente" ng-model="ticket.novoTicket.cliente.codigo" number-only keys-shortcuts enter="buscarClientePorCodigo(ticket.novoTicket.cliente.codigo)" shift-enter="ticket.avancarParaPagamento()">
-        <span class="input-group-btn">
+<br>
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active">
+    <a href="" ng-click="collapse.cliente = !collapse.cliente">
+      Cliente
+      <span class="glyphicon" ng-class="{'glyphicon-menu-down': collapse.cliente, 'glyphicon-menu-up': !collapse.cliente}"></span>
+    </a>
+  </li>
+</ul>
+<div class="conteudo-nav condensar-rows">
+  <div ng-show="collapse.cliente">
+    <a href="" class="resumo" ng-click="collapse.cliente = !collapse.cliente">
+      <h3 class="text-center">Cliente: <span class="lucilei">({{ticket.novoTicket.cliente.codigo}}) {{ticket.novoTicket.cliente.nome}}</span></h3>
+    </a>
+  </div>
+  <div uib-collapse="collapse.cliente">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 cabecalho">
+        <h4>Informações</h4>
+      </div>
+      <div class="col-sm-2">
+        <h4>Código</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" name="cdCliente" ng-model="ticket.novoTicket.cliente.codigo" number-only keys-shortcuts enter="buscarClientePorCodigo(ticket.novoTicket.cliente.codigo)" shift-enter="ticket.avancarParaPagamento()">
+          <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="buscarCliente()"><i class="glyphicon glyphicon-search"></i></button>
         </span>
+        </div>
       </div>
-    </div>
-    <div class="col-sm-6">
-      <h4>Nome</h4>
-      <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.nome" readonly>
-    </div>
-    <div class="col-sm-4">
-      <h4>Apelido</h4>
-      <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.apelido" readonly>
-    </div>
-    <div class="col-sm-3">
-      <h4>Tipo</h4>
-      <select class="form-control" ng-model="ticket.novoTicket.cliente.tipo" readonly disabled>
-        <option value="F">Físico</option>
-        <option value="J">Jurídico</option>
-      </select>
-    </div>
-    <div class="col-sm-3">
-      <h4>CPF</h4>
-      <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.cpf" readonly>
-    </div>
-    <div class="col-sm-3">
-      <h4>RG</h4>
-      <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.rg" readonly>
-    </div>
-    <div class="col-sm-3">
-      <h4>CNPJ</h4>
-      <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.cnpj" readonly>
-    </div>
-  </div>
-  <br>
-  <br>
-  <div class="row">
-    <div class="col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="ticket.opt='produtos'">
-        <span class="glyphicon glyphicon-chevron-left"></span> Voltar
-      </button>
-    </div>
-    <div class="col-sm-6 col-md-6 text-center">Etapa 2 de 3</div>
-    <div class="col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="ticket.opt='pagamento'">
-        Avançar <span class="glyphicon glyphicon-chevron-right"></span>
-      </button>
+      <div class="col-sm-6">
+        <h4>Nome</h4>
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.nome" readonly>
+      </div>
+      <div class="col-sm-4">
+        <h4>Apelido</h4>
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.apelido" readonly>
+      </div>
+      <div class="col-sm-3">
+        <h4>Tipo</h4>
+        <select class="form-control" ng-model="ticket.novoTicket.cliente.tipo" readonly disabled>
+          <option value="F">Físico</option>
+          <option value="J">Jurídico</option>
+        </select>
+      </div>
+      <div class="col-sm-3">
+        <h4>CPF</h4>
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.cpf" readonly>
+      </div>
+      <div class="col-sm-3">
+        <h4>RG</h4>
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.rg" readonly>
+      </div>
+      <div class="col-sm-3">
+        <h4>CNPJ</h4>
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.cnpj" readonly>
+      </div>
     </div>
   </div>
 </div>
 
 <!--PAGAMENTO-->
-<div ng-show="ticket.opt === 'pagamento'">
-  <div class="row">
-    <div class="col-sm-3">
-      <h4>Prazo</h4>
-      <div class="input-group">
-        <input type="text" class="form-control" name="cdPagamento" placeholder="Código" ng-model="ticket.cdPrazo" keys-shortcuts enter="buscarPrazoPorCodigo(ticket.cdPrazo)">
-        <span class="input-group-btn">
+<br>
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active">
+    <a href="" class="resumo" ng-click="collapse.pagamento = !collapse.pagamento">
+      Pagamento
+      <span class="glyphicon" ng-class="{'glyphicon-menu-down': collapse.pagamento, 'glyphicon-menu-up': !collapse.pagamento}"></span>
+    </a>
+  </li>
+</ul>
+<div class="conteudo-nav condensar-rows">
+  <div ng-show="collapse.pagamento">
+    <a href="" class="resumo" ng-click="collapse.pagamento = !collapse.pagamento">
+      <h3 class="text-center">Prazo selecionado: <span class="lucilei">{{ticket.novoTicket.prazo.descricao}}</span></h3>
+    </a>
+  </div>
+  <div uib-collapse="collapse.pagamento">
+    <div class="row">
+      <div class="col-sm-3">
+        <h4>Prazo</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" name="cdPagamento" placeholder="Código" ng-model="ticket.cdPrazo" keys-shortcuts enter="buscarPrazoPorCodigo(ticket.cdPrazo)">
+          <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="buscarPrazo()">
             <i class="glyphicon glyphicon-search"></i>
           </button>
         </span>
-      </div>
-    </div>
-    <div class="col-sm-9">
-      <h4>Descrição</h4>
-      <input type="text" class="form-control" placeholder="Descrição do prazo" ng-model="ticket.tempPrazo"
-             keys-shortcuts enter=""
-             uib-typeahead="prazo as prazo.descricao for prazo in buscarPrazosPorDescricao($viewValue)"
-             typeahead-min-length="2"
-             typeahead-wait-ms="300"
-             typeahead-on-select="prepararPrazo($item)">
-    </div>
-
-    <div class="col-xs-12 cabecalho-parcela" ng-repeat="pagamento in ticket.novoTicket.pagamentos track by $index">
-      <h4>Parcela {{$index + 1}}</h4>
-      <div class="row">
-        <div class="col-sm-4">
-          <h4>Forma</h4>
-          <select class="form-control" ng-options="forma.id as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="pagamento.formaId" ng-change="pagamento.setForma(forma)">
-            <option value="" disabled>Selecione a forma de pagamento</option>
-          </select>
         </div>
-        <div class="col-sm-4">
-          <h4>Vencimento</h4>
-          <div class="input-group">
-            <input type="text" class="form-control text-center" name="data-vencimento" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" on-open-focus="false" is-open="pagamento.popupCalendario" ng-model="pagamento.vencimento" datepicker-options="dateOptions" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar"/>
-            <div class="input-group-btn">
-              <button class="btn btn-default" ng-click="pagamento.popupCalendario = !pagamento.popupCalendario"><span class="glyphicon glyphicon-calendar"></span></button>
+      </div>
+      <div class="col-sm-9">
+        <h4>Descrição</h4>
+        <input type="text" class="form-control" placeholder="Descrição do prazo" ng-model="ticket.tempPrazo"
+               keys-shortcuts enter=""
+               uib-typeahead="prazo as prazo.descricao for prazo in buscarPrazosPorDescricao($viewValue)"
+               typeahead-min-length="2"
+               typeahead-wait-ms="300"
+               typeahead-on-select="prepararPrazo($item)">
+      </div>
+
+      <div class="col-xs-12 cabecalho-parcela" ng-repeat="pagamento in ticket.novoTicket.pagamentos track by $index">
+        <h4>Parcela {{$index + 1}}</h4>
+        <div class="row">
+          <div class="col-sm-4">
+            <h4>Forma</h4>
+            <select class="form-control" ng-options="forma.id as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="pagamento.formaId">
+              <option value="" disabled>Selecione a forma de pagamento</option>
+            </select>
+          </div>
+          <div class="col-sm-4">
+            <h4>Vencimento</h4>
+            <div class="input-group">
+              <input type="text" class="form-control text-center" name="data-vencimento" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" on-open-focus="false" is-open="pagamento.popupCalendario" ng-model="pagamento.vencimento" datepicker-options="dateOptions" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar"/>
+              <div class="input-group-btn">
+                <button class="btn btn-default" ng-click="pagamento.popupCalendario = !pagamento.popupCalendario"><span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <h4>Valor</h4>
-          <input type="text" class="form-control text-right" ng-model="pagamento.valor" currency readonly>
+          <div class="col-sm-4">
+            <h4>Valor</h4>
+            <input type="text" class="form-control text-right" ng-model="pagamento.valor" currency readonly>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-xs-12 clear-fix cabecalho-parcela">
-      <h1 class="pull-left">Total: {{ticket.novoTicket.getValorTotal() | currency: 'R$ '}}</h1>
-      <h1 class="pull-right">Troco: {{ticket.novoTicket.getTroco() | currency: 'R$ '}}</h1>
+      <div class="col-xs-12 clear-fix cabecalho-parcela">
+        <h1 class="pull-left">Total: {{ticket.novoTicket.getValorTotal() | currency: 'R$ '}}</h1>
+        <h1 class="pull-right">Troco: {{ticket.novoTicket.getTroco() | currency: 'R$ '}}</h1>
+      </div>
     </div>
-
   </div>
-  <br>
-  <br>
+</div>
+
+<br>
+<ul class="nav nav-tabs"></ul>
+<div class="conteudo-nav condensar-rows">
   <div class="row">
     <div class="col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="ticket.opt='cliente'">
+      <a class="btn btn-default botao-esticado" href="#/ticket/list">
         <span class="glyphicon glyphicon-chevron-left"></span> Voltar
-      </button>
+      </a>
     </div>
-    <div class="col-sm-6 col-md-6 text-center">Etapa 3 de 3</div>
+    <div class="col-sm-6 col-md-6 text-center"></div>
     <div class="col-sm-3 col-md-3">
       <button class="btn btn-default botao-esticado" ng-click="ticket.salvar()">
         <span class="glyphicon glyphicon-floppy-save"></span> Salvar

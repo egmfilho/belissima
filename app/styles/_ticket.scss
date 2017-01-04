@@ -1,8 +1,21 @@
 #tela-ticket {
+  .lucilei {
+    color: #bdbdbd;
+  }
+
   div.comanda, div.dropdown, div.servico-produtos {
     ul.dropdown-menu {
       left: 0 !important;
       width: 100%;
+    }
+  }
+
+  .conteudo-nav a.resumo {
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+      color: #ccc;
     }
   }
 

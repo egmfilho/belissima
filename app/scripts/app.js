@@ -170,6 +170,13 @@ angular
     // - Tela de Ticket controlada através da comanda
     // - Novo ícone para tela de Ticket
     // - Gerenciamento de comandas na tela de configurações do sistema
+    // - Corrigido problema de regressao nas datas das parcelas
+    // - Opcao de desvincular pessoa do usuario
+    //
+    // ver 0.8.1
+    //
+    // - Nova tela de ticket
+    // -
     $rootScope.versao = '0.8';
   }])
   .run(['$rootScope', '$location', '$cookies', '$timeout', '$uibModalStack', function($rootScope, $location, $cookies, $timeout, $uibModalStack) {

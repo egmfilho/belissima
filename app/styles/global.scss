@@ -308,7 +308,7 @@ body {
     margin: 0 auto;
     position: relative;
 
-    button {
+    button, a.btn {
       @extend .botao;
     }
   }
