@@ -1,4 +1,8 @@
 #crm {
+  $fechado: #3987c0;
+  $aberto: #ff9a1f;
+  $liberado: #14a73a;
+  $cancelado: #cc3217;
 
   .avatar {
     width: 100%;
@@ -70,25 +74,65 @@
     background-color: rgba(0,0,0,.2);
   }
 
+  .squaredOne {
+    margin: 4px;
+
+    &.aberto {
+      label:after {
+        @include linearGradient($aberto, darken($aberto, 10%));
+      }
+    }
+
+    &.liberado {
+      label:after {
+        @include linearGradient($liberado, darken($liberado, 10%));
+      }
+    }
+
+    &.fechado {
+      label:after {
+        @include linearGradient($fechado, darken($fechado, 10%));
+      }
+    }
+
+    &.cancelado {
+      label:after {
+        @include linearGradient($cancelado, darken($cancelado, 10%));
+      }
+    }
+
+    label{
+      span{
+        padding-left: 15px;
+        font-size: 1.4em;
+        line-height: 22px;
+      }
+    }
+  }
+
   .tabela-comissao {
     $opacidade: 1.0;
     tr td:first-child {
       width: 30px;
 
       &.fechado {
-        background-color: #3987c0 !important;
+        //background-color: $fechado !important;
+        @include linearGradient($fechado, darken($fechado, 10%));
       }
 
       &.aberto {
-        background-color: #a77800 !important;
+        //background-color: $aberto !important;
+        @include linearGradient($aberto, darken($aberto, 10%));
       }
 
       &.liberado {
-        background-color: #14a73a !important;
+        //background-color: $liberado !important;
+        @include linearGradient($liberado, darken($liberado, 10%));
       }
 
       &.cancelado {
-        background-color: #a32f1e !important;
+        //background-color: $cancelado !important;
+        @include linearGradient($cancelado, darken($cancelado, 10%));
       }
     }
   }

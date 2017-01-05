@@ -67,6 +67,7 @@ angular.module('belissimaApp.services')
             get_ticket_payment_term: getPrazo,
             get_ticket_payments: getPagamento,
             get_ticket_payment_mode: getFormasPagamento,
+            get_ticket_card: true,
             ticket_status_id: statusId,
             ticket_limit: limite
           }).$promise;

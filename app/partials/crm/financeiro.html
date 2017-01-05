@@ -12,15 +12,39 @@
     <div class="col-xs-12" uib-collapse="collapse_filtro">
       <div class="well well-sm">
         <div class="row">
-          <div class="col-sm-2">
-            <h4>Status</h4>
-            <select class="form-control" ng-model="filtros.status">
-              <option value="">Todos</option>
-              <option value="A">Aberto</option>
-              <option value="L">Liberado</option>
-              <option value="F">Fechado</option>
-              <option value="C">Cancelado</option>
-            </select>
+          <!--<div class="col-sm-2">-->
+            <!--<h4>Status</h4>-->
+            <!--<select class="form-control" ng-model="filtros.status">-->
+              <!--<option value="">Todos</option>-->
+              <!--<option value="A">Aberto</option>-->
+              <!--<option value="L">Liberado</option>-->
+              <!--<option value="F">Fechado</option>-->
+              <!--<option value="C">Cancelado</option>-->
+            <!--</select>-->
+          <!--</div>-->
+          <div class="col-sm-3">
+            <div class="squaredOne checkbox aberto">
+              <input type="checkbox" value="None" id="check-aberto" name="check" ng-model="filtros.status.aberto" />
+              <label for="check-aberto"><span>Aberto</span></label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="squaredOne checkbox liberado">
+              <input type="checkbox" value="None" id="check-liberado" name="check" ng-model="filtros.status.liberado" />
+              <label for="check-liberado"><span>Liberado</span></label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="squaredOne checkbox fechado">
+              <input type="checkbox" value="None" id="check-fechado" name="check" ng-model="filtros.status.fechado" />
+              <label for="check-fechado"><span>Fechado</span></label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="squaredOne checkbox cancelado">
+              <input type="checkbox" value="None" id="check-cancelado" name="check" ng-model="filtros.status.cancelado" />
+              <label for="check-cancelado"><span>Cancelado</span></label>
+            </div>
           </div>
           <div class="col-sm-3">
             <h4>Data inicial</h4>
@@ -40,11 +64,11 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-2">
+          <div class="col-sm-3">
             <h4>&nbsp;</h4>
-            <button class="btn btn-default btn-block" ng-click="filtros.limparTudo()"><span class="glyphicon glyphicon-remove"></span> Limpar</button>
+            <button class="btn btn-default btn-block" ng-click="filtros.limparTudo()"><span class="glyphicon glyphicon-remove"></span> Restaurar</button>
           </div>
-          <div class="col-sm-2">
+          <div class="col-sm-3">
             <h4>&nbsp;</h4>
             <button class="btn btn-default btn-block" ng-click="pagination.pageChanged()"><span class="glyphicon glyphicon-refresh"></span> Atualizar</button>
           </div>
@@ -89,6 +113,11 @@
       </tr>
       </tbody>
     </table>
+    <div class="col-xs-12 text-right">
+      <b><span class="glyphicon glyphicon-list-alt"></span> Quantidade:</b> {{pagination.total}} -
+      <b><span class="glyphicon glyphicon-usd"></span> Valor total:</b> {{valorTotal | currency: 'R$ '}} -
+      <b><span class="glyphicon glyphicon-blackboard"></span> Média:</b> {{mediaValorTotal | currency: 'R$ '}}
+    </div>
     <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="5" ng-change="pagination.pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
   </div>
 

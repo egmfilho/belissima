@@ -23,7 +23,11 @@ CRMCtrl.$inject = [
 
 function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa, Pessoa, providerDocumento, Documento, providerComissao, Comissao, providerProduto, modalBuscarProduto, Produto) {
 
-  var self = this, usuario = JSON.parse(window.atob($cookies.get('currentUser')));
+  var self = this,
+      usuario = JSON.parse(window.atob($cookies.get('currentUser'))),
+      date = new Date(),
+      firstDay = new Date(date.getFullYear(), date.getMonth(), 1, 12, 0, 0),
+      lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0, 12, 0, 0);
 
   this.pessoa = new Pessoa();
   this.historico = [];
@@ -47,13 +51,21 @@ function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa
   };
 
   $scope.filtros = {
-    status: '',
-    dataInicial: null,
-    dataFinal: null,
+    status: {
+      aberto: true,
+      liberado: true,
+      fechado: false,
+      cancelado: false
+    },
+    dataInicial: firstDay,
+    dataFinal: lastDay,
     limparTudo: function() {
-      $scope.filtros.status = '';
-      $scope.filtros.dataInicial = null;
-      $scope.filtros.dataFinal = null;
+      $scope.filtros.status.aberto = true;
+      $scope.filtros.status.liberado = true;
+      $scope.filtros.status.fechado = false;
+      $scope.filtros.status.cancelado = false;
+      $scope.filtros.dataInicial = firstDay;
+      $scope.filtros.dataFinal = lastDay;
     }
   };
 
@@ -116,6 +128,8 @@ function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa
     $rootScope.loading.load();
     providerComissao.obterPorFuncionario(pessoaId, ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max, $scope.filtros).then(function(success) {
       $scope.pagination.total = success.info.comission_quantity;
+      $scope.valorTotal = success.info.comission_value_total;
+      $scope.mediaValorTotal = success.info.comission_value_total_avg;
       self.comissoes = [ ];
       angular.forEach(success.data, function(item, index) {
         self.comissoes.push(new Comissao(Comissao.converterEmEntrada(item)));

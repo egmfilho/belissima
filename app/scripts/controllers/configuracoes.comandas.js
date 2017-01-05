@@ -13,6 +13,10 @@ function ComandasCtrl($rootScope, $scope, provider, Comanda) {
 
   var self = this;
 
+  setTimeout(function() {
+    jQuery('input[name="cdComanda"]').focus().select();
+  }, 200);
+
   $scope.pagination = {
     current: 1,
     max: 20,
@@ -51,6 +55,7 @@ function ComandasCtrl($rootScope, $scope, provider, Comanda) {
       $rootScope.loading.unload();
       $rootScope.alerta.show('Comanda adicionada!', 'alert-success');
       obterComandas();
+      jQuery('input[name="cdComanda"]').focus().select();
     }, function(error) {
       console.log(error);
       $rootScope.loading.unload();

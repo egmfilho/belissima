@@ -25,7 +25,7 @@
       <ul class="nav nav-tabs" ng-init="opcao='dados'">
         <li role="presentation" ng-class="opcao === 'dados' ? 'active' : ''"><a href="" ng-click="opcao='dados'">Dados Cadastrais</a></li>
         <li role="presentation" ng-class="opcao === 'historico' ? 'active' : ''"><a href="" ng-click="opcao='historico'">Histórico de Compra</a></li>
-        <li role="presentation" ng-class="opcao === 'financeiro' ? 'active' : ''" ng-show="crm.isFuncionario() && liberarFinanceiro()"><a href="" ng-click="opcao='financeiro'">Financeiro</a></li>
+        <li role="presentation" ng-class="opcao === 'financeiro' ? 'active' : ''" ng-show="crm.isFuncionario() && liberarFinanceiro()"><a href="" ng-click="opcao='financeiro'">Conta Corrente</a></li>
       </ul>
       <div class="conteudo-nav condensar-rows">
         <div ng-show="opcao === 'dados'" ng-include="'partials/crm/dados.html'"></div>

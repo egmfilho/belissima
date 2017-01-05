@@ -8,7 +8,7 @@ angular.module('belissimaApp.services')
   .provider('ProviderComissao', ['URLS', function(urls) {
 
     var url = urls.root + 'comission.php?action=:action',
-      provider = null;
+        provider = null;
 
     this.$get = ['$resource', function($resource) {
 
@@ -25,6 +25,16 @@ angular.module('belissimaApp.services')
           isArray: false
         }
       });
+
+      function filtroStatus(status) {
+        var s = [];
+
+        angular.forEach(status, function (value, key) {
+          if (value) s.push(key.charAt(0).toUpperCase());
+        });
+
+        return s.join();
+      }
 
       return {
 
@@ -54,7 +64,7 @@ angular.module('belissimaApp.services')
             get_comission_document_item: true,
             comission_date_start: filtros.dataInicial,
             comission_date_end: filtros.dataFinal,
-            comission_status: filtros.status
+            comission_status: filtroStatus(filtros.status)
           }).$promise;
         },
 

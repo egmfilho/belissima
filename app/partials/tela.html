@@ -1,17 +1,30 @@
 <div class="tela" id="{{id}}">
 
-  <div class="hidden-xs header" ng-show="currentPath !== '/pdv'">
+  <!--<div class="hidden-xs header" ng-show="currentPath !== '/pdv'">-->
+  <div class="hidden-xs header">
     <div class="content">
       <h1><span class="glyphicon" ng-class="icon"></span> {{titulo}}</h1>
       <h4>{{subtitulo}}</h4>
     </div>
-    <div class="pdv-infos" ng-show="currentPath === '/pdv'">
-      <p>Usuario</p>
-      <h4>{{usuario.nome}}</h4>
+    <div class="pdv-infos">
+      <!--<p>Usuario</p>-->
+      <!--<h4><a href="">{{usuario.nome}} <span class="glyphicon glyphicon-chevron-down"></span></a></h4>-->
+
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <span class="glyphicon glyphicon-user"></span> {{usuario.nome}}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownUser">
+          <li><a href="" ng-click="abrirModalSenha()">Redefinir senha</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#/logout">Efetuar logout</a></li>
+        </ul>
+      </div>
+
       <br>
       <p>{{relogio | date: "EEEE,"}}</p>
       <p>{{relogio | date: "dd 'de' MMMM 'de' yyyy"}}</p>
-      <br>
       <p>{{relogio | date: 'HH:mm:ss'}}</p>
     </div>
   </div>
@@ -31,3 +44,39 @@
   </div>
 
 </div>
+
+<!--MODAL SENHA-->
+<div class="modal meu-modal fade" id="modalSenha" tabindex="-1" role="dialog" aria-labelledby="modalSenha">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="header">
+        <div class="title">
+          <span class="glyphicon glyphicon-lock"></span>
+          Redefinir senha
+          <span class="glyphicon glyphicon-remove close" data-dismiss="modal"></span>
+        </div>
+      </div>
+      <div class="body condensar-rows">
+
+        <div class="col-sm-12">
+          <h4>Nova senha</h4>
+          <input type="password" class="form-control" ng-model="novaSenha">
+        </div>
+        <div class="col-sm-12">
+          <h4>Confirmar senha</h4>
+          <input type="password" class="form-control" ng-model="novaSenha2">
+        </div>
+
+      </div>
+      <div class="control">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          <span class="glyphicon glyphicon-remove"></span> Cancelar
+        </button>
+        <button type="button" class="btn btn-default" ng-click="trocarSenha(novaSenha, novaSenha2)">
+          <span class="glyphicon glyphicon-floppy-save"></span> Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FIM MODAL-->

@@ -176,7 +176,7 @@ angular
     // ver 0.8.1
     //
     // - Nova tela de ticket
-    // -
+    // - Adicionado código da comanda na tela lista de tickets
     $rootScope.versao = '0.8';
   }])
   .run(['$rootScope', '$location', '$cookies', '$timeout', '$uibModalStack', function($rootScope, $location, $cookies, $timeout, $uibModalStack) {

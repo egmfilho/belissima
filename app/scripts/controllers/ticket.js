@@ -133,6 +133,9 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       switch ($routeParams.action) {
         case 'open':
           $scope.opcao = 'abrir';
+          setTimeout(function() {
+            jQuery('input[name="cdComanda"]').focus().select();
+          }, 200);
           break;
         case 'new':
           validarComanda($routeParams.card);
@@ -221,6 +224,10 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   }
 
   $scope.abrirComanda = function(codigoDeBarras) {
+    if (codigoDeBarras.length < 10) {
+      return;
+    }
+
     $rootScope.loading.load();
     providerTicket.abrirComanda(codigoDeBarras).then(function(success, status) {
       console.log(status);

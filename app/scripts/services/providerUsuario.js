@@ -62,7 +62,17 @@ angular.module('belissimaApp.services')
           }, {
             user_id: id
           }).$promise;
+        },
+
+        novaSenha: function(id, senha) {
+          return provider.save({
+            action: 'newPass'
+          }, {
+            user_id: id,
+            user_pass: senha
+          }).$promise;
         }
+
       };
 
     }];

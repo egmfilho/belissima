@@ -24,6 +24,17 @@ $cor-modal-borda:                 rgb(90, 90, 90);
 $cor-modal-borda-body:            rgb(120, 120, 120);
 $cor-texto-escuro:                #333333;
 
+@mixin linearGradient($top, $bottom){
+  background: $top; /* Old browsers */
+  background: -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  $top 0%,$bottom 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  $top 0%,$bottom 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
 @mixin scrolling-shadows($background-color: rgb(255, 255, 255), $shadow-intensity: 0.2, $shadow-color: rgb(0,0,0), $cover-size: 40px, $shadow-size: 14px) {
 
   background:
@@ -256,8 +267,8 @@ body {
   .header {
     background-color: $cor-menu-lateral;
     margin: 0;
-    padding: 30px;
-    height: 200px;
+    padding: 10px 30px;
+    height: 150px;
     position: relative;
 
     .content {
@@ -267,12 +278,24 @@ body {
     .pdv-infos {
       position: absolute;
       right: 20px;
-      top: 20px;
+      top: 10px;
       text-align: right;
       //background-color: red;
 
       p, h4 {
         margin: 2px 0;
+        margin-right: 10px;
+      }
+
+      .btn-default {
+        background-color: $cor-menu-lateral-borda;
+        border-color: darken($cor-menu-lateral-borda, 13%);
+        color: white;
+
+        &:focus {
+          outline: none;
+          box-shadow: none;
+        }
       }
     }
 
@@ -329,6 +352,16 @@ body {
         color: #bbb;
         text-decoration: none;
       }
+    }
+  }
+}
+
+#modalSenha {
+  .modal-dialog.modal-sm {
+    width: 320px !important;
+
+    .body {
+      height: 180px !important;
     }
   }
 }
