@@ -9,14 +9,14 @@
       <div class="documento" ng-repeat="documento in crm.historico">
         <div uib-accordion-group class="panel-default" is-open="documento.isOpen">
           <uib-accordion-heading>
-            Código {{documento.codigo}} - Data: {{documento.dataDocumento | date: 'short'}}
+            <span class="hidden-xs">Código</span> {{documento.codigo}} - Data: {{documento.dataDocumento | date: 'short'}}
             <i class="pull-right glyphicon" ng-class="{'glyphicon-menu-up': documento.isOpen, 'glyphicon-menu-down': !documento.isOpen}"></i>
           </uib-accordion-heading>
 
           <h3>Pagamentos</h3>
           <h4>Prazo: {{documento.prazo.descricao}}</h4>
           <div class="container-tabela">
-            <table class="tabela tabela-esticada tabela-bordered">
+            <table class="tabela tabela-esticada tabela-bordered tabela-historico">
               <thead>
               <tr>
                 <th>Parcela</th>
@@ -27,36 +27,38 @@
               </thead>
               <tbody>
               <tr ng-repeat="pagamento in documento.pagamentos track by $index">
-                <td>{{$index + 1}}</td>
-                <td>{{pagamento.forma.descricao}}</td>
-                <td>{{pagamento.vencimento | date: 'dd/MM/yyyy'}}</td>
-                <td>{{pagamento.valor | currency: 'R$ '}}</td>
+                <td data-label="Parcela">{{$index + 1}}</td>
+                <td data-label="Forma">{{pagamento.forma.descricao}}</td>
+                <td data-label="Vencimento">{{pagamento.vencimento | date: 'dd/MM/yyyy'}}</td>
+                <td data-label="Valor">{{pagamento.valor | currency: 'R$ '}}</td>
               </tr>
               </tbody>
             </table>
           </div>
 
           <h3>Produtos</h3>
-          <table class="tabela tabela-bordered tabela-esticada">
-            <thead>
-            <tr>
-              <th>Funcionário</th>
-              <th>Produto</th>
-              <th>Qtd.</th>
-              <th>Preço</th>
-              <th>Total</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="item in documento.items">
-              <td>({{item.funcionario.codigo}}) {{item.funcionario.nome}}</td>
-              <td>({{item.produto.codigo}}) {{item.produto.nome}}</td>
-              <td>{{item.quantidade | currency: ''}}</td>
-              <td>{{item.precoProduto | currency: 'R$ '}}</td>
-              <td>{{item.getTotalComDesconto() | currency: 'R$ '}}</td>
-            </tr>
-            </tbody>
-          </table>
+          <div class="container-tabela">
+            <table class="tabela tabela-bordered tabela-esticada tabela-historico">
+              <thead>
+              <tr>
+                <th>Funcionário</th>
+                <th>Produto</th>
+                <th>Qtd.</th>
+                <th>Preço</th>
+                <th>Total</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="item in documento.items">
+                <td data-label="Funcionário">({{item.funcionario.codigo}}) {{item.funcionario.nome}}</td>
+                <td data-label="Produto">({{item.produto.codigo}}) {{item.produto.nome}}</td>
+                <td data-label="Qtd.">{{item.quantidade | currency: ''}}</td>
+                <td data-label="Preço">{{item.precoProduto | currency: 'R$ '}}</td>
+                <td data-label="Total">{{item.getTotalComDesconto() | currency: 'R$ '}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
           <h2 class="text-right">Total: {{documento.valorComDesconto | currency: 'R$ '}}</h2>
 
         </div>

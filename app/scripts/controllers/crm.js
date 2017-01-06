@@ -33,6 +33,12 @@ function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa
   this.historico = [];
   this.comissoes = [];
 
+  $scope.$on('$viewContentLoaded', function() {
+    setTimeout(function() {
+      jQuery('input[name="cdPessoa"]').focus().select();
+    }, 200);
+  });
+
   $scope.format = 'dd/MM/yyyy';
   $scope.altInputFormats = ['d!/M!/yy'];
   $scope.dateOptions = {
@@ -73,10 +79,14 @@ function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa
     return (usuario.pessoaId == self.pessoa.id && self.isFuncionario());
   };
 
-  this.buscarPessoa = function() {
-    modalBuscarPessoa.show().then(function(result) {
-      self.buscarPessoaPorCodigo(result.codigo);
-    });
+  this.buscarPessoa = function(codigo) {
+    if (!codigo || codigo == this.pessoa.codigo) {
+      modalBuscarPessoa.show().then(function(result) {
+        self.buscarPessoaPorCodigo(result.codigo);
+      });
+    } else {
+      this.buscarPessoaPorCodigo(codigo);
+    }
   };
 
   this.buscarPessoaPorCodigo = function(codigo) {
@@ -126,11 +136,11 @@ function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa
     if (!self.isFuncionario()) return;
 
     $rootScope.loading.load();
+    self.comissoes = [ ];
     providerComissao.obterPorFuncionario(pessoaId, ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max, $scope.filtros).then(function(success) {
       $scope.pagination.total = success.info.comission_quantity;
       $scope.valorTotal = success.info.comission_value_total;
       $scope.mediaValorTotal = success.info.comission_value_total_avg;
-      self.comissoes = [ ];
       angular.forEach(success.data, function(item, index) {
         self.comissoes.push(new Comissao(Comissao.converterEmEntrada(item)));
       });

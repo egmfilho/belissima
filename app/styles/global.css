@@ -151,6 +151,14 @@ body {
         .tela .header .pdv-infos .btn-default:focus {
           outline: none;
           box-shadow: none; }
+      .tela .header .pdv-infos .dropdown.open .dropdown-menu {
+        background-color: #5a5a5a; }
+        .tela .header .pdv-infos .dropdown.open .dropdown-menu li a {
+          color: white; }
+          .tela .header .pdv-infos .dropdown.open .dropdown-menu li a:hover {
+            background-color: #393939; }
+        .tela .header .pdv-infos .dropdown.open .dropdown-menu li.divider {
+          background-color: #393939; }
     .tela .header h1 {
       font-size: 3em; }
     .tela .header h4 {
@@ -186,6 +194,7 @@ body {
     height: 180px !important; }
 
 .tela-transparente {
+  padding: 0;
   width: 100%;
   overflow: hidden;
   position: absolute; }
@@ -216,9 +225,7 @@ body {
   background-color: #baa526 !important;
   padding: 2px;
   border-color: #9e8a15;
-  z-index: 1051;
-  right: 0 !important;
-  left: auto !important; }
+  z-index: 1051; }
   .uib-datepicker-popup .text-info {
     color: white; }
   .uib-datepicker-popup small {
@@ -307,7 +314,8 @@ body {
   border-radius: 4px 4px 0 0;
   border-bottom-color: transparent;
   padding: 12px;
-  height: 60px; }
+  height: 60px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5); }
   .modal .header .title {
     font-size: 1.8em; }
     .modal .header .title .flag {
@@ -322,8 +330,8 @@ body {
   .modal .header .center-title {
     text-align: center; }
 .modal .sub-header {
-  background-color: #3f3f41;
-  border: 1px solid #5a5a5a;
+  background-color: #48484a;
+  border: 1px solid #636363;
   border-top-color: transparent;
   border-bottom-color: transparent;
   padding: 10px; }
@@ -589,6 +597,9 @@ body {
     display: inherit; }
 
 @media (max-width: 767px) {
+  #modalSenha .modal-dialog.modal-sm {
+    width: calc(100% - 20px) !important; }
+
   .container-tabela {
     max-height: 300px;
     overflow-y: auto; }
@@ -614,7 +625,12 @@ body {
       font-weight: bold;
       text-transform: uppercase; }
     .tabela td:last-child {
-      border-bottom: none; } }
+      border-bottom: none; }
+
+  .modal .sub-header {
+    overflow-x: auto; }
+  .modal .modal-dialog.modal-lg .body {
+    max-height: 400px; } }
 @media (min-width: 768px) {
   body {
     margin-top: 0; }
@@ -761,6 +777,13 @@ body {
     #login .login-body button:hover, #login .login-body button:focus {
       background-color: #867512; }
 
+@media (max-width: 767px) {
+  #login {
+    padding: 10px; }
+    #login .login-header, #login .login-body {
+      max-width: 100% !important;
+      width: 100% !important;
+      min-width: 100% !important; } }
 .main-header {
   width: 100%;
   height: 60px;
@@ -835,6 +858,8 @@ body {
   top: 60px;
   box-shadow: 2px 0 4px #000;
   z-index: 99; }
+  #menu-lateral .espacador {
+    height: 40px; }
   #menu-lateral .controle {
     background-color: #141414;
     padding: 2px 0;
@@ -1175,6 +1200,8 @@ body {
   min-width: 200px; }
   #tela-ticket .nav-tabs li .glyphicon {
     float: right; }
+  #tela-ticket .nav-tabs li a:hover {
+    cursor: pointer; }
 #tela-ticket .conteudo-nav a.resumo {
   text-decoration: none;
   color: white; }
@@ -1349,10 +1376,18 @@ body {
 #crm .info {
   margin: 30px; }
 #crm .enderecos, #crm .contatos {
-  margin-bottom: 25px; }
+  margin: 5px 10px;
+  padding: 10px; }
+  #crm .enderecos.principal, #crm .contatos.principal {
+    border: 1px solid #777;
+    border-radius: 10px; }
   #crm .enderecos > div, #crm .contatos > div {
-    padding-left: 30px;
     font-size: 1.1em; }
+    #crm .enderecos > div.tag, #crm .contatos > div.tag {
+      color: #bdbdbd;
+      float: right;
+      font-size: 0.8em;
+      margin-top: -5px; }
     #crm .enderecos > div b, #crm .contatos > div b {
       font-weight: 400; }
     #crm .enderecos > div span, #crm .contatos > div span {
@@ -1361,9 +1396,6 @@ body {
   height: 400px; }
   #crm .historico-vazio .text-center {
     width: 100%; }
-#crm .container-historico {
-  max-height: 800px;
-  overflow-y: auto; }
 #crm .documento {
   margin-bottom: 10px; }
   #crm .documento .panel.panel-default .panel-heading {
@@ -1515,10 +1547,45 @@ body {
     /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 );
     /* IE6-9 */ }
+#crm .totalizadores {
+  margin-top: 10px;
+  font-size: 1.2em;
+  font-weight: 200;
+  color: #bdbdbd; }
+  #crm .totalizadores .totalizador {
+    margin-left: 20px; }
+    #crm .totalizadores .totalizador b {
+      font-weight: 400;
+      color: white; }
+  #crm .totalizadores .glyphicon {
+    vertical-align: -15%;
+    font-size: 1.4em; }
 
-.crm-tooltip {
-  left: 75px !important; }
+.crm-tooltip.right {
+  margin-left: -64px !important; }
 
+@media (max-width: 767px) {
+  #crm .nav.nav-tabs > li {
+    min-width: 80px; }
+    #crm .nav.nav-tabs > li a {
+      padding: 10px 5px; }
+  #crm .tabela-historico tr {
+    border: 1px solid #333;
+    background-color: #5a5a5a; }
+  #crm .tabela-comissao tr {
+    border: 3px solid white; }
+    #crm .tabela-comissao tr.fechado {
+      border-color: #3987c0; }
+    #crm .tabela-comissao tr.aberto {
+      border-color: #ff9a1f; }
+    #crm .tabela-comissao tr.liberado {
+      border-color: #14a73a; }
+    #crm .tabela-comissao tr.cancelado {
+      border-color: #cc3217; } }
+@media (min-width: 768px) {
+  #crm .container-historico {
+    max-height: 800px;
+    overflow-y: auto; } }
 .fc-toolbar {
   font-size: 1.2em; }
   .fc-toolbar .fc-state-active {

@@ -44,11 +44,15 @@ function MovimentacaoCtrl($rootScope, $scope, $filter, provider, Movimentacao, m
     tipoData: '0',
     dataInicial: null,
     dataFinal: null,
-    buscarProduto: function() {
-      modalBuscarProduto.show().then(function(result) {
-        $scope.filtros.produto = new Produto(result);
-        $scope.filtros.cdProduto = $scope.filtros.produto.codigo;
-      });
+    buscarProduto: function(codigo) {
+      if (!codigo || codigo == $scope.filtros.produto.codigo) {
+        modalBuscarProduto.show().then(function(result) {
+          $scope.filtros.produto = new Produto(result);
+          $scope.filtros.cdProduto = $scope.filtros.produto.codigo;
+        });
+      } else {
+        $scope.filtros.buscarProdutoPorCodigo(codigo);
+      }
     },
     buscarProdutoPorCodigo: function(codigo) {
       $rootScope.loading.load();

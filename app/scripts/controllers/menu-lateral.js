@@ -5,7 +5,7 @@
 'use strict';
 
 angular.module('belissimaApp.controllers')
-  .controller('MenuLateralCtrl', ['$rootScope', '$location', 'ModalConfirm', function ($rootScope, $location, modalConfirm) {
+  .controller('MenuLateralCtrl', ['$rootScope', '$location', 'ModalConfirm', 'ProviderUsuario', function ($rootScope, $location, modalConfirm, providerUsuario) {
 
     $rootScope.minimizado = true;
 
@@ -41,6 +41,10 @@ angular.module('belissimaApp.controllers')
       }
 
       $rootScope.minimizado = !$rootScope.minimizado;
+    };
+
+    this.abrirModalSenha = function() {
+      jQuery('#modalSenha').modal('show');
     };
 
     this.logout = function () {

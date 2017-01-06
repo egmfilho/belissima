@@ -1,43 +1,45 @@
 <tela id="agenda" icon="glyphicon-calendar" titulo="Agenda" subtitulo="Agendamento e consulta de serviços" show-footer="true">
 
-  <br>
-  <div>
-    <div class="col-sm-2" uib-popover="Abre a janela de criação de eventos." popover-trigger="'mouseenter'" popover-placement="top" popover-class="popover-doido" popover-append-to-body="true">
-      <button class="btn btn-default btn-block" ng-click="agenda.novoEvento()">
-        Adicionar
-      </button>
+  <span class="hidden-xs">
+    <br>
+    <div>
+      <div class="col-sm-2" uib-popover="Abre a janela de criação de eventos." popover-trigger="'mouseenter'" popover-placement="top" popover-class="popover-doido" popover-append-to-body="true">
+        <button class="btn btn-default btn-block" ng-click="agenda.novoEvento()">
+          Adicionar
+        </button>
+      </div>
+      <div class="col-sm-2" uib-popover="Retorna a agenda para a posição do dia de hoje. Não altera o modo de visualização." popover-trigger="'mouseenter'" popover-placement="top">
+        <button class="btn btn-default btn-block" ng-click="agenda.verHoje()">
+          Ver hoje
+        </button>
+      </div>
+      <div class="col-sm-2" uib-popover="Intervalo de tempo entre as colunas divisórias na linha do tempo." popover-trigger="'mouseenter'" popover-placement="top">
+        <select class="form-control" ng-model="option" ng-options="i.value as i.as for i in agenda.intervalos" ng-change="agenda.mudarIntervalo(option)">
+          <option value="" disabled>Intervalo</option>
+        </select>
+      </div>
+      <div class="col-sm-2" uib-popover="Muda para a visualização de linha do tempo." popover-trigger="'mouseenter'" popover-placement="top">
+        <button class="btn btn-default btn-block" ng-click="agenda.dia()">
+          Dia
+        </button>
+      </div>
+      <div class="col-sm-2" uib-popover="Muda para a visualização de semana." popover-trigger="'mouseenter'" popover-placement="top">
+        <button class="btn btn-default btn-block" ng-click="agenda.semana()">
+          Semana
+        </button>
+      </div>
+      <div class="col-sm-2" uib-popover="Muda para a visualização de calendário." popover-trigger="'mouseenter'" popover-placement="top">
+        <button class="btn btn-default btn-block" ng-click="agenda.mes()">
+          Mês
+        </button>
+      </div>
     </div>
-    <div class="col-sm-2" uib-popover="Retorna a agenda para a posição do dia de hoje. Não altera o modo de visualização." popover-trigger="'mouseenter'" popover-placement="top">
-      <button class="btn btn-default btn-block" ng-click="agenda.verHoje()">
-        Ver hoje
-      </button>
-    </div>
-    <div class="col-sm-2" uib-popover="Intervalo de tempo entre as colunas divisórias na linha do tempo." popover-trigger="'mouseenter'" popover-placement="top">
-      <select class="form-control" ng-model="option" ng-options="i.value as i.as for i in agenda.intervalos" ng-change="agenda.mudarIntervalo(option)">
-        <option value="" disabled>Intervalo</option>
-      </select>
-    </div>
-    <div class="col-sm-2" uib-popover="Muda para a visualização de linha do tempo." popover-trigger="'mouseenter'" popover-placement="top">
-      <button class="btn btn-default btn-block" ng-click="agenda.dia()">
-        Dia
-      </button>
-    </div>
-    <div class="col-sm-2" uib-popover="Muda para a visualização de semana." popover-trigger="'mouseenter'" popover-placement="top">
-      <button class="btn btn-default btn-block" ng-click="agenda.semana()">
-        Semana
-      </button>
-    </div>
-    <div class="col-sm-2" uib-popover="Muda para a visualização de calendário." popover-trigger="'mouseenter'" popover-placement="top">
-      <button class="btn btn-default btn-block" ng-click="agenda.mes()">
-        Mês
-      </button>
-    </div>
-  </div>
 
-  <br><br><br>
+    <br><br><br>
 
-  <div class="calendar hidden-xs" ui-calendar="uiConfig.calendar" ng-model="agenda.eventos.array" calendar="meuCalendario"></div>
+    <div class="calendar" ui-calendar="uiConfig.calendar" ng-model="agenda.eventos.array" calendar="meuCalendario"></div>
+  </span>
 
-  <h1 class="visible-xs-inline">Visualização não disponível em dispositivos mobile</h1>
+  <div class="visible-xs-block" ng-include="'partials/agenda-mobile.html'"></div>
 
 </tela>

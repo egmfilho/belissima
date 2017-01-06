@@ -44,6 +44,9 @@ angular.module('belissimaApp.controllers')
       };
 
       this.funcionarios = [ ];
+      this.mobile = {
+        funcionarios: []
+      };
 
       this.intervalos = [
         { value: 0, as: '05 minutos' },
@@ -121,6 +124,7 @@ angular.module('belissimaApp.controllers')
           self.funcionarios.push({ id: -1, title: 'Todos'});
           angular.forEach(success.data, function(item, index) {
             var pessoa = new Pessoa(Pessoa.converterEmEntrada(item));
+            self.mobile.funcionarios.push(pessoa);
             self.funcionarios.push({ id: pessoa.id, title: (pessoa.apelido || pessoa.nome) });
           });
           $rootScope.loading.unload();

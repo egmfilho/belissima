@@ -1,0 +1,39 @@
+<span ng-controller="AgendaMobileCtrl as mobile">
+  <div class="col-xs-12">
+    <h4>Data</h4>
+    <div class="input-group">
+      <input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" on-open-efocus="false" is-open="mobile.dataIsOpen" ng-model="mobile.data" datepicker-options="dateOptions" show-button-bar="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
+      <div class="input-group-btn">
+        <button class="btn btn-default" ng-click="mobile.dataIsOpen = !mobile.dataIsOpen"><span class="glyphicon glyphicon-calendar"></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <h4>Funcionário</h4>
+    <select name="" id="" class="form-control" ng-options="funcionario.id as funcionario.nome for funcionario in agenda.mobile.funcionarios" ng-model="mobile.funcionarioId">
+      <option value="" disabled selected>Selecione o funcionário</option>a
+    </select>
+  </div>
+  <div class="col-xs-12">
+    <h4>&nbsp;</h4>
+    <button class="btn btn-default btn-block" ng-click="mobile.obterEventos(mobile.funcionarioId, mobile.data)"><span class="glyphicon glyphicon-refresh"></span> Atualizar</button>
+  </div>
+
+  <div class="col-xs-12 agenda">
+    <h4 ng-show="mobile.eventos.length">Agenda</h4>
+    <div class="container-tabela">
+      <table class="tabela tabela-bordered tabela-esticada">
+        <tbody>
+          <tr ng-repeat="evento in mobile.eventos" ng-style="{'background-color': evento.color, 'color': evento.textColor}">
+            <td data-label="Título">{{evento.title}}</td>
+            <td data-label="Início">{{evento.start | date: 'HH:mm:00'}}</td>
+            <td data-label="Término">{{evento.end | date: 'HH:mm:00'}}</td>
+            <td data-label="Cliente">{{evento.cliente.nome}}</td>
+            <td data-label="Contato">{{evento.cliente.contatos[0].contato}}</td>
+            <td data-label="Serviço">{{evento.produto.nome}}</td>
+          </tr>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</span>

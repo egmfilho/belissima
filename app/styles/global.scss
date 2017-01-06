@@ -297,6 +297,24 @@ body {
           box-shadow: none;
         }
       }
+
+      .dropdown.open .dropdown-menu {
+        background-color: $cor-menu-lateral-borda;
+
+        li {
+          a {
+            color: white;
+
+            &:hover {
+              background-color: darken($cor-menu-lateral-borda, 13%);
+            }
+          }
+
+          &.divider {
+            background-color: darken($cor-menu-lateral-borda, 13%);
+          }
+        }
+      }
     }
 
     h1, span, h4 {
@@ -367,6 +385,7 @@ body {
 }
 
 .tela-transparente {
+  padding: 0;
   width: 100%;
   overflow: hidden;
   position: absolute;
@@ -420,8 +439,6 @@ body {
   padding: 2px;
   border-color: $cor-menu-highlight-medio;
   z-index: 1051;
-  right: 0 !important;
-  left: auto !important;
 
   .text-info {
     color: white;
@@ -598,6 +615,7 @@ body {
     border-bottom-color: transparent;
     padding: 12px;
     height: 60px;
+    box-shadow: 0 4px 4px rgba(0,0,0,.5);
 
     .title {
       font-size: 1.8em;
@@ -625,8 +643,8 @@ body {
   }
 
   .sub-header {
-    background-color: $cor-modal-head;
-    border: 1px solid $cor-modal-borda;
+    background-color: lighten($cor-modal-head, 3.5%);
+    border: 1px solid lighten($cor-modal-borda, 3.5%);
     border-top-color: transparent;
     border-bottom-color: transparent;
     padding: 10px;
@@ -1102,6 +1120,12 @@ body {
 //}
 
 @media (max-width: 767px) {
+  #modalSenha {
+    .modal-dialog.modal-sm {
+      width: calc(100% - 20px) !important;
+    }
+  }
+
   .container-tabela {
     max-height: 300px;
     overflow-y: auto;
@@ -1139,6 +1163,18 @@ body {
 
       &:last-child {
         border-bottom: none;
+      }
+    }
+  }
+
+  .modal {
+    .sub-header {
+      overflow-x: auto;
+    }
+
+    .modal-dialog.modal-lg {
+      .body {
+        max-height: 400px;
       }
     }
   }

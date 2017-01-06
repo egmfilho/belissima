@@ -61,14 +61,22 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   };
 
   $scope.$on('$locationChangeStart', function( event ) {
-    if (escape_confirm) return;
+    if (escape_confirm) {
+      cleanURL();
+      return;
+    }
     console.log($location);
 
     if (self.novoTicket.items.length || self.novoTicket.cliente.id || self.novoTicket.pagamentos.length) {
       if (!confirm('Deseja sair?')) {
         event.preventDefault();
       }
+      escape_confirm = true;
       cleanURL();
+    } else {
+      if ($location.path().indexOf('ticket') == -1) {
+        cleanURL();
+      }
     }
 
   });
@@ -116,6 +124,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   function cleanURL() {
     $location.search('action', null);
     $location.search('code', null);
+    $location.search('card', null);
   }
 
   function redirect() {
@@ -224,7 +233,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   }
 
   $scope.abrirComanda = function(codigoDeBarras) {
-    if (codigoDeBarras.length < 10) {
+    if (codigoDeBarras.length < 12) {
       return;
     }
 

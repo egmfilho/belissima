@@ -55,6 +55,21 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
+        obterPorFuncionario: function(funcionarioId, dataInicial, dataFinal) {
+          return provider.query({
+            action: 'getList'
+          }, {
+            event_employee_id: funcionarioId,
+            event_start: dataInicial,
+            event_end: dataFinal,
+            get_event_type: true,
+            get_event_client: true,
+            get_event_product: true,
+            get_person_contact: true,
+            get_person_contact_main: true
+          }).$promise;
+        },
+
         //obterEventosPorTipo: function(tipoId) {
         //  return provider.query({
         //    action: 'getListByType'

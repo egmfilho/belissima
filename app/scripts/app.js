@@ -177,6 +177,7 @@ angular
     //
     // - Nova tela de ticket
     // - Adicionado código da comanda na tela lista de tickets
+    // - Adicionada a versão mobile da agenda
     $rootScope.versao = '0.8';
   }])
   .run(['$rootScope', '$location', '$cookies', '$timeout', '$uibModalStack', function($rootScope, $location, $cookies, $timeout, $uibModalStack) {

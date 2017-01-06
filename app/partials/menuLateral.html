@@ -14,21 +14,22 @@
         <span class="seta"><div class="texto"></div><div class="linha1"></div><div class="linha2"></div></span>
         <span class="info">(clique aqui para esconder)</span>
       </div>
+      <div class="visible-xs-block espacador"></div>
       <div class="controle">
 
         <div class="btn btn-default hidden-xs ng-class:{'ativo': currentPath === '/'}" redireciona="/" title="Home">
           Home <span class="glyphicon glyphicon-home"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/pdv'}" redireciona="/pdv" title="PDV">
+        <div class="btn btn-default hidden-xs ng-class:{'ativo': currentPath === '/pdv'}" redireciona="/pdv" title="PDV">
           PDV <span class="glyphicon glyphicon-shopping-cart"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath.indexOf('/ticket') >= 0}" redireciona="/ticket/open" title="Ticket">
+        <div class="btn btn-default hidden-xs ng-class:{'ativo': currentPath.indexOf('/ticket') >= 0}" redireciona="/ticket/open" title="Ticket">
           Ticket <span class="glyphicon glyphicon-barcode"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/produtos'}" redireciona="/produtos" title="Serviços & Produtos">
+        <div class="btn btn-default hidden-xs ng-class:{'ativo': currentPath === '/produtos'}" redireciona="/produtos" title="Serviços & Produtos">
           Serviços & Produtos <span class="glyphicon glyphicon-tags"></span>
         </div>
 
@@ -36,7 +37,7 @@
           Movimentação <span class="glyphicon glyphicon-tasks"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/pessoas'}" redireciona="/pessoas" title="Pessoas">
+        <div class="btn btn-default hidden-xs ng-class:{'ativo': currentPath === '/pessoas'}" redireciona="/pessoas" title="Pessoas">
           Pessoas <span class="glyphicon glyphicon-user"></span>
         </div>
 
@@ -52,8 +53,12 @@
           Agenda <span class="glyphicon glyphicon-calendar"></span>
         </div>
 
-        <div class="btn btn-default ng-class:{'ativo': currentPath === '/configuracoes'}" redireciona="/configuracoes" title="Configurações">
+        <div class="btn btn-default hidden-xs ng-class:{'ativo': currentPath === '/configuracoes'}" redireciona="/configuracoes" title="Configurações">
           Configurações <span class="glyphicon glyphicon-cog"></span>
+        </div>
+
+        <div class="btn btn-default visible-xs-block" ng-click="menuLateral.abrirModalSenha()" title="Redefinir senha">
+          Redefinir senha <span class="glyphicon glyphicon-lock"></span>
         </div>
 
         <div class="btn btn-default" ng-click="menuLateral.logout()" title="Efetuar Logout">

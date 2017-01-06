@@ -14,60 +14,62 @@
           <select class="form-control" ng-options="cat.id as cat.nome for cat in categoriaPessoa" ng-model="filtro.categoria">
             <option value="">Todos</option>
           </select>
-          <button class="btn btn-default" ng-click="getClientes()"><span class="glyphicon glyphicon-refresh"></span> Atualizar</button>
+          <button class="btn btn-default" ng-click="getClientes()"><span class="glyphicon glyphicon-refresh"></span> <span class="hidden-xs">Atualizar</span></button>
         </div>
-        <div class="container-tabela">
-          <table class="tabela tabela-bordered tabela-esticada">
-            <thead>
-            <tr>
-              <th>Código</th>
-              <th>Nome</th>
-              <th>Apelido</th>
-              <!--<th>Endereço</th>-->
-              <th>CPF</th>
-              <th>Contato</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="pessoa in pessoas">
-              <td data-label="Código">{{pessoa.codigo}}</td>
-              <td data-label="Nome">{{pessoa.nome | truncate:40}}</td>
-              <td data-label="Apelido">{{pessoa.apelido}}</td>
-              <!--<td data-label="Endereço">{{pessoa.getEnderecoPrincipalEmString()}}</td>-->
-              <td data-label="CPF">{{pessoa.cpf}}</td>
-              <td data-label="Contato">{{pessoa.getContatoPrincipalEmString()}}</td>
-              <td class="hidden-xs">
-                <a href="" ng-click="editar(pessoa)" class="hidden-xs">
-                  <span class="glyphicon glyphicon-pencil"></span>
-                </a>
-              </td>
-              <td class="hidden-xs">
-                <a href="" class="hidden-xs" confirm-popup title="Atenção" message="Deseja excluir a pessoa?" ok-func="excluir(pessoa)" placement="left">
-                  <span class="glyphicon glyphicon-trash"></span>
-                </a>
-              </td>
-              <td class="visible-xs-inline-block">
-                <button class="btn btn-default" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-                <button class="btn btn-default" confirm-popup title="Atenção" message="Deseja excluir a pessoa?" ok-func="excluir(pessoa)" placement="top">>
-                  <span class="glyphicon glyphicon-trash"></span> Excluir
-                </button>
-              </td>
-            </tr>
-            <tr class="hidden-xs" ng-repeat="n in getNumber(pagination.max - pessoas.length) track by $index" ng-if="pessoas.length < pagination.max">
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-            </tbody>
-          </table>
+        <div class="col-xs-12">
+          <div class="container-tabela">
+            <table class="tabela tabela-bordered tabela-esticada">
+              <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Apelido</th>
+                <!--<th>Endereço</th>-->
+                <th>CPF</th>
+                <th>Contato</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="pessoa in pessoas">
+                <td data-label="Código">{{pessoa.codigo}}</td>
+                <td data-label="Nome">{{pessoa.nome | truncate:40}}</td>
+                <td data-label="Apelido">{{pessoa.apelido}}</td>
+                <!--<td data-label="Endereço">{{pessoa.getEnderecoPrincipalEmString()}}</td>-->
+                <td data-label="CPF">{{pessoa.cpf}}</td>
+                <td data-label="Contato">{{pessoa.getContatoPrincipalEmString()}}</td>
+                <td class="hidden-xs">
+                  <a href="" ng-click="editar(pessoa)" class="hidden-xs">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                  </a>
+                </td>
+                <td class="hidden-xs">
+                  <a href="" class="hidden-xs" confirm-popup title="Atenção" message="Deseja excluir a pessoa?" ok-func="excluir(pessoa)" placement="left">
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </a>
+                </td>
+                <td class="visible-xs-inline-block">
+                  <button class="btn btn-default" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+                  <button class="btn btn-default" confirm-popup title="Atenção" message="Deseja excluir a pessoa?" ok-func="excluir(pessoa)" placement="top">
+                    <span class="glyphicon glyphicon-trash"></span> Excluir
+                  </button>
+                </td>
+              </tr>
+              <tr class="hidden-xs" ng-repeat="n in getNumber(pagination.max - pessoas.length) track by $index" ng-if="pessoas.length < pagination.max">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="5" ng-change="pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
+        <ul ng-show="pessoas.length" uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="3" ng-change="pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
       </div>
     </div>
   </div>

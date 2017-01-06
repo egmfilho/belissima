@@ -99,6 +99,10 @@
   z-index: 99;
   @extend .ease-out;
 
+  .espacador {
+    height: 40px;
+  }
+
   .controle {
     background-color: $cor-menu-lateral-fundo;
     padding: 2px 0;

@@ -103,3 +103,14 @@
     }
   }
 }
+
+@media (max-width: 767px) {
+  #login {
+    padding: 10px;
+    .login-header, .login-body {
+      max-width: 100% !important;
+      width: 100% !important;
+      min-width: 100% !important;
+    }
+  }
+}
