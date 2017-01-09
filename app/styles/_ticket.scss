@@ -193,3 +193,22 @@
     }
   }
 }
+
+.meu-modal.modal-buscar-ticket {
+  div.comanda-input {
+    position: relative;
+
+    input {
+      padding-left: 35px;
+    }
+
+    .glyphicon {
+      position: absolute;
+      color: #666;
+      top: 10px;
+      left: 10px;
+      font-size: 1.2em;
+      z-index: 3;
+    }
+  }
+}

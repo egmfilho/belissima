@@ -11,13 +11,15 @@ angular.module('belissimaApp.controllers')
     '$uibModalInstance',
     'ProviderTicket',
     'Pedido',
+    'ProviderComanda',
     'statusId',
-    function($rootScope, $scope, $uibModalInstance, provider, Ticket, statusId) {
+    function($rootScope, $scope, $uibModalInstance, provider, Ticket, providerComanda, statusId) {
 
       $scope.pagination = {
         current: 1,
         max: 10,
-        total: 0
+        total: 0,
+        pageChanged: $scope.getTickets
       };
 
       $scope.resultado = [ ];
@@ -39,23 +41,43 @@ angular.module('belissimaApp.controllers')
         }
       }
 
-      $scope.getTicketPorCodigo = function(codigo) {
+      $scope.getTicketPorComanda = function(comanda) {
         $rootScope.loading.load();
-        provider.obterPorCodigo(codigo).then(function(success) {
-          setResultado(success.data);
+        provider.obterPorComanda(comanda).then(function(success) {
           $rootScope.loading.unload();
+          // setResultado(success.data);
+          $uibModalInstance.close(new Ticket(Ticket.converterEmEntrada(success.data)));
         }, function(error) {
           console.log(error);
           $rootScope.loading.unload();
           if (error.status == 404) {
-            $rootScope.alerta.show('Nenhum ticket encontrado!');
+            $rootScope.alerta.show('Comanda ou Ticket não encontrados!');
+          }
+        });
+      };
+
+      $scope.getTicketPorCodigo = function(codigo) {
+        $rootScope.loading.load();
+        provider.obterPorCodigo(codigo).then(function(success) {
+          $rootScope.loading.unload();
+          var ticket = new Ticket(Ticket.converterEmEntrada(success.data));
+          if (ticket.statusId == 1001) {
+            $uibModalInstance.close(ticket);
+          } else {
+            $rootScope.alerta.show('Ticket não encontrado!');
+          }
+        }, function(error) {
+          console.log(error);
+          $rootScope.loading.unload();
+          if (error.status == 404) {
+            $rootScope.alerta.show('Ticket não encontrado!');
           }
         });
       };
 
       $scope.getTickets = function() {
         $rootScope.loading.load();
-        provider.obterTodos(true, true, true, true, null, null, null, null, statusId).then(function(success) {
+        provider.obterTodos(true, true, true, true, null, null, null, null, statusId, ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function(success) {
           setResultado(success.data);
           $rootScope.loading.unload();
         }, function(error) {

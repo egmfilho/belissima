@@ -86,6 +86,10 @@
     max-height: 400px;
     overflow-y: auto;
   }
+
+  .fc-scroller-canvas.fc-gutter-bottom {
+    background-color: $cor-calendario-fundo;
+  }
 }
 
 #agenda {

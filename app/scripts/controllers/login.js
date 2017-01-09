@@ -11,12 +11,12 @@ angular.module('belissimaApp.controllers')
 
         switch (res.status.code) {
           case 401:
-            // $rootScope.alerta.show('Usuário não autorizado!');
-            console.log('Usuário não autorizado!');
+            $rootScope.alerta.show('Usuário não autorizado!');
+            // console.log('Usuário não autorizado!');
             break;
           case 404:
-            // $rootScope.alerta.show('Usuário ou senhas inválidos!');
-            console.log('Usuário ou senhas inválidos!');
+            $rootScope.alerta.show('Usuário ou senhas inválidos!');
+            // console.log('Usuário ou senhas inválidos!');
             break;
           case 200:
             // $rootScope.alerta.show('Login efetuado!', 'alert-success');

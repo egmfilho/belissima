@@ -192,14 +192,9 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, Comanda, DataSaid
 
     p.ticket_id = pedido.id;
     p.ticket_client_id = pedido.clienteId ? pedido.cliente.id : pedido.clienteId;
-    p.ticket_code_bar = pedido.codigoDeBarras ? pedido.codigoDeBarras : null;
+    p.ticket_code_bar = pedido.comanda.codigoDeBarras ? pedido.comanda.codigoDeBarras : null;
     // p.ticket_note = pedido.observacoes;
     // p.ticket_status_id = pedido.statusId;
-
-    p.ticket_items = [];
-    angular.forEach(pedido.items, function (item, index) {
-      p.ticket_items.push(ItemPedido.converterEmSaida(item));
-    });
 
     p.ticket_value = pedido.getValorTotal();
     // p.ticket_al_discount = pedido.descontoPercent;
@@ -207,8 +202,15 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, Comanda, DataSaid
     p.ticket_value_total = pedido.getValorTotalComDesconto();
 
     p.ticket_payment_term_id = pedido.prazoId;
-    p.ticket_payments = [];
 
+    p.ticket_card_id = pedido.comandaId;
+
+    p.ticket_items = [];
+    angular.forEach(pedido.items, function (item, index) {
+      p.ticket_items.push(ItemPedido.converterEmSaida(item));
+    });
+
+    p.ticket_payments = [];
     angular.forEach(pedido.pagamentos, function (item, index) {
       p.ticket_payments.push(Pagamento.converterEmSaida(item));
     });
@@ -241,8 +243,6 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, Comanda, DataSaid
     angular.forEach(pedido.pagamentos, function (item, index) {
       p.document_payments.push(Pagamento.converterEmSaida(item));
     });
-
-    p.ticket_card_id = pedido.comandaId;
 
     return p;
   };

@@ -55,6 +55,24 @@ angular.module('belissimaApp.services')
           }).$promise;
         },
 
+        obterPorComanda: function(codigo) {
+          return provider.get({
+            action: 'get'
+          }, {
+            card_code_bar: codigo,
+            get_ticket_client: true,
+            get_ticket_items: true,
+            get_ticket_items_product: true,
+            get_ticket_items_employee: true,
+            get_ticket_payment_term: true,
+            get_payment_mode: true,
+            get_ticket_payments: true,
+            get_ticket_payment_mode: true,
+            get_product_unit: true,
+            get_ticket_card: true
+          }).$promise;
+        },
+
         obterTodos: function(getUser, getCliente, getItems, getProdutos, getFuncionarios, getPrazo, getPagamento, getFormasPagamento, statusId, limite) {
           return provider.query({
             action: 'getList'

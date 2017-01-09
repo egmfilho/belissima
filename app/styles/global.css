@@ -1288,6 +1288,18 @@ body {
 #modalTicket .tabela-pagamentos tr:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.1); }
 
+.meu-modal.modal-buscar-ticket div.comanda-input {
+  position: relative; }
+  .meu-modal.modal-buscar-ticket div.comanda-input input {
+    padding-left: 35px; }
+  .meu-modal.modal-buscar-ticket div.comanda-input .glyphicon {
+    position: absolute;
+    color: #666;
+    top: 10px;
+    left: 10px;
+    font-size: 1.2em;
+    z-index: 3; }
+
 #servico-produtos textarea {
   resize: none; }
 #servico-produtos .tabela {
@@ -1629,6 +1641,8 @@ body {
 .fc-unthemed .fc-more-popover {
   max-height: 400px;
   overflow-y: auto; }
+.fc-unthemed .fc-scroller-canvas.fc-gutter-bottom {
+  background-color: #555; }
 
 #agenda .calendar {
   margin: 20px;

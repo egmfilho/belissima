@@ -1,7 +1,68 @@
+<!--CLIENTE-->
 <br>
+<ul class="nav nav-tabs" name="cliente">
+  <li role="presentation" class="active">
+    <a href="" ng-click="ticket.collapse.cliente = !ticket.collapse.cliente">
+      Cliente
+      <span class="glyphicon" ng-class="{'glyphicon-menu-down': ticket.collapse.cliente, 'glyphicon-menu-up': !ticket.collapse.cliente}"></span>
+    </a>
+  </li>
+</ul>
+<div class="conteudo-nav condensar-rows">
+  <div uib-collapse="ticket.collapse.cliente">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 cabecalho">
+        <h4>Informações</h4>
+      </div>
+      <div class="col-sm-2">
+        <h4>Código</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" name="cdCliente" ng-model="ticket.novoTicket.cliente.codigo" number-only keys-shortcuts enter="buscarClientePorCodigo(ticket.novoTicket.cliente.codigo)" shift-enter="ticket.avancarParaProdutos()">
+          <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="buscarCliente()"><i class="glyphicon glyphicon-search"></i></button>
+        </span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <h4>Nome</h4>
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.nome" readonly>
+      </div>
+      <div class="col-sm-4">
+        <h4>Apelido</h4>
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.apelido" readonly>
+      </div>
+      <div class="col-sm-3">
+        <h4>Tipo</h4>
+        <select class="form-control" ng-model="ticket.novoTicket.cliente.tipo" readonly disabled>
+          <option value="F">Físico</option>
+          <option value="J">Jurídico</option>
+        </select>
+      </div>
+      <div class="col-sm-3">
+        <h4>CPF</h4>
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.cpf" readonly>
+      </div>
+      <div class="col-sm-3">
+        <h4>RG</h4>
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.rg" readonly>
+      </div>
+      <div class="col-sm-3">
+        <h4>CNPJ</h4>
+        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.cnpj" readonly>
+      </div>
+    </div>
+  </div>
+  <div ng-show="ticket.collapse.cliente">
+    <a href="" class="resumo" ng-click="ticket.collapse.cliente = !ticket.collapse.cliente">
+      <h3 class="text-center" ng-show="ticket.novoTicket.cliente.id">Cliente: <span class="lucilei">({{ticket.novoTicket.cliente.codigo}}) {{ticket.novoTicket.cliente.nome}}</span></h3>
+      <h3 class="text-center" ng-hide="ticket.novoTicket.cliente.id">Nenhum cliente informado.</h3>
+    </a>
+  </div>
+</div>
 
 <!--PRODUTO-->
-<ul class="nav nav-tabs">
+<br>
+<ul class="nav nav-tabs" name="produtos">
   <li role="presentation" class="active">
     <a href="" ng-click="ticket.collapse.produtos = !ticket.collapse.produtos">
       Serviços & Produtos
@@ -15,7 +76,7 @@
       <div class="col-sm-2">
         <h4>Funcionário</h4>
         <div class="input-group">
-          <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" shift-enter="ticket.avancarParaCliente()">
+          <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" shift-enter="ticket.avancarParaPagamento()">
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="buscarFuncionario()">
               <i class="glyphicon glyphicon-search" tabindex="-1"></i>
@@ -35,7 +96,7 @@
       <div class="col-sm-2">
         <h4>Produto</h4>
         <div class="input-group">
-          <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.avancarParaCliente()">
+          <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.avancarParaPagamento()">
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="buscarProduto()" tabindex="-1">
               <i class="glyphicon glyphicon-search"></i>
@@ -54,7 +115,7 @@
       </div>
       <div class="col-sm-1">
         <h4>Qtd</h4>
-        <input type="text" name="qtdProduto" class="form-control" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="ticket.avancarParaCliente()">
+        <input type="text" name="qtdProduto" class="form-control" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="ticket.avancarParaPagamento()">
       </div>
       <div class="col-sm-1">
         <h4>Preço</h4>
@@ -122,68 +183,6 @@
   </div>
 </div>
 
-<!--CLIENTE-->
-<br>
-<ul class="nav nav-tabs" name="cliente">
-  <li role="presentation" class="active">
-    <a href="" ng-click="ticket.collapse.cliente = !ticket.collapse.cliente">
-      Cliente
-      <span class="glyphicon" ng-class="{'glyphicon-menu-down': ticket.collapse.cliente, 'glyphicon-menu-up': !ticket.collapse.cliente}"></span>
-    </a>
-  </li>
-</ul>
-<div class="conteudo-nav condensar-rows">
-  <div uib-collapse="ticket.collapse.cliente">
-    <div class="row">
-      <div class="col-sm-12 col-md-12 cabecalho">
-        <h4>Informações</h4>
-      </div>
-      <div class="col-sm-2">
-        <h4>Código</h4>
-        <div class="input-group">
-          <input type="text" class="form-control" name="cdCliente" ng-model="ticket.novoTicket.cliente.codigo" number-only keys-shortcuts enter="buscarClientePorCodigo(ticket.novoTicket.cliente.codigo)" shift-enter="ticket.avancarParaPagamento()">
-          <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="buscarCliente()"><i class="glyphicon glyphicon-search"></i></button>
-        </span>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <h4>Nome</h4>
-        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.nome" readonly>
-      </div>
-      <div class="col-sm-4">
-        <h4>Apelido</h4>
-        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.apelido" readonly>
-      </div>
-      <div class="col-sm-3">
-        <h4>Tipo</h4>
-        <select class="form-control" ng-model="ticket.novoTicket.cliente.tipo" readonly disabled>
-          <option value="F">Físico</option>
-          <option value="J">Jurídico</option>
-        </select>
-      </div>
-      <div class="col-sm-3">
-        <h4>CPF</h4>
-        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.cpf" readonly>
-      </div>
-      <div class="col-sm-3">
-        <h4>RG</h4>
-        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.rg" readonly>
-      </div>
-      <div class="col-sm-3">
-        <h4>CNPJ</h4>
-        <input type="text" class="form-control" ng-model="ticket.novoTicket.cliente.cnpj" readonly>
-      </div>
-    </div>
-  </div>
-  <div ng-show="ticket.collapse.cliente">
-    <a href="" class="resumo" ng-click="ticket.collapse.cliente = !ticket.collapse.cliente">
-      <h3 class="text-center" ng-show="ticket.novoTicket.cliente.id">Cliente: <span class="lucilei">({{ticket.novoTicket.cliente.codigo}}) {{ticket.novoTicket.cliente.nome}}</span></h3>
-      <h3 class="text-center" ng-hide="ticket.novoTicket.cliente.id">Nenhum cliente informado.</h3>
-    </a>
-  </div>
-</div>
-
 <!--PAGAMENTO-->
 <br>
 <ul class="nav nav-tabs" name="pagamento">
@@ -200,7 +199,7 @@
       <div class="col-sm-3">
         <h4>Prazo</h4>
         <div class="input-group">
-          <input type="text" class="form-control" name="cdPagamento" placeholder="Código" ng-model="ticket.cdPrazo" keys-shortcuts enter="buscarPrazoPorCodigo(ticket.cdPrazo)">
+          <input type="text" class="form-control" name="cdPagamento" placeholder="Código" ng-model="ticket.cdPrazo" keys-shortcuts enter="buscarPrazoPorCodigo(ticket.cdPrazo)" shift-enter="ticket.salvar()">
           <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="buscarPrazo()">
             <i class="glyphicon glyphicon-search"></i>

@@ -120,9 +120,9 @@
 
     <div class="col-xs-12 text-right totalizadores">
       <!--<span class="glyphicon glyphicon-info-sign"></span>-->
-      <span class="totalizador"><b>Quantidade:</b> {{pagination.total}}</span><br class="visible-xs-block">
-      <span class="totalizador"><b>Valor total:</b> {{valorTotal | currency: 'R$ '}}</span><br class="visible-xs-block">
-      <span class="totalizador"><b>Média:</b> {{mediaValorTotal | currency: 'R$ '}}</span>
+      <span class="totalizador"><b>Quantidade:</b> {{pagination.total > 0 ? pagination.total : 0}}</span><br class="visible-xs-block">
+      <span class="totalizador"><b>Valor total:</b> {{(valorTotal || 0) | currency: 'R$ '}}</span><br class="visible-xs-block">
+      <span class="totalizador"><b>Média:</b> {{(mediaValorTotal || 0) | currency: 'R$ '}}</span>
     </div>
     <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="3" ng-change="pagination.pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
   </div>

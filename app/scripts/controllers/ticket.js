@@ -150,7 +150,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
           validarComanda($routeParams.card);
           $scope.opcao = 'novo';
           self.novoTicket.comanda.codigoDeBarras = $routeParams.card;
-          focarCodigoFuncionario();
+          focarCodigoCliente();
           break;
         case 'edit':
           if ($routeParams.code) {
@@ -167,10 +167,14 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
           break;
       }
 
-      self.collapse.cliente = true;
+      self.collapse.produtos = true;
       self.collapse.pagamento = true;
     }
   });
+
+  function focarCodigoCliente() {
+    jQuery('input[name="cdCliente"]').focus().select();
+  }
 
   function focarCodigoFuncionario() {
     jQuery('input[name="cdFuncionario"]').focus().select();
@@ -190,6 +194,15 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
 
   this.focarFuncionario = function () {
     jQuery('input[name="cdFuncionario"]').focus().select();
+  };
+
+  this.avancarParaProdutos = function() {
+    this.collapse.produtos = false;
+    $scope.scrollTo(null, jQuery('ul[name="produtos"]'));
+
+    setTimeout(function() {
+      jQuery('input[name="cdFuncionario"]').focus().select();
+    }, 200);
   };
 
   this.avancarParaCliente = function() {
@@ -260,6 +273,11 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   };
 
   $scope.buscarFuncionarioPorCodigo = function (codigo) {
+    if (!codigo) {
+      $scope.buscarFuncionario();
+      return;
+    }
+
     $rootScope.loading.load();
     providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.funcionario.id).then(function (success) {
       $scope.selectFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
@@ -268,6 +286,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     }, function (error) {
       console.log(error);
       $rootScope.loading.unload();
+      $rootScope.alerta.show('Funcionário não encontrado!');
     });
   };
 
@@ -304,6 +323,11 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   };
 
   $scope.buscarProdutoPorCodigo = function (codigo) {
+    if (!codigo) {
+      $scope.buscarProduto();
+      return;
+    }
+
     $rootScope.loading.load();
     providerProduto.obterProdutoPorCodigo(codigo).then(function (success) {
       $scope.selectProduto(new Produto(Produto.converterEmEntrada(success.data)));
@@ -378,6 +402,11 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   };
 
   $scope.buscarPrazoPorCodigo = function (codigo) {
+    if (!codigo) {
+      $scope.buscarPrazo();
+      return;
+    }
+
     $rootScope.loading.load();
     providerPrazo.obterPorCodigo(codigo).then(function (success) {
       $scope.selectPrazo(new PrazoPagamento(PrazoPagamento.converterEmEntrada(success.data)));
@@ -385,6 +414,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     }, function (error) {
       console.log(error);
       $rootScope.loading.unload();
+      $rootScope.alerta.show('Prazo não encontrado!');
     });
   };
 
@@ -456,6 +486,11 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   };
 
   $scope.buscarClientePorCodigo = function (codigo) {
+    if (!codigo) {
+      $scope.buscarCliente();
+      return;
+    }
+
     $rootScope.loading.load();
     providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.cliente.id).then(function (success) {
       $rootScope.loading.unload();
@@ -463,6 +498,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     }, function (error) {
       console.log(error);
       $rootScope.loading.unload();
+      $rootScope.alerta.show('Pessoa não encontrada!');
     });
   };
 
