@@ -141,7 +141,7 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, Comanda, DataSaid
     pedido.descontoDinheiro = parseFloat(p.ticket_vl_discount);
     pedido.valor = parseFloat(p.ticket_value);
     pedido.valorComDesconto = parseFloat(p.ticket_value_total);
-    pedido.dataAtualizacao = new Date(p.ticket_update);
+    pedido.dataAtualizacao = p.ticket_update ? new Date(p.ticket_update) : null;
     pedido.dataPedido = new Date(p.ticket_date);
     pedido.comandaId = p.ticket_card_id;
 

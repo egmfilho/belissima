@@ -5,11 +5,11 @@
   </li>
 </ul>
 <div class="conteudo-nav condensar-rows">
-  <h3 style="margin: 0">Produto</h3>
+  <!--<h3 style="margin: 0">Produto</h3>-->
   <div class="col-sm-3">
     <h4>Código</h4>
     <div class="input-group">
-      <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.avancarParaPagamento()">
+      <input type="text" name="cdProduto" class="form-control" placeholder="Código do produto" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.avancarParaPagamento()">
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="buscarProduto()" tabindex="-1">
           <i class="glyphicon glyphicon-search"></i>

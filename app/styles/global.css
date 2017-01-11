@@ -1212,7 +1212,8 @@ body {
   text-decoration: none;
   color: white; }
   #tela-ticket .conteudo-nav a.resumo:hover {
-    color: #ccc; }
+    color: #ccc;
+    text-decoration: underline; }
 #tela-ticket .container-tabela.gnomo {
   max-height: 300px;
   overflow-y: auto;

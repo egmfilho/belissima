@@ -77,6 +77,10 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
       }
     });
 
+    setTimeout(function() {
+      $scope.scrollTo(null, jQuery('div[name="topo"]'));
+    }, 500);
+
     setTimeout(focarCodigo, 200);
   });
 
@@ -91,6 +95,15 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   $scope.$on("$destroy", function () {
     jQuery('body').unbind('keyup');
   });
+
+  $scope.scrollTo = function($event, elem) {
+    var container = jQuery('body'),
+      scrollTo  = $event ? jQuery('#' + $event.currentTarget.id) : elem;
+
+    container.animate({
+      scrollTop: scrollTo.offset().top - 20
+    });
+  };
 
   function focarCodigo() {
     jQuery('input[name="cdProduto"]').focus().select();

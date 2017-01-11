@@ -6,7 +6,7 @@
       <li role="presentation" ng-class="opcao === 'listar' ? 'active' : ''" ng-hide="opcao === 'novo' || opcao === 'inserir'"><a href="#/ticket/list" >Ver todos</a></li>
     </ul>
     <div class="conteudo-nav condensar-rows">
-      <div ng-show="opcao === 'novo' || opcao === 'inserir'">
+      <div ng-show="opcao === 'novo' || opcao === 'inserir'" name="resumo">
         <div>
           <div class="col-sm-3">
             <h4><span class="glyphicon glyphicon-barcode"></span> Cód. da comanda <br><span class="lucilei">{{ticket.novoTicket.comanda.codigoDeBarras}}</span></h4>
@@ -22,13 +22,13 @@
             <h4>
               <span class="glyphicon glyphicon-tag">
               </span> Ticket aberto em <br>
-              <span class="lucilei">{{ticket.novoTicket.id? (ticket.novoTicket.dataPedido | date: 'dd/MM/yyyy') : 'Indisponível'}}</span>
+              <span class="lucilei">{{ticket.novoTicket.id ? (ticket.novoTicket.dataPedido | date: 'dd/MM/yyyy') : 'Indisponível'}}</span>
             </h4>
           </div>
           <div class="col-sm-3">
             <h4>
               <span class="glyphicon glyphicon-time"></span> Atualizado em <br>
-              <span class="lucilei">{{ticket.novoTicket.id ? (ticket.novoTicket.dataAtualizacao | date: 'dd/MM/yyyy') : 'Indisponível'}}</span>
+              <span class="lucilei">{{ticket.novoTicket.dataAtualizacao ? (ticket.novoTicket.dataAtualizacao | date: 'dd/MM/yyyy') : 'Indisponível'}}</span>
             </h4>
           </div>
         </div>

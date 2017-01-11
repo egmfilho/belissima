@@ -30,6 +30,11 @@ angular.module('belissimaApp.services')
 
         },
 
+        'response': function(res) {
+
+          return res;
+        },
+
         'responseError': function(rejection) {
 
           if (rejection.status == http_status.nao_autorizado) {

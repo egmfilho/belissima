@@ -87,9 +87,9 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
 
   function getTickets() {
     $rootScope.loading.load();
+    $scope.ticketsArray = [];
     providerTicket.obterTodos(null, true, null, null, null, null, null, null, null, ($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function(success) {
       $scope.pagination.total = success.info.ticket_quantity;
-      $scope.ticketsArray = [];
       angular.forEach(success.data, function (item, index) {
         $scope.ticketsArray.push(new Pedido(Pedido.converterEmEntrada(item)));
       });
@@ -514,32 +514,32 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   };
 
   function validar() {
-    if (!self.novoTicket.items.length) {
-      $rootScope.alerta.show('O ticket não possui produtos ou serviços!', 'alert-danger');
-      return false;
-    }
+    // if (!self.novoTicket.items.length) {
+    //   $rootScope.alerta.show('O ticket não possui produtos ou serviços!', 'alert-danger');
+    //   return false;
+    // }
 
     if (!self.novoTicket.clienteId) {
       $rootScope.alerta.show('Informe o cliente!', 'alert-danger');
       return false;
     }
 
-    for (var i = 0; i < self.novoTicket.pagamentos.length; i++) {
-      if (!self.novoTicket.pagamentos[i].formaId) {
-        $rootScope.alerta.show('Informe todas as formas de pagamento!', 'alert-danger');
-        return false;
-      }
-
-      if (self.novoTicket.pagamentos[i].valor <= 0) {
-        $rootScope.alerta.show('Preencha corretamente os valores das parcelas!', 'alert-danger');
-        return false;
-      }
-    }
-
-    if (Math.abs(self.novoTicket.getTroco()) >= 0.01) {
-      $rootScope.alerta.show('Informe corretamente os valores!', 'alert-danger');
-      return false;
-    }
+    // for (var i = 0; i < self.novoTicket.pagamentos.length; i++) {
+    //   if (!self.novoTicket.pagamentos[i].formaId) {
+    //     $rootScope.alerta.show('Informe todas as formas de pagamento!', 'alert-danger');
+    //     return false;
+    //   }
+    //
+    //   if (self.novoTicket.pagamentos[i].valor <= 0) {
+    //     $rootScope.alerta.show('Preencha corretamente os valores das parcelas!', 'alert-danger');
+    //     return false;
+    //   }
+    // }
+    //
+    // if (Math.abs(self.novoTicket.getTroco()) >= 0.01) {
+    //   $rootScope.alerta.show('Informe corretamente os valores!', 'alert-danger');
+    //   return false;
+    // }
 
     return true;
   }
@@ -631,7 +631,9 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     if (!self.tempFuncionario || !self.tempFuncionario.id) {
       return;
     }
-    jQuery('#modalFuncionario').off('hide.bs.modal').modal('hide');
+    jQuery('#modalFuncionario').off('hide.bs.modal').modal('hide').on('hidden.bs.modal', function(e) {
+      $scope.scrollTo(null, jQuery('div[name="resumo"]'));
+    });
   };
 
   this.voltar = function() {
