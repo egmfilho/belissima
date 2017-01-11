@@ -178,7 +178,7 @@ angular
     // - Nova tela de ticket
     // - Adicionado código da comanda na tela lista de tickets
     // - Adicionada a versão mobile da agenda
-    $rootScope.versao = '0.8';
+    $rootScope.versao = '0.8.1';
   }])
   .run(['$rootScope', '$location', '$cookies', '$timeout', '$uibModalStack', function($rootScope, $location, $cookies, $timeout, $uibModalStack) {
 
@@ -225,26 +225,26 @@ angular
       $uibModalStack.dismissAll();
       $rootScope.currentPath = $location.path();
 
-      // // Bloqueia acesso de usuarios nao logados
-      // if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
-      //   if (next && next.templateUrl) {
-      //     if (next.templateUrl !== 'views/login.html' && next.templateUrl.indexOf('impressaoOrcamento.html') < 0) {
-      //       $location.path('/login');
-      //     }
-      //     return;
-      //   }
-      // }
-      //
-      // // Bloqueia acessos pelas permissoes
-      // if ($cookies.get('currentUser')) {
-      //   var user = JSON.parse(window.atob($cookies.get('currentUser')));
-      //   if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
-      //     if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
-      //       $rootScope.alerta.show('Acesso não autorizado!', 'alert-danger');
-      //       $location.path('/home');
-      //     }
-      //   }
-      // }
+      // Bloqueia acesso de usuarios nao logados
+      if (!$cookies.get('BELISSIMA') || !$cookies.get('currentUser') || $cookies.get('BELISSIMA') != JSON.parse(window.atob($cookies.get('currentUser'))).sessao) {
+        if (next && next.templateUrl) {
+          if (next.templateUrl !== 'views/login.html' && next.templateUrl.indexOf('impressaoOrcamento.html') < 0) {
+            $location.path('/login');
+          }
+          return;
+        }
+      }
+
+      // Bloqueia acessos pelas permissoes
+      if ($cookies.get('currentUser')) {
+        var user = JSON.parse(window.atob($cookies.get('currentUser')));
+        if (next.modulo && user.perfil.permissoes.hasOwnProperty(next.modulo)) {
+          if (!user.perfil.permissoes[next.modulo].permissoes['access'].valor) {
+            $rootScope.alerta.show('Acesso não autorizado!', 'alert-danger');
+            $location.path('/home');
+          }
+        }
+      }
 
     });
 

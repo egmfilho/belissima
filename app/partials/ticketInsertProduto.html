@@ -1,0 +1,134 @@
+<br>
+
+<ul class="nav nav-tabs" name="">
+  <li role="presentation">
+  </li>
+</ul>
+<div class="conteudo-nav condensar-rows">
+  <h3 style="margin: 0">Produto</h3>
+  <div class="col-sm-3">
+    <h4>Código</h4>
+    <div class="input-group">
+      <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.avancarParaPagamento()">
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="buscarProduto()" tabindex="-1">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </span>
+    </div>
+  </div>
+  <div class="col-sm-5">
+    <h4>Nome</h4>
+    <input type="text" name="nmProduto" class="form-control" placeholder="Nome do produto" ng-model="ticket.tempProduto"
+           keys-shortcuts enter="ticket.focarQuantidade()" shift-enter="ticket.opt = 'cliente'"
+           uib-typeahead="produto as produto.nome for produto in buscarProdutoPorNome($viewValue)"
+           typeahead-min-length="3"
+           typeahead-wait-ms="300"
+           typeahead-on-select="selectProduto($item)">
+  </div>
+  <div class="col-sm-2">
+    <h4>Qtd</h4>
+
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button class="btn btn-default" ng-click="ticket.novoItem.quantidade = ticket.novoItem.quantidade - 1"><span class="glyphicon glyphicon-minus-sign"></span></button>
+      </div>
+      <input type="text" name="qtdProduto" class="form-control text-right" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" >
+      <div class="input-group-btn">
+        <button class="btn btn-default" ng-click="ticket.novoItem.quantidade = ticket.novoItem.quantidade + 1"><span class="glyphicon glyphicon-plus-sign"></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <h4>Desconto %</h4>
+    <input type="text" name="descontoPercent" class="form-control text-right" ng-model="dummy" number-only currency symbol="''">
+  </div>
+</div>
+
+<br>
+
+<ul class="nav nav-tabs" name="">
+  <li role="presentation">
+  </li>
+</ul>
+<div class="conteudo-nav condensar-rows insert-reduzido">
+  <div class="col-sm-12 funcionario">
+    <h3 style="margin: 0">Funcionário: <span class="lucilei">({{ticket.tempFuncionario.codigo}}) {{ticket.tempFuncionario.nome}}</span></h3>
+    <a href="" ng-click="ticket.alterarFuncionario()">alterar</a>
+  </div>
+  <div class="col-sm-12 produto">
+    <div class="col-md-12 nome-produto">
+      <h3>{{ticket.tempProduto.codigo}} {{ticket.tempProduto.nome || 'Nenhum produto selecionado'}} <span ng-show="ticket.tempProduto.id">x {{ticket.novoItem.quantidade}}</span></h3>
+      <p>{{ticket.tempProduto.descricao || 'Sem descrição'}}</p>
+    </div>
+    <div class="col-md-6 descricao-produto">
+      <p>Valor do produto</p>
+      <h1>{{(ticket.tempProduto.preco.valor | currency: 'R$ ') || 'R$ 0,00'}}</h1>
+    </div>
+    <div class="col-md-6 descricao-produto text-right">
+      <p>Total</p>
+      <h1>{{(ticket.tempProduto.preco.valor * ticket.novoItem.quantidade | currency: 'R$ ') || 'R$ 0,00'}}</h1>
+    </div>
+  </div>
+
+  <span>
+    <div class="col-sm-3">
+      <a href="#/ticket/open" class="btn btn-default btn-block btn-lg"><span class="glyphicon glyphicon-chevron-left"></span> Voltar</a>
+    </div>
+    <div class="col-sm-3 col-sm-push-6">
+      <button class="btn btn-default btn-block btn-lg" ng-click="ticket.confirmarAddItem()"><span class="glyphicon glyphicon-plus"></span> Adicionar</button>
+    </div>
+  </span>
+</div>
+
+<!--MODAL FUNCIONARIO-->
+<div class="modal meu-modal fade" id="modalFuncionario" role="dialog" aria-labelledby="modalFuncionario">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="header">
+        <div class="title">
+          <span class="glyphicon glyphicon-pencil"></span>
+          Funcionário
+          <span class="glyphicon glyphicon-remove close" ng-click="ticket.voltar()"></span>
+        </div>
+      </div>
+      <div class="body condensar-rows">
+
+        <div class="col-sm-4">
+          <h4>Funcionário</h4>
+          <div class="input-group">
+            <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" shift-enter="ticket.avancarParaPagamento()">
+            <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="buscarFuncionario()">
+              <i class="glyphicon glyphicon-search" tabindex="-1"></i>
+            </button>
+          </span>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <h4>Nome</h4>
+          <input type="text" name="nmFuncionario" class="form-control" placeholder="Nome do funcionário" ng-model="ticket.tempFuncionario"
+                 keys-shortcuts enter="addItem()" shift-enter="ticket.opt = 'cliente'"
+                 uib-typeahead="funcionario as funcionario.nome for funcionario in buscarFuncionarioPorNome($viewValue)"
+                 typeahead-min-length="3"
+                 typeahead-wait-ms="300"
+                 typeahead-on-select="selectFuncionario($item)">
+        </div>
+
+        <!--<div class="col-md-12 funcionario">-->
+          <!--<h2><span class="glyphicon glyphicon-user"></span> {{ticket.tempFuncionario.codigo}} {{ticket.tempFuncionario.nome || 'Nenhum funcionário selecionado'}}</h2>-->
+        <!--</div>-->
+
+      </div>
+      <div class="control">
+        <button type="button" class="btn btn-default" ng-click="ticket.fecharModalFuncionario()" name="ok">
+          <span class="glyphicon glyphicon-ok"></span> Ok
+        </button>
+        <button type="button" class="btn btn-default" ng-click="ticket.voltar()">
+          <span class="glyphicon glyphicon-remove"></span> Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FIM MODAL-->

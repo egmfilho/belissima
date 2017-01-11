@@ -1202,6 +1202,12 @@ body {
     float: right; }
   #tela-ticket .nav-tabs li a:hover {
     cursor: pointer; }
+  #tela-ticket .nav-tabs li.add {
+    min-width: 50px; }
+    #tela-ticket .nav-tabs li.add .glyphicon {
+      opacity: .7;
+      float: none;
+      margin-left: 4px; }
 #tela-ticket .conteudo-nav a.resumo {
   text-decoration: none;
   color: white; }
@@ -1243,6 +1249,40 @@ body {
       text-align: center; }
     #tela-ticket .comanda > div button {
       width: 100%; }
+#tela-ticket .insert-reduzido .funcionario h3 {
+  display: inline-block;
+  border-radius: 6px;
+  margin: 0;
+  padding: 0 5px; }
+#tela-ticket .insert-reduzido .funcionario a {
+  color: white;
+  text-decoration: none;
+  opacity: .9; }
+  #tela-ticket .insert-reduzido .funcionario a:hover {
+    text-decoration: underline;
+    opacity: 1; }
+#tela-ticket .insert-reduzido .produto {
+  margin-bottom: 32px; }
+  #tela-ticket .insert-reduzido .produto .nome-produto {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #777;
+    font-size: 1.25em; }
+    #tela-ticket .insert-reduzido .produto .nome-produto h3 {
+      font-size: 2em; }
+  #tela-ticket .insert-reduzido .produto .descricao-produto {
+    font-size: 1.2em; }
+    #tela-ticket .insert-reduzido .produto .descricao-produto h1 {
+      margin-top: 5px;
+      font-size: 2.3em; }
+#tela-ticket #modalFuncionario {
+  z-index: 1049; }
+  #tela-ticket #modalFuncionario .funcionario {
+    margin-top: 20px;
+    border: 1px solid #888;
+    border-radius: 6px;
+    padding: 15px; }
+    #tela-ticket #modalFuncionario .funcionario h2 {
+      margin: 0; }
 
 @media (min-width: 768px) {
   #tela-ticket .tabela.tabela-produtos tr th:nth-child(3), #tela-ticket .tabela.tabela-produtos tr td:nth-child(3) {

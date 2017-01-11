@@ -7,6 +7,11 @@
       <span class="glyphicon" ng-class="{'glyphicon-menu-down': ticket.collapse.cliente, 'glyphicon-menu-up': !ticket.collapse.cliente}"></span>
     </a>
   </li>
+  <li role="presentation" class="add">
+    <a href="" ng-click="">
+      <span class="glyphicon glyphicon-plus"></span>&nbsp;
+    </a>
+  </li>
 </ul>
 <div class="conteudo-nav condensar-rows">
   <div uib-collapse="ticket.collapse.cliente">
@@ -115,7 +120,7 @@
       </div>
       <div class="col-sm-1">
         <h4>Qtd</h4>
-        <input type="text" name="qtdProduto" class="form-control" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="ticket.avancarParaPagamento()">
+        <input type="text" name="qtdProduto" class="form-control text-right" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="ticket.avancarParaPagamento()">
       </div>
       <div class="col-sm-1">
         <h4>Preço</h4>
@@ -184,77 +189,77 @@
 </div>
 
 <!--PAGAMENTO-->
-<br>
-<ul class="nav nav-tabs" name="pagamento">
-  <li role="presentation" class="active">
-    <a href="" class="resumo" ng-click="ticket.collapse.pagamento = !ticket.collapse.pagamento">
-      Pagamento
-      <span class="glyphicon" ng-class="{'glyphicon-menu-down': ticket.collapse.pagamento, 'glyphicon-menu-up': !ticket.collapse.pagamento}"></span>
-    </a>
-  </li>
-</ul>
-<div class="conteudo-nav condensar-rows">
-  <div uib-collapse="ticket.collapse.pagamento">
-    <div class="row">
-      <div class="col-sm-3">
-        <h4>Prazo</h4>
-        <div class="input-group">
-          <input type="text" class="form-control" name="cdPagamento" placeholder="Código" ng-model="ticket.cdPrazo" keys-shortcuts enter="buscarPrazoPorCodigo(ticket.cdPrazo)" shift-enter="ticket.salvar()">
-          <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="buscarPrazo()">
-            <i class="glyphicon glyphicon-search"></i>
-          </button>
-        </span>
-        </div>
-      </div>
-      <div class="col-sm-9">
-        <h4>Descrição</h4>
-        <input type="text" class="form-control" placeholder="Descrição do prazo" ng-model="ticket.tempPrazo"
-               keys-shortcuts enter=""
-               uib-typeahead="prazo as prazo.descricao for prazo in buscarPrazosPorDescricao($viewValue)"
-               typeahead-min-length="2"
-               typeahead-wait-ms="300"
-               typeahead-on-select="prepararPrazo($item)">
-      </div>
+<!--<br>-->
+<!--<ul class="nav nav-tabs" name="pagamento">-->
+  <!--<li role="presentation" class="active">-->
+    <!--<a href="" class="resumo" ng-click="ticket.collapse.pagamento = !ticket.collapse.pagamento">-->
+      <!--Pagamento-->
+      <!--<span class="glyphicon" ng-class="{'glyphicon-menu-down': ticket.collapse.pagamento, 'glyphicon-menu-up': !ticket.collapse.pagamento}"></span>-->
+    <!--</a>-->
+  <!--</li>-->
+<!--</ul>-->
+<!--<div class="conteudo-nav condensar-rows">-->
+  <!--<div uib-collapse="ticket.collapse.pagamento">-->
+    <!--<div class="row">-->
+      <!--<div class="col-sm-3">-->
+        <!--<h4>Prazo</h4>-->
+        <!--<div class="input-group">-->
+          <!--<input type="text" class="form-control" name="cdPagamento" placeholder="Código" ng-model="ticket.cdPrazo" keys-shortcuts enter="buscarPrazoPorCodigo(ticket.cdPrazo)" shift-enter="ticket.salvar()">-->
+          <!--<span class="input-group-btn">-->
+          <!--<button type="button" class="btn btn-default" ng-click="buscarPrazo()">-->
+            <!--<i class="glyphicon glyphicon-search"></i>-->
+          <!--</button>-->
+        <!--</span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="col-sm-9">-->
+        <!--<h4>Descrição</h4>-->
+        <!--<input type="text" class="form-control" placeholder="Descrição do prazo" ng-model="ticket.tempPrazo"-->
+               <!--keys-shortcuts enter=""-->
+               <!--uib-typeahead="prazo as prazo.descricao for prazo in buscarPrazosPorDescricao($viewValue)"-->
+               <!--typeahead-min-length="2"-->
+               <!--typeahead-wait-ms="300"-->
+               <!--typeahead-on-select="prepararPrazo($item)">-->
+      <!--</div>-->
 
-      <div class="col-xs-12 cabecalho-parcela" ng-repeat="pagamento in ticket.novoTicket.pagamentos track by $index">
-        <h4>Parcela {{$index + 1}}</h4>
-        <div class="row">
-          <div class="col-sm-4">
-            <h4>Forma</h4>
-            <select class="form-control" ng-options="forma.id as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="pagamento.formaId">
-              <option value="" disabled>Selecione a forma de pagamento</option>
-            </select>
-          </div>
-          <div class="col-sm-4">
-            <h4>Vencimento</h4>
-            <div class="input-group">
-              <input type="text" class="form-control text-center" name="data-vencimento" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" on-open-focus="false" is-open="pagamento.popupCalendario" ng-model="pagamento.vencimento" datepicker-options="dateOptions" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar"/>
-              <div class="input-group-btn">
-                <button class="btn btn-default" ng-click="pagamento.popupCalendario = !pagamento.popupCalendario"><span class="glyphicon glyphicon-calendar"></span></button>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <h4>Valor</h4>
-            <input type="text" class="form-control text-right" ng-model="pagamento.valor" currency readonly>
-          </div>
-        </div>
-      </div>
+      <!--<div class="col-xs-12 cabecalho-parcela" ng-repeat="pagamento in ticket.novoTicket.pagamentos track by $index">-->
+        <!--<h4>Parcela {{$index + 1}}</h4>-->
+        <!--<div class="row">-->
+          <!--<div class="col-sm-4">-->
+            <!--<h4>Forma</h4>-->
+            <!--<select class="form-control" ng-options="forma.id as forma.descricao for forma in ticket.novoTicket.prazo.formas" ng-model="pagamento.formaId">-->
+              <!--<option value="" disabled>Selecione a forma de pagamento</option>-->
+            <!--</select>-->
+          <!--</div>-->
+          <!--<div class="col-sm-4">-->
+            <!--<h4>Vencimento</h4>-->
+            <!--<div class="input-group">-->
+              <!--<input type="text" class="form-control text-center" name="data-vencimento" uib-datepicker-popup="{{format}}" datepicker-template-url="partials/datepicker/index.html" on-open-focus="false" is-open="pagamento.popupCalendario" ng-model="pagamento.vencimento" datepicker-options="dateOptions" show-button-bar="true" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar"/>-->
+              <!--<div class="input-group-btn">-->
+                <!--<button class="btn btn-default" ng-click="pagamento.popupCalendario = !pagamento.popupCalendario"><span class="glyphicon glyphicon-calendar"></span></button>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-sm-4">-->
+            <!--<h4>Valor</h4>-->
+            <!--<input type="text" class="form-control text-right" ng-model="pagamento.valor" currency readonly>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
 
-      <div class="col-xs-12 clear-fix cabecalho-parcela">
-        <h1 class="pull-left">Total: {{ticket.novoTicket.getValorTotal() | currency: 'R$ '}}</h1>
-        <h1 class="pull-right">Troco: {{ticket.novoTicket.getTroco() | currency: 'R$ '}}</h1>
-      </div>
-    </div>
-  </div>
-  <div ng-show="ticket.collapse.pagamento">
-    <a href="" class="resumo" ng-click="ticket.collapse.pagamento = !ticket.collapse.pagamento">
-      <h3 class="text-center" ng-show="ticket.novoTicket.prazoId">Prazo selecionado: <span class="lucilei">{{ticket.novoTicket.prazo.descricao}}</span></h3>
-      <h3 class="text-center" ng-hide="ticket.novoTicket.prazoId">Nenhuma forma de pagamento informada.</h3>
-    </a>
-  </div>
-</div>
+      <!--<div class="col-xs-12 clear-fix cabecalho-parcela">-->
+        <!--<h1 class="pull-left">Total: {{ticket.novoTicket.getValorTotal() | currency: 'R$ '}}</h1>-->
+        <!--<h1 class="pull-right">Troco: {{ticket.novoTicket.getTroco() | currency: 'R$ '}}</h1>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div ng-show="ticket.collapse.pagamento">-->
+    <!--<a href="" class="resumo" ng-click="ticket.collapse.pagamento = !ticket.collapse.pagamento">-->
+      <!--<h3 class="text-center" ng-show="ticket.novoTicket.prazoId">Prazo selecionado: <span class="lucilei">{{ticket.novoTicket.prazo.descricao}}</span></h3>-->
+      <!--<h3 class="text-center" ng-hide="ticket.novoTicket.prazoId">Nenhuma forma de pagamento informada.</h3>-->
+    <!--</a>-->
+  <!--</div>-->
+<!--</div>-->
 
 <br>
 <ul class="nav nav-tabs"></ul>

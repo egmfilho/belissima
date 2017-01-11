@@ -1,20 +1,36 @@
-<tela id="tela-ticket" icon="glyphicon-edit" titulo="Ticket" subtitulo="Crie, edite e visualize os Tickets." show-footer="true">
+<tela id="tela-ticket" icon="glyphicon-tags" titulo="Ticket" subtitulo="Crie, edite e visualize os Tickets." show-footer="true">
 
   <div class="conteudo-tela">
     <ul class="nav nav-tabs">
-      <li role="presentation" ng-class="opcao === 'abrir' ? 'active' : ''" ng-hide="opcao === 'novo'"><a href="#/ticket/open" >Abrir</a></li>
-      <li role="presentation" ng-class="opcao === 'listar' ? 'active' : ''" ng-hide="opcao === 'novo'"><a href="#/ticket/list" >Ver todos</a></li>
-      <!--<li role="presentation" ng-class="opcao === 'novo' ? 'active' : ''" ng-show="opcao === 'novo'"><a href="#/ticket/new">{{ticket.novoTicket.id ? 'Editar' : 'Novo'}}</a></li>-->
+      <li role="presentation" ng-class="opcao === 'abrir' ? 'active' : ''" ng-hide="opcao === 'novo' || opcao === 'inserir'"><a href="#/ticket/open" >Abrir</a></li>
+      <li role="presentation" ng-class="opcao === 'listar' ? 'active' : ''" ng-hide="opcao === 'novo' || opcao === 'inserir'"><a href="#/ticket/list" >Ver todos</a></li>
     </ul>
     <div class="conteudo-nav condensar-rows">
-      <div ng-show="opcao === 'novo'">
-        <div class="text-center" ng-if="!ticket.novoTicket.id">
-          <h3><span class="glyphicon glyphicon-tag"></span> Novo Ticket</h3>
-          <h3><span class="glyphicon glyphicon-barcode"></span> Código da comanda: <span class="lucilei">{{ticket.novoTicket.comanda.codigoDeBarras}}</span></h3>
-        </div>
-        <div class="text-center" ng-if="ticket.novoTicket.id">
-          <h3><span class="glyphicon glyphicon-tag"></span> Ticket aberto em: <span class="lucilei">{{ticket.novoTicket.dataPedido | date: 'short'}}</span></h3>
-          <h3><span class="glyphicon glyphicon-barcode"></span> Código da comanda: <span class="lucilei">{{ticket.novoTicket.comanda.codigoDeBarras}}</span></h3>
+      <div ng-show="opcao === 'novo' || opcao === 'inserir'">
+        <div>
+          <div class="col-sm-3">
+            <h4><span class="glyphicon glyphicon-barcode"></span> Cód. da comanda <br><span class="lucilei">{{ticket.novoTicket.comanda.codigoDeBarras}}</span></h4>
+          </div>
+          <div class="col-sm-3">
+            <h4>
+              <span class="glyphicon glyphicon-user"></span> Cliente <br>
+              <span class="lucilei" ng-show="ticket.novoTicket.cliente.id">({{ticket.novoTicket.cliente.codigo}}) {{ticket.novoTicket.cliente.nome}}</span>
+              <span class="lucilei" ng-hide="ticket.novoTicket.cliente.id">Indisponível</span>
+            </h4>
+          </div>
+          <div class="col-sm-3">
+            <h4>
+              <span class="glyphicon glyphicon-tag">
+              </span> Ticket aberto em <br>
+              <span class="lucilei">{{ticket.novoTicket.id? (ticket.novoTicket.dataPedido | date: 'dd/MM/yyyy') : 'Indisponível'}}</span>
+            </h4>
+          </div>
+          <div class="col-sm-3">
+            <h4>
+              <span class="glyphicon glyphicon-time"></span> Atualizado em <br>
+              <span class="lucilei">{{ticket.novoTicket.id ? (ticket.novoTicket.dataAtualizacao | date: 'dd/MM/yyyy') : 'Indisponível'}}</span>
+            </h4>
+          </div>
         </div>
       </div>
 
@@ -89,6 +105,8 @@
     </div>
 
     <div ng-show="opcao === 'novo'" ng-include="'partials/formNovoTicket.html'"></div>
+
+    <div ng-show="opcao === 'inserir'" ng-include="'partials/ticketInsertProduto.html'"></div>
   </div>
 
 </tela>

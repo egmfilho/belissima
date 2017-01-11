@@ -25,10 +25,11 @@ TicketCtrl.$inject = [
   'Pagamento',
   'ProviderTicket',
   'ProviderComanda',
-  'Comanda'
+  'Comanda',
+  'ModalConfirm'
 ];
 
-function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPrazo, PrazoPagamento, modalPrazo, Pagamento, providerTicket, providerComanda, Comanda) {
+function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPrazo, PrazoPagamento, modalPrazo, Pagamento, providerTicket, providerComanda, Comanda, modalConfirm) {
 
   var self = this, escape_confirm = false;
 
@@ -63,6 +64,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   $scope.$on('$locationChangeStart', function( event ) {
     if (escape_confirm) {
       cleanURL();
+      jQuery('div.modal-backdrop').remove();
       return;
     }
     console.log($location);
@@ -73,9 +75,11 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       }
       escape_confirm = true;
       cleanURL();
+      jQuery('div.modal-backdrop').remove();
     } else {
       if ($location.path().indexOf('ticket') == -1) {
         cleanURL();
+        jQuery('div.modal-backdrop').remove();
       }
     }
 
@@ -159,6 +163,13 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
             focarCodigoFuncionario();
           } else {
 
+          }
+          break;
+        case 'insert':
+          if ($routeParams.code) {
+            $scope.opcao = 'inserir';
+            obterTicket($routeParams.code);
+            abrirModalFuncionario();
           }
           break;
         case 'list':
@@ -390,7 +401,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     self.tempFuncionario = null;
     self.novoItem = new ItemPedido();
 
-    setParcelas();
+    // setParcelas();
 
     focarCodigoFuncionario();
   };
@@ -546,7 +557,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       providerTicket.editar(Pedido.converterEmSaida(self.novoTicket)).then(function(success) {
         $rootScope.alerta.show('Ticket editado!', 'alert-success');
         escape_confirm = true;
-        $location.path('ticket/list');
+        $location.path('ticket/open');
         $location.search('code', null);
         $rootScope.loading.unload();
       }, function(error) {
@@ -557,7 +568,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       providerTicket.salvar(Pedido.converterEmSaida(self.novoTicket)).then(function(success) {
         $rootScope.alerta.show('Ticket salvo!', 'alert-success');
         escape_confirm = true;
-        $location.path('ticket/list');
+        $location.path('ticket/open');
         $rootScope.loading.unload();
       }, function(error) {
         console.log(error);
@@ -602,5 +613,48 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       $rootScope.alerta.show('Ticket excluido', 'alert-success');
       getTickets();
     });
+  };
+
+  function abrirModalFuncionario() {
+    setTimeout(function() {
+      jQuery('#modalFuncionario').on('hide.bs.modal', function(e) {
+        if ((!self.tempFuncionario || !self.tempFuncionario.id) && !escape_confirm) {
+          e.preventDefault();
+        }
+      }).modal('show').on('shown.bs.modal', function(e) {
+        jQuery('#modalFuncionario').find('input[name="cdFuncionario"]').focus().select();
+      });
+    }, 500);
+  }
+
+  this.fecharModalFuncionario = function() {
+    if (!self.tempFuncionario || !self.tempFuncionario.id) {
+      return;
+    }
+    jQuery('#modalFuncionario').off('hide.bs.modal').modal('hide');
+  };
+
+  this.voltar = function() {
+    if (!self.tempFuncionario || !self.tempFuncionario.id) {
+      modalConfirm.show('Aviso', 'Deseja cancelar a inserção de produtos?').then(function () {
+        escape_confirm = true;
+        jQuery('#modalFuncionario').modal('hide').on('hidden.bs.modal', function (e) {
+          $location.path('ticket/open');
+        });
+      });
+    } else {
+      self.fecharModalFuncionario();
+    }
+  };
+
+  this.confirmarAddItem = function() {
+    modalConfirm.show('Aviso', 'Adicionar o item ao ticket?').then(function() {
+      $scope.addItem();
+      self.salvar();
+    });
+  };
+
+  this.alterarFuncionario = function() {
+    abrirModalFuncionario();
   };
 }
