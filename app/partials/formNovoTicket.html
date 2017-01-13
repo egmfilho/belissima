@@ -1,19 +1,24 @@
 <!--CLIENTE-->
 <br>
 <ul class="nav nav-tabs" name="cliente">
-  <li role="presentation" class="active">
-    <a href="" ng-click="ticket.collapse.cliente = !ticket.collapse.cliente">
+  <li role="presentation" ng-class="{'active': ticket.opt == 'not-add'}">
+    <a href="" ng-click="ticket.opt == 'not-add' ? ticket.collapse.cliente = !ticket.collapse.cliente : ticket.opt = 'not-add'">
       Cliente
       <span class="glyphicon" ng-class="{'glyphicon-menu-down': ticket.collapse.cliente, 'glyphicon-menu-up': !ticket.collapse.cliente}"></span>
     </a>
   </li>
-  <li role="presentation" class="add">
-    <a href="" ng-click="">
+  <li role="presentation" class="add" ng-class="{'active': ticket.opt == 'add'}" ng-hide="ticket.novoTicket.cliente.id" title="Novo Cliente">
+    <a href="" ng-click="ticket.opt='add'">
       <span class="glyphicon glyphicon-plus"></span>&nbsp;
     </a>
   </li>
 </ul>
-<div class="conteudo-nav condensar-rows">
+<div class="conteudo-nav condensar-rows" ng-show="ticket.opt=='add'">
+  <span ng-controller="ClientesCtrl as clientes">
+    <div ng-include="'partials/formNovaPessoa.html'" onload="clientes.viewContentLoaded()"></div>
+  </span>
+</div>
+<div class="conteudo-nav condensar-rows" ng-show="ticket.opt=='not-add'">
   <div uib-collapse="ticket.collapse.cliente">
     <div class="row">
       <div class="col-sm-12 col-md-12 cabecalho">
@@ -61,6 +66,7 @@
     <a href="" class="resumo" ng-click="ticket.collapse.cliente = !ticket.collapse.cliente">
       <h3 class="text-center" ng-show="ticket.novoTicket.cliente.id">Cliente: <span class="lucilei">({{ticket.novoTicket.cliente.codigo}}) {{ticket.novoTicket.cliente.nome}}</span></h3>
       <h3 class="text-center" ng-hide="ticket.novoTicket.cliente.id">Nenhum cliente informado.</h3>
+      <h6 class="text-center" style="margin-top: 0">(ver mais)</h6>
     </a>
   </div>
 </div>
@@ -101,7 +107,7 @@
       <div class="col-sm-2">
         <h4>Produto</h4>
         <div class="input-group">
-          <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.avancarParaPagamento()">
+          <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.salvar()">
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="buscarProduto()" tabindex="-1">
               <i class="glyphicon glyphicon-search"></i>
@@ -120,7 +126,7 @@
       </div>
       <div class="col-sm-1">
         <h4>Qtd</h4>
-        <input type="text" name="qtdProduto" class="form-control text-right" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="ticket.avancarParaPagamento()">
+        <input type="text" name="qtdProduto" class="form-control text-right" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="ticket.salvar()">
       </div>
       <div class="col-sm-1">
         <h4>Preço</h4>
@@ -138,6 +144,7 @@
               <th>Produto</th>
               <th>Qtd.</th>
               <th>Preço</th>
+              <th>Desc. %</th>
               <th>Total</th>
               <th>&nbsp;</th>
             </tr>
@@ -152,6 +159,7 @@
               </td>
               <td data-label="Quantidade" class="visible-xs-block">{{i.quantidade | currency : ''}}</td>
               <td data-label="Preço">{{i.precoProduto | currency: 'R$ '}}</td>
+              <td data-label="Desconto %">{{0 | currency: ''}}%</td>
               <td data-label="Total">{{i.getTotalComDesconto() | currency: 'R$ '}}</td>
               <td class="hidden-xs">
                 <a href="" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="removeItem(i)" placement="left">
@@ -171,6 +179,7 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
+              <td>&nbsp;</td>
             </tr>
             </tbody>
           </table>
@@ -184,6 +193,7 @@
   <div ng-show="ticket.collapse.produtos">
     <a href="" class="resumo" ng-click="ticket.collapse.produtos = !ticket.collapse.produtos">
       <h3 class="text-center">Total: <span class="lucilei">{{ticket.novoTicket.items.length}} {{ticket.novoTicket.items.length == 1 ? 'item' : 'itens'}}</span></h3>
+      <h6 class="text-center" style="margin-top: 0">(ver mais)</h6>
     </a>
   </div>
 </div>

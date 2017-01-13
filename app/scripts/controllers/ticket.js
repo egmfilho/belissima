@@ -51,6 +51,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     pageChanged: getTickets
   };
   $scope.opcao = 'listar';
+  this.opt = 'not-add';
 
   $scope.format = 'dd/MM/yyyy';
 
@@ -67,11 +68,11 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       jQuery('div.modal-backdrop').remove();
       return;
     }
-    console.log($location);
 
     if (self.novoTicket.items.length || self.novoTicket.cliente.id || self.novoTicket.pagamentos.length) {
       if (!confirm('Deseja sair?')) {
         event.preventDefault();
+        return;
       }
       escape_confirm = true;
       cleanURL();
@@ -82,7 +83,12 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
         jQuery('div.modal-backdrop').remove();
       }
     }
+  });
 
+  $scope.$on('novoCliente', function(event, data) {
+    $rootScope.alerta.show('Cliente cadastrado!', 'alert-success');
+    self.novoTicket.setCliente(new Pessoa(Pessoa.converterEmEntrada(data)));
+    self.opt = 'not-add';
   });
 
   function getTickets() {
@@ -257,10 +263,6 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
   }
 
   $scope.abrirComanda = function(codigoDeBarras) {
-    if (codigoDeBarras.length < 12) {
-      return;
-    }
-
     $rootScope.loading.load();
     providerTicket.abrirComanda(codigoDeBarras).then(function(success, status) {
       console.log(status);
@@ -276,6 +278,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       console.log(error);
       $rootScope.loading.unload();
       $rootScope.alerta.show('Comanda não cadastrada!', 'alert-danger');
+      jQuery('input[name="cdComanda"]').focus().select();
     });
   };
 
@@ -293,6 +296,9 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     providerPessoa.obterPessoaPorCodigo(codigo, $rootScope.categoriaPessoa.funcionario.id).then(function (success) {
       $scope.selectFuncionario(new Pessoa(Pessoa.converterEmEntrada(success.data)));
       $rootScope.loading.unload();
+      if ($scope.opcao == 'inserir') {
+        self.fecharModalFuncionario();
+      }
       focarCodigoProduto();
     }, function (error) {
       console.log(error);

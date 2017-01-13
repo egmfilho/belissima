@@ -14,7 +14,7 @@ angular.module('belissimaApp.controllers')
       {
         nome: 'Ticket',
         icone: 'glyphicon-barcode',
-        url: '/ticket/list'
+        url: '/ticket/open'
       },
       {
         nome: 'Serviços &<br>Produtos',

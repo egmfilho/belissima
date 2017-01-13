@@ -36,7 +36,9 @@ angular.module('belissimaApp.controllers')
         showWeeks: false
       };
 
-      $scope.$on('$viewContentLoaded', function () {
+      this.viewContentLoaded = function() {
+        console.log('ClientesCtrl');
+
         $scope.pessoa = new Pessoa();
         //$scope.pessoa.enderecos = [ new Endereco() ];
         $scope.pessoa.setEnderecoPrincipal(0);
@@ -59,6 +61,10 @@ angular.module('belissimaApp.controllers')
 
         $scope.getClientes();
         getTiposContato();
+      };
+
+      $scope.$on('$viewContentLoaded', function () {
+        self.viewContentLoaded();
       });
 
       this.isFuncionario = function () {
@@ -241,6 +247,7 @@ angular.module('belissimaApp.controllers')
           $rootScope.loading.load();
           provider.salvarPessoa(Pessoa.converterEmSaida($scope.pessoa)).then(function (success) {
             console.log(success);
+            $scope.$emit('novoCliente', success.data);
             $scope.pessoa = new Pessoa();
             $rootScope.loading.unload();
             $scope.getClientes();

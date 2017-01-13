@@ -54,7 +54,7 @@ angular.module('belissimaApp.controllers')
         { value: 2, as: '15 minutos' },
         { value: 3, as: '30 minutos' }
       ];
-      $scope.option = this.intervalos[2].value;
+      $scope.option = this.intervalos[1].value;
 
       $scope.$on('$viewContentLoaded', function() {
         // jQuery($document).on('click', 'button.fc-button', function() {
@@ -91,7 +91,7 @@ angular.module('belissimaApp.controllers')
             return "+ " + n + " eventos";
           },
           defaultView: 'month',
-          slotDuration: '00:15:00',
+          slotDuration: '00:10:00',
           slotLabelFormat: 'HH:mm',
           timeFormat: 'HH:mm',
           slotEventOverlap: false,

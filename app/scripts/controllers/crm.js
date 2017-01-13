@@ -11,6 +11,7 @@ CRMCtrl.$inject = [
   '$cookies',
   'ModalBuscarPessoa',
   'ProviderPessoa',
+  'ModalEditarPessoa',
   'Pessoa',
   'ProviderDocumento',
   'Documento',
@@ -21,7 +22,7 @@ CRMCtrl.$inject = [
   'Produto'
 ];
 
-function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa, Pessoa, providerDocumento, Documento, providerComissao, Comissao, providerProduto, modalBuscarProduto, Produto) {
+function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa, ModalEditarPessoa, Pessoa, providerDocumento, Documento, providerComissao, Comissao, providerProduto, modalBuscarProduto, Produto) {
 
   var self = this,
       usuario = JSON.parse(window.atob($cookies.get('currentUser'))),
@@ -102,6 +103,19 @@ function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa
         obterComissoes(self.pessoa.id);
       }
       console.log(self.pessoa);
+    }, function (error) {
+      console.log(error);
+      $rootScope.loading.unload();
+    });
+  };
+
+  this.editarPessoa = function () {
+    $rootScope.loading.load();
+    providerPessoa.obterPessoaPorCodigo(self.pessoa.codigo, self.pessoa.categorias.length ? self.pessoa.categorias[0].id : null, true, null, true, true, true, true, null, true).then(function (success) {
+      $rootScope.loading.unload();
+      ModalEditarPessoa.show(new Pessoa(Pessoa.converterEmEntrada(success.data)), function (result) {
+        self.buscarPessoaPorCodigo(self.pessoa.codigo);
+      });
     }, function (error) {
       console.log(error);
       $rootScope.loading.unload();

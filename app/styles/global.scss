@@ -127,6 +127,10 @@ body {
   margin: 0 auto;
 }
 
+.inline {
+  display: inline !important;
+}
+
 .super-logo {
   width: 100%;
   height: 100%;
@@ -837,6 +841,10 @@ body {
     padding: 10px 5px 0 5px;
     position: relative;
 
+    span.glyphicon {
+      cursor: pointer;
+    }
+
     &:before, &:after {
       content: '';
       left: -33px;
@@ -1170,6 +1178,10 @@ body {
   .modal {
     .sub-header {
       overflow-x: auto;
+
+      .row.scrollable {
+        width: 600px !important;
+      }
     }
 
     .modal-dialog.modal-lg {
@@ -1186,11 +1198,11 @@ body {
   }
 
   .empurrado {
-    margin-left: 64px;
+    padding-left: 64px;
   }
 
   .minimizado {
-    margin-left: 64px;
+    padding-left: 64px;
   }
 
   .conteudo-tela {
@@ -1229,11 +1241,11 @@ body {
 
 @media (min-width: 1200px) {
   .empurrado {
-    margin-left: 300px;
+    padding-left: 300px;
   }
 
   .minimizado {
-    margin-left: 64px;
+    padding-left: 64px;
   }
 
   .dark-div, .show-dark-div {

@@ -178,6 +178,8 @@ angular
     // - Nova tela de ticket
     // - Adicionado código da comanda na tela lista de tickets
     // - Adicionada a versão mobile da agenda
+    // - Edicao de pessoas na tela do CRM
+    // - Corrigido problema dos objetos que ao darem append-to-body, apareciam na posicao errada
     $rootScope.versao = '0.8.1';
   }])
   .run(['$rootScope', '$location', '$cookies', '$timeout', '$uibModalStack', function($rootScope, $location, $cookies, $timeout, $uibModalStack) {

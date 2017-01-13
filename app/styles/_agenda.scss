@@ -10,6 +10,57 @@
   }
 }
 
+.fc-time-area {
+  .fc-scroller {
+    overflow-y: hidden !important;
+  }
+
+  .fc-rows {
+    tr td{
+      > div, > div .fc-event-container {
+        min-height: 60px !important;
+        height: 60px !important;
+        max-height: 60px !important;
+      }
+
+      a.fc-timeline-event {
+        min-height: 54px !important;
+        height: 54px !important;
+        max-height: 54px !important;
+      }
+    }
+  }
+}
+
+.fc-resource-area {
+  .fc-content {
+    border-color: $cor-calendario-borda;
+    tr td {
+      > div {
+        min-height: 60px !important;
+        height: 60px !important;
+        max-height: 60px !important;
+      }
+    }
+  }
+}
+
+.fc-button {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+
+  background-image: none;
+  background-color: $cor-menu-highlight;
+  color: white;
+
+  &:hover {
+    background-color: $cor-menu-highlight-escuro;
+  }
+}
+
 .fc-view-container {
   margin-bottom: 15px;
 
@@ -98,29 +149,32 @@
     margin: 20px;
     min-width: 800px;
   }
-
-  button {
-    -webkit-transition: none;
-    -moz-transition: none;
-    -ms-transition: none;
-    -o-transition: none;
-    transition: none;
-
-    background-image: none;
-    background-color: $cor-menu-highlight;
-    color: white;
-
-    &:hover {
-      background-color: $cor-menu-highlight-escuro;
-    }
-  }
 }
 
 .cadeado {
   width: 100%;
   text-align: center;
-  font-size: 2em;
-  opacity: .5;
+
+  .glyphicon {
+    width: 100%;
+    font-size: 2em;
+    opacity: .5;
+    text-shadow: 0 0 9px rgba(0, 0, 0, .8);
+  }
+
+  h6 {
+    margin: 0;
+    margin-bottom: 5px;
+  }
+}
+
+.feriado {
+  width: 22px;
+  height: 25px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  color: $cor-menu-highlight;
+  font-size: 1.5em;
   text-shadow: 0 0 9px rgba(0, 0, 0, .8);
 }
 

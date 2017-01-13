@@ -10,13 +10,14 @@ angular.module('belissimaApp.controllers')
 CalendarioCtrl.$inject = [
   '$rootScope',
   '$scope',
+  '$compile',
   '$filter',
   '$http',
   'Feriado',
   'uiCalendarConfig'
 ];
 
-function CalendarioCtrl($rootScope, $scope, $filter, $http, Feriado, uiCalendarConfig) {
+function CalendarioCtrl($rootScope, $scope, $compile, $filter, $http, Feriado, uiCalendarConfig) {
 
   var self = this,
       hoje = new Date();
@@ -29,7 +30,7 @@ function CalendarioCtrl($rootScope, $scope, $filter, $http, Feriado, uiCalendarC
 
   $scope.dummy = [];
 
-  $scope.temp = new Feriado();
+  this.temp = new Feriado();
 
   $scope.uiConfig = {
     calendar: {
@@ -120,28 +121,40 @@ function CalendarioCtrl($rootScope, $scope, $filter, $http, Feriado, uiCalendarC
     });
   }
 
+  function isBloqueado(date) {
+    return self.diasBloqueados.find(function (dia, index) {
+      var d = new Date(dia.data);
+
+      if (d == null) return null;
+
+      return compararMomentDate(date, d);
+    });
+  }
+
   function dayRender(date, cell) {
     var feriado = isFeriado(date);
+    var bloqueado = isBloqueado(date);
+
+    if (bloqueado) {
+      jQuery(cell).css('vertical-align', 'middle').append('<span class="cadeado"><span class="glyphicon glyphicon-lock"></span><br><h6 class="text-center">' + bloqueado.titulo + '</h6></span>');
+    }
 
     if (feriado) {
-      jQuery(cell).css('vertical-align', 'middle').append('<span class="glyphicon glyphicon-calendar cadeado"></span><br><h6 class="text-center">' + feriado.titulo + '</h6>');
+      var elem = $compile('<div class="feriado" uib-popover="' + feriado.titulo + '" popover-trigger="\'mouseenter\'" popover-placement="top" popover-append-to-body="true"><span class="glyphicon glyphicon-calendar"></span></div>')($scope);
+      jQuery(cell).css('vertical-align', 'bottom').append(elem);
     }
   }
 
   function dayClick(date, jsEvent, view) {
-    $scope.temp.data = new Date(date.format('YYYY/MM/DD'));
-    jQuery('#modalFeriado').modal('show');
-    return;
+    var dia = isBloqueado(date);
+    self.temp = new Feriado();
 
-    if (isBloqueado(date)) {
-      self.feriados = self.feriados.filter(function(element) {
-        return !compararMomentDate(date, element.data);
-      });
+    if (dia) {
+      self.diasBloqueados.splice(self.diasBloqueados.indexOf(dia), 1);
     } else {
-      self.feriados.push({ data: new Date(date.format('YYYY/MM/DD')) });
+      self.temp.data = new Date(date.format('YYYY/MM/DD'));
+      jQuery('#modalFeriado').modal('show');
     }
-
-    refreshCalendar();
 
     jsEvent.preventDefault();
   }
@@ -151,4 +164,11 @@ function CalendarioCtrl($rootScope, $scope, $filter, $http, Feriado, uiCalendarC
     uiCalendarConfig.calendars.calendarioFeriados.fullCalendar('prev');
     uiCalendarConfig.calendars.calendarioFeriados.fullCalendar('next');
   }
+
+  this.salvar = function() {
+    console.log('salvando');
+    self.diasBloqueados.push(self.temp);
+    jQuery('#modalFeriado').modal('hide');
+    refreshCalendar();
+  };
 }

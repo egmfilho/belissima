@@ -93,7 +93,7 @@
           </thead>
           <tbody>
           <tr ng-repeat="comissao in crm.comissoes" ng-class="{'aberto': comissao.status=='A', 'liberado': comissao.status=='L', 'fechado': comissao.status=='F', 'cancelado': comissao.status=='C'}">
-            <td class="hidden-xs" uib-tooltip="{{comissao.getStatus()}}" tooltip-append-to-body="true" tooltip-class="crm-tooltip" tooltip-placement="right" tooltip-trigger="'mouseenter'"
+            <td class="hidden-xs" uib-tooltip="{{comissao.getStatus()}}" tooltip-append-to-body="true" tooltip-placement="right" tooltip-trigger="'mouseenter'"
                 ng-class="{'aberto': comissao.status=='A', 'liberado': comissao.status=='L', 'fechado': comissao.status=='F', 'cancelado': comissao.status=='C'}"></td>
             <td data-label="Título">{{comissao.recebivel.codigo}}</td>
             <td data-label="Produto">{{comissao.item.produto.nome}}</td>

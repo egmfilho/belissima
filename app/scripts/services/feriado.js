@@ -15,6 +15,7 @@ function Feriado() {
     this.descricao = feriado ? feriado.descricao : '';
     this.legislacao = feriado ? feriado.legislacao : '';
     this.variavel = feriado ? feriado.variavel : [ ];
+    this.recorrente = feriado ? feriado.recorrente : false;
   }
 
   Feriado.converterEmEntrada = function(f) {
@@ -31,7 +32,7 @@ function Feriado() {
     });
 
     return feriado;
-  }
+  };
 
   return Feriado;
 

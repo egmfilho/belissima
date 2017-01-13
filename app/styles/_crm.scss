@@ -32,6 +32,19 @@ $cancelado: #cc3217;
   .info {
     //text-align: center;
     margin: 30px;
+
+  }
+
+  a.editar {
+    color: #bdbdbd;
+    text-decoration: none;
+    opacity: .9;
+    margin-left: 10px;
+
+    &:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
   }
 
   .enderecos, .contatos {
