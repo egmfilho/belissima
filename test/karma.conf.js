@@ -32,6 +32,7 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/moment/moment.js',
       'bower_components/fullcalendar/dist/fullcalendar.js',
+      'bower_components/fullcalendar/dist/lang/pt-br.js',
       'bower_components/angular-ui-calendar/src/calendar.js',
       'bower_components/angular-i18n/angular-locale_pt-br.js',
       'bower_components/fullcalendar-scheduler/dist/scheduler.js',
@@ -39,6 +40,7 @@ module.exports = function(config) {
       'bower_components/angularMultipleSelect/build/multiple-select.min.js',
       'bower_components/egmfilho-keys-shortcuts/src/keys.js',
       'bower_components/egmfilho-input-filters/src/filters.js',
+      'bower_components/bootstrap-select/dist/js/bootstrap-select.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

@@ -21,8 +21,8 @@ angular.module('belissimaApp.services')
 
       function Login(username, password, callback) {
 
-        // var fake = JSON.parse('{"status":{"code":200,"message":"Ok."},"data":{"user_id":"1003","user_profile_id":"1001","user_session_id":null,"user_active":"Y","user_user":"eduardo","user_name":"Eduardo Miranda","user_mail":"eduardo@futuraagencia.com.br","user_login":"2016-12-23 17:33:51","user_update":"2016-12-23 17:34:19","user_date":"2016-09-22 12:09:34","person_id":"1005","user_current_session_id":"jio2ckofrlqnj7f8lo3l4tr3a5","user_profile":{"user_profile_id":"1001","user_profile_name":"Administrador","user_profile_update":null,"user_profile_date":"2016-06-20 11:46:20"}},"info":null}');
-        // SetCredentials(new Usuario(Usuario.converterEmEntrada(fake.data)));
+        // var fake = JSON.parse('{"data":{"status":{"code":200,"message":"Ok."},"data":{"user_id":"1003","user_profile_id":"1001","user_session_id":null,"user_active":"Y","user_user":"eduardo","user_name":"Eduardo Miranda","user_mail":null,"user_login":"2017-01-24T18:12:45","user_update":"2017-01-05T19:07:45","user_date":"2016-09-22T12:09:34","person_id":"1005","user_current_session_id":"kskf83i06vitddqrpgilshttg2","user_profile":{"user_profile_id":"1001","user_profile_name":"Administrador","user_profile_update":"2017-01-22T00:09:08","user_profile_date":"2016-06-20T11:46:20","user_profile_access":{"pdv":{"name":"PDV","access":{"name":"Acesso","value":"Y","data_type":"bool"}},"ticket":{"name":"Ticket","access":{"name":"Acesso","value":"Y","data_type":"bool"},"viewitem":{"name":"Visualizar Itens","value":"Y","data_type":"bool"},"edit":{"name":"Editar","value":"Y","data_type":"bool"},"insert":{"name":"Inserir","value":"Y","data_type":"bool"}},"product":{"name":"Produtos","access":{"name":"Acesso","value":"Y","data_type":"bool"}},"movimentation":{"name":"Movimenta\u00e7\u00e3o","access":{"name":"Acesso","value":"Y","data_type":"bool"}},"person":{"name":"Pessoas","access":{"name":"Acesso","value":"Y","data_type":"bool"}},"crm":{"name":"CRM","access":{"name":"Acesso","value":"Y","data_type":"bool"}},"report":{"name":"Relat\u00f3rios","access":{"name":"Acesso","value":"Y","data_type":"bool"}},"agenda":{"name":"Agenda","access":{"name":"Acesso","value":"Y","data_type":"bool"}},"config":{"name":"Configura\u00e7\u00f5es","access":{"name":"Acesso","value":"Y","data_type":"bool"}}}}},"info":null}, "status":200}');
+        // SetCredentials(new Usuario(Usuario.converterEmEntrada(fake.data.data)));
         // callback(fake);
         // return;
 
@@ -31,13 +31,13 @@ angular.module('belissimaApp.services')
           url: URLS.root + 'login.php',
           data: { user: username, pass: password },
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        }).success(function(res) {
-          if (res.status.code == 200) {
+        }).then(function(res) {
+          if (res.status == 200) {
             console.log(res.data);
-            SetCredentials(new Usuario(Usuario.converterEmEntrada(res.data)));
+            SetCredentials(new Usuario(Usuario.converterEmEntrada(res.data.data)));
           }
           callback(res);
-        }).error(function(res) {
+        }, function(res) {
           callback(res);
         });
 
@@ -47,9 +47,11 @@ angular.module('belissimaApp.services')
         $http({
           method: 'POST',
           url: URLS.root + 'logout.php',
-        }).success(function(response) {
+        }).then(function(response) {
           ClearCredentials();
           callback(response);
+        }, function (error) {
+          console.log(error);
         });
       }
 

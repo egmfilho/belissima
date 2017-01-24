@@ -25,9 +25,9 @@ angular.module('belissimaApp.services')
         this.tipoEvento = evento ? evento.tipoEvento : '';
         this.color = evento ? evento.color : '';
         this.textColor = evento ? evento.textColor : '';
-        this.cliente = evento ? evento.cliente : '';
-        this.funcionario = evento ? evento.funcionario : '';
-        this.produto = evento ? evento.produto : '';
+        this.cliente = evento ? evento.cliente : new Pessoa();
+        this.funcionario = evento ? evento.funcionario : new Pessoa();
+        this.produto = evento ? evento.produto : new Produto();
         this.resourceId = evento ? evento.resourceId : -1;
       }
 

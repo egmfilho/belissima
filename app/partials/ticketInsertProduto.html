@@ -97,9 +97,9 @@
         <div class="col-sm-4">
           <h4>Funcionário</h4>
           <div class="input-group">
-            <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" shift-enter="ticket.avancarParaPagamento()">
+            <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)">
             <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="buscarFuncionario()">
+            <button type="button" class="btn btn-default" tabindex="-1" ng-click="buscarFuncionario()">
               <i class="glyphicon glyphicon-search" tabindex="-1"></i>
             </button>
           </span>
@@ -110,6 +110,8 @@
           <input type="text" name="nmFuncionario" class="form-control" placeholder="Nome do funcionário" ng-model="ticket.tempFuncionario"
                  keys-shortcuts enter="addItem()" shift-enter="ticket.opt = 'cliente'"
                  uib-typeahead="funcionario as funcionario.nome for funcionario in buscarFuncionarioPorNome($viewValue)"
+                 typeahead-append-to-body="true"
+                 typeahead-template-url="partials/typeaheadModal.html"
                  typeahead-min-length="3"
                  typeahead-wait-ms="300"
                  typeahead-on-select="selectFuncionario($item)">

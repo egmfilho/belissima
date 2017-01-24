@@ -72,6 +72,7 @@ function ComandasCtrl($rootScope, $scope, provider, Comanda) {
     }, function(error) {
       console.log(error);
       $rootScope.loading.unload();
+      $rootScope.alerta.show(error.data.status.description, 'alert-danger');
     });
   };
 

@@ -287,3 +287,7 @@
     }
   }
 }
+
+ul.dropdown-menu[template-url='partials/typeaheadModal.html'] {
+  z-index: 1051;
+}

@@ -103,15 +103,15 @@ body {
   background-color: #dadada;
   border-color: #888; }
 
-.botao, .tela .body button, .tela .body a.btn, .modal .input-group-btn button, .modal .body button, .modal .control button, .btn-toggle .btn, .botao[disabled], .tela .body button[disabled], .tela .body a[disabled].btn, .modal .input-group-btn button[disabled], .modal .body button[disabled], .modal .control button[disabled], .btn-toggle [disabled].btn {
+.botao, .tela .body button, .tela .body a.btn, .modal .input-group-btn button, .modal .control button, .btn-toggle .btn, .botao[disabled], .tela .body button[disabled], .tela .body a[disabled].btn, .modal .input-group-btn button[disabled], .modal .control button[disabled], .btn-toggle [disabled].btn {
   background-color: #baa526;
   color: white;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
   border-color: #867512;
   outline: none; }
-  .botao .glyphicon, .tela .body button .glyphicon, .tela .body a.btn .glyphicon, .modal .input-group-btn button .glyphicon, .modal .body button .glyphicon, .modal .control button .glyphicon, .btn-toggle .btn .glyphicon, .botao[disabled] .glyphicon, .tela .body button[disabled] .glyphicon, .tela .body a[disabled].btn .glyphicon, .modal .input-group-btn button[disabled] .glyphicon, .modal .body button[disabled] .glyphicon, .modal .control button[disabled] .glyphicon, .btn-toggle [disabled].btn .glyphicon {
+  .botao .glyphicon, .tela .body button .glyphicon, .tela .body a.btn .glyphicon, .modal .input-group-btn button .glyphicon, .modal .control button .glyphicon, .btn-toggle .btn .glyphicon, .botao[disabled] .glyphicon, .tela .body button[disabled] .glyphicon, .tela .body a[disabled].btn .glyphicon, .modal .input-group-btn button[disabled] .glyphicon, .modal .control button[disabled] .glyphicon, .btn-toggle [disabled].btn .glyphicon {
     color: white; }
-  .botao:hover, .tela .body button:hover, .tela .body a.btn:hover, .modal .input-group-btn button:hover, .modal .body button:hover, .modal .control button:hover, .btn-toggle .btn:hover, .botao:focus, .tela .body button:focus, .tela .body a.btn:focus, .modal .input-group-btn button:focus, .modal .body button:focus, .modal .control button:focus, .btn-toggle .btn:focus, .botao[disabled]:hover, .tela .body button[disabled]:hover, .tela .body a[disabled].btn:hover, .modal .input-group-btn button[disabled]:hover, .modal .body button[disabled]:hover, .modal .control button[disabled]:hover, .btn-toggle [disabled].btn:hover, .botao[disabled]:focus, .tela .body button[disabled]:focus, .tela .body a[disabled].btn:focus, .modal .input-group-btn button[disabled]:focus, .modal .body button[disabled]:focus, .modal .control button[disabled]:focus, .btn-toggle [disabled].btn:focus {
+  .botao:hover, .tela .body button:hover, .tela .body a.btn:hover, .modal .input-group-btn button:hover, .modal .control button:hover, .btn-toggle .btn:hover, .botao:focus, .tela .body button:focus, .tela .body a.btn:focus, .modal .input-group-btn button:focus, .modal .control button:focus, .btn-toggle .btn:focus, .botao[disabled]:hover, .tela .body button[disabled]:hover, .tela .body a[disabled].btn:hover, .modal .input-group-btn button[disabled]:hover, .modal .control button[disabled]:hover, .btn-toggle [disabled].btn:hover, .botao[disabled]:focus, .tela .body button[disabled]:focus, .tela .body a[disabled].btn:focus, .modal .input-group-btn button[disabled]:focus, .modal .control button[disabled]:focus, .btn-toggle [disabled].btn:focus {
     background-color: #867512;
     border-color: #6e5f23;
     color: white;
@@ -1152,7 +1152,7 @@ body {
     background-attachment: local, local, scroll, scroll;
     border: 1px solid #aaa; }
     #tela-pdv .lista-de-produtos .card .nota pre {
-      min-height: 100%;
+      min-height: 110%;
       font-family: monospace;
       margin-bottom: 0;
       background-color: transparent;
@@ -1349,6 +1349,9 @@ body {
     left: 10px;
     font-size: 1.2em;
     z-index: 3; }
+
+ul.dropdown-menu[template-url='partials/typeaheadModal.html'] {
+  z-index: 1051; }
 
 #servico-produtos textarea {
   resize: none; }
@@ -1766,6 +1769,22 @@ body {
 
 #modalInserir {
   z-index: 1041; }
+
+#configuracoes .preview {
+  width: 100%;
+  height: 350px;
+  padding: 30px;
+  margin: 30px 0; }
+  #configuracoes .preview .timeline, #configuracoes .preview .agenda-day {
+    width: 100%;
+    border: 10px solid transparent; }
+    #configuracoes .preview .timeline.active, #configuracoes .preview .agenda-day.active {
+      border-color: #baa526; }
+    #configuracoes .preview .timeline:hover, #configuracoes .preview .agenda-day:hover {
+      cursor: pointer;
+      border-color: #dbc12e; }
+  #configuracoes .preview .name {
+    text-align: center; }
 
 #financeiro #modalPrazo h4 > .glyphicon {
   vertical-align: bottom; }

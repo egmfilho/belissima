@@ -370,6 +370,7 @@ angular.module('belissimaApp.controllers')
 
       this.dia = function() {
         uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', 'timelineDay');
+        // uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', 'agendaDay');
       };
 
       this.semana = function() {

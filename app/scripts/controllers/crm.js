@@ -34,6 +34,8 @@ function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa
   this.historico = [];
   this.comissoes = [];
 
+  this.opcao = 'dados';
+
   $scope.$on('$viewContentLoaded', function() {
     setTimeout(function() {
       jQuery('input[name="cdPessoa"]').focus().select();
@@ -102,7 +104,7 @@ function CRMCtrl($rootScope, $scope, $cookies, modalBuscarPessoa, providerPessoa
       if ($scope.liberarFinanceiro()) {
         obterComissoes(self.pessoa.id);
       }
-      console.log(self.pessoa);
+      self.opcao = 'dados';
     }, function (error) {
       console.log(error);
       $rootScope.loading.unload();

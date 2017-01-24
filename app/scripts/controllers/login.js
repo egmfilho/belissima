@@ -9,7 +9,7 @@ angular.module('belissimaApp.controllers')
     this.logar = function(username, password) {
       authentication.login(username, password, function(res) {
 
-        switch (res.status.code) {
+        switch (res.status) {
           case 401:
             $rootScope.alerta.show('Usuário não autorizado!');
             // console.log('Usuário não autorizado!');

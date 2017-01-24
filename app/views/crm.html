@@ -22,15 +22,15 @@
     </div>
     <br>
     <span ng-show="crm.pessoa.id">
-      <ul class="nav nav-tabs" ng-init="opcao='dados'">
-        <li role="presentation" ng-class="opcao === 'dados' ? 'active' : ''"><a href="" ng-click="opcao='dados'">Dados <span class="hidden-xs">Cadastrais</span></a></li>
-        <li role="presentation" ng-class="opcao === 'historico' ? 'active' : ''"><a href="" ng-click="opcao='historico'">Histórico <span class="hidden-xs">de Compra</span></a></li>
-        <li role="presentation" ng-class="opcao === 'financeiro' ? 'active' : ''" ng-show="crm.isFuncionario() && liberarFinanceiro()"><a href="" ng-click="opcao='financeiro'">Conta <span class="hidden-xs">Corrente</span></a></li>
+      <ul class="nav nav-tabs">
+        <li role="presentation" ng-class="crm.opcao === 'dados' ? 'active' : ''"><a href="" ng-click="crm.opcao='dados'">Dados <span class="hidden-xs">Cadastrais</span></a></li>
+        <li role="presentation" ng-class="crm.opcao === 'historico' ? 'active' : ''"><a href="" ng-click="crm.opcao='historico'">Histórico <span class="hidden-xs">de Compra</span></a></li>
+        <li role="presentation" ng-class="crm.opcao === 'financeiro' ? 'active' : ''" ng-show="crm.isFuncionario() && liberarFinanceiro()"><a href="" ng-click="crm.opcao='financeiro'">Conta <span class="hidden-xs">Corrente</span></a></li>
       </ul>
       <div class="conteudo-nav condensar-rows">
-        <div ng-show="opcao === 'dados'" ng-include="'partials/crm/dados.html'"></div>
-        <div ng-show="opcao === 'historico'" ng-include="'partials/crm/historico.html'"></div>
-        <div ng-show="opcao === 'financeiro'" ng-include="'partials/crm/financeiro.html'"></div>
+        <div ng-show="crm.opcao === 'dados'" ng-include="'partials/crm/dados.html'"></div>
+        <div ng-show="crm.opcao === 'historico'" ng-include="'partials/crm/historico.html'"></div>
+        <div ng-show="crm.opcao === 'financeiro'" ng-include="'partials/crm/financeiro.html'"></div>
       </div>
     </span>
   </div>

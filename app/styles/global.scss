@@ -710,9 +710,9 @@ body {
     overflow-x: auto;
     overflow-y: auto;
 
-    button {
-      @extend .botao;
-    }
+    //button.btn.btn-default { ta afetando o bootstrap-select do modal evento
+    //  @extend .botao;
+    //}
 
     .container {
       width: 100%;

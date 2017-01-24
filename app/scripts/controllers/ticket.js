@@ -330,6 +330,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
       self.novoItem.setFuncionario(new Pessoa(funcionario));
       self.cdFuncionario = self.novoItem.funcionario.codigo;
       self.tempFuncionario = self.novoItem.funcionario;
+      self.fecharModalFuncionario();
     }
   };
 
@@ -639,6 +640,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     }
     jQuery('#modalFuncionario').off('hide.bs.modal').modal('hide').on('hidden.bs.modal', function(e) {
       $scope.scrollTo(null, jQuery('div[name="resumo"]'));
+      focarCodigoProduto();
     });
   };
 

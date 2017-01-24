@@ -25,8 +25,9 @@ angular
     'ui.mask',
     'multipleSelect'
   ])
-  .config(['$httpProvider', function($httpProvider) {
+  .config(['$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
     $httpProvider.interceptors.push('SessionInjector');
+    $locationProvider.hashPrefix('');
   }])
   .config(function ($routeProvider) {
 
@@ -95,7 +96,7 @@ angular
         resolve: resolveCategorias()
       })
       .when('/movimentacao', {
-        modulo: 'product',
+        modulo: 'movimentation',
         templateUrl: 'views/movimentacao.html',
         controller: 'MovimentacaoCtrl',
         controllerAs: 'movimentacao'
@@ -108,7 +109,7 @@ angular
         resolve: resolveCategorias()
       })
       .when('/crm', {
-        modulo: 'person',
+        modulo: 'crm',
         templateUrl: 'views/crm.html',
         controller: 'CRMCtrl',
         controllerAs: 'crm',
@@ -126,6 +127,10 @@ angular
         templateUrl: 'views/configuracoes.html',
         controller: 'ConfiguracoesCtrl',
         controllerAs: 'configuracoes'
+      })
+      .when('/ajuda', {
+        modulo: 'ajuda',
+        templateUrl: 'views/ajuda.html'
       })
       .otherwise({
         redirectTo: '/'

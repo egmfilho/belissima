@@ -39,7 +39,7 @@
       <div class="col-xs-12 col-sm-3 col-md-2">
         <h4>Código</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" ng-model="evento.cliente.codigo" keys-shortcuts enter="setPessoa(categoriaPessoa.cliente.id)">
+          <input type="text" class="form-control" ng-model="evento.cliente.codigo" keys-shortcuts enter="setPessoa(categoriaPessoa.cliente.id)">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click="setPessoa(categoriaPessoa.cliente.id)"><span class="glyphicon glyphicon-refresh"></span></button>
           </span>
@@ -48,7 +48,7 @@
       <div class="col-xs-12 col-sm-6 col-md-6">
         <h4>Cliente</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" readonly="true" ng-model="evento.cliente.nome">
+          <input type="text" class="form-control" tabindex="-1" aria-describedby="basic-addon2" readonly="true" ng-model="evento.cliente.nome">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click="getPessoa(categoriaPessoa.cliente.id)"><span class="glyphicon glyphicon-search"></span></button>
             <button class="btn btn-default" tabindex="-1" ng-click="removePessoa(categoriaPessoa.cliente.id)"><span class="glyphicon glyphicon-remove"></span></button>
@@ -57,7 +57,7 @@
       </div>
       <div class="col-xs-12 col-sm-3 col-md-4">
         <h4>{{evento.cliente.contatos[0].tipoContato.nome || 'Contato'}}</h4>
-        <input class="form-control telefone" type="text" readonly="true" ng-model="evento.cliente.contatos[0].contato">
+        <input class="form-control telefone" type="text" tabindex="-1" readonly="true" ng-model="evento.cliente.contatos[0].contato">
       </div>
 
       <div class="col-xs-12 col-sm-3 col-md-2">
@@ -72,7 +72,7 @@
       <div class="col-xs-12 col-sm-6 col-md-6">
         <h4>Funcionário</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" readonly="true" ng-model="evento.funcionario.nome">
+          <input type="text" class="form-control" tabindex="-1" aria-describedby="basic-addon2" readonly="true" ng-model="evento.funcionario.nome">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click="getPessoa(categoriaPessoa.funcionario.id)"><span class="glyphicon glyphicon-search"></span></button>
           <!--</span>-->
@@ -83,7 +83,7 @@
       </div>
       <div class="col-xs-12 col-sm-3 col-md-4">
         <h4>{{evento.funcionario.contatos[0].tipoContato.nome || 'Contato'}}</h4>
-        <input class="form-control telefone" type="text" readonly="true" ng-model="evento.funcionario.contatos[0].contato">
+        <input class="form-control telefone" type="text" tabindex="-1" readonly="true" ng-model="evento.funcionario.contatos[0].contato">
       </div>
 
       <div class="col-xs-12 col-sm-3 col-md-2">
@@ -98,7 +98,7 @@
       <div class="col-xs-12 col-sm-6 col-md-6">
         <h4>Produto</h4>
         <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2" readonly="true" ng-model="evento.produto.nome">
+          <input type="text" class="form-control" tabindex="-1" aria-describedby="basic-addon2" readonly="true" ng-model="evento.produto.nome">
           <span class="input-group-btn">
             <button class="btn btn-default" tabindex="-1" ng-click="getProduto()"><span class="glyphicon glyphicon-search"></span></button>
           <!--</span>-->
@@ -109,8 +109,10 @@
       </div>
       <div class="col-xs-12 col-sm-3 col-md-4">
         <h4>Evento</h4>
-        <select class="form-control" ng-model="evento.tipoEvento" ng-options="tipo.title for tipo in tipos track by tipo.id" ng-change="selectTipoEvento(evento.tipoEvento)">
+        <!--<select class="form-control selectpicker" title="Escolha um tipo" ng-model="evento.tipoEvento" ng-options="tipo.title for tipo in tipos track by tipo.id" ng-change="selectTipoEvento(evento.tipoEvento)" data-live-search="true" data-container="body"></select>-->
+        <select class="form-control selectpicker" title="Escolha um tipo" ng-model="evento.tipoId" ng-change="selectTipoEvento(evento.tipoId)" data-live-search="true" data-container="body">
           <option value="" disabled>Escolha um tipo</option>
+          <option value="{{tipo.id}}" data-content="<span class='glyphicon glyphicon-stop' style='color:{{tipo.color}}'></span> {{tipo.title}}" ng-repeat="tipo in tipos track by tipo.id">{{tipo.title}}</option>
         </select>
       </div>
 
