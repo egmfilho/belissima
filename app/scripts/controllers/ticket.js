@@ -213,6 +213,10 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     jQuery('input[name="cdFuncionario"]').focus().select();
   };
 
+  this.focarDesconto = function () {
+    jQuery('input[name="descontoPercent"]').focus().select();
+  };
+
   this.avancarParaProdutos = function() {
     this.collapse.produtos = false;
     $scope.scrollTo(null, jQuery('ul[name="produtos"]'));

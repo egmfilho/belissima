@@ -46,13 +46,19 @@ function ItemPedido(Produto, Pessoa) {
     },
 
     setDescontoPercent: function(percent) {
-      this.descontoPercent = parseFloat(percent);
-      this.descontoDinheiro = parseFloat(percent) > 0 ? this.getTotalSemDesconto() * (parseFloat(percent) / 100) : 0;
+      if (percent) {
+        this.descontoPercent = parseFloat(percent);
+      }
+
+      this.descontoDinheiro = parseFloat(this.descontoPercent) > 0 ? this.getTotalSemDesconto() * (parseFloat(this.descontoPercent) / 100) : 0;
     },
 
     setDescontoDinheiro: function(dinheiro) {
-      this.descontoDinheiro = parseFloat(dinheiro);
-      this.descontoPercent = (parseFloat(dinheiro) * 100) / this.getTotalSemDesconto();
+      if (dinheiro) {
+        this.descontoDinheiro = parseFloat(dinheiro);
+      }
+
+      this.descontoPercent = (parseFloat(this.descontoDinheiro) * 100) / this.getTotalSemDesconto();
     },
 
     setFuncionario: function(funcionario) {
@@ -124,5 +130,4 @@ function ItemPedido(Produto, Pessoa) {
   };
 
   return ItemPedido;
-
 }

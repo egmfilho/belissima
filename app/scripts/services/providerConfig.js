@@ -22,6 +22,21 @@ angular.module('belissimaApp.services')
           return provider.get({
             action: 'getJsonAccess'
           }).$promise;
+        },
+
+        setViewAgenda: function(nome) {
+          return provider.save({
+            action: 'setAgendaView'
+          }, {
+            config_name: 'agenda_view',
+            config_value: nome
+          }).$promise;
+        },
+
+        getViewAgenda: function () {
+          return provider.get({
+            action: 'getAgendaView'
+          }).$promise;
         }
       };
 

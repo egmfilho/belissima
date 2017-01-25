@@ -41,16 +41,24 @@ angular.module('belissimaApp.services')
           }, { }).$promise;
         },
 
-        salvarEvento: function(evento) {
+        salvar: function(tipoEvento) {
           return provider.save({
             action: 'insert'
-          }, evento).$promise;
+          }, tipoEvento).$promise;
         },
 
-        editarEvento: function(evento) {
+        editar: function(tipoEvento) {
           return provider.save({
             action: 'edit'
-          }, evento);
+          }, tipoEvento).$promise;
+        },
+
+        excluir: function(tipoEvento) {
+          return provider.save({
+            action: 'del'
+          }, {
+            event_type_id: tipoEvento.id
+          }).$promise;
         }
 
       }

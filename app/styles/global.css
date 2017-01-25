@@ -1775,16 +1775,21 @@ ul.dropdown-menu[template-url='partials/typeaheadModal.html'] {
   height: 350px;
   padding: 30px;
   margin: 30px 0; }
-  #configuracoes .preview .timeline, #configuracoes .preview .agenda-day {
+  #configuracoes .preview .timeline-day, #configuracoes .preview .agenda-day {
     width: 100%;
     border: 10px solid transparent; }
-    #configuracoes .preview .timeline.active, #configuracoes .preview .agenda-day.active {
+    #configuracoes .preview .timeline-day.active, #configuracoes .preview .agenda-day.active {
       border-color: #baa526; }
-    #configuracoes .preview .timeline:hover, #configuracoes .preview .agenda-day:hover {
+    #configuracoes .preview .timeline-day:hover, #configuracoes .preview .agenda-day:hover {
       cursor: pointer;
       border-color: #dbc12e; }
   #configuracoes .preview .name {
     text-align: center; }
+#configuracoes i.color-preview {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: text-top; }
 
 #financeiro #modalPrazo h4 > .glyphicon {
   vertical-align: bottom; }
@@ -1819,6 +1824,25 @@ ul.dropdown-menu[template-url='partials/typeaheadModal.html'] {
       text-align: center; }
     #comandas .comanda > div button {
       width: 100%; }
+
+#modalTipoEvento .input-group input {
+  text-transform: uppercase; }
+#modalTipoEvento .input-group .input-group-addon {
+  background-color: #eee;
+  border-color: #ccc; }
+#modalTipoEvento .evento {
+  width: 100%;
+  height: 124px;
+  background-color: white;
+  color: #333;
+  border-radius: 6px;
+  padding: 8px 15px;
+  margin-bottom: 15px; }
+  #modalTipoEvento .evento .title {
+    font-size: 16px;
+    font-weight: bold; }
+  #modalTipoEvento .evento .text {
+    font-size: 12px; }
 
 /* Source https://codepen.io/bbodine1/pen/novBm */
 /* .squaredOne */

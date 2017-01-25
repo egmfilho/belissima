@@ -41,6 +41,7 @@ module.exports = function(config) {
       'bower_components/egmfilho-keys-shortcuts/src/keys.js',
       'bower_components/egmfilho-input-filters/src/filters.js',
       'bower_components/bootstrap-select/dist/js/bootstrap-select.js',
+      'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

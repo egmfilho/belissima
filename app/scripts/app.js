@@ -23,7 +23,8 @@ angular
     'ui.calendar',
     'ui.bootstrap',
     'ui.mask',
-    'multipleSelect'
+    'multipleSelect',
+    'colorpicker.module'
   ])
   .config(['$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
     $httpProvider.interceptors.push('SessionInjector');
@@ -43,15 +44,50 @@ angular
           $rootScope.categoriaPessoa[categoria.nomeFormatado] = categoria;
         });
         $rootScope.loading.unload();
+        return $rootScope.categoriaPessoa;
       }, function(error) {
         console.log(error);
         $rootScope.loading.unload();
+        return null;
       });
     }
-    function resolveCategorias() {
+
+    function getTiposEvento($rootScope, provider, TipoEvento) {
+      $rootScope.loading.load();
+      return provider.obterTiposDeEvento().then(function (success) {
+        var tipos = [];
+        angular.forEach(success.data, function (item, index) {
+          tipos.push(new TipoEvento(TipoEvento.converterEmEntrada(item)));
+        });
+        $rootScope.tiposEvento = tipos;
+        $rootScope.loading.unload();
+        return tipos;
+      }, function (error) {
+        console.log(error);
+        $rootScope.loading.unload();
+        return null;
+      });
+    }
+
+    function getViewAgenda($rootScope, provider) {
+      $rootScope.loading.load();
+      provider.getViewAgenda().then(function(success){
+        $rootScope.agendaView = success.data.agenda_view;
+        $rootScope.loading.unload();
+        return success.data.agenda_view;
+      });
+    }
+
+    function resolve() {
       return {
-        '': ['$rootScope', 'ProviderCategoriaPessoa', 'CategoriaPessoa', function($rootScope, provider, CategoriaPessoa) {
+        'categoriaPessoa': ['$rootScope', 'ProviderCategoriaPessoa', 'CategoriaPessoa', function($rootScope, provider, CategoriaPessoa) {
           return $rootScope.categoriaPessoa || getCategorias($rootScope, provider, CategoriaPessoa);
+        }],
+        'tiposEvento': ['$rootScope', 'ProviderTipoEvento', 'TipoEvento', function($rootScope, provider, TipoEvento) {
+          return $rootScope.currentPath == '/agenda' ? getTiposEvento($rootScope, provider, TipoEvento) : $rootScope.tiposEvento;
+        }],
+        'agendaView': ['$rootScope', 'ProviderConfig', function($rootScope, provider) {
+          return $rootScope.currentPath == '/agenda' ? getViewAgenda($rootScope, provider) : $rootScope.agendaView;
         }]
       };
     }
@@ -79,21 +115,21 @@ angular
         templateUrl: 'views/pdv.html',
         controller: 'PDVCtrl',
         controllerAs: 'pdv',
-        resolve: resolveCategorias()
+        resolve: resolve()
       })
       .when('/ticket/:action', {
         modulo: 'ticket',
         templateUrl: 'views/ticket.html',
         controller: 'TicketCtrl',
         controllerAs: 'ticket',
-        resolve: resolveCategorias()
+        resolve: resolve()
       })
       .when('/produtos', {
         modulo: 'product',
         templateUrl: 'views/servicosProdutos.html',
         controller: 'ServicoProdutosCtrl',
         controllerAs: 'servicoProdutos',
-        resolve: resolveCategorias()
+        resolve: resolve()
       })
       .when('/movimentacao', {
         modulo: 'movimentation',
@@ -106,21 +142,21 @@ angular
         templateUrl: 'views/clientes.html',
         controller: 'ClientesCtrl',
         controllerAs: 'clientes',
-        resolve: resolveCategorias()
+        resolve: resolve()
       })
       .when('/crm', {
         modulo: 'crm',
         templateUrl: 'views/crm.html',
         controller: 'CRMCtrl',
         controllerAs: 'crm',
-        resolve: resolveCategorias()
+        resolve: resolve()
       })
       .when('/agenda', {
         modulo: 'agenda',
         templateUrl: 'views/agenda.html',
         controller: 'AgendaCtrl',
         controllerAs: 'agenda',
-        resolve: resolveCategorias()
+        resolve: resolve()
       })
       .when('/configuracoes', {
         modulo: 'config',

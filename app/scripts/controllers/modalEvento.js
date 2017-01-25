@@ -28,11 +28,13 @@ angular.module('belissimaApp.controllers')
 
       var results = [];
 
+      $scope.tipos = $rootScope.tiposEvento;
+
       $uibModalInstance.opened.then(function () {
 
         setTimeout(function() {
           jQuery('.selectpicker').selectpicker();
-        }, 500);
+        }, 200);
 
         if (evento) {
           $scope.evento = new Evento(evento);
@@ -49,8 +51,6 @@ angular.module('belissimaApp.controllers')
           $scope.evento.end.setSeconds(0);
         }
 
-        $scope.tipos = [];
-
         $scope.data = new Date($scope.evento.start);
 
         $scope.format = 'dd/MM/yyyy';
@@ -63,22 +63,22 @@ angular.module('belissimaApp.controllers')
           showWeeks: false
         };
 
-        getTipos();
+        // getTipos();
         $rootScope.loading.unload();
       });
 
-      function getTipos() {
-        $rootScope.loading.load();
-        providerTipo.obterTiposDeEvento().then(function (success) {
-          angular.forEach(success.data, function (item, index) {
-            $scope.tipos.push(new TipoEvento(TipoEvento.converterEmEntrada(item)));
-          });
-          $rootScope.loading.unload();
-        }, function (error) {
-          console.log(error);
-          $rootScope.loading.unload();
-        });
-      }
+      // function getTipos() {
+      //   $rootScope.loading.load();
+      //   providerTipo.obterTiposDeEvento().then(function (success) {
+      //     angular.forEach(success.data, function (item, index) {
+      //       $scope.tipos.push(new TipoEvento(TipoEvento.converterEmEntrada(item)));
+      //     });
+      //     $rootScope.loading.unload();
+      //   }, function (error) {
+      //     console.log(error);
+      //     $rootScope.loading.unload();
+      //   });
+      // }
 
       $scope.setData = function () {
         if (angular.isDate($scope.data)) {
@@ -253,6 +253,7 @@ angular.module('belissimaApp.controllers')
           if ($scope.evento.id) {
             providerEvento.atualizarEvento(Evento.converterEmSaida($scope.evento)).then(function (success) {
               results.push(new Evento(Evento.converterEmEntrada(success.data)));
+              results[results.length - 1].setTipo($scope.evento.tipoEvento);
               $rootScope.loading.unload();
               modalConfirm.show('Aviso', 'Continuar agendando para este cliente?', 'Sim', 'Não').then(function() {
                 var temp = new Evento($scope.evento);
@@ -273,6 +274,7 @@ angular.module('belissimaApp.controllers')
           } else {
             providerEvento.salvarEvento(Evento.converterEmSaida($scope.evento)).then(function (success) {
               results.push(new Evento(Evento.converterEmEntrada(success.data)));
+              results[results.length - 1].setTipo($scope.evento.tipoEvento);
               $rootScope.loading.unload();
               modalConfirm.show('Aviso', 'Continuar agendando para este cliente?', 'Sim', 'Não').then(function() {
                 var temp = new Evento($scope.evento);

@@ -25,6 +25,8 @@ angular.module('belissimaApp.controllers')
 
       var self = this;
 
+      console.log($rootScope.agendaView);
+
       this.dias = [
         // new Date('2016/11/28'),
         // new Date('2016/12/5'),
@@ -187,7 +189,7 @@ angular.module('belissimaApp.controllers')
       }
 
       this.novoEvento = function() {
-        if (self.currentView === 'timelineDay' && !validarDiaParaAgendamento(self.currentDate)) {
+        if (self.currentView === $rootScope.agendaView && !validarDiaParaAgendamento(self.currentDate)) {
           modalAlert.show('Aviso!', 'Dia indisponível para agendamentos!');
           return;
         }
@@ -199,7 +201,7 @@ angular.module('belissimaApp.controllers')
           size: 'lg',
           resolve: {
             evento: function() { return null; },
-            data: function() { return self.currentView === 'timelineDay' ? new Date(self.currentDate.format('YYYY/MM/DD')) : null; }
+            data: function() { return self.currentView === $rootScope.agendaView ? new Date(self.currentDate.format('YYYY/MM/DD')) : null; }
           }
         }).result.then(function(result) {
           console.log(result);
@@ -226,7 +228,7 @@ angular.module('belissimaApp.controllers')
         //$(this).css('background-color', 'red');
 
         if (view.name === 'month' || view.name === 'basicWeek') {
-          uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', 'timelineDay');
+          uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', $rootScope.agendaView);
           uiCalendarConfig.calendars.meuCalendario.fullCalendar('gotoDate', date);
         }
       }
@@ -314,7 +316,7 @@ angular.module('belissimaApp.controllers')
 
       function alertOnChangeView(view, element) {
         // pega a data exibida na tela na visualizacao de dia
-        if (view.name === 'timelineDay') {
+        if (view.name === $rootScope.agendaView) {
           self.currentDate = uiCalendarConfig.calendars.meuCalendario.fullCalendar('getDate');
         }
 
@@ -330,7 +332,7 @@ angular.module('belissimaApp.controllers')
 
       function eventRender(event, element, view) {
 
-        if (view.name === 'timelineDay') {
+        if (view.name === $rootScope.agendaView) {
           // element.css('max-width', '250px');
 
           element.find('.fc-title').append("<br><div><span style='font-size: 0.87em'>" + event.description + "</span></div>");
@@ -369,7 +371,7 @@ angular.module('belissimaApp.controllers')
       };
 
       this.dia = function() {
-        uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', 'timelineDay');
+        uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', $rootScope.agendaView);
         // uiCalendarConfig.calendars.meuCalendario.fullCalendar('changeView', 'agendaDay');
       };
 

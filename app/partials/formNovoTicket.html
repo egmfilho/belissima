@@ -159,7 +159,7 @@
               </td>
               <td data-label="Quantidade" class="visible-xs-block">{{i.quantidade | currency : ''}}</td>
               <td data-label="Preço">{{i.precoProduto | currency: 'R$ '}}</td>
-              <td data-label="Desconto %">{{0 | currency: ''}}%</td>
+              <td data-label="Desconto %">{{i.descontoPercent | currency: ''}}%</td>
               <td data-label="Total">{{i.getTotalComDesconto() | currency: 'R$ '}}</td>
               <td class="hidden-xs">
                 <a href="" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="removeItem(i)" placement="left">

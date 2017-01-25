@@ -22,6 +22,7 @@
     <input type="text" name="nmProduto" class="form-control" placeholder="Nome do produto" ng-model="ticket.tempProduto"
            keys-shortcuts enter="ticket.focarQuantidade()" shift-enter="ticket.opt = 'cliente'"
            uib-typeahead="produto as produto.nome for produto in buscarProdutoPorNome($viewValue)"
+           typeahead-append-to-body="true"
            typeahead-min-length="3"
            typeahead-wait-ms="300"
            typeahead-on-select="selectProduto($item)">
@@ -33,7 +34,7 @@
       <div class="input-group-btn">
         <button class="btn btn-default" ng-click="ticket.novoItem.quantidade = ticket.novoItem.quantidade - 1"><span class="glyphicon glyphicon-minus-sign"></span></button>
       </div>
-      <input type="text" name="qtdProduto" class="form-control text-right" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts shift-enter="ticket.confirmarAddItem()">
+      <input type="text" name="qtdProduto" class="form-control text-right" ng-model="ticket.novoItem.quantidade" ng-change="ticket.novoItem.setDescontoPercent()" number-only currency symbol="''" keys-shortcuts enter="ticket.focarDesconto()" shift-enter="ticket.confirmarAddItem()">
       <div class="input-group-btn">
         <button class="btn btn-default" ng-click="ticket.novoItem.quantidade = ticket.novoItem.quantidade + 1"><span class="glyphicon glyphicon-plus-sign"></span></button>
       </div>
@@ -41,7 +42,7 @@
   </div>
   <div class="col-sm-2">
     <h4>Desconto %</h4>
-    <input type="text" name="descontoPercent" class="form-control text-right" ng-model="dummy" number-only currency symbol="''">
+    <input type="text" name="descontoPercent" class="form-control text-right" ng-model="ticket.novoItem.descontoPercent" ng-change="ticket.novoItem.setDescontoPercent()" number-only currency symbol="''" keys-shortcuts shift-enter="ticket.confirmarAddItem()">
   </div>
 </div>
 
@@ -67,7 +68,8 @@
     </div>
     <div class="col-md-6 descricao-produto text-right">
       <p>Total</p>
-      <h1>{{(ticket.tempProduto.preco.valor * ticket.novoItem.quantidade | currency: 'R$ ') || 'R$ 0,00'}}</h1>
+      <!--<h1>{{(ticket.tempProduto.preco.valor * ticket.novoItem.quantidade | currency: 'R$ ') || 'R$ 0,00'}}</h1>-->
+      <h1>{{(ticket.novoItem.getTotalComDesconto() | currency: 'R$ ') || 'R$ 0,00'}}</h1>
     </div>
   </div>
 
