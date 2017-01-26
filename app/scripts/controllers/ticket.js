@@ -11,6 +11,7 @@ TicketCtrl.$inject = [
   '$scope',
   '$routeParams',
   '$location',
+  '$cookies',
   'ProviderPessoa',
   'ModalBuscarPessoa',
   'Pessoa',
@@ -26,12 +27,18 @@ TicketCtrl.$inject = [
   'ProviderTicket',
   'ProviderComanda',
   'Comanda',
-  'ModalConfirm'
+  'ModalConfirm',
+  'ModalPermissao'
 ];
 
-function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPrazo, PrazoPagamento, modalPrazo, Pagamento, providerTicket, providerComanda, Comanda, modalConfirm) {
+function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, providerPessoa, modalBuscarPessoa, Pessoa, Pedido, modalBuscarProduto, providerProduto, Produto, ItemPedido, providerPrazo, PrazoPagamento, modalPrazo, Pagamento, providerTicket, providerComanda, Comanda, modalConfirm, modalPermissao) {
 
-  var self = this, escape_confirm = false;
+  var self = this, escape_confirm = false, usuario = JSON.parse(window.atob($cookies.get('currentUser')));
+
+  $scope.permissoes = {
+    verItems: usuario.perfil.permissoes.ticket.permissoes.viewitem.valor,
+    excluir: usuario.perfil.permissoes.ticket.permissoes.deleteitem.valor
+  };
 
   this.novoTicket = new Pedido();
   this.novoItem = new ItemPedido();
@@ -281,7 +288,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     }, function(error) {
       console.log(error);
       $rootScope.loading.unload();
-      $rootScope.alerta.show('Comanda não cadastrada!', 'alert-danger');
+      $rootScope.alerta.show(error.data.status.description, 'alert-danger');
       jQuery('input[name="cdComanda"]').focus().select();
     });
   };
@@ -498,9 +505,20 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     // }
   }
 
-  $scope.removeItem = function (item) {
+  function removerItem(item) {
     self.novoTicket.removeItem(item);
     setParcelas();
+    $rootScope.alerta.show('Item removido!', 'alert-success');
+  }
+
+  $scope.removeItem = function (item) {
+    if (!$scope.permissoes.excluir) {
+      modalPermissao.show('ticket', 'deleteitem').then(function(success) {
+        removerItem(item);
+      }, function(error) { });
+    } else {
+      removerItem(item);
+    }
   };
 
   $scope.buscarCliente = function () {
@@ -655,7 +673,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
         jQuery('#modalFuncionario').modal('hide').on('hidden.bs.modal', function (e) {
           $location.path('ticket/open');
         });
-      });
+      }, function(error) { });
     } else {
       self.fecharModalFuncionario();
     }
@@ -665,7 +683,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, providerPessoa,
     modalConfirm.show('Aviso', 'Adicionar o item ao ticket?').then(function() {
       $scope.addItem();
       self.salvar();
-    });
+    }, function(error) { });
   };
 
   this.alterarFuncionario = function() {

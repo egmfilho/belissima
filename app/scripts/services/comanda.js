@@ -13,6 +13,7 @@ function Comanda() {
     this.id = comanda ? comanda.id : '';
     this.codigo = comanda ? comanda.codigo : '';
     this.codigoDeBarras = comanda ? comanda.codigoDeBarras : '';
+    this.ativo = comanda ? comanda.ativo : true;
     this.dataCadastro = comanda ? comanda.dataCadastro : null;
     this.dataUpdate = comanda ? comanda.dataUpdate : null;
   }
@@ -23,6 +24,7 @@ function Comanda() {
     comanda.id = card.card_id;
     comanda.codigo = card.card_code;
     comanda.codigoDeBarras = card.card_code_bar;
+    comanda.ativo = card.card_active == 'Y';
     comanda.dataCadastro = new Date(card.card_date);
     comanda.dataUpdate = card.card_update ? new Date(card.card_update) : null;
 
@@ -35,6 +37,7 @@ function Comanda() {
     card.card_id = comanda.id;
     card.card_code = comanda.codigo;
     card.card_code_bar = comanda.codigoDeBarras;
+    card.card_active = comanda.ativo ? 'Y' : 'N';
 
     return card;
   };

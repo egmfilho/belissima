@@ -601,6 +601,12 @@ body {
   .editable-td.ativo input {
     display: inherit; }
 
+.modal[aria-describedby="modal-permissao"] .modal-dialog {
+  width: 400px; }
+.modal[aria-describedby="modal-permissao"] .body {
+  min-height: 200px;
+  height: 200px; }
+
 @media (max-width: 767px) {
   #modalSenha .modal-dialog.modal-sm {
     width: calc(100% - 20px) !important; }

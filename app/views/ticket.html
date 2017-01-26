@@ -68,7 +68,7 @@
                   <td>01/01/2016</td>
                   <td>{{ticket.valorComDesconto | currency: 'R$ '}}</td>
                   <td ng-if="ticket.statusId == 1001">
-                    <a ng-href="#/ticket/edit?code={{ticket.codigo}}">
+                    <a ng-href="{{(permissoes.verItems ? '#/ticket/edit?code=' : '#/ticket/insert?code=') + ticket.codigo}}">
                       <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                   </td>
@@ -104,9 +104,9 @@
 
     </div>
 
-    <div ng-show="opcao === 'novo'" ng-include="'partials/formNovoTicket.html'"></div>
+    <div ng-if="opcao === 'novo'" ng-include="'partials/formNovoTicket.html'"></div>
 
-    <div ng-show="opcao === 'inserir'" ng-include="'partials/ticketInsertProduto.html'"></div>
+    <div ng-if="opcao === 'inserir'" ng-include="'partials/ticketInsertProduto.html'"></div>
   </div>
 
 </tela>

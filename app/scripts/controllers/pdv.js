@@ -131,7 +131,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
       self.documento = new Documento();
 
       if (callback) callback();
-    });
+    }, function(error) {});
   };
 
   function buscarTicket() {
@@ -250,6 +250,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
 
     this.documento.items[index].removido = true;
     jQuery('#modalCancelarItem').modal('hide');
+    this.cancelarEdicao();
     focarCodigo();
   };
 

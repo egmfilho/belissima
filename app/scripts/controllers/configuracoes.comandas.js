@@ -21,9 +21,7 @@ function ComandasCtrl($rootScope, $scope, provider, Comanda) {
     current: 1,
     max: 20,
     total: 0,
-    pageChanged: function () {
-
-    }
+    pageChanged: obterComandas
   };
 
   this.novaComanda = new Comanda();
@@ -31,7 +29,8 @@ function ComandasCtrl($rootScope, $scope, provider, Comanda) {
 
   function obterComandas() {
     $rootScope.loading.load();
-    provider.obterTodos().then(function(success) {
+    provider.obterTodos(($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function(success) {
+      $scope.pagination.total = success.info.card_quantity;
       self.arrayComandas = [];
       angular.forEach(success.data, function(item, index) {
         self.arrayComandas.push(new Comanda(Comanda.converterEmEntrada(item)));
@@ -68,6 +67,20 @@ function ComandasCtrl($rootScope, $scope, provider, Comanda) {
     provider.excluir(id).then(function (success) {
       $rootScope.loading.unload();
       $rootScope.alerta.show('Comanda removida!', 'alert-success');
+      obterComandas();
+    }, function(error) {
+      console.log(error);
+      $rootScope.loading.unload();
+      $rootScope.alerta.show(error.data.status.description, 'alert-danger');
+    });
+  };
+
+  this.desativarComanda = function(comanda) {
+    comanda.ativo = !comanda.ativo;
+    $rootScope.loading.load();
+    provider.editar(Comanda.converterEmSaida(comanda)).then(function(success) {
+      $rootScope.loading.unload();
+      $rootScope.alerta.show('Comanda editada!', 'alert-success');
       obterComandas();
     }, function(error) {
       console.log(error);

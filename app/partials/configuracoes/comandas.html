@@ -6,6 +6,7 @@
           <th>Código da comanda</th>
           <th>Data de cadastro</th>
           <th>&nbsp;</th>
+          <th>&nbsp;</th>
         </tr>
       </thead>
       <tbody>
@@ -13,12 +14,18 @@
           <td>{{comanda.codigoDeBarras}}</td>
           <td>{{comanda.dataCadastro | date: 'short'}}</td>
           <td>
-            <a href="" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="comandas.removerComanda(comanda.id)" placement="left">
+            <a href="" confirm-popup title="Atenção" message="Deseja {{comanda.ativo ? 'desativar' : 'ativar'}} a comanda?" ok-func="comandas.desativarComanda(comanda)" placement="left">
+              <span class="glyphicon" ng-class="{'glyphicon-ok-circle': comanda.ativo, 'glyphicon-ban-circle': !comanda.ativo}"></span>
+            </a>
+          </td>
+          <td>
+            <a href="" confirm-popup title="Atenção" message="Deseja remover a comajda?" ok-func="comandas.removerComanda(comanda.id)" placement="left">
               <span class="glyphicon glyphicon-trash"></span>
             </a>
           </td>
         </tr>
         <tr ng-repeat="n in getNumber(pagination.max - comandas.arrayComandas.length) track by $index">
+          <td>&nbsp;</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>

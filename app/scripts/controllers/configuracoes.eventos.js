@@ -59,7 +59,7 @@ function ConfigEventosCtrl($rootScope, $scope, provider, TipoEvento) {
     });
   }
 
-  function excluir(tipoEvento) {
+  this.excluir = function (tipoEvento) {
     $rootScope.loading.load();
     provider.excluir(tipoEvento).then(function (success) {
       $rootScope.loading.unload();
@@ -70,11 +70,14 @@ function ConfigEventosCtrl($rootScope, $scope, provider, TipoEvento) {
       $rootScope.loading.unload();
       $rootScope.alerta.show('Não foi possível excluir o tipo de evento!', 'alert-danger');
     });
-  }
+  };
 
   this.abrirModalTipoEvento = function(tipoEvento) {
     jQuery('#modalTipoEvento').on('show.bs.modal', function(e) {
       self.novo = tipoEvento ? new TipoEvento(tipoEvento) : new TipoEvento();
+    }).on('hide.bs.modal', function(e) {
+      $scope.picker1 = false;
+      $scope.picker2 = false;
     }).modal('show');
   };
 

@@ -53,6 +53,12 @@ angular.module('belissimaApp.controllers')
 
         $scope.tipos_logradouros = TiposLogradouros;
 
+        getTiposContato();
+      };
+
+      $scope.$on('$viewContentLoaded', function () {
+        self.viewContentLoaded();
+
         $scope.pagination = {
           current: 1,
           max: 15,
@@ -60,11 +66,6 @@ angular.module('belissimaApp.controllers')
         };
 
         $scope.getClientes();
-        getTiposContato();
-      };
-
-      $scope.$on('$viewContentLoaded', function () {
-        self.viewContentLoaded();
       });
 
       this.isFuncionario = function () {

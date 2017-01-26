@@ -1127,6 +1127,17 @@ body {
 //  }
 //}
 
+.modal[aria-describedby="modal-permissao"] {
+  .modal-dialog {
+    width: 400px;
+  }
+
+  .body {
+    min-height: 200px;
+    height: 200px;
+  }
+}
+
 @media (max-width: 767px) {
   #modalSenha {
     .modal-dialog.modal-sm {
