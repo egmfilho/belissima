@@ -43,15 +43,15 @@
                   </div>
                   <div class="col-md-4">
                     <h4>Quantidade</h4>
-                    <input type="text" name="quantidade" class="form-control input-lg" ng-model="pdv.tempItem.quantidade" keys-shortcuts enter="focarDescontoPercent()" shift-enter="pdv.addItem()" escape="pdv.cancelarEdicao()" number-only ng-disabled="pdv.documento.codigo">
+                    <input type="text" name="quantidade" class="form-control input-lg" ng-model="pdv.tempItem.quantidade" ng-change="pdv.tempItem.setQuantidade()" keys-shortcuts enter="focarDescontoPercent()" shift-enter="pdv.addItem()" escape="pdv.cancelarEdicao()" number-only ng-disabled="pdv.documento.codigo">
                   </div>
                   <div class="col-md-4">
                     <h4>Desconto %</h4>
-                    <input type="text" name="descontoPercent" class="form-control input-lg" ng-model="pdv.tempItem.descontoPercent" keys-shortcuts enter="focarDescontoDinheiro()" shift-enter="pdv.addItem()" escape="pdv.cancelarEdicao()" number-only currency symbol="''" ng-disabled="pdv.documento.codigo">
+                    <input type="text" name="descontoPercent" class="form-control input-lg" ng-model="pdv.tempItem.descontoPercent" ng-change="pdv.tempItem.setDescontoPercent()" keys-shortcuts enter="focarDescontoDinheiro()" shift-enter="pdv.addItem()" escape="pdv.cancelarEdicao()" number-only currency symbol="''" ng-disabled="pdv.documento.codigo">
                   </div>
                   <div class="col-md-4">
                     <h4>Desconto R$</h4>
-                    <input type="text" name="descontoDinheiro" class="form-control input-lg" ng-model="pdv.tempItem.descontoDinheiro" keys-shortcuts enter="pdv.addItem()" escape="pdv.cancelarEdicao()" number-only currency symbol="''" ng-disabled="pdv.documento.codigo">
+                    <input type="text" name="descontoDinheiro" class="form-control input-lg" ng-model="pdv.tempItem.descontoDinheiro" ng-change="pdv.tempItem.setDescontoDinheiro()" keys-shortcuts enter="pdv.addItem()" escape="pdv.cancelarEdicao()" number-only currency symbol="''" ng-disabled="pdv.documento.codigo">
                   </div>
                 </div>
                 <br>
@@ -60,9 +60,13 @@
                     <h3>{{pdv.tempItem.produto.codigo}} {{pdv.tempItem.produto.nome || 'Nenhum produto selecionado'}}</h3>
                     <p>{{pdv.tempItem.produto.descricao || 'Sem descrição'}}</p>
                   </div>
-                  <div class="col-md-12 descricao-produto">
+                  <div class="col-md-6 descricao-produto">
                     <p>Valor do produto</p>
                     <h1>{{pdv.tempItem.precoProduto | currency: 'R$ '}}</h1>
+                  </div>
+                  <div class="col-md-6 descricao-produto text-right">
+                    <p>Total</p>
+                    <h1>{{(pdv.tempItem.getTotalComDesconto() | currency: 'R$ ') || 'R$ 0,00'}}</h1>
                   </div>
                 </div>
               </div>
@@ -83,7 +87,7 @@
                           <td class="text-left">{{item.produto.codigo}}</td>
                           <td></td>
                           <td></td>
-                          <td class="text-left" colspan="2">{{item.produto.nome | truncate: (item.removido ? 15 : 25) | uppercase}}<span ng-show="item.removido"> - REMOVIDO</span></td>
+                          <td class="text-left" colspan="3">{{item.produto.nome | truncate: (item.removido ? 15 : 25) | uppercase}}<span ng-show="item.removido"> - REMOVIDO</span></td>
                           <td class="text-right"
                               confirm-popup title="Atenção" message="Deseja remover o produto?" ok-func="removerItem(item)" placement="left"
                               ng-show="pdv.edicao"><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
@@ -93,7 +97,8 @@
                           <td class="text-right">{{item.quantidade}}</td>
                           <td class="text-center">{{item.produto.unidade.valor}} x</td>
                           <td class="text-center">{{item.precoProduto | currency: ''}}</td>
-                          <td class="text-right" colspan="2">{{item.precoProduto * item.quantidade | currency: ''}}</td>
+                          <td class="text-center">{{item.descontoPercent ? '-'+(item.descontoPercent | currency: '')+'%' : ''}}</td>
+                          <td class="text-right" colspan="2">{{item.getTotalComDesconto() | currency: ''}}</td>
                         </tr>
                       </tbody>
                       <tbody>

@@ -367,7 +367,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
       self.documento.pagamentos = [];
       for (var i = 0; i < self.documento.prazo.parcelas; i++) {
         self.documento.pagamentos.push(new Pagamento());
-        self.documento.pagamentos[i].valor = self.documento.getValorTotal() / self.documento.prazo.parcelas;
+        self.documento.pagamentos[i].valor = self.documento.getValorTotalComDesconto() / self.documento.prazo.parcelas;
         self.documento.pagamentos[i].vencimento = getDataDaParcela(self.documento.prazo, i);
         self.documento.pagamentos[i].forma = self.documento.prazo.formas[0];
         self.documento.pagamentos[i].setForma();

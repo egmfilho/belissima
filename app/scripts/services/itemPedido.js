@@ -37,11 +37,9 @@ function ItemPedido(Produto, Pessoa) {
     },
 
     setQuantidade: function(quantidade) {
-      if (quantidade <= 0) {
-        return;
+      if (quantidade) {
+        this.quantidade = Math.max(quantidade, 0);
       }
-
-      this.quantidade = quantidade;
       this.setDescontoPercent(this.descontoPercent);
     },
 

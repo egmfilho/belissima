@@ -18,9 +18,9 @@ angular.module('belissimaApp.services')
 
         'request': function(req) {
 
-          // if (req.url.indexOf(urls.root) != -1) {
-          //   req.headers['x-session-token'] = 'lucilei';
-          // }
+          if (req.url.indexOf(urls.root) != -1) {
+            req.headers['x-session-token'] = 'lucilei';
+          }
 
           req.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 

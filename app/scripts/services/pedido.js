@@ -97,7 +97,9 @@ function Pedido(Pessoa, ItemPedido, PrazoPagamento, Pagamento, Comanda, DataSaid
         total += item.getTotalComDesconto();
       });
 
-      return Math.round((total - this.descontoDinheiro) * 100) / 100;
+      // return Math.round((total - this.descontoDinheiro) * 100) / 100;
+
+      return total;
     },
 
     getPagamentoTotal: function() {

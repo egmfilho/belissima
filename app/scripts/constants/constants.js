@@ -7,7 +7,7 @@
 angular.module('belissimaApp.constants')
   .constant('URLS', {
     // url do servidor, trocar aqui
-    root: 'php/'
+    // root: 'php/'
     // root: 'http://172.16.4.11/belissima/php/'
-    // root: 'http://172.16.4.17/belissima/php/'
+    root: 'http://172.16.4.17/belissima/php/'
   });
