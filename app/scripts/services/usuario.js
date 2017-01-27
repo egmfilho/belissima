@@ -5,7 +5,7 @@
 'use strict';
 
 angular.module('belissimaApp.services')
-  .factory('Usuario', ['PerfilUsuario', 'Pessoa', function (PerfilUsuario, Pessoa) {
+  .factory('Usuario', ['PerfilUsuario', 'Pessoa', 'TabelaDesconto', function (PerfilUsuario, Pessoa, TabelaDesconto) {
 
     function Usuario(usuario) {
       this.id = usuario ? usuario.id : '';
@@ -21,6 +21,9 @@ angular.module('belissimaApp.services')
       this.ultimoAcesso = usuario ? usuario.ultimoAcesso : new Date();
 
       this.perfil = usuario ? new PerfilUsuario(usuario.perfil) : new PerfilUsuario();
+
+      this.tabelasDesconto = usuario ? usuario.tabelasDesconto : [];
+      this.tabelasDescontoIds = usuario ? usuario.tabelasDescontoIds : [];
     }
 
     Usuario.prototype = {
@@ -54,6 +57,15 @@ angular.module('belissimaApp.services')
         usuario.perfil = new PerfilUsuario();
       }
 
+      usuario.tabelasDesconto = [];
+      usuario.tabelasDescontoIds = [];
+      if (user.user_discount_table) {
+        angular.forEach(user.user_discount_table, function(item, index) {
+          usuario.tabelasDesconto.push(new TabelaDesconto(TabelaDesconto.converterEmEntrada(item)));
+          usuario.tabelasDescontoIds.push(usuario.tabelasDesconto[index].id);
+        });
+      }
+
       return usuario;
     };
 
@@ -70,6 +82,8 @@ angular.module('belissimaApp.services')
       user.user_mail = usuario.email;
 
       //user.user_profile_access = PerfilUsuario.converterEmSaida(usuario.perfil).user_profile_access;
+
+      user.discount_table_id = usuario.tabelasDescontoIds;
 
       return user;
     };

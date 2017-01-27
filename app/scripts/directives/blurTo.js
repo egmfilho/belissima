@@ -13,8 +13,10 @@ angular.module('belissimaApp.directives')
       element.bind('blur', function(e) {
         window.clearTimeout(blur);
         blur = setTimeout(function() {
-          ctrl.$setViewValue(scope.$eval(attrs.blurTo));
-          ctrl.$render();
+          if (scope.$eval(attrs.blurTo)) {
+            ctrl.$setViewValue(scope.$eval(attrs.blurTo));
+            ctrl.$render();
+          }
         }, 100);
       });
 

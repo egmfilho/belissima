@@ -26,6 +26,10 @@ angular.module('belissimaApp.services')
 
     Pessoa.prototype = {
 
+      getNomeCodigo: function() {
+        return this.codigo && this.nome ? '(' + this.codigo + ') ' + this.nome : '';
+      },
+
       setEnderecoPrincipal: function(index) {
         angular.forEach(this.enderecos, function(endereco, i) {
           endereco.principal = i === index;

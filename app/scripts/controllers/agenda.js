@@ -204,7 +204,6 @@ angular.module('belissimaApp.controllers')
             data: function() { return self.currentView === $rootScope.agendaView ? new Date(self.currentDate.format('YYYY/MM/DD')) : null; }
           }
         }).result.then(function(result) {
-          console.log(result);
           if (result.length) {
             if (result.length) {
               angular.forEach(result, function(item, index) {

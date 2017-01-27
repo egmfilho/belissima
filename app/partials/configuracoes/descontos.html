@@ -1,0 +1,124 @@
+<span ng-controller="DescontosCtrl as descontos" id="decsontos">
+
+  <div class="col-xs-3">
+    <button class="btn btn-default btn-block" ng-click="descontos.atualizar()"><span class="glyphicon glyphicon-refresh"></span> Atualizar</button>
+  </div>
+
+  <div class="col-xs-3 col-xs-push-6">
+    <button class="btn btn-default btn-block" ng-click="descontos.abrirModal()"><span class="glyphicon glyphicon-plus"></span> Cadastrar</button>
+  </div>
+
+  <div class="col-xs-12" style="margin-top: 30px">
+    <table class="tabela tabela-bordered tabela-esticada">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Código</th>
+          <th>Nome</th>
+          <th>Promo.</th>
+          <th><span class="glyphicon glyphicon-user"></span></th>
+          <th><span class="glyphicon glyphicon-home"></span></th>
+          <th>Ativo</th>
+          <th>Cadastrado em</th>
+          <th>Atualizado em</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="desconto in descontos.descontos">
+          <td><span ng-show="desconto.default" class="glyphicon glyphicon-star" uib-tooltip="Desconto padrão" tooltip-append-to-body="true"></span></td>
+          <td>{{desconto.codigo}}</td>
+          <td>{{desconto.nome}}</td>
+          <td>{{desconto.promocional ? 'Sim' : 'Não'}}</td>
+          <td>{{desconto.maoDeObra | currency : '' : '0'}}%</td>
+          <td>{{desconto.casa | currency : '' : '0'}}%</td>
+          <td>{{desconto.ativo ? 'Sim' : 'Não'}}</td>
+          <td>{{desconto.data | date : 'short'}}</td>
+          <td>{{desconto.dataUpdate ? (desconto.dataUpdate | date : 'short') : 'Indisponível'}}</td>
+          <td>
+            <a href=""><span class="glyphicon glyphicon-pencil" ng-click="descontos.abrirModal(desconto)"></span></a>
+          </td>
+          <td>
+            <a href="" confirm-popup title="Atenção" message="Deseja excluir o item?" ok-func="descontos.excluir(desconto)" placement="left"><span class="glyphicon glyphicon-trash"></span></a>
+          </td>
+        </tr>
+        <tr ng-repeat="n in getNumber(pagination.max - descontos.descontos.length) track by $index">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="3" ng-change="pagination.pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
+  </div>
+
+  <!--MODAL FORMA-->
+    <div class="modal meu-modal fade" id="modalTabelaDesconto" role="dialog" aria-labelledby="modalTabelaDesconto">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="header">
+            <div class="title"><span class="glyphicon glyphicon-pencil"></span> Desconto <span
+              class="glyphicon glyphicon-remove close" data-dismiss="modal"></span></div>
+          </div>
+          <div class="body">
+
+            <div class="col-xs-3">
+              <h4>Código</h4>
+              <input type="text" class="form-control text-right" ng-value="descontos.novo.codigo" readonly>
+            </div>
+            <div class="col-xs-6">
+              <h4>Nome</h4>
+              <input type="text" class="form-control" ng-model="descontos.novo.nome">
+            </div>
+            <div class="col-xs-3">
+              <h4>% Funcionário</h4>
+              <select name="" id="" class="form-control" ng-model="descontos.novo.maoDeObra">
+                <option value="{{$index * 5}}" ng-repeat="n in getNumber(21) track by $index">{{$index * 5}}%</option>
+              </select>
+            </div>
+            <div class="col-xs-4">
+              <h4>Padrão</h4>
+              <div class="btn-group btn-toggle" uib-popover="Ao escolher um novo desconto como padrão, o anterior será desmarcado automáticamente." popover-trigger="'mouseenter'" popover-append-to-body="true">
+                <label class="btn btn-primary" ng-model="descontos.novo.default" uib-btn-radio="true"><span class="glyphicon glyphicon-check"></span> <span class="hidden-xs">Sim</span></label>
+                <label class="btn btn-primary" ng-model="descontos.novo.default" uib-btn-radio="false"><span class="glyphicon glyphicon-unchecked"></span> <span class="hidden-xs">Não</span></label>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <h4>Promocional</h4>
+              <div class="btn-group btn-toggle">
+                <label class="btn btn-primary" ng-model="descontos.novo.promocional" uib-btn-radio="true"><span class="glyphicon glyphicon-check"></span> <span class="hidden-xs">Sim</span></label>
+                <label class="btn btn-primary" ng-model="descontos.novo.promocional" uib-btn-radio="false"><span class="glyphicon glyphicon-unchecked"></span> <span class="hidden-xs">Não</span></label>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <h4>Ativo</h4>
+              <div class="btn-group btn-toggle">
+                <label class="btn btn-primary" ng-model="descontos.novo.ativo" uib-btn-radio="true"><span class="glyphicon glyphicon-check"></span> <span class="hidden-xs">Sim</span></label>
+                <label class="btn btn-primary" ng-model="descontos.novo.ativo" uib-btn-radio="false"><span class="glyphicon glyphicon-unchecked"></span> <span class="hidden-xs">Não</span></label>
+              </div>
+            </div>
+
+          </div>
+          <div class="control">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              <span class="glyphicon glyphicon-remove"></span> Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" ng-click="descontos.salvar(descontos.novo)">
+              <span class="glyphicon glyphicon-floppy-save"></span> Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!--FIM MODAL-->
+
+</span>

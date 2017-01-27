@@ -13,7 +13,9 @@ angular.module('belissimaApp.controllers')
     'ProviderConfig',
     'PermissoesUsuario',
     'ModalConfirm',
-    function ($rootScope, $scope, providerUsuario, Usuario, providerPerfil, PerfilUsuario, ModalUsuario, ModalPerfil, providerConfig, PermissoesUsuario, modalConfirm) {
+    'ProviderTabelaDesconto',
+    'TabelaDesconto',
+    function ($rootScope, $scope, providerUsuario, Usuario, providerPerfil, PerfilUsuario, ModalUsuario, ModalPerfil, providerConfig, PermissoesUsuario, modalConfirm, providerTabelaDesconto, TabelaDesconto) {
 
       var self = this;
 
@@ -29,10 +31,25 @@ angular.module('belissimaApp.controllers')
         total: 0
       };
 
+      function getDescontos() {
+        $rootScope.loading.load();
+        self.tabelasDesconto = [];
+        providerTabelaDesconto.obterTodos().then(function(success) {
+          angular.forEach(success.data, function(item, index) {
+            self.tabelasDesconto.push(new TabelaDesconto(TabelaDesconto.converterEmEntrada(item)));
+          });
+          $rootScope.loading.unload();
+        }, function(error) {
+          console.log(error);
+          $rootScope.loading.unload();
+        });
+      }
+
       $scope.$on('$viewContentLoaded', function () {
         getUsuarios();
         getPerfis();
         getPermissoes();
+        getDescontos();
       });
 
       function getUsuarios() {
@@ -88,7 +105,7 @@ angular.module('belissimaApp.controllers')
         $rootScope.loading.load();
         providerUsuario.obterPorId(usuario.id, true, true).then(function (success) {
           $rootScope.loading.unload();
-          ModalUsuario.show(new Usuario(Usuario.converterEmEntrada(success.data)), self.perfis).then(function (success) {
+          ModalUsuario.show(new Usuario(Usuario.converterEmEntrada(success.data)), self.perfis, self.permissoes, self.tabelasDesconto).then(function (success) {
             self.atualizarUsuarios();
           });
         }, function (error) {
@@ -106,7 +123,7 @@ angular.module('belissimaApp.controllers')
           getPermissoes();
         }
 
-        ModalUsuario.show(new Usuario(), self.perfis, self.permissoes).then(function (success) {
+        ModalUsuario.show(new Usuario(), self.perfis, self.permissoes, self.tabelasDesconto).then(function (success) {
           self.atualizarUsuarios();
         });
       };

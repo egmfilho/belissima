@@ -72,7 +72,7 @@ function Comissao(Recebivel, ItemDocumento, DataSaida) {
     comissao.valorBase = c.comission_value_base;
     comissao.valorTotal = c.comission_value_total;
     comissao.status = c.comission_status; // status: A(aberto), L(liberado), F(fechado), C(cancelado)
-    comissao.dataStatus = new Date(c.comission_status_date);
+    comissao.dataStatus = c.comission_status_date ? new Date(c.comission_status_date) : null;
     comissao.vencimento = new Date(c.comission_deadline);
     comissao.data = new Date(c.comission_date);
 

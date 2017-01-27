@@ -34,7 +34,7 @@
           <td><a href="" ng-click="eventos.abrirModalTipoEvento(evento)"><span class="glyphicon glyphicon-pencil"></span></a></td>
           <td><a href="" confirm-popup title="Atenção" message="Deseja excluir o tipo de evento?" ok-func="eventos.excluir(evento)" placement="left"><span class="glyphicon glyphicon-trash"></span></a></td>
         </tr>
-        <tr ng-repeat="n in getNumber(15 - eventos.tipos.length) track by $index">
+        <tr ng-repeat="n in getNumber(pagination.max - eventos.tipos.length) track by $index">
           <td>&nbsp;</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
@@ -45,6 +45,7 @@
         </tr>
       </tbody>
     </table>
+    <ul uib-pagination total-items="pagination.total" ng-model="pagination.current" items-per-page="pagination.max" max-size="3" ng-change="pagination.pageChanged()" class="pagination-sm pull-right" boundary-link-numbers="true" rotate="true" force-ellipses="true" previous-text="&lsaquo; anterior" next-text="próximo &rsaquo;"></ul>
   </div>
 
   <!--MODAL FORMA-->

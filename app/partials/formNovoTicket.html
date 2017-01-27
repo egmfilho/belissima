@@ -95,7 +95,7 @@
           </span>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <h4>Nome</h4>
         <input type="text" name="nmFuncionario" class="form-control" placeholder="Nome do funcionário" ng-model="ticket.tempFuncionario"
                keys-shortcuts enter="addItem()" shift-enter="ticket.opt = 'cliente'"
@@ -115,7 +115,7 @@
           </span>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <h4>Nome</h4>
         <input type="text" name="nmProduto" class="form-control" placeholder="Nome do produto" ng-model="ticket.tempProduto"
                keys-shortcuts enter="ticket.focarQuantidade()" shift-enter="ticket.opt = 'cliente'"
@@ -124,13 +124,21 @@
                typeahead-wait-ms="300"
                typeahead-on-select="selectProduto($item)">
       </div>
-      <div class="col-sm-1">
-        <h4>Qtd</h4>
+      <div class="col-sm-3">
+        <h4>Quantidade</h4>
         <input type="text" name="qtdProduto" class="form-control text-right" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="ticket.salvar()">
       </div>
-      <div class="col-sm-1">
+      <div class="col-sm-3">
         <h4>Preço</h4>
-        <input type="text" class="form-control" readonly ng-value="ticket.novoItem.produto.preco.valor | currency: 'R$'" >
+        <input type="text" class="form-control text-right" readonly ng-value="ticket.novoItem.produto.preco.valor | currency: 'R$'" >
+      </div>
+      <div class="col-sm-3">
+        <h4>Desconto %</h4>
+        <input type="text" name="descontoPercent" class="form-control text-right" ng-model="ticket.novoItem.descontoPercent" ng-change="ticket.novoItem.setDescontoPercent()" number-only currency symbol="''" keys-shortcuts shift-enter="ticket.confirmarAddItem()">
+      </div>
+      <div class="col-sm-3">
+        <h4>Tabela</h4>
+        <select class="form-control" ng-model="ticket.novoItem.descontoId" ng-options="d.id as d.nome for d in tabelasDesconto"></select>
       </div>
     </div>
 

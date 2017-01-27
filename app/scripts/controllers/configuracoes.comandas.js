@@ -76,9 +76,10 @@ function ComandasCtrl($rootScope, $scope, provider, Comanda) {
   };
 
   this.desativarComanda = function(comanda) {
-    comanda.ativo = !comanda.ativo;
+    var c = new Comanda(comanda);
+    c.ativo = !comanda.ativo;
     $rootScope.loading.load();
-    provider.editar(Comanda.converterEmSaida(comanda)).then(function(success) {
+    provider.editar(Comanda.converterEmSaida(c)).then(function(success) {
       $rootScope.loading.unload();
       $rootScope.alerta.show('Comanda editada!', 'alert-success');
       obterComandas();

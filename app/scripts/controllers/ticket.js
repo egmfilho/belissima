@@ -40,6 +40,8 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
     excluir: usuario.perfil.permissoes.ticket.permissoes.deleteitem.valor
   };
 
+  $scope.tabelasDesconto = usuario.tabelasDesconto;
+
   this.novoTicket = new Pedido();
   this.novoItem = new ItemPedido();
 
@@ -170,6 +172,10 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
           focarCodigoCliente();
           break;
         case 'edit':
+          if (!$scope.permissoes.verItems) {
+            redirect();
+          }
+
           if ($routeParams.code) {
             $scope.opcao = 'novo';
             obterTicket($routeParams.code);

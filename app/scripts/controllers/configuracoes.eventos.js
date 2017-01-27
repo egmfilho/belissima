@@ -17,10 +17,18 @@ function ConfigEventosCtrl($rootScope, $scope, provider, TipoEvento) {
 
   this.novo = new TipoEvento();
 
+  $scope.pagination = {
+    current: 1,
+    max: 15,
+    total: 0,
+    pageChanged: getTipos
+  };
+
   function getTipos() {
     self.tipos = [];
     $rootScope.loading.load();
-    provider.obterTiposDeEvento().then(function (success) {
+    provider.obterTiposDeEvento(($scope.pagination.current - 1) * $scope.pagination.max + ',' + $scope.pagination.max).then(function (success) {
+      $scope.pagination.total = success.info.event_type_quantity;
       angular.forEach(success.data, function (item, index) {
         self.tipos.push(new TipoEvento(TipoEvento.converterEmEntrada(item)));
       });

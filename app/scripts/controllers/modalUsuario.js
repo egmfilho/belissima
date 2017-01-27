@@ -14,18 +14,42 @@ angular.module('belissimaApp.controllers')
     'usuario',
     'perfis',
     'permissoes',
+    'descontos',
     'ModalBuscarPessoa',
     'Pessoa',
-    function ($rootScope, $scope, $uibModalInstance, provider, Usuario, usuario, perfis, permissoes, modalBuscarPessoa, Pessoa) {
+    function ($rootScope, $scope, $uibModalInstance, provider, Usuario, usuario, perfis, permissoes, descontos, modalBuscarPessoa, Pessoa) {
 
       var self = this;
 
+      this.tabelasDesconto = descontos || [];
+
+      // function getDescontos() {
+      //   $rootScope.loading.load();
+      //   providerTabelaDesconto.obterTodos().then(function(success) {
+      //     self.tabelasDesconto = [];
+      //     angular.forEach(success.data, function(item, index) {
+      //       self.tabelasDesconto.push(new TabelaDesconto(TabelaDesconto.converterEmEntrada(item)));
+      //     });
+      //     $rootScope.loading.unload();
+      //   }, function(error) {
+      //     console.log(error);
+      //     $rootScope.loading.unload();
+      //   });
+      // }
+      // getDescontos();
+
       $uibModalInstance.opened.then(function () {
+        console.log(self.tabelasDesconto);
+        setTimeout(function() {
+          jQuery('.selectpicker').selectpicker();
+        }, 200);
+
         self.usuario = new Usuario(usuario);
         self.perfis = perfis; // para usar no select
         if (!self.usuario.perfil.permissoes) {
           self.usuario.perfil.permissoes = permissoes;
         }
+        self.usuario.setPerfil(self.perfis[0]);
       });
 
       function validarCadastro() {
@@ -131,6 +155,10 @@ angular.module('belissimaApp.controllers')
 
       $scope.removerPessoa = function() {
         self.usuario.setPessoa(new Pessoa());
-      }
+      };
+
+      $scope.teste = function() {
+        console.log(self.usuario.tabelasDescontoIds);
+      };
     }
   ]);

@@ -111,7 +111,6 @@
         <h4>Evento</h4>
         <!--<select class="form-control selectpicker" title="Escolha um tipo" ng-model="evento.tipoEvento" ng-options="tipo.title for tipo in tipos track by tipo.id" ng-change="selectTipoEvento(evento.tipoEvento)" data-live-search="true" data-container="body"></select>-->
         <select class="form-control selectpicker" title="Escolha um tipo" ng-model="evento.tipoId" ng-change="selectTipoEvento(evento.tipoId)" data-live-search="true" data-container="body">
-          <option value="" disabled>Escolha um tipo</option>
           <option value="{{tipo.id}}" data-content="<span class='glyphicon glyphicon-stop' style='color:{{tipo.color}}'></span> {{tipo.title}}" ng-repeat="tipo in tipos track by tipo.id">{{tipo.title}}</option>
         </select>
       </div>

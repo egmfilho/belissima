@@ -26,6 +26,8 @@ function ItemPedido(Produto, Pessoa) {
     // auxiliares para exibição na tela de pdv.
     this.index = itemPedido ? itemPedido.index : null;
     this.removido = itemPedido ? itemPedido.removido : null;
+
+    this.descontoId = itemPedido ? itemPedido.descontoId : null;
   }
 
   ItemPedido.prototype = {
@@ -96,6 +98,7 @@ function ItemPedido(Produto, Pessoa) {
     item.precoProduto = parseFloat(i.ticket_item_value);
     item.descontoPercent = parseFloat(i.ticket_item_al_discount);
     item.descontoDinheiro = parseFloat(i.ticket_item_vl_discount);
+    item.descontoId = i.discount_table_id ? i.discount_table_id : null;
 
     if (i.product) {
       item.produto = new Produto(Produto.converterEmEntrada(i.product));
@@ -123,6 +126,7 @@ function ItemPedido(Produto, Pessoa) {
     i.product_id = item.produtoId || item.produto.id;
     i.ticket_item_employee_id = item.funcionarioId;
     i.ticket_item_removed = item.removido ? 'Y' : 'N';
+    i.discount_table_id = item.descontoId;
 
     return i;
   };

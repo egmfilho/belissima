@@ -8,7 +8,7 @@ angular.module('belissimaApp.services')
   .factory('ModalUsuario', ['$uibModal', function ($uibModal) {
 
     return {
-      show: function (usuario, perfis, permissoes) {
+      show: function (usuario, perfis, permissoes, descontos) {
         return $uibModal.open({
           animation: true,
           templateUrl: 'partials/modalUsuario.html',
@@ -24,6 +24,9 @@ angular.module('belissimaApp.services')
             },
             permissoes: function () {
               return permissoes;
+            },
+            descontos: function() {
+              return descontos;
             }
           }
         }).result;

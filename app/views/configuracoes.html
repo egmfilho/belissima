@@ -27,6 +27,9 @@
       <li role="presentation" ng-class="opcao === 'eventos' ? 'active' : ''">
         <a href="" ng-click="opcao = 'eventos'">Eventos</a>
       </li>
+      <li role="presentation" ng-class="opcao === 'descontos' ? 'active' : ''">
+        <a href="" ng-click="opcao = 'descontos'">Descontos</a>
+      </li>
     </ul>
     <div class="conteudo-nav condensar-rows">
 
@@ -45,6 +48,8 @@
       <div class="col-md-12" ng-if="opcao === 'comandas'" ng-include="'partials/configuracoes/comandas.html'"></div>
 
       <div class="col-md-12" ng-if="opcao === 'eventos'" ng-include="'partials/configuracoes/eventos.html'"></div>
+
+      <div class="col-md-12" ng-if="opcao === 'descontos'" ng-include="'partials/configuracoes/descontos.html'"></div>
 
     </div>
   </div>

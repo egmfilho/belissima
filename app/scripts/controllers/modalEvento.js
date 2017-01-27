@@ -40,6 +40,7 @@ angular.module('belissimaApp.controllers')
           $scope.evento = new Evento(evento);
         } else {
           $scope.evento = new Evento();
+          $scope.evento.setTipo($scope.tipos[0]);
           $scope.evento.start = new Date();
           if (data) {
             $scope.evento.start.setYear(data.getFullYear());
