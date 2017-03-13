@@ -45,7 +45,7 @@ function Movimentacao(Produto) {
     movimentacao.cancelado = movement.product_movement_canceled === 'Y';
     movimentacao.data = new Date(movement.product_movement_date);
     movimentacao.dataCancelamento = new Date(movement.product_movement_date_canceled);
-    movimentacao.dataReferencia = new Date(movement.product_movement_date_reference);
+    movimentacao.dataReferencia = new Date(movement.product_movement_date_reference.replace(/-/g, '/').split('T')[0]);
     movimentacao.tipo = movement.product_movement_type;
     movimentacao.valor = movement.product_movement_value;
 

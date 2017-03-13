@@ -59,6 +59,7 @@ function ComandasCtrl($rootScope, $scope, provider, Comanda) {
       console.log(error);
       $rootScope.loading.unload();
       $rootScope.alerta.show('Não foi possível adicionar a comanda!', 'alert-danger');
+      jQuery('input[name="cdComanda"]').focus().select();
     });
   };
 

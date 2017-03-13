@@ -37,7 +37,8 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
 
   $scope.permissoes = {
     verItems: usuario.perfil.permissoes.ticket.permissoes.viewitem.valor,
-    excluir: usuario.perfil.permissoes.ticket.permissoes.deleteitem.valor
+    excluirItem: usuario.perfil.permissoes.ticket.permissoes.deleteitem.valor,
+    excluir: usuario.perfil.permissoes.ticket.permissoes.delete.valor
   };
 
   $scope.tabelasDesconto = usuario.tabelasDesconto;
@@ -70,6 +71,60 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
     startingDay: 0,
     showWeeks: false
   };
+
+  $scope.$on('$viewContentLoaded', function () {
+    // compensa o scroll do tbody no thead se o SO nao for um MacOS
+    if (navigator.platform !== 'MacIntel') {
+      // angular.element('#tabela-ticket thead tr').css('padding-right', '18px');
+    }
+
+    if ($routeParams.action) {
+      switch ($routeParams.action) {
+        case 'open':
+          $scope.opcao = 'abrir';
+          setTimeout(function() {
+            jQuery('input[name="cdComanda"]').focus().select();
+          }, 200);
+          break;
+        case 'new':
+          validarComanda($routeParams.card);
+          $scope.opcao = 'novo';
+          $scope.limparNovoItem(true);
+          self.novoTicket.comanda.codigoDeBarras = $routeParams.card;
+          focarCodigoCliente();
+          break;
+        case 'edit':
+          if (!$scope.permissoes.verItems) {
+            redirect();
+          }
+
+          $scope.limparNovoItem(true);
+          if ($routeParams.code) {
+            $scope.opcao = 'novo';
+            obterTicket($routeParams.code);
+            focarCodigoFuncionario();
+          } else {
+
+          }
+          break;
+        case 'insert':
+          if ($routeParams.code) {
+            $scope.opcao = 'inserir';
+            $scope.limparNovoItem(true);
+            obterTicket($routeParams.code);
+            abrirModalFuncionario();
+          }
+          break;
+        case 'list':
+          $scope.opcao = 'listar';
+          getTickets();
+          break;
+      }
+
+      self.collapse.produtos = true;
+      self.collapse.pagamento = true;
+    }
+  });
 
   $scope.$on('$locationChangeStart', function( event ) {
     if (escape_confirm) {
@@ -151,57 +206,6 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
     $location.path('/ticket/list');
   }
 
-  $scope.$on('$viewContentLoaded', function () {
-    // compensa o scroll do tbody no thead se o SO nao for um MacOS
-    if (navigator.platform !== 'MacIntel') {
-      // angular.element('#tabela-ticket thead tr').css('padding-right', '18px');
-    }
-
-    if ($routeParams.action) {
-      switch ($routeParams.action) {
-        case 'open':
-          $scope.opcao = 'abrir';
-          setTimeout(function() {
-            jQuery('input[name="cdComanda"]').focus().select();
-          }, 200);
-          break;
-        case 'new':
-          validarComanda($routeParams.card);
-          $scope.opcao = 'novo';
-          self.novoTicket.comanda.codigoDeBarras = $routeParams.card;
-          focarCodigoCliente();
-          break;
-        case 'edit':
-          if (!$scope.permissoes.verItems) {
-            redirect();
-          }
-
-          if ($routeParams.code) {
-            $scope.opcao = 'novo';
-            obterTicket($routeParams.code);
-            focarCodigoFuncionario();
-          } else {
-
-          }
-          break;
-        case 'insert':
-          if ($routeParams.code) {
-            $scope.opcao = 'inserir';
-            obterTicket($routeParams.code);
-            abrirModalFuncionario();
-          }
-          break;
-        case 'list':
-          $scope.opcao = 'listar';
-          getTickets();
-          break;
-      }
-
-      self.collapse.produtos = true;
-      self.collapse.pagamento = true;
-    }
-  });
-
   function focarCodigoCliente() {
     jQuery('input[name="cdCliente"]').focus().select();
   }
@@ -228,6 +232,14 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
 
   this.focarDesconto = function () {
     jQuery('input[name="descontoPercent"]').focus().select();
+  };
+
+  this.focarTabelasDesconto = function() {
+    jQuery('select[name="tabelasDesconto"]').focus();
+  };
+
+  $scope.focarEm = function(selector) {
+    jQuery('input[name="' + selector + '"]').focus().select();
   };
 
   this.avancarParaProdutos = function() {
@@ -285,7 +297,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
       console.log(status);
       if (success.status.code == 200) {
         $location.search('code', success.data.ticket_code);
-        $location.path('/ticket/edit');
+        $location.path($scope.permissoes.verItems ? '/ticket/edit' : '/ticket/insert');
       } else if (success.status.code == 206) {
         $location.search('card', codigoDeBarras);
         $location.path('/ticket/new');
@@ -415,15 +427,16 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
       return;
     }
 
+    if (!self.novoItem.tabelaDescontoId) {
+      $rootScope.alerta.show('Informe a tabela de descontos!');
+      return;
+    }
+
     if (self.novoItem.quantidade > 0) {
       self.novoTicket.addItem(self.novoItem);
     }
 
-    self.cdProduto = '';
-    self.tempProduto = null;
-    self.cdFuncionario = '';
-    self.tempFuncionario = null;
-    self.novoItem = new ItemPedido();
+    $scope.limparNovoItem(true);
 
     // setParcelas();
 
@@ -518,7 +531,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
   }
 
   $scope.removeItem = function (item) {
-    if (!$scope.permissoes.excluir) {
+    if (!$scope.permissoes.excluirItem) {
       modalPermissao.show('ticket', 'deleteitem').then(function(success) {
         removerItem(item);
       }, function(error) { });
@@ -586,6 +599,7 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
 
     // console.log(self.novoTicket);
     // console.log(Pedido.converterEmSaida(self.novoTicket));
+    // return;
 
     $rootScope.loading.load();
     if (self.novoTicket.id) {
@@ -641,13 +655,23 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
 
   };
 
-  $scope.excluirTicket = function(id) {
+  function excluir(id) {
     $rootScope.loading.load();
     providerTicket.excluir(id).then(function(success) {
       $rootScope.loading.unload();
       $rootScope.alerta.show('Ticket excluido', 'alert-success');
       getTickets();
     });
+  }
+
+  $scope.excluirTicket = function(id) {
+    if (!$scope.permissoes.excluir) {
+      modalPermissao.show('ticket', 'delete').then(function(success) {
+        excluir(id);
+      }, function(error) { });
+    } else {
+      excluir(id);
+    }
   };
 
   function abrirModalFuncionario() {
@@ -695,4 +719,30 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
   this.alterarFuncionario = function() {
     abrirModalFuncionario();
   };
+
+  function getTabelaDescontoDefault() {
+    return $scope.tabelasDesconto.find(function(elem) {
+      return elem.default;
+    });
+  }
+
+  function resetInsert() {
+    self.cdFuncionario = '';
+    self.tempFuncionario = new Pessoa();
+    self.cdProduto = '';
+    self.tempProduto = new Produto();
+    self.novoItem = new ItemPedido();
+    self.novoItem.setTabelaDesconto(getTabelaDescontoDefault());
+  }
+  $scope.limparNovoItem = function(skip) {
+    if (skip) {
+      resetInsert();
+    } else {
+      modalConfirm.show('Aviso!', 'Limpar todos os campos?').then(function(s) {
+        resetInsert();
+        focarCodigoFuncionario();
+      }, function(err){});
+    }
+  };
+
 }

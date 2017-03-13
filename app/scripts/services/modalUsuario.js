@@ -11,6 +11,7 @@ angular.module('belissimaApp.services')
       show: function (usuario, perfis, permissoes, descontos) {
         return $uibModal.open({
           animation: true,
+          backdrop: 'static',
           templateUrl: 'partials/modalUsuario.html',
           controller: 'ModalUsuarioCtrl',
           controllerAs: 'modal',

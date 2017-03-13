@@ -7,9 +7,9 @@
 angular.module('belissimaApp.services')
   .factory('ItemPedido', ItemPedido);
 
-ItemPedido.$inject = [ 'Produto', 'Pessoa' ];
+ItemPedido.$inject = [ 'Produto', 'Pessoa', 'TabelaDesconto' ];
 
-function ItemPedido(Produto, Pessoa) {
+function ItemPedido(Produto, Pessoa, TabelaDesconto) {
 
   function ItemPedido(itemPedido) {
     this.id = itemPedido ? itemPedido.id : '';
@@ -27,7 +27,8 @@ function ItemPedido(Produto, Pessoa) {
     this.index = itemPedido ? itemPedido.index : null;
     this.removido = itemPedido ? itemPedido.removido : null;
 
-    this.descontoId = itemPedido ? itemPedido.descontoId : null;
+    this.tabelaDescontoId = itemPedido ? itemPedido.tabelaDescontoId : null;
+    this.tabelaDesconto = itemPedido ? itemPedido.tabelaDesconto : null;
   }
 
   ItemPedido.prototype = {
@@ -49,6 +50,7 @@ function ItemPedido(Produto, Pessoa) {
       if (percent) {
         this.descontoPercent = parseFloat(percent);
       }
+      this.descontoPercent = Math.min(parseFloat(this.descontoPercent), parseFloat(this.produto.comissao));
 
       this.descontoDinheiro = parseFloat(this.descontoPercent) > 0 ? this.getTotalSemDesconto() * (parseFloat(this.descontoPercent) / 100) : 0;
     },
@@ -57,6 +59,7 @@ function ItemPedido(Produto, Pessoa) {
       if (dinheiro) {
         this.descontoDinheiro = parseFloat(dinheiro);
       }
+      this.descontoDinheiro = Math.min(parseFloat(this.descontoDinheiro), parseFloat(this.produto.preco.valor) * parseFloat(this.produto.comissao / 100));
 
       this.descontoPercent = (parseFloat(this.descontoDinheiro) * 100) / this.getTotalSemDesconto();
     },
@@ -64,6 +67,15 @@ function ItemPedido(Produto, Pessoa) {
     setFuncionario: function(funcionario) {
       this.funcionarioId = funcionario.id;
       this.funcionario = new Pessoa(funcionario);
+    },
+
+    setTabelaDesconto: function(tabelaDesconto) {
+
+      if (tabelaDesconto) {
+        this.tabelaDesconto = new TabelaDesconto(tabelaDesconto);
+      }
+
+      this.tabelaDescontoId = this.tabelaDesconto.id;
     },
 
     getTotalSemDesconto: function() {
@@ -98,7 +110,13 @@ function ItemPedido(Produto, Pessoa) {
     item.precoProduto = parseFloat(i.ticket_item_value);
     item.descontoPercent = parseFloat(i.ticket_item_al_discount);
     item.descontoDinheiro = parseFloat(i.ticket_item_vl_discount);
-    item.descontoId = i.discount_table_id ? i.discount_table_id : null;
+    item.tabelaDescontoId = i.discount_table_id ? i.discount_table_id : null;
+
+    if (i.discount_table) {
+      item.tabelaDesconto = new TabelaDesconto(TabelaDesconto.converterEmEntrada(i.discount_table));
+    } else {
+      item.tabelaDesconto = new TabelaDesconto();
+    }
 
     if (i.product) {
       item.produto = new Produto(Produto.converterEmEntrada(i.product));
@@ -126,7 +144,7 @@ function ItemPedido(Produto, Pessoa) {
     i.product_id = item.produtoId || item.produto.id;
     i.ticket_item_employee_id = item.funcionarioId;
     i.ticket_item_removed = item.removido ? 'Y' : 'N';
-    i.discount_table_id = item.descontoId;
+    i.discount_table_id = item.tabelaDescontoId;
 
     return i;
   };

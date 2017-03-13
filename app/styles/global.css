@@ -1302,7 +1302,9 @@ body {
 
 @media (min-width: 768px) {
   #tela-ticket .tabela.tabela-produtos tr th:nth-child(3), #tela-ticket .tabela.tabela-produtos tr td:nth-child(3) {
-    width: 80px; } }
+    width: 80px; }
+  #tela-ticket .tabela.tabela-produtos tr th:nth-child(5), #tela-ticket .tabela.tabela-produtos tr td:nth-child(5) {
+    width: 90px; } }
 #tabela-ticket {
   height: 400px;
   min-height: 250px; }
@@ -1358,6 +1360,27 @@ body {
 
 ul.dropdown-menu[template-url='partials/typeaheadModal.html'] {
   z-index: 1051; }
+
+.form-endereco .cabecalho {
+  margin: 20px 0 10px 0;
+  padding-top: 10px; }
+  .form-endereco .cabecalho .btn-toggle {
+    float: right;
+    width: 25%;
+    margin-top: 5px; }
+  .form-endereco .cabecalho a:hover, .form-endereco .cabecalho a:focus {
+    text-decoration: none; }
+  .form-endereco .cabecalho .principal {
+    font-size: 2em;
+    vertical-align: -5px;
+    color: #baa526; }
+  .form-endereco .cabecalho h4 {
+    display: inline-block; }
+  .form-endereco .cabecalho .trash {
+    float: right;
+    font-size: 1.2em;
+    margin-top: 10px;
+    color: white; }
 
 #servico-produtos textarea {
   resize: none; }
@@ -1428,6 +1451,9 @@ ul.dropdown-menu[template-url='partials/typeaheadModal.html'] {
   #clientes .filtros select {
     width: 160px;
     margin: 0 10px; }
+
+#modalNovoEndereco .body {
+  max-height: 450px; }
 
 #crm .avatar {
   width: 100%;

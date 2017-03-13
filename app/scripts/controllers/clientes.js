@@ -302,5 +302,9 @@ angular.module('belissimaApp.controllers')
         });
       };
 
+      $scope.abrirModalNovoEndereco = function() {
+        jQuery('#modalNovoEndereco').modal('show');
+      };
+
     }
   ]);

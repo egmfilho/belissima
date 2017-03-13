@@ -51,7 +51,8 @@ angular.module('belissimaApp.services')
             get_ticket_payments: true,
             get_ticket_payment_mode: true,
             get_product_unit: true,
-            get_ticket_card: true
+            get_ticket_card: true,
+            get_ticket_items_discount_table: true
           }).$promise;
         },
 

@@ -121,13 +121,17 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
     jQuery('input[name="descontoDinheiro"]').focus().select();
   };
 
+  function limparTudo() {
+    self.cancelarEdicao();
+    self.cdCliente = '';
+    self.cdPrazo = '';
+    self.tempPrazo = new PrazoPagamento();
+    itemIndex = 0;
+  }
+
   this.novo = function (callback) {
     modalConfirm.show('Aviso', 'Todas as informações serão perdidas, deseja proseguir?').then(function (result) {
-      self.cancelarEdicao();
-      self.cdCliente = '';
-      self.cdPrazo = '';
-      self.tempPrazo = new PrazoPagamento();
-      itemIndex = 0;
+      limparTudo();
       self.documento = new Documento();
 
       if (callback) callback();
@@ -259,7 +263,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
       jQuery('input[name="cdCliente"]').focus().select();
     }).modal('show').on('hidden.bs.modal', function (e) {
       if (callback_negative) callback_negative();
-    }).find('.control button[name="positive"]').click(function () {
+    }).find('.control button[name="positive"]').unbind('click').click(function () {
       if (callback_positive) callback_positive();
     });
   };
@@ -292,7 +296,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
       jQuery('input[name="cdPrazo"]').focus().select();
     }).modal('show').on('hidden.bs.modal', function (e) {
       if (callback_negative) callback_negative();
-    }).find('.control button[name="positive"]').click(function () {
+    }).find('.control button[name="positive"]').unbind('click').click(function () {
       if (callback_positive) callback_positive();
     });
   };
@@ -381,7 +385,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
       jQuery('input[name="cdFuncionario"]').focus().select();
     }).modal('show').on('hidden.bs.modal', function (e) {
       if (callback_negative) callback_negative();
-    }).find('.control button[name="positive"]').click(function () {
+    }).find('.control button[name="positive"]').unbind('click').click(function () {
       if (callback_positive) callback_positive();
     });
   };
@@ -445,28 +449,24 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
     });
   };
 
+  $scope.n = 0;
+
   this.validarModais = function() {
     if (!self.documento.clienteId) {
       self.abrirModalCliente(self.validarModais);
-      return;
-    }
-
+    } else
     if (!self.documento.prazoId || !validarFormas()) {
       self.abrirModalPagamento(self.validarModais);
-      return;
-    }
-
-    if (!self.documento.codigo) {
-      self.abrirModalFuncionario(self.fecharVenda);
     } else {
-      self.fecharVenda();
+      if (!self.documento.codigo) {
+        self.abrirModalFuncionario(self.fecharVenda);
+      } else {
+        self.fecharVenda();
+      }
     }
   };
 
   this.fecharVenda = function () {
-    console.log('Saída', self.documento);
-    console.log('Saída', Documento.converterEmSaida(self.documento));
-
     $scope.total_troco = 0;
     angular.forEach(self.documento.pagamentos, function(pagamento) {
       if (pagamento.forma.troco) {
@@ -505,7 +505,7 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
     jQuery('#modalConfirmacao')
       .modal('show')
       .on('hide.bs.modal', function(e) {
-        self.documento = new Documento();
+        limparTudo();
       })
       .on('hidden.bs.modal', function(e) {
         focarCodigo();

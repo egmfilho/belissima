@@ -8,7 +8,7 @@
                                                                         ng-click="opt = 'cep'">CEP</a></li>
   </ul>
   <div class="dropdown visible-xs-inline" ng-init="label='Cidade'">
-    <button class="btn btn-default botao-esticado dropdown-toggle" type="button" id="dropdownMenu1"
+    <button class="btn btn-default botao botao-esticado dropdown-toggle" type="button" id="dropdownMenu1"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
       {{label}}
       <span class="caret"></span>
@@ -29,12 +29,12 @@
 
   <div class="col-md-12" ng-if="opt === 'cidade'">
     <div class="col-xs-6 col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="enderecos.atualizarCidades()"><span
+      <button class="btn btn-default botao botao-esticado" ng-click="enderecos.atualizarCidades()"><span
         class="glyphicon glyphicon-refresh"></span> Atualizar
       </button>
     </div>
     <div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">
-      <button class="btn btn-default botao-esticado" data-toggle="modal" data-target="#modalCidade"><span
+      <button class="btn btn-default botao botao-esticado" data-toggle="modal" data-target="#modalCidade"><span
         class="glyphicon glyphicon-plus"></span> Nova Cidade
       </button>
     </div>
@@ -69,7 +69,7 @@
             </div>
           </div>
           <div class="control">
-            <button type="button" class="btn btn-default" ng-click="enderecos.cancelarModalCidade()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+            <button type="button" class="btn btn-default botao" ng-click="enderecos.cancelarModalCidade()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
             <button type="button" class="btn btn-primary" ng-click="enderecos.salvarCidade()"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
           </div>
         </div>
@@ -97,8 +97,8 @@
           <td class="hidden-xs"><a href="" ng-click="enderecos.editarCidade(cidade)"><span class="glyphicon glyphicon-pencil"></span></a></td>
           <td class="hidden-xs"><a href="" ng-click="enderecos.excluirCidade(cidade)"><span class="glyphicon glyphicon-trash"></span></a></td>
           <td class="visible-xs-block">
-            <button class="btn btn-default pull-right" ng-click="enderecos.editarCidade(cidade)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-            <button class="btn btn-default pull-right" ng-click="enderecos.excluirCidade(cidade)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+            <button class="btn btn-default botao pull-right" ng-click="enderecos.editarCidade(cidade)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+            <button class="btn btn-default botao pull-right" ng-click="enderecos.excluirCidade(cidade)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
           </td>
         </tr>
         <tr class="hidden-xs"
@@ -119,12 +119,12 @@
 
   <div class="col-md-12" ng-if="opt === 'bairro'">
     <div class="col-xs-6 col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="enderecos.atualizarBairros()"><span
+      <button class="btn btn-default botao botao-esticado" ng-click="enderecos.atualizarBairros()"><span
         class="glyphicon glyphicon-refresh"></span> Atualizar
       </button>
     </div>
     <div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">
-      <button class="btn btn-default botao-esticado" data-toggle="modal" data-target="#modalBairro"><span
+      <button class="btn btn-default botao botao-esticado" data-toggle="modal" data-target="#modalBairro"><span
         class="glyphicon glyphicon-plus"></span> Novo Bairro
       </button>
     </div>
@@ -148,7 +148,7 @@
             </div>
           </div>
           <div class="control">
-            <button type="button" class="btn btn-default" ng-click="enderecos.cancelarModalBairro()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+            <button type="button" class="btn btn-default botao" ng-click="enderecos.cancelarModalBairro()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
             <button type="button" class="btn btn-primary" ng-click="enderecos.salvarBairro()"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
           </div>
         </div>
@@ -174,8 +174,8 @@
           <td class="hidden-xs"><a href="" ng-click="enderecos.editarBairro(bairro)"><span class="glyphicon glyphicon-pencil"></span></a></td>
           <td class="hidden-xs"><a href="" ng-click="enderecos.excluirBairro(bairro)"><span class="glyphicon glyphicon-trash"></span></a></td>
           <td class="visible-xs-block">
-            <button class="btn btn-default pull-right" ng-click="enderecos.editarBairro(bairro)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-            <button class="btn btn-default pull-right" ng-click="enderecos.excluirBairro(bairro)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+            <button class="btn btn-default botao pull-right" ng-click="enderecos.editarBairro(bairro)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+            <button class="btn btn-default botao pull-right" ng-click="enderecos.excluirBairro(bairro)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
           </td>
         </tr>
         <tr class="hidden-xs"
@@ -195,12 +195,12 @@
 
   <div class="col-md-12" ng-if="opt === 'cep'">
     <div class="col-xs-6 col-sm-3 col-md-3">
-      <button class="btn btn-default botao-esticado" ng-click="enderecos.atualizarCEPs()"><span
+      <button class="btn btn-default botao botao-esticado" ng-click="enderecos.atualizarCEPs()"><span
         class="glyphicon glyphicon-refresh"></span> Atualizar
       </button>
     </div>
     <div class="col-xs-6 col-sm-3 col-sm-push-6 col-md-3">
-      <button class="btn btn-default botao-esticado" data-toggle="modal" data-target="#modalCEP"><span
+      <button class="btn btn-default botao botao-esticado" data-toggle="modal" data-target="#modalCEP"><span
         class="glyphicon glyphicon-plus"></span> Novo CEP
       </button>
     </div>
@@ -219,7 +219,7 @@
               <div class="input-group">
                 <input type="text" class="form-control" ng-model="enderecos.cep.cidade.codigo">
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="enderecos.getCidadePorCodigo(enderecos.cep.cidade.codigo)"><span class="glyphicon glyphicon-search"></span></button>
+                  <button type="button" class="btn btn-default botao" ng-click="enderecos.getCidadePorCodigo(enderecos.cep.cidade.codigo)"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
               </div>
             </div>
@@ -232,7 +232,7 @@
               <div class="input-group">
                 <input type="text" class="form-control" ng-model="enderecos.cep.bairro.codigo">
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="enderecos.getBairroPorCodigo(enderecos.cep.bairro.codigo)"><span class="glyphicon glyphicon-search"></span></button>
+                  <button type="button" class="btn btn-default botao" ng-click="enderecos.getBairroPorCodigo(enderecos.cep.bairro.codigo)"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
               </div>
             </div>
@@ -257,7 +257,7 @@
             </div>
           </div>
           <div class="control">
-            <button type="button" class="btn btn-default" ng-click="enderecos.cancelarModalCEP()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+            <button type="button" class="btn btn-default botao" ng-click="enderecos.cancelarModalCEP()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
             <button type="button" class="btn btn-primary" ng-click="enderecos.salvarCEP()"><span class="glyphicon glyphicon-floppy-save"></span> Salvar</button>
           </div>
         </div>
@@ -285,8 +285,8 @@
           <td class="hidden-xs"><a href="" ng-click="enderecos.editarCEP(cep)"><span class="glyphicon glyphicon-pencil"></span></a></td>
           <td class="hidden-xs"><a href="" ng-click="enderecos.excluirCEP(cep)"><span class="glyphicon glyphicon-trash"></span></a></td>
           <td class="visible-xs-block">
-            <button class="btn btn-default pull-right" ng-click="enderecos.editarCEP(cep)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-            <button class="btn btn-default pull-right" ng-click="enderecos.excluirCEP(cep)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+            <button class="btn btn-default botao pull-right" ng-click="enderecos.editarCEP(cep)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+            <button class="btn btn-default botao pull-right" ng-click="enderecos.excluirCEP(cep)"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
           </td>
         </tr>
         <tr class="hidden-xs"

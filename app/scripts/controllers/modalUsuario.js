@@ -22,21 +22,9 @@ angular.module('belissimaApp.controllers')
       var self = this;
 
       this.tabelasDesconto = descontos || [];
-
-      // function getDescontos() {
-      //   $rootScope.loading.load();
-      //   providerTabelaDesconto.obterTodos().then(function(success) {
-      //     self.tabelasDesconto = [];
-      //     angular.forEach(success.data, function(item, index) {
-      //       self.tabelasDesconto.push(new TabelaDesconto(TabelaDesconto.converterEmEntrada(item)));
-      //     });
-      //     $rootScope.loading.unload();
-      //   }, function(error) {
-      //     console.log(error);
-      //     $rootScope.loading.unload();
-      //   });
-      // }
-      // getDescontos();
+      self.usuario = new Usuario(usuario);
+      self.perfis = perfis; // para usar no select
+      console.log(this.usuario, perfis);
 
       $uibModalInstance.opened.then(function () {
         console.log(self.tabelasDesconto);
@@ -44,12 +32,12 @@ angular.module('belissimaApp.controllers')
           jQuery('.selectpicker').selectpicker();
         }, 200);
 
-        self.usuario = new Usuario(usuario);
-        self.perfis = perfis; // para usar no select
         if (!self.usuario.perfil.permissoes) {
           self.usuario.perfil.permissoes = permissoes;
         }
-        self.usuario.setPerfil(self.perfis[0]);
+        if (!self.usuario.perfilId) {
+          self.usuario.setPerfil(self.perfis[0]);
+        }
       });
 
       function validarCadastro() {

@@ -14,7 +14,7 @@
   </li>
 </ul>
 <div class="conteudo-nav condensar-rows" ng-show="ticket.opt=='add'">
-  <span ng-controller="ClientesCtrl as clientes">
+  <span class="form-endereco" ng-controller="ClientesCtrl as clientes">
     <div ng-include="'partials/formNovaPessoa.html'" onload="clientes.viewContentLoaded()"></div>
   </span>
 </div>
@@ -87,9 +87,9 @@
       <div class="col-sm-2">
         <h4>Funcionário</h4>
         <div class="input-group">
-          <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" shift-enter="ticket.avancarParaPagamento()">
+          <input type="text" class="form-control" name="cdFuncionario" placeholder="Código" ng-model="ticket.cdFuncionario" number-only keys-shortcuts enter="buscarFuncionarioPorCodigo(ticket.cdFuncionario)" shift-enter="addItem()">
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="buscarFuncionario()">
+            <button type="button" class="btn btn-default" tabindex="-1" ng-click="buscarFuncionario()">
               <i class="glyphicon glyphicon-search" tabindex="-1"></i>
             </button>
           </span>
@@ -98,7 +98,7 @@
       <div class="col-sm-4">
         <h4>Nome</h4>
         <input type="text" name="nmFuncionario" class="form-control" placeholder="Nome do funcionário" ng-model="ticket.tempFuncionario"
-               keys-shortcuts enter="addItem()" shift-enter="ticket.opt = 'cliente'"
+               keys-shortcuts enter="focarEm('cdProduto')" shift-enter="addItem()"
                uib-typeahead="funcionario as funcionario.nome for funcionario in buscarFuncionarioPorNome($viewValue)"
                typeahead-min-length="3"
                typeahead-wait-ms="300"
@@ -107,7 +107,7 @@
       <div class="col-sm-2">
         <h4>Produto</h4>
         <div class="input-group">
-          <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.salvar()">
+          <input type="text" name="cdProduto" class="form-control" placeholder="Código" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="addItem()">
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="buscarProduto()" tabindex="-1">
               <i class="glyphicon glyphicon-search"></i>
@@ -118,7 +118,7 @@
       <div class="col-sm-4">
         <h4>Nome</h4>
         <input type="text" name="nmProduto" class="form-control" placeholder="Nome do produto" ng-model="ticket.tempProduto"
-               keys-shortcuts enter="ticket.focarQuantidade()" shift-enter="ticket.opt = 'cliente'"
+               keys-shortcuts enter="ticket.focarEm('qtdProduto')" shift-enter="ticket.savlar()"
                uib-typeahead="produto as produto.nome for produto in buscarProdutoPorNome($viewValue)"
                typeahead-min-length="3"
                typeahead-wait-ms="300"
@@ -126,19 +126,48 @@
       </div>
       <div class="col-sm-3">
         <h4>Quantidade</h4>
-        <input type="text" name="qtdProduto" class="form-control text-right" ng-model="ticket.novoItem.quantidade" number-only currency symbol="''" keys-shortcuts enter="addItem()" shift-enter="ticket.salvar()">
+        <div class="input-group">
+          <input type="text" name="qtdProduto" class="form-control text-right" ng-model="ticket.novoItem.quantidade" ng-change="ticket.novoItem.setQuantidade()" number-only currency symbol="''" keys-shortcuts enter="focarEm('descontoPercent')" shift-enter="addItem()">
+          <span class="input-group-addon">{{ticket.novoItem.produto.unidade.valor || 'UN'}}</span>
+        </div>
       </div>
       <div class="col-sm-3">
-        <h4>Preço</h4>
-        <input type="text" class="form-control text-right" readonly ng-value="ticket.novoItem.produto.preco.valor | currency: 'R$'" >
+        <h4>Valor unitário</h4>
+        <input type="text" class="form-control text-right" readonly tabindex="-1" ng-value="(ticket.novoItem.produto.preco.valor || 0) | currency: 'R$ '" >
       </div>
       <div class="col-sm-3">
         <h4>Desconto %</h4>
-        <input type="text" name="descontoPercent" class="form-control text-right" ng-model="ticket.novoItem.descontoPercent" ng-change="ticket.novoItem.setDescontoPercent()" number-only currency symbol="''" keys-shortcuts shift-enter="ticket.confirmarAddItem()">
+        <div class="input-group">
+          <input type="text" name="descontoPercent" class="form-control text-right" ng-model="ticket.novoItem.descontoPercent" ng-change="ticket.novoItem.setDescontoPercent()" number-only currency symbol="''" keys-shortcuts enter="focarEm('descontoDinheiro')" shift-enter="addItem()">
+          <span class="input-group-addon">%</span>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <h4>Desconto R$</h4>
+        <div class="input-group">
+          <span class="input-group-addon">R$</span>
+          <input type="text" name="descontoDinheiro" class="form-control text-right" ng-model="ticket.novoItem.descontoDinheiro" ng-change="ticket.novoItem.setDescontoDinheiro()" number-only currency symbol="''" keys-shortcuts enter="ticket.focarTabelasDesconto()" shift-enter="addItem()">
+        </div>
       </div>
       <div class="col-sm-3">
         <h4>Tabela</h4>
-        <select class="form-control" ng-model="ticket.novoItem.descontoId" ng-options="d.id as d.nome for d in tabelasDesconto"></select>
+        <select class="form-control" name="tabelasDesconto" ng-model="ticket.novoItem.tabelaDesconto" ng-options="d.nome for d in tabelasDesconto track by d.id" ng-change="ticket.novoItem.setTabelaDesconto()" keys-shortcuts enter="addItem()"></select>
+      </div>
+      <div class="col-sm-3">
+        <h4>Valor Total</h4>
+        <input type="text" class="form-control text-right" readonly tabindex="-1" ng-value="(ticket.novoItem.getTotalComDesconto() || 0) | currency : 'R$ '">
+      </div>
+      <div class="col-sm-3">
+        <h4>&nbsp;</h4>
+        <button class="btn btn-primary btn-block" ng-click="limparNovoItem()">
+          <span class="glyphicon glyphicon-remove"></span> Limpar
+        </button>
+      </div>
+      <div class="col-sm-3">
+        <h4>&nbsp;</h4>
+        <button class="btn btn-primary btn-block" ng-click="addItem()">
+          <span class="glyphicon glyphicon-plus"></span> Adicionar
+        </button>
       </div>
     </div>
 
@@ -153,6 +182,7 @@
               <th>Qtd.</th>
               <th>Preço</th>
               <th>Desc. %</th>
+              <th>Tabela</th>
               <th>Total</th>
               <th>&nbsp;</th>
             </tr>
@@ -167,7 +197,15 @@
               </td>
               <td data-label="Quantidade" class="visible-xs-block">{{i.quantidade | currency : ''}}</td>
               <td data-label="Preço">{{i.precoProduto | currency: 'R$ '}}</td>
-              <td data-label="Desconto %">{{i.descontoPercent | currency: ''}}%</td>
+
+              <td class="editable-td hidden-xs" editable-td>
+                <span>{{i.descontoPercent | currency : ''}}%</span>
+                <input currency symbol="''" number-only type="text" ng-model="i.descontoPercent" ng-blur="i.descontoPercent < 0 || !i.descontoPercent ? i.descontoPercent = 0 : ''" ng-change="i.setDescontoPercent()">
+              </td>
+              <td data-label="Desconto %" class="visible-xs-block">{{i.descontoPercent | currency: ''}}%</td>
+
+              <td data-label="Tabela">{{i.tabelaDesconto.nome}}</td>
+
               <td data-label="Total">{{i.getTotalComDesconto() | currency: 'R$ '}}</td>
               <td class="hidden-xs">
                 <a href="" confirm-popup title="Atenção" message="Deseja remover o item?" ok-func="removeItem(i)" placement="left">
@@ -181,6 +219,7 @@
               </td>
             </tr>
             <tr class="hidden-xs" ng-repeat="n in getNumber(10 - ticket.novoTicket.items.length) track by $index">
+              <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>

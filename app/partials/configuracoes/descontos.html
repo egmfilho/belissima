@@ -5,7 +5,7 @@
   </div>
 
   <div class="col-xs-3 col-xs-push-6">
-    <button class="btn btn-default btn-block" ng-click="descontos.abrirModal()"><span class="glyphicon glyphicon-plus"></span> Cadastrar</button>
+    <button class="btn btn-default btn-block" ng-click="descontos.abrirModal()" disabled><span class="glyphicon glyphicon-plus"></span> Cadastrar</button>
   </div>
 
   <div class="col-xs-12" style="margin-top: 30px">
@@ -37,10 +37,11 @@
           <td>{{desconto.data | date : 'short'}}</td>
           <td>{{desconto.dataUpdate ? (desconto.dataUpdate | date : 'short') : 'Indisponível'}}</td>
           <td>
-            <a href=""><span class="glyphicon glyphicon-pencil" ng-click="descontos.abrirModal(desconto)"></span></a>
+            <a href=""><span class="glyphicon glyphicon-search" ng-click="descontos.abrirModal(desconto)"></span></a>
           </td>
           <td>
-            <a href="" confirm-popup title="Atenção" message="Deseja excluir o item?" ok-func="descontos.excluir(desconto)" placement="left"><span class="glyphicon glyphicon-trash"></span></a>
+            <!--<a href="" confirm-popup title="Atenção" message="Deseja excluir o item?" ok-func="descontos.excluir(desconto)" placement="left"><span class="glyphicon glyphicon-trash"></span></a>-->
+            <span class="glyphicon glyphicon-lock"></span>
           </td>
         </tr>
         <tr ng-repeat="n in getNumber(pagination.max - descontos.descontos.length) track by $index">
@@ -112,7 +113,7 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">
               <span class="glyphicon glyphicon-remove"></span> Cancelar
             </button>
-            <button type="button" class="btn btn-primary" ng-click="descontos.salvar(descontos.novo)">
+            <button type="button" class="btn btn-primary" ng-click="descontos.salvar(descontos.novo)" disabled>
               <span class="glyphicon glyphicon-floppy-save"></span> Salvar
             </button>
           </div>

@@ -65,7 +65,7 @@
                   <td>{{ticket.codigo}}</td>
                   <td>{{ticket.comanda.codigoDeBarras}}</td>
                   <td>{{ticket.cliente.nome}}</td>
-                  <td>01/01/2016</td>
+                  <td>{{ticket.dataPedido | date: 'short'}}</td>
                   <td>{{ticket.valorComDesconto | currency: 'R$ '}}</td>
                   <td ng-if="ticket.statusId == 1001">
                     <a ng-href="{{(permissoes.verItems ? '#/ticket/edit?code=' : '#/ticket/insert?code=') + ticket.codigo}}">
@@ -189,33 +189,33 @@
                 </tbody>
               </table>
             </div>
-            <div uib-accordion-group class="panel-default" is-open="status.pagamento">
-              <uib-accordion-heading>
-                Pagamento
-                <i class="pull-right glyphicon" ng-class="{'glyphicon-menu-up': status.pagamento, 'glyphicon-menu-down': !status.pagamento}"></i>
-              </uib-accordion-heading>
-              <h5>Prazo: {{ticketDoModal.prazo.descricao}}</h5>
-              <div class="container-tabela">
-                <table class="tabela tabela-esticada tabela-pagamentos">
-                  <thead>
-                    <tr>
-                      <th>Parcela</th>
-                      <th>Forma</th>
-                      <th>Vencimento</th>
-                      <th>Valor</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="pagamento in ticketDoModal.pagamentos track by $index">
-                      <td>{{$index + 1}}</td>
-                      <td>{{pagamento.forma.descricao}}</td>
-                      <td>{{pagamento.vencimento | date: 'dd/MM/yyyy'}}</td>
-                      <td>{{pagamento.valor | currency: 'R$ '}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <!--<div uib-accordion-group class="panel-default" is-open="status.pagamento">-->
+              <!--<uib-accordion-heading>-->
+                <!--Pagamento-->
+                <!--<i class="pull-right glyphicon" ng-class="{'glyphicon-menu-up': status.pagamento, 'glyphicon-menu-down': !status.pagamento}"></i>-->
+              <!--</uib-accordion-heading>-->
+              <!--<h5>Prazo: {{ticketDoModal.prazo.descricao}}</h5>-->
+              <!--<div class="container-tabela">-->
+                <!--<table class="tabela tabela-esticada tabela-pagamentos">-->
+                  <!--<thead>-->
+                    <!--<tr>-->
+                      <!--<th>Parcela</th>-->
+                      <!--<th>Forma</th>-->
+                      <!--<th>Vencimento</th>-->
+                      <!--<th>Valor</th>-->
+                    <!--</tr>-->
+                  <!--</thead>-->
+                  <!--<tbody>-->
+                    <!--<tr ng-repeat="pagamento in ticketDoModal.pagamentos track by $index">-->
+                      <!--<td>{{$index + 1}}</td>-->
+                      <!--<td>{{pagamento.forma.descricao}}</td>-->
+                      <!--<td>{{pagamento.vencimento | date: 'dd/MM/yyyy'}}</td>-->
+                      <!--<td>{{pagamento.valor | currency: 'R$ '}}</td>-->
+                    <!--</tr>-->
+                  <!--</tbody>-->
+                <!--</table>-->
+              <!--</div>-->
+            <!--</div>-->
           </uib-accordion>
         </div>
 

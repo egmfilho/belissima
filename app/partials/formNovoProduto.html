@@ -51,7 +51,7 @@
     <div><h4>Custo</h4></div>
     <div class="input-group">
       <span class="input-group-addon">R$</span>
-      <input type="text" class="form-control" ng-model="produto.custo.valor">
+      <input type="text" class="form-control" ng-model="produto.custo.valor" currency symbol="''" number-only>
     </div>
   </div>
 
@@ -59,14 +59,14 @@
     <div><h4>Preço</h4></div>
     <div class="input-group">
       <span class="input-group-addon">R$</span>
-      <input type="text" class="form-control" ng-model="produto.preco.valor">
+      <input type="text" class="form-control" ng-model="produto.preco.valor" currency symbol="''" number-only>
     </div>
   </div>
 
   <div class="col-xs-4 col-sm-4 col-md-4">
     <div><h4>Comissão</h4></div>
     <div class="input-group">
-      <input type="text" class="form-control text-right" ng-model="produto.comissao">
+      <input type="text" class="form-control text-right" ng-model="produto.comissao" currency symbol="''" number-only>
       <span class="input-group-addon">%</span>
     </div>
   </div>

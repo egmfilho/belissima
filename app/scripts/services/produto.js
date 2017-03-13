@@ -28,8 +28,8 @@ angular.module('belissimaApp.services')
         this.nome = produto ? produto.nome : '';
         this.descricao = produto ? produto.descricao : '';
         this.dataCadastro = produto ? produto.dataCadastro : '';
-        this.preco = produto ? produto.preco : '';
-        this.custo = produto ? produto.custo : '';
+        this.preco = produto ? new PrecoProduto(produto.preco) : new PrecoProduto();
+        this.custo = produto ? new CustoProduto(produto.custo) : new CustoProduto();
         this.comissao = produto ? produto.comissao : '';
       }
 

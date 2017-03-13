@@ -6,7 +6,7 @@
 </ul>
 <div class="conteudo-nav condensar-rows">
   <!--<h3 style="margin: 0">Produto</h3>-->
-  <div class="col-sm-2">
+  <div class="col-sm-4">
     <h4>Código</h4>
     <div class="input-group">
       <input type="text" name="cdProduto" class="form-control" placeholder="Código do produto" ng-model="ticket.cdProduto" number-only keys-shortcuts enter="buscarProdutoPorCodigo(ticket.cdProduto)" shift-enter="ticket.avancarParaPagamento()">
@@ -17,7 +17,7 @@
       </span>
     </div>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-8">
     <h4>Nome</h4>
     <input type="text" name="nmProduto" class="form-control" placeholder="Nome do produto" ng-model="ticket.tempProduto"
            keys-shortcuts enter="ticket.focarQuantidade()" shift-enter="ticket.opt = 'cliente'"
@@ -27,8 +27,8 @@
            typeahead-wait-ms="300"
            typeahead-on-select="selectProduto($item)">
   </div>
-  <div class="col-sm-2">
-    <h4>Qtd</h4>
+  <div class="col-sm-3">
+    <h4>Quantidade</h4>
 
     <div class="input-group">
       <div class="input-group-btn">
@@ -40,13 +40,23 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-2">
+  <div class="col-sm-3">
     <h4>Desconto %</h4>
-    <input type="text" name="descontoPercent" class="form-control text-right" ng-model="ticket.novoItem.descontoPercent" ng-change="ticket.novoItem.setDescontoPercent()" number-only currency symbol="''" keys-shortcuts shift-enter="ticket.confirmarAddItem()">
+    <div class="input-group">
+      <input type="text" name="descontoPercent" class="form-control text-right" ng-model="ticket.novoItem.descontoPercent" ng-change="ticket.novoItem.setDescontoPercent()" number-only currency symbol="''" keys-shortcuts enter="focarEm('descontoDinheiro')" shift-enter="ticket.confirmarAddItem()">
+      <span class="input-group-addon">%</span>
+    </div>
   </div>
-  <div class="col-sm-2">
+  <div class="col-sm-3">
+    <h4>Desconto R$</h4>
+    <div class="input-group">
+      <span class="input-group-addon">R$</span>
+      <input type="text" name="descontoDinheiro" class="form-control text-right" ng-model="ticket.novoItem.descontoDinheiro" ng-change="ticket.novoItem.setDescontoDinheiro()" number-only currency symbol="''" keys-shortcuts enter="ticket.focarTabelasDesconto()" shift-enter="ticket.confirmarAddItem()">
+    </div>
+  </div>
+  <div class="col-sm-3">
     <h4>Tabela</h4>
-    <select class="form-control" ng-model="ticket.novoItem.descontoId" ng-options="d.id as d.nome for d in tabelasDesconto"></select>
+    <select class="form-control" name="tabelasDesconto" ng-model="ticket.novoItem.tabelaDesconto" ng-options="d.nome for d in tabelasDesconto track by d.id" ng-change="ticket.novoItem.setTabelaDesconto()" keys-shortcuts enter="ticket.confirmarAddItem()"></select>
   </div>
 </div>
 
