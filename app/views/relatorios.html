@@ -1,0 +1,18 @@
+<tela id="relatorios" icon="glyphicon-print" titulo="Relatorios" subtitulo="subtitulo aqui" show-footer="true">
+
+  <div class="conteudo-tela">
+
+    <span>
+      <ul class="nav nav-tabs">
+        <li role="presentation" ng-class="relatorios.opcao === 'financeiro' ? 'active' : ''">
+          <a href="" ng-click="relatorios.opcao='financeiro'">Financeiro</a>
+        </li>
+      </ul>
+      <div class="conteudo-nav condensar-rows">
+        <div ng-show="relatorios.opcao === 'financeiro'" ng-include="'partials/relatorios/financeiro.html'"></div>
+      </div>
+    </span>
+
+  </div>
+
+</tela>

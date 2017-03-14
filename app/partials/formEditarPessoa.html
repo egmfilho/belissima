@@ -99,6 +99,7 @@
       <div class="input-group">
         <input type="text" class="form-control" ng-model="e.cep.codigo" ui-mask="99999-999" model-view-value="true">
         <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="abrirModalNovoEndereco()"><span class="glyphicon glyphicon-plus"></span></button>
           <button type="button" class="btn btn-default" ng-click="getCEPPorCodigo(e.cep.codigo, $index)"><span class="glyphicon glyphicon-search"></span></button>
         </span>
       </div>
@@ -196,3 +197,29 @@
   <!--</div>-->
   <!--</div>-->
 </div>
+
+<!--MODAL ENDERECOS-->
+<!--<div class="modal meu-modal fade" id="modalNovoEndereco" tabindex="-1" role="dialog" aria-labelledby="modalNovoEndereco">-->
+  <!--<div class="modal-dialog" role="document" style="width: 800px">-->
+    <!--<div class="modal-content">-->
+      <!--<div class="header">-->
+        <!--<div class="title">-->
+          <!--<span class="glyphicon glyphicon-check"></span>-->
+          <!--Endereços-->
+          <!--<span class="glyphicon glyphicon-remove close" data-dismiss="modal"></span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="body condensar-rows" ng-controller="EnderecosCtrl as enderecos">-->
+
+        <!--<div ng-include="'../partials/configuracoes/enderecos.html'"></div>-->
+
+      <!--</div>-->
+      <!--<div class="control">-->
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal">-->
+          <!--<span class="glyphicon glyphicon-ok"></span> OK-->
+        <!--</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<!--FIM MODAL-->

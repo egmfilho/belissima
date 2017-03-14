@@ -1,0 +1,27 @@
+<div class="dropdown visible-xs-inline" ng-init="label='A Receber'">
+  <button class="btn btn-default botao botao-esticado dropdown-toggle" type="button" id="dropdownMenu1"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    {{label}}
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li>
+      <a href="" ng-click="opt = 'receber'; label = 'A Receber'">
+        <span class="glyphicon glyphicon-ok" ng-show="opt==='receber'"></span>&nbsp; A Receber
+      </a>
+    </li>
+    <li>
+      <a href="" ng-click="opt = 'pagar'; label = 'A Pagar'">
+        <span class="glyphicon glyphicon-ok" ng-show="opt==='pagar'"></span>&nbsp; A Pagar</a>
+    </li>
+  </ul>
+</div>
+
+<ul class="hidden-xs nav nav-pills nav-justified nav-pills-claro" ng-init="opt = 'A Receber'">
+  <li role="presentation" ng-class="opt === 'receber' ? 'active' : ''">
+    <a href="" class="sombra-texto" ng-click="opt = 'receber'">A Receber</a>
+  </li>
+  <li role="presentation" ng-class="opt === 'pagar' ? 'active' : ''">
+    <a href="" class="sombra-texto" ng-click="opt = 'pagar'">A Pagar</a>
+  </li>
+</ul>

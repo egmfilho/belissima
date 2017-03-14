@@ -38,6 +38,9 @@ angular.module('belissimaApp.directives')
         jQuery('#modalSenha').on('show.bs.modal', function(e) {
           scope.novaSenha = '';
           scope.novaSenha2 = '';
+        }).modal({
+          backdrop: false,
+          keyboard: false
         }).modal('show');
       };
 

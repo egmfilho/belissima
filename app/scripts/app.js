@@ -151,6 +151,12 @@ angular
         controllerAs: 'crm',
         resolve: resolve()
       })
+      .when('/relatorios', {
+        modulo: 'report',
+        templateUrl: 'views/relatorios.html',
+        controller: 'RelatoriosCtrl',
+        controllerAs: 'relatorios'
+      })
       .when('/agenda', {
         modulo: 'agenda',
         templateUrl: 'views/agenda.html',
@@ -291,4 +297,7 @@ angular
 
     });
 
+  }]).config(['$uibModalProvider', function($uibModalProvider) {
+    $uibModalProvider.options['backdrop'] = false;
+    $uibModalProvider.options['keyboard'] = false;
   }]);

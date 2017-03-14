@@ -647,7 +647,10 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
     providerTicket.obterPorCodigo(ticket.codigo, true, true, true, true, true, true, true, true).then(function(success) {
       $scope.ticketDoModal = new Pedido(Pedido.converterEmEntrada(success.data));
       $rootScope.loading.unload();
-      jQuery('#modalTicket').modal('show');
+      jQuery('#modalTicket').modal({
+        backdrop: false,
+        keyboard: false
+      }).modal('show');
     }, function(error) {
       console.log(error);
       $rootScope.loading.unload();
@@ -680,6 +683,9 @@ function TicketCtrl($rootScope, $scope, $routeParams, $location, $cookies, provi
         if ((!self.tempFuncionario || !self.tempFuncionario.id) && !escape_confirm) {
           e.preventDefault();
         }
+      }).modal({
+        backdrop: false,
+        keyboard: false
       }).modal('show').on('shown.bs.modal', function(e) {
         jQuery('#modalFuncionario').find('input[name="cdFuncionario"]').focus().select();
       });

@@ -22,8 +22,9 @@ angular.module('belissimaApp.controllers')
     'ModalBuscarEndereco',
     'ModalConfirm',
     'TiposLogradouros',
+    'ModalEnderecos',
     'pessoa',
-    function ($rootScope, $scope, $uibModalInstance, provider, providerCategoriaPessoa, providerTipoContato, providerCEP, CEP, TipoContato, Pessoa, CategoriaPessoa, Endereco, Contato, ModalBuscarEndereco, modalConfirm, TiposLogradouros, pessoa) {
+    function ($rootScope, $scope, $uibModalInstance, provider, providerCategoriaPessoa, providerTipoContato, providerCEP, CEP, TipoContato, Pessoa, CategoriaPessoa, Endereco, Contato, ModalBuscarEndereco, modalConfirm, TiposLogradouros, modalEnderecos, pessoa) {
 
       $scope.format = 'dd/MM/yyyy';
 
@@ -231,6 +232,10 @@ angular.module('belissimaApp.controllers')
 
       $scope.fechar = function () {
         $uibModalInstance.dismiss('cancel');
+      };
+
+      $scope.abrirModalNovoEndereco = function() {
+        modalEnderecos.show();
       };
 
     }]);

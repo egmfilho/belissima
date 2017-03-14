@@ -23,7 +23,8 @@ angular.module('belissimaApp.controllers')
     'ModalEditarPessoa',
     'ModalConfirm',
     'ModalAlert',
-    function ($rootScope, $scope, provider, providerCategoriaPessoa, providerTipoContato, providerCEP, TipoContato, Endereco, CEP, Contato, Pessoa, CategoriaPessoa, TiposLogradouros, ModalBuscarEndereco, ModalEditarPessoa, modalConfirm, modalAlert) {
+    'ModalEnderecos',
+    function ($rootScope, $scope, provider, providerCategoriaPessoa, providerTipoContato, providerCEP, TipoContato, Endereco, CEP, Contato, Pessoa, CategoriaPessoa, TiposLogradouros, ModalBuscarEndereco, ModalEditarPessoa, modalConfirm, modalAlert, modalEnderecos) {
 
       var self = this;
 
@@ -303,7 +304,11 @@ angular.module('belissimaApp.controllers')
       };
 
       $scope.abrirModalNovoEndereco = function() {
-        jQuery('#modalNovoEndereco').modal('show');
+        // jQuery('#modalNovoEndereco').modal({
+        //   backdrop: false,
+        //   keyboard: false
+        // }).modal('show');
+        modalEnderecos.show();
       };
 
     }

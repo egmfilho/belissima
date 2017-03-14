@@ -114,7 +114,10 @@ function MovimentacaoCtrl($rootScope, $scope, $filter, provider, Movimentacao, m
         self.novaMovimentacao = new Movimentacao();
         $scope.cdProduto = '';
       })
-      .modal('show');
+      .modal({
+        backdrop: false,
+        keyboard: false
+      }).modal('show');
   };
 
   this.buscarProduto = function() {

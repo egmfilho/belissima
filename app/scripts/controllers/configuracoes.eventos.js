@@ -86,6 +86,9 @@ function ConfigEventosCtrl($rootScope, $scope, provider, TipoEvento) {
     }).on('hide.bs.modal', function(e) {
       $scope.picker1 = false;
       $scope.picker2 = false;
+    }).modal({
+      backdrop: false,
+      keyboard: false
     }).modal('show');
   };
 

@@ -153,7 +153,10 @@ function CalendarioCtrl($rootScope, $scope, $compile, $filter, $http, Feriado, u
       self.diasBloqueados.splice(self.diasBloqueados.indexOf(dia), 1);
     } else {
       self.temp.data = new Date(date.format('YYYY/MM/DD'));
-      jQuery('#modalFeriado').modal('show');
+      jQuery('#modalFeriado').modal({
+        backdrop: false,
+        keyboard: false
+      }).modal('show');
     }
 
     jsEvent.preventDefault();

@@ -10,7 +10,7 @@
     "angular-route": "^1.4",
     "angular-sanitize": "^1.4",
     "angular-touch": "^1.4",
-    "angular-bootstrap": "2.3.0",
+    "angular-bootstrap": "^2.5.0",
     "angular-ui-calendar": "1.0.2",
     "fullcalendar": "2.9.1",
     "angular-i18n": "^1.6.1",

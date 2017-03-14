@@ -95,6 +95,9 @@ function DescontosCtrl($rootScope, $scope, provider, TabelaDesconto) {
   this.abrirModal = function(desconto) {
     jQuery('#modalTabelaDesconto').on('show.bs.modal', function(e) {
       self.novo = desconto ? new TabelaDesconto(desconto) : new TabelaDesconto();
+    }).modal({
+      backdrop: false,
+      keyboard: false
     }).modal('show');
   };
 }

@@ -93,6 +93,10 @@
 
 #modalNovoEndereco {
   .body {
-    max-height: 450px;
+    max-height: 420px;
+
+    .nav-pills-claro {
+      background-color: #777;
+    }
   }
 }

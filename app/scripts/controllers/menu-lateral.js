@@ -44,7 +44,10 @@ angular.module('belissimaApp.controllers')
     };
 
     this.abrirModalSenha = function() {
-      jQuery('#modalSenha').modal('show');
+      jQuery('#modalSenha').modal({
+        backdrop: false,
+        keyboard: false
+      }).modal('show');
     };
 
     this.logout = function () {

@@ -305,9 +305,6 @@ body {
 .tabela-hover-hand tr:hover {
   cursor: pointer; }
 
-.modal-backdrop.in {
-  opacity: .6; }
-
 .modal .row {
   margin-left: 0;
   margin-right: 0; }
@@ -340,21 +337,21 @@ body {
   padding: 10px; }
 .modal .body {
   overflow: auto; }
-.modal .modal-lg .body {
+.modal .modal-lg > .body {
   height: 500px; }
-  .modal .modal-lg .body .dropdown {
+  .modal .modal-lg > .body .dropdown {
     width: 100%; }
-    .modal .modal-lg .body .dropdown button {
+    .modal .modal-lg > .body .dropdown button {
       width: 100%;
       max-width: 100%; }
-.modal .modal-md .body {
+.modal .modal-md > .body {
   min-height: 250px;
   max-height: 400px; }
 .modal .modal-sm .header {
   padding-left: 20px; }
-.modal .modal-sm .body {
+.modal .modal-sm > .body {
   height: 70px; }
-  .modal .modal-sm .body .glyphicon {
+  .modal .modal-sm > .body .glyphicon {
     font-size: 2.5em;
     vertical-align: middle;
     margin: 5px; }
@@ -678,6 +675,9 @@ body {
 
   .dark-div, .show-dark-div {
     display: none; } }
+.modal-backdrop.in:not(:last-child) {
+  opacity: 0; }
+
 .spinner {
   margin: 100px auto;
   width: 50px;
@@ -1453,7 +1453,9 @@ ul.dropdown-menu[template-url='partials/typeaheadModal.html'] {
     margin: 0 10px; }
 
 #modalNovoEndereco .body {
-  max-height: 450px; }
+  max-height: 420px; }
+  #modalNovoEndereco .body .nav-pills-claro {
+    background-color: #777; }
 
 #crm .avatar {
   width: 100%;

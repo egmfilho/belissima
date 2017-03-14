@@ -238,6 +238,9 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   this.abrirModalCancelarItem = function () {
     jQuery('#modalCancelarItem').on('shown.bs.modal', function (e) {
       jQuery('input[name="numItem"]').focus().select();
+    }).modal({
+      backdrop: false,
+      keyboard: false
     }).modal('show');
   };
 
@@ -261,6 +264,9 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   this.abrirModalCliente = function (callback_positive, callback_negative) {
     jQuery('#modalCliente').on('shown.bs.modal', function (e) {
       jQuery('input[name="cdCliente"]').focus().select();
+    }).modal({
+      backdrop: false,
+      keyboard: false
     }).modal('show').on('hidden.bs.modal', function (e) {
       if (callback_negative) callback_negative();
     }).find('.control button[name="positive"]').unbind('click').click(function () {
@@ -294,6 +300,9 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   this.abrirModalPagamento = function (callback_positive, callback_negative) {
     jQuery('#modalPagamento').on('shown.bs.modal', function (e) {
       jQuery('input[name="cdPrazo"]').focus().select();
+    }).modal({
+      backdrop: false,
+      keyboard: false
     }).modal('show').on('hidden.bs.modal', function (e) {
       if (callback_negative) callback_negative();
     }).find('.control button[name="positive"]').unbind('click').click(function () {
@@ -383,6 +392,9 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
   this.abrirModalFuncionario = function (callback_positive, callback_negative) {
     jQuery('#modalFuncionario').on('shown.bs.modal', function (e) {
       jQuery('input[name="cdFuncionario"]').focus().select();
+    }).modal({
+      backdrop: false,
+      keyboard: false
     }).modal('show').on('hidden.bs.modal', function (e) {
       if (callback_negative) callback_negative();
     }).find('.control button[name="positive"]').unbind('click').click(function () {
@@ -475,7 +487,10 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
     });
 
     if ($scope.total_troco > 0) {
-      jQuery('#modalTroco').modal('show')
+      jQuery('#modalTroco').modal({
+        backdrop: false,
+        keyboard: false
+      }).modal('show')
         .on('shown.bs.modal', function(e) {
           jQuery(this).find('input[name="dinheiro"]').focus().select();
         })
@@ -503,7 +518,10 @@ function PDVCtrl($rootScope, $scope, $location, modalBuscarTicket, providerTicke
 
   function abrirModalConfirmacao() {
     jQuery('#modalConfirmacao')
-      .modal('show')
+      .modal({
+        backdrop: false,
+        keyboard: false
+      }).modal('show')
       .on('hide.bs.modal', function(e) {
         limparTudo();
       })

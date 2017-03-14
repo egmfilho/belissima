@@ -103,14 +103,35 @@ angular.module('belissimaApp.controllers')
       self.atualizarBairros = getBairros;
       self.atualizarCEPs = getCEPs;
 
+      self.abrirModalCidade = function() {
+        jQuery('#modalCidade').modal({
+          backdrop: false,
+          keyboard: false
+        }).modal('show');
+      };
+
       self.cancelarModalCidade = function() {
         jQuery('#modalCidade').modal('hide');
         self.cidade = new Cidade();
       };
 
+      self.abrirModalBairro = function() {
+        jQuery('#modalBairro').modal({
+          backdrop: false,
+          keyboard: false
+        }).modal('show');
+      };
+
       self.cancelarModalBairro = function() {
         jQuery('#modalBairro').modal('hide');
         self.bairro = new Bairro();
+      };
+
+      self.abrirModalCEP = function() {
+        jQuery('#modalCEP').modal({
+          backdrop: false,
+          keyboard: false
+        }).modal('show');
       };
 
       self.cancelarModalCEP = function() {
@@ -255,17 +276,26 @@ angular.module('belissimaApp.controllers')
 
       self.editarCidade = function (cidade) {
         self.cidade = new Cidade(cidade);
-        jQuery('#modalCidade').modal('show');
+        jQuery('#modalCidade').modal({
+          backdrop: false,
+          keyboard: false
+        }).modal('show');
       };
 
       self.editarBairro = function (bairro) {
         self.bairro = new Bairro(bairro);
-        jQuery('#modalBairro').modal('show');
+        jQuery('#modalBairro').modal({
+          backdrop: false,
+          keyboard: false
+        }).modal('show');
       };
 
       self.editarCEP = function (cep) {
         self.cep = new CEP(cep);
-        jQuery('#modalCEP').modal('show');
+        jQuery('#modalCEP').modal({
+          backdrop: false,
+          keyboard: false
+        }).modal('show');
       };
 
       self.excluirCidade = function (cidade) {

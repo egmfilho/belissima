@@ -88,9 +88,19 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
     $scope.$apply();
   });
 
+  this.abrirModalForma = function() {
+    jQuery('#modalForma').modal({
+      backdrop: false,
+      keyboard: false
+    }).modal('show');
+  };
+
   this.editarForma = function(forma) {
     self.forma = new FormaPagamento(forma);
-    jQuery('#modalForma').modal('show');
+    jQuery('#modalForma').modal({
+      backdrop: false,
+      keyboard: false
+    }).modal('show');
   };
 
   this.excluirForma = function(forma) {
@@ -151,7 +161,10 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
       self.prazo.formasArray.push(p);
     });
     $rootScope.loading.unload();
-    jQuery('#modalPrazo').modal('show');
+    jQuery('#modalPrazo').modal({
+      backdrop: false,
+      keyboard: false
+    }).modal('show');
   };
 
   this.editarPrazo = function(prazo) {
@@ -167,7 +180,10 @@ function FinanceiroCtrl($rootScope, $scope, providerForma, FormaPagamento, provi
         self.prazo.formasArray.push(p);
       });
       $rootScope.loading.unload();
-      jQuery('#modalPrazo').modal('show');
+      jQuery('#modalPrazo').modal({
+        backdrop: false,
+        keyboard: false
+      }).modal('show');
       console.log(self.prazo);
     }, function(error) {
       console.log(error);
