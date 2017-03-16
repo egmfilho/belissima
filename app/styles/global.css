@@ -1693,6 +1693,65 @@ ul.dropdown-menu[template-url='partials/typeaheadModal.html'] {
   #crm .container-historico {
     max-height: 800px;
     overflow-y: auto; } }
+.tabela-grid th {
+  border-color: #343434 !important;
+  background-color: #5a5a5a;
+  border-bottom-width: 1px !important; }
+  .tabela-grid th[colspan='7'] {
+    background-color: #5a5a5a !important;
+    border: 1px solid #343434 !important; }
+    .tabela-grid th[colspan='7'] a {
+      color: white !important;
+      text-shadow: none !important; }
+  .tabela-grid th.sortable {
+    height: auto;
+    background-color: #baa526; }
+    .tabela-grid th.sortable.sort-desc, .tabela-grid th.sortable.sort-asc {
+      background-color: #baa526; }
+  .tabela-grid th.filter {
+    background-color: #777; }
+  .tabela-grid th .list-group {
+    margin-top: 20px; }
+    .tabela-grid th .list-group a {
+      background-color: #777;
+      border-color: #343434; }
+.tabela-grid td {
+  white-space: nowrap;
+  background-color: #777;
+  border-color: #343434 !important; }
+  .tabela-grid td[colspan='7'] {
+    background-color: #5a5a5a; }
+    .tabela-grid td[colspan='7'] a, .tabela-grid td[colspan='7'] .glyphicon {
+      color: white; }
+
+.forevis {
+  border-color: #343434; }
+  .forevis .ui-grid-header {
+    border: none; }
+  .forevis .ui-grid-top-panel {
+    background: #5a5a5a; }
+  .forevis .ui-grid-header-cell {
+    border-color: #343434; }
+  .forevis .ui-grid-filter-input {
+    color: #333; }
+  .forevis .ui-grid-row:nth-child(odd) .ui-grid-cell {
+    background-color: #898989; }
+  .forevis .ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: #777; }
+  .forevis .ui-grid-cell {
+    border-color: #343434; }
+  .forevis .ui-grid-menu .ui-grid-menu-inner {
+    border-color: #867512; }
+    .forevis .ui-grid-menu .ui-grid-menu-inner ul li button {
+      background-color: #baa526; }
+    .forevis .ui-grid-menu .ui-grid-menu-inner ul li:not(:last-child) > button {
+      border-color: #867512; }
+  .forevis .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child, .forevis .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child {
+    border-right-color: #343434; }
+  .forevis .ui-grid-row .ui-grid-cell.ui-grid-row-header-cell {
+    border-bottom-color: #343434;
+    background-color: #5a5a5a; }
+
 .fc-toolbar {
   font-size: 1.2em; }
   .fc-toolbar .fc-state-active {

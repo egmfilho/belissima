@@ -1,0 +1,113 @@
+.tabela-grid {
+
+  th {
+    border-color: $cor-menu-lateral-escuro !important;
+    background-color: $cor-menu-lateral-borda;
+    border-bottom-width: 1px !important;
+
+    &[colspan='7'] {
+      background-color: $cor-menu-lateral-borda !important;
+      border: 1px solid $cor-menu-lateral-escuro !important;
+
+      a {
+        color: white !important;
+        text-shadow: none !important;
+      }
+    }
+
+    &.sortable {
+      height: auto;
+      background-color: $cor-menu-highlight;
+
+      &.sort-desc, &.sort-asc {
+        background-color: $cor-menu-highlight;
+      }
+    }
+
+    &.filter {
+      background-color: $cor-botao-menu-home-2;
+    }
+
+    .list-group {
+      margin-top: 20px;
+
+      a {
+        background-color: $cor-botao-menu-home-2;
+        border-color: $cor-menu-lateral-escuro;
+      }
+    }
+  }
+
+  td {
+    white-space: nowrap;
+    background-color: $cor-botao-menu-home-2;
+    border-color: $cor-menu-lateral-escuro !important;
+
+    &[colspan='7'] {
+      background-color: $cor-menu-lateral-borda;
+
+      a, .glyphicon {
+        color: white;
+      }
+    }
+  }
+}
+
+.forevis {
+  border-color: $cor-menu-lateral-escuro;
+
+  .ui-grid-header {
+    border: none;
+  }
+
+  .ui-grid-top-panel {
+    background: $cor-menu-lateral-borda;
+  }
+
+  .ui-grid-header-cell {
+    border-color: $cor-menu-lateral-escuro;
+  }
+
+  .ui-grid-filter-input {
+    color: #333;
+  }
+
+  .ui-grid-row:nth-child(odd) .ui-grid-cell {
+    background-color: lighten($cor-botao-menu-home-2, 7%);
+  }
+
+  .ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: $cor-botao-menu-home-2;
+  }
+
+  .ui-grid-cell {
+    border-color: $cor-menu-lateral-escuro;
+  }
+
+  .ui-grid-menu .ui-grid-menu-inner {
+    border-color: $cor-menu-highlight-escuro;
+
+    ul li {
+      button {
+        background-color: $cor-menu-highlight;
+      }
+
+      &:not(:last-child) {
+        > button {
+          border-color: $cor-menu-highlight-escuro;
+        }
+      }
+    }
+  }
+
+  .ui-grid-pinned-container.ui-grid-pinned-container-left {
+    .ui-grid-header-cell:last-child, .ui-grid-cell:last-child {
+      border-right-color: $cor-menu-lateral-escuro;
+    }
+  }
+
+  .ui-grid-row .ui-grid-cell.ui-grid-row-header-cell {
+    border-bottom-color: $cor-menu-lateral-escuro;
+    background-color: $cor-menu-lateral-borda;
+  }
+}

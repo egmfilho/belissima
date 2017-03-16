@@ -24,7 +24,9 @@ angular
     'ui.bootstrap',
     'ui.mask',
     'multipleSelect',
-    'colorpicker.module'
+    'colorpicker.module',
+    'ui.grid',
+    'ui.grid.grouping'
   ])
   .config(['$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
     $httpProvider.interceptors.push('SessionInjector');
